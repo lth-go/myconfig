@@ -1,0 +1,15 @@
+[user]
+	name = li.tianhua
+	email = li.tianhua@yihe.io
+[push]
+	default = simple
+[color]
+	ui = auto
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+[format]
+	pretty = oneline
+[core]
+	editor = vim
