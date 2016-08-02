@@ -19,7 +19,8 @@ Plugin 'Lokaltog/vim-powerline'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'lilydjwg/fcitx.vim'
-
+Plugin 'scrooloose/syntastic'
+Plugin 'nvie/vim-flake8'
 
 
 
@@ -41,13 +42,16 @@ filetype plugin indent on    " required
 " Vundle end==========
 
 
-" 启动时没有介绍消息
-set shortmess=atI
+" ==========快捷键==========
 
 
 " 定义快捷键前缀，即<Leader>
 let mapleader=";"
-
+" 切换布局快捷键
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 " 开启文件类型检测
 filetype on
 " 根据侦测到的不同类型加载对应插件
@@ -55,26 +59,21 @@ filetype plugin on
 
 " 让配置变更立即生效
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
+set encoding=utf-8
 
 " 开启实时搜索功能
 set incsearch
 " 搜索时大小写不敏感
 set ignorecase
-" 关闭兼容模式
-set nocompatible
 " vim 自身命令行模式智能补全
 set wildmenu
 
-" 禁止光标闪烁
-set gcr=a:block-blinkon0
-" 禁止显示滚动条
-set guioptions-=l
-set guioptions-=L
-set guioptions-=r
-set guioptions-=R
-" 禁止显示菜单和工具条
-set guioptions-=m
-set guioptions-=T
+
+" ==========界面显示==========
+
+
+" 启动时没有介绍消息
+set shortmess=atI
 
 " 总是显示状态栏
 set laststatus=2
@@ -88,24 +87,40 @@ set cursorline
 " 高亮显示搜索结果
 set hlsearch
 
+" 禁止光标闪烁
+set gcr=a:block-blinkon0
+" 禁止显示滚动条
+set guioptions-=l
+set guioptions-=L
+set guioptions-=r
+set guioptions-=R
+" 禁止显示菜单和工具条
+set guioptions-=m
+set guioptions-=T
 
 " 禁止拆行
 set nowrap
 
 " 开启语法高亮功能
 syntax enable
+let python_highlight_all=1
 " 允许用指定语法高亮配色方案替换默认方案
 syntax on
 
 
-" 自适应不同语言的只能缩进
+" ==========缩进==========
+
+" 自适应不同语言的智能缩进
 filetype indent on
 " 将制表符拓展为空格
 set expandtab
 " 设置编辑时制表符占用空格数
 set tabstop=4
+" 自动缩进距离
+set shiftwidth=4
 " 让vim把连续数量的空格视为一个制表符
 set softtabstop=4
+" 显示tab跟空格
 set list
 set listchars=tab:>-,trail:·,nbsp:·
 
@@ -117,6 +132,8 @@ colorscheme solarized
 " 设置状态栏主题风格
 let g:Powerline_colorscheme='solarized256'
 
+
+" ==========NERDTree==========
 
 " 使用 NERDTree 插件查看工程文件。设置快捷键，速记：file list
 nmap <Leader>fl :NERDTreeToggle<CR>
@@ -134,5 +151,8 @@ let NERDTreeAutoDeleteBuffer=1
 
 " 设置环境保存项
 set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
-
+" 退格键正常处理indent, eol, start等
 set backspace=2 " make backspace work like most other apps
+"自动保存
+set autowrite
+
