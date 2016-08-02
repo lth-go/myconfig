@@ -41,7 +41,8 @@ filetype plugin indent on    " required
 " Vundle end==========
 
 
-
+" 启动时没有介绍消息
+set shortmess=atI
 
 
 " 定义快捷键前缀，即<Leader>
@@ -105,7 +106,8 @@ set expandtab
 set tabstop=4
 " 让vim把连续数量的空格视为一个制表符
 set softtabstop=4
-
+set list
+set listchars=tab:>-,trail:·,nbsp:·
 
 " 配色方案
 let g:solarized_termcolors=256
@@ -133,3 +135,4 @@ let NERDTreeAutoDeleteBuffer=1
 " 设置环境保存项
 set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
 
+set backspace=2 " make backspace work like most other apps
