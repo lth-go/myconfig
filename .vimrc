@@ -1,4 +1,6 @@
-" Vundle start==========
+
+" ========== Vundle start==========
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -13,15 +15,20 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Keep Plugin commands between vundle#begin/end.
 
+" 代码补全
 Plugin 'Valloric/YouCompleteMe'
+" 主题配色
 Plugin 'altercation/vim-colors-solarized'
+" 状态栏
 Plugin 'Lokaltog/vim-powerline'
+" 注释
 Plugin 'scrooloose/nerdcommenter'
+" 文件列表
 Plugin 'scrooloose/nerdtree'
+" 输入法优化
 Plugin 'lilydjwg/fcitx.vim'
+" 代码纠错
 Plugin 'scrooloose/syntastic'
-Plugin 'nvie/vim-flake8'
-
 
 
 " All of your Plugins must be added before the following line
@@ -39,19 +46,9 @@ filetype plugin indent on    " required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
-" Vundle end==========
 
+" ==========基础设置==========
 
-" ==========快捷键==========
-
-
-" 定义快捷键前缀，即<Leader>
-let mapleader=";"
-" 切换布局快捷键
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 " 开启文件类型检测
 filetype on
 " 根据侦测到的不同类型加载对应插件
@@ -59,19 +56,57 @@ filetype plugin on
 
 " 让配置变更立即生效
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
+
+" history存储容量
+set history=2000
+
+" 设置编码格式
 set encoding=utf-8
 
 " 开启实时搜索功能
 set incsearch
 " 搜索时大小写不敏感
 set ignorecase
+
 " vim 自身命令行模式智能补全
 set wildmenu
 
+" 括号配对情况, 跳转并高亮一下匹配的括号
+"set showmatch
+
+" 中文帮助
+set helplang=cn
+
+" 隐藏文件
+set wildignore=*.pyc
+
+" 设置环境保存项
+set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
+
+" 退格键正常处理indent, eol, start等
+set backspace=2
+
+" 自动保存
+set autowrite
+
+" 文件修改之后自动载入
+set autoread
+
+" 在上下移动光标时，光标的上方或下方至少会保留显示的行数
+set scrolloff=5
+
+" 在状态栏显示正在输入的命令
+set showcmd
+
+" 退出时在终端保留内容
+"set viminfo^=%
+
+" 让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
+set completeopt=longest,menu
+ 
 
 " ==========界面显示==========
-
-
+"
 " 启动时没有介绍消息
 set shortmess=atI
 
@@ -87,29 +122,17 @@ set cursorline
 " 高亮显示搜索结果
 set hlsearch
 
-" 禁止光标闪烁
-set gcr=a:block-blinkon0
-" 禁止显示滚动条
-set guioptions-=l
-set guioptions-=L
-set guioptions-=r
-set guioptions-=R
-" 禁止显示菜单和工具条
-set guioptions-=m
-set guioptions-=T
-
 " 禁止拆行
 set nowrap
 
 " 开启语法高亮功能
 syntax enable
-let python_highlight_all=1
 " 允许用指定语法高亮配色方案替换默认方案
+" let python_highlight_all=1
 syntax on
 
 
-" ==========缩进==========
-
+" ==========内容显示==========
 " 自适应不同语言的智能缩进
 filetype indent on
 " 将制表符拓展为空格
@@ -124,14 +147,37 @@ set softtabstop=4
 set list
 set listchars=tab:>-,trail:·,nbsp:·
 
-" 配色方案
-let g:solarized_termcolors=256
-set background=dark
-colorscheme solarized
 
-" 设置状态栏主题风格
-let g:Powerline_colorscheme='solarized256'
+" ==========快捷键==========
 
+" 定义快捷键前缀，即<Leader>
+let mapleader=";"
+
+" 切换布局快捷键
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" F1 废弃这个键,防止调出系统帮助
+noremap <F1> <Esc>"
+
+
+" ==========syntastic==========
+
+let g:syntastic_error_symbol='>>'
+let g:syntastic_warning_symbol='>'
+let g:syntastic_check_on_open=1
+let g:syntastic_check_on_wq=0
+let g:syntastic_enable_highlighting=1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_enable_signs = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_auto_jump = 0
+let g:syntastic_loc_list_height = 5
+
+let g:syntastic_python_checkers=['pyflakes', 'pep8'] " 使用pyflakes,速度比pylint快
+let g:syntastic_python_pep8_args='--ignore=E501,E225,E124,E712'
 
 " ==========NERDTree==========
 
@@ -149,17 +195,18 @@ let NERDTreeMinimalUI=1
 let NERDTreeAutoDeleteBuffer=1
 
 
-" 设置环境保存项
-set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
-" 退格键正常处理indent, eol, start等
-set backspace=2 " make backspace work like most other apps
-"自动保存
-set autowrite
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" ==========Powerline==========
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" 设置状态栏主题风格
+let g:Powerline_colorscheme='solarized256'
+
+
+" ==========配色方案==========
+"
+let g:solarized_termcolors=256
+" 设置背景颜色
+set background=dark
+" 设置主题
+colorscheme solarized
+
+
