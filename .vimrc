@@ -25,10 +25,14 @@ Plugin 'Lokaltog/vim-powerline'
 Plugin 'scrooloose/nerdcommenter'
 " 文件列表
 Plugin 'scrooloose/nerdtree'
+" 多文档编辑
+Plugin 'fholgado/minibufexpl.vim'
+" 选中结对符
+Plugin 'gcmt/wildfire.vim'
+" 支持分支的 undo
+Plugin 'sjl/gundo.vim'
 " 输入法优化
 Plugin 'lilydjwg/fcitx.vim'
-" 代码纠错
-Plugin 'scrooloose/syntastic'
 
 
 " All of your Plugins must be added before the following line
@@ -128,11 +132,11 @@ set nowrap
 " 开启语法高亮功能
 syntax enable
 " 允许用指定语法高亮配色方案替换默认方案
-" let python_highlight_all=1
 syntax on
 
 
 " ==========内容显示==========
+
 " 自适应不同语言的智能缩进
 filetype indent on
 " 将制表符拓展为空格
@@ -153,6 +157,15 @@ set listchars=tab:>-,trail:·,nbsp:·
 " 定义快捷键前缀，即<Leader>
 let mapleader=";"
 
+" 定义快捷键到行首和行尾
+nmap LB 0
+nmap LE $
+
+" 设置快捷键将选中文本块复制至系统剪贴板
+vnoremap <Leader>y "+y
+" 设置快捷键将系统剪贴板内容粘贴至vim
+nmap <Leader>p "+p
+
 " 切换布局快捷键
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -162,22 +175,41 @@ nnoremap <C-H> <C-W><C-H>
 " F1 废弃这个键,防止调出系统帮助
 noremap <F1> <Esc>"
 
+" 括号成对匹配
+inoremap ( ()<ESC>i
+inoremap [ []<ESC>i
+inoremap { {}<ESC>i
+inoremap < <><ESC>i
+" ==========YCM==========
 
-" ==========syntastic==========
+" YCM 补全菜单配色
+" 菜单
+highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
+ " 选中项
+highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
 
-let g:syntastic_error_symbol='>>'
-let g:syntastic_warning_symbol='>'
-let g:syntastic_check_on_open=1
-let g:syntastic_check_on_wq=0
-let g:syntastic_enable_highlighting=1
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_enable_signs = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_auto_jump = 0
-let g:syntastic_loc_list_height = 5
+ " 补全功能在注释中同样有效
+let g:ycm_complete_in_comments=1
+ " 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
+let g:ycm_confirm_extra_conf=0
+" 开启 YCM 标签补全引擎
+let g:ycm_collect_identifiers_from_tags_files=1
+" YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
+inoremap <leader>; <C-x><C-o>
+" 补全内容不以分割子窗口形式出现，只显示补全列表
+set completeopt-=preview
+" 从第一个键入字符就开始罗列匹配项
+let g:ycm_min_num_of_chars_for_completion=1
+" 禁止缓存匹配项，每次都重新生成匹配项
+let g:ycm_cache_omnifunc=0
+" 语法关键字补全         
+let g:ycm_seed_identifiers_with_syntax=1
 
-let g:syntastic_python_checkers=['pyflakes', 'pep8'] " 使用pyflakes,速度比pylint快
-let g:syntastic_python_pep8_args='--ignore=E501,E225,E124,E712'
+" 语法错误提示
+let g:ycm_error_symbol = '>>'
+" 语法警告
+let g:ycm_warning_symbol = '>*'
+
 
 " ==========NERDTree==========
 
@@ -193,6 +225,29 @@ let NERDTreeShowHidden=1
 let NERDTreeMinimalUI=1
 " 删除文件时自动删除文件对应 buffer
 let NERDTreeAutoDeleteBuffer=1
+
+" ==========minibufexpl==========
+ 
+" 显示/隐藏 MiniBufExplorer 窗口
+map <Leader>bl :MBEToggle<cr>
+
+" buffer 切换快捷键
+map <C-Tab> :MBEbn<cr>
+map <C-S-Tab> :MBEbp<cr>
+
+
+" ==========wildfire.vim==========
+
+" 快捷键
+map <SPACE> <Plug>(wildfire-fuel)
+vmap <S-SPACE> <Plug>(wildfire-water)
+
+" 适用于哪些结对符
+let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "i>", "ip"]
+
+" ==========gundo==========
+
+nnoremap <Leader>ud :GundoToggle<CR>
 
 
 " ==========Powerline==========
