@@ -27,13 +27,14 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 " 多文档编辑
 Plugin 'fholgado/minibufexpl.vim'
-" 选中结对符
-Plugin 'gcmt/wildfire.vim'
 " 支持分支的 undo
 Plugin 'sjl/gundo.vim'
 " 输入法优化
 Plugin 'lilydjwg/fcitx.vim'
-
+" 括号匹配
+Plugin 'jiangmiao/auto-pairs'
+" 代码格式化
+Plugin 'Chiel92/vim-autoformat'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -75,9 +76,6 @@ set ignorecase
 " vim 自身命令行模式智能补全
 set wildmenu
 
-" 括号配对情况, 跳转并高亮一下匹配的括号
-"set showmatch
-
 " 中文帮助
 set helplang=cn
 
@@ -107,7 +105,7 @@ set showcmd
 
 " 让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
 set completeopt=longest,menu
- 
+
 
 " ==========界面显示==========
 "
@@ -157,40 +155,23 @@ set listchars=tab:>-,trail:·,nbsp:·
 " 定义快捷键前缀，即<Leader>
 let mapleader=";"
 
-" 定义快捷键到行首和行尾
-nmap LB 0
-nmap LE $
-
-" 设置快捷键将选中文本块复制至系统剪贴板
-vnoremap <Leader>y "+y
-" 设置快捷键将系统剪贴板内容粘贴至vim
-nmap <Leader>p "+p
-
 " 切换布局快捷键
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" F1 废弃这个键,防止调出系统帮助
-noremap <F1> <Esc>"
-
-" 括号成对匹配
-inoremap ( ()<ESC>i
-inoremap [ []<ESC>i
-inoremap { {}<ESC>i
-inoremap < <><ESC>i
 " ==========YCM==========
 
 " YCM 补全菜单配色
 " 菜单
 highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
- " 选中项
+" 选中项
 highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
 
- " 补全功能在注释中同样有效
+" 补全功能在注释中同样有效
 let g:ycm_complete_in_comments=1
- " 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
+" 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
 let g:ycm_confirm_extra_conf=0
 " 开启 YCM 标签补全引擎
 let g:ycm_collect_identifiers_from_tags_files=1
@@ -226,24 +207,19 @@ let NERDTreeMinimalUI=1
 " 删除文件时自动删除文件对应 buffer
 let NERDTreeAutoDeleteBuffer=1
 
+
 " ==========minibufexpl==========
- 
+
 " 显示/隐藏 MiniBufExplorer 窗口
 map <Leader>bl :MBEToggle<cr>
 
+" 自动启动
+let g:miniBufExplorerAutoStart = 1
+let g:miniBufExplBuffersNeeded = 1
+let g:miniBufExplStatusLineText = ""
 " buffer 切换快捷键
-map <C-Tab> :MBEbn<cr>
-map <C-S-Tab> :MBEbp<cr>
-
-
-" ==========wildfire.vim==========
-
-" 快捷键
-map <SPACE> <Plug>(wildfire-fuel)
-vmap <S-SPACE> <Plug>(wildfire-water)
-
-" 适用于哪些结对符
-let g:wildfire_objects = ["i'", 'i"', "i)", "i]", "i}", "i>", "ip"]
+noremap <C-Tab> :MBEbn<cr>
+noremap <C-S-Tab> :MBEbp<cr>
 
 " ==========gundo==========
 
@@ -259,9 +235,8 @@ let g:Powerline_colorscheme='solarized256'
 " ==========配色方案==========
 "
 let g:solarized_termcolors=256
-" 设置背景颜色
+"" 设置背景颜色
 set background=dark
-" 设置主题
+"" 设置主题
 colorscheme solarized
-
 
