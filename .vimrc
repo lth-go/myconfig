@@ -76,9 +76,6 @@ set ignorecase
 " vim 自身命令行模式智能补全
 set wildmenu
 
-" 中文帮助
-set helplang=cn
-
 " 隐藏文件
 set wildignore=*.pyc
 
@@ -99,9 +96,6 @@ set scrolloff=5
 
 " 在状态栏显示正在输入的命令
 set showcmd
-
-" 退出时在终端保留内容
-"set viminfo^=%
 
 " 让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
 set completeopt=longest,menu
@@ -183,7 +177,7 @@ set completeopt-=preview
 let g:ycm_min_num_of_chars_for_completion=1
 " 禁止缓存匹配项，每次都重新生成匹配项
 let g:ycm_cache_omnifunc=0
-" 语法关键字补全         
+" 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
 
 " 语法错误提示
@@ -216,10 +210,6 @@ map <Leader>bl :MBEToggle<cr>
 " 自动启动
 let g:miniBufExplorerAutoStart = 1
 let g:miniBufExplBuffersNeeded = 1
-let g:miniBufExplStatusLineText = ""
-" buffer 切换快捷键
-noremap <C-Tab> :MBEbn<cr>
-noremap <C-S-Tab> :MBEbp<cr>
 
 " ==========gundo==========
 
@@ -230,6 +220,12 @@ nnoremap <Leader>ud :GundoToggle<CR>
 
 " 设置状态栏主题风格
 let g:Powerline_colorscheme='solarized256'
+
+
+" ==========autoformat==========
+
+noremap <F3> :Autoformat<CR>
+let g:formatter_yapf_style = 'pep8'
 
 
 " ==========配色方案==========
