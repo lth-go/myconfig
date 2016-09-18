@@ -225,8 +225,11 @@ let g:Powerline_colorscheme='solarized256'
 
 " ==========autoformat==========
 
+" 格式化代码快捷键
 noremap <F3> :Autoformat<CR>
+" 格式化python代码风格为pep8
 let g:formatter_yapf_style = 'pep8'
+" 需安装astyle
 
 
 " ==========配色方案==========
