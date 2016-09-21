@@ -18,17 +18,15 @@ Plugin 'VundleVim/Vundle.vim'
 " 代码补全
 Plugin 'Valloric/YouCompleteMe'
 " 主题配色
-Plugin 'altercation/vim-colors-solarized'
+"Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomasr/molokai'
 " 状态栏
-Plugin 'Lokaltog/vim-powerline'
+Plugin 'vim-airline/vim-airline'
+"Plugin 'vim-airline/vim-airline-themes'
 " 注释
 Plugin 'scrooloose/nerdcommenter'
 " 文件列表
 Plugin 'scrooloose/nerdtree'
-" 多文档编辑
-Plugin 'fholgado/minibufexpl.vim'
-" 支持分支的 undo
-Plugin 'sjl/gundo.vim'
 " 输入法优化
 Plugin 'lilydjwg/fcitx.vim'
 " 括号匹配
@@ -202,27 +200,6 @@ let NERDTreeMinimalUI=1
 let NERDTreeAutoDeleteBuffer=1
 
 
-" ==========minibufexpl==========
-
-" 显示/隐藏 MiniBufExplorer 窗口
-map <Leader>bl :MBEToggle<cr>
-
-" 自动启动
-let g:miniBufExplorerAutoStart = 1
-let g:miniBufExplBuffersNeeded = 1
-
-
-" ==========gundo==========
-
-nnoremap <Leader>ud :GundoToggle<CR>
-
-
-" ==========Powerline==========
-
-" 设置状态栏主题风格
-let g:Powerline_colorscheme='solarized256'
-
-
 " ==========autoformat==========
 
 " 格式化代码快捷键
@@ -232,11 +209,30 @@ let g:formatter_yapf_style = 'pep8'
 " 需安装astyle
 
 
-" ==========配色方案==========
-"
-let g:solarized_termcolors=256
-"" 设置背景颜色
-set background=dark
-"" 设置主题
-colorscheme solarized
+" ==========airline==========
 
+" powerline symbols
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+
+"打开tabline功能
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+
+ " 关闭状态显示空白符号计数
+let g:airline#extensions#whitespace#enabled = 0
+
+
+" ==========配色方案==========
+
+" 设置背景颜色
+set background=dark
+
+" solarized 主题
+"let g:solarized_termcolors=256
+"colorscheme solarized
+
+" molokai主题
+let g:molokai_original = 1
+let g:rehash256 = 1
+colorscheme molokai
