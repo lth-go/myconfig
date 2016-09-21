@@ -2,20 +2,15 @@
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" Keep Plugin commands between vundle#begin/end.
-
 " 代码补全
 Plugin 'Valloric/YouCompleteMe'
 " 主题配色
-"Plugin 'altercation/vim-colors-solarized'
 Plugin 'tomasr/molokai'
 " 状态栏
 Plugin 'vim-airline/vim-airline'
@@ -31,7 +26,6 @@ Plugin 'jiangmiao/auto-pairs'
 " 代码格式化
 Plugin 'Chiel92/vim-autoformat'
 
-" All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -89,10 +83,6 @@ set nowrap
 syntax enable
 " 允许用指定语法高亮配色方案替换默认方案
 syntax on
-
-
-" ==========内容显示==========
-
 " 自适应不同语言的智能缩进
 filetype indent on
 " 将制表符拓展为空格
