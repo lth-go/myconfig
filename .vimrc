@@ -1,5 +1,4 @@
-
-" ========== Vundle start==========
+" ========== Vundle==========
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -7,8 +6,6 @@ filetype off                  " required
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
@@ -22,7 +19,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'tomasr/molokai'
 " 状态栏
 Plugin 'vim-airline/vim-airline'
-"Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-airline/vim-airline-themes'
 " 注释
 Plugin 'scrooloose/nerdcommenter'
 " 文件列表
@@ -37,17 +34,6 @@ Plugin 'Chiel92/vim-autoformat'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
 
 
 " ==========基础设置==========
@@ -73,12 +59,6 @@ set ignorecase
 
 " vim 自身命令行模式智能补全
 set wildmenu
-
-" 隐藏文件
-set wildignore=*.pyc
-
-" 设置环境保存项
-set sessionoptions="blank,buffers,globals,localoptions,tabpages,sesdir,folds,help,options,resize,winpos,winsize"
 
 " 退格键正常处理indent, eol, start等
 set backspace=2
@@ -199,6 +179,8 @@ let NERDTreeMinimalUI=1
 " 删除文件时自动删除文件对应 buffer
 let NERDTreeAutoDeleteBuffer=1
 
+" 退出vim时自动关闭
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " ==========autoformat==========
 
@@ -206,10 +188,13 @@ let NERDTreeAutoDeleteBuffer=1
 noremap <F3> :Autoformat<CR>
 " 格式化python代码风格为pep8
 let g:formatter_yapf_style = 'pep8'
-" 需安装astyle
+" 需安装astyle yapf(pip)
 
 
 " ==========airline==========
+
+" 设置airline主题
+let g:airline_theme="powerlineish"
 
 " powerline symbols
 let g:airline_left_sep = ''
