@@ -25,8 +25,8 @@ Plugin 'jiangmiao/auto-pairs'
 " 代码格式化
 Plugin 'Chiel92/vim-autoformat'
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+call vundle#end()
+filetype plugin indent on
 
 
 " ==========基础设置==========
@@ -62,7 +62,7 @@ set completeopt=longest,menu
 
 
 " ==========界面显示==========
-"
+
 " 启动时没有介绍消息
 set shortmess=atI
 " 总是显示状态栏
@@ -71,7 +71,7 @@ set laststatus=2
 set ruler
 " 开启行号显示
 set number
-" 高亮显示当前行/列
+" 高亮显示当前行
 set cursorline
 " 高亮显示搜索结果
 set hlsearch
@@ -165,10 +165,10 @@ let g:airline_theme="bubblegum"
 " 图标样式 
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
-"打开tabline功能
+" 打开tabline功能
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
- " 关闭状态显示空白符号计数
+" 关闭状态显示空白符号计数
 let g:airline#extensions#whitespace#enabled = 0
 
 
