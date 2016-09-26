@@ -1,11 +1,10 @@
 " ========== Vundle==========
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible 
+filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
 " 代码补全
@@ -39,7 +38,7 @@ filetype plugin on
 " 让配置变更立即生效
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 " history存储容量
-set history=2000
+set history=100
 " 设置编码格式
 set encoding=utf-8
 " 开启实时搜索功能
@@ -74,7 +73,6 @@ set ruler
 set number
 " 高亮显示当前行/列
 set cursorline
-"set cursorcolumn
 " 高亮显示搜索结果
 set hlsearch
 " 禁止拆行
@@ -153,11 +151,11 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 " ==========Autoformat==========
 
+" 需安装astyle yapf(pip)
 " 格式化代码快捷键
 noremap <F3> :Autoformat<CR>
 " 格式化python代码风格为pep8
 let g:formatter_yapf_style = 'pep8'
-" 需安装astyle yapf(pip)
 
 
 " ==========Airline==========
