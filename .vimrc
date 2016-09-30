@@ -18,7 +18,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdcommenter'
 " 文件列表
 Plugin 'scrooloose/nerdtree'
-" 输入法优化
+" 输入法优化 
 Plugin 'lilydjwg/fcitx.vim'
 " 括号匹配
 Plugin 'jiangmiao/auto-pairs'
@@ -53,11 +53,11 @@ set backspace=2
 set autowrite
 " 文件修改之后自动载入
 set autoread
-" 在上下移动光标时，光标的上方或下方至少会保留显示的行数
+" 光标的上方或下方至少会保留显示的行数
 set scrolloff=5
 " 在状态栏显示正在输入的命令
 set showcmd
-" 让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
+" 菜单补全
 set completeopt=longest,menu
 
 
@@ -89,7 +89,7 @@ set expandtab
 set tabstop=4
 " 自动缩进距离
 set shiftwidth=4
-" 让vim把连续数量的空格视为一个制表符
+" 把连续数量的空格视为一个制表符
 set softtabstop=4
 " 显示tab跟空格
 set list
@@ -161,7 +161,7 @@ let g:formatter_yapf_style = 'pep8'
 " ==========Airline==========
 
 " 设置airline主题
-let g:airline_theme="bubblegum"
+let g:airline_theme="monochrome"
 " 图标样式 
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
@@ -170,7 +170,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 " 关闭状态显示空白符号计数
 let g:airline#extensions#whitespace#enabled = 0
-
+" 去除右上角buffer
+let g:airline#extensions#tabline#buffers_label = ''
 
 " ==========配色方案==========
 
