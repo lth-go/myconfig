@@ -31,14 +31,10 @@ filetype plugin indent on
 
 " ==========基础设置==========
 
-" 开启文件类型检测
+" 开启文件检测类型
 filetype on
 " 根据侦测到的不同类型加载对应插件
 filetype plugin on
-" 让配置变更立即生效
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
-" history存储容量
-set history=100
 " 设置编码格式
 set encoding=utf-8
 " 开启实时搜索功能
@@ -51,20 +47,14 @@ set wildmenu
 set backspace=2
 " 自动保存
 set autowrite
-" 文件修改之后自动载入
-set autoread
 " 光标的上方或下方至少会保留显示的行数
 set scrolloff=5
-" 在状态栏显示正在输入的命令
-set showcmd
 " 菜单补全
 set completeopt=longest,menu
 
 
 " ==========界面显示==========
 
-" 启动时没有介绍消息
-set shortmess=atI
 " 总是显示状态栏
 set laststatus=2
 " 显示光标当前位置
@@ -122,8 +112,6 @@ let g:ycm_confirm_extra_conf=0
 set completeopt-=preview
 " 从第一个键入字符就开始罗列匹配项
 let g:ycm_min_num_of_chars_for_completion=1
-" 禁止缓存匹配项，每次都重新生成匹配项
-let g:ycm_cache_omnifunc=0
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
 " 语法错误提示
@@ -134,12 +122,8 @@ let g:ycm_warning_symbol = '>*'
 
 " ==========NERDTree==========
 
-" 使用 NERDTree 插件查看工程文件。设置快捷键，速记：file list
+" 使用 NERDTree 插件查看工程文件
 nmap <Leader>fl :NERDTreeToggle<CR>
-" 设置NERDTree子窗口宽度
-let NERDTreeWinSize=32
-" 设置NERDTree子窗口位置
-let NERDTreeWinPos="left"
 " 显示隐藏文件
 let NERDTreeShowHidden=1
 " NERDTree 子窗口中不显示冗余帮助信息
