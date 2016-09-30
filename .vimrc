@@ -135,20 +135,15 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 " ==========Autoformat==========
 
-" 需安装astyle yapf(pip)
+" 需安装astyle python-autopep8 
 " 格式化代码快捷键
 noremap <F3> :Autoformat<CR>
-" 格式化python代码风格为pep8
-let g:formatter_yapf_style = 'pep8'
 
 
 " ==========Airline==========
 
 " 设置airline主题
 let g:airline_theme="monochrome"
-" 图标样式
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
 " 打开tabline功能
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
