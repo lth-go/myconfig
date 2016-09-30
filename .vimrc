@@ -39,18 +39,20 @@ set encoding=utf-8
 set incsearch
 " 搜索时大小写不敏感
 set ignorecase
-" vim 自身命令行模式智能补全
-set wildmenu
 " 退格键正常处理indent, eol, start等
 set backspace=2
 " 自动保存
 set autowrite
 " 光标的上方或下方至少会保留显示的行数
 set scrolloff=5
-" 菜单补全
-set completeopt=longest,menu
 " 快捷键延迟
 set ttimeoutlen=10
+" 菜单补全
+set completeopt=longest,menu
+" 补全内容不以分割子窗口形式出现，只显示补全列表
+set completeopt-=preview
+" vim 自身命令行模式智能补全
+set wildmenu
 
 " ==========界面显示==========
 
@@ -68,9 +70,9 @@ set hlsearch
 set nowrap
 " 开启语法高亮功能
 syntax enable
-" 允许用指定语法高亮配色方案替换默认方案
+" 允许替换默认配色
 syntax on
-" 自适应不同语言的智能缩进
+" 智能缩进
 filetype indent on
 " 将制表符拓展为空格
 set expandtab
@@ -99,25 +101,12 @@ imap <C-C> <Esc>
 
 " ==========YCM==========
 
-" YCM 补全菜单配色
-" 菜单
-highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
-" 选中项
-highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
 " 补全功能在注释中同样有效
 let g:ycm_complete_in_comments=1
 " 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
 let g:ycm_confirm_extra_conf=0
-" 补全内容不以分割子窗口形式出现，只显示补全列表
-set completeopt-=preview
-" 从第一个键入字符就开始罗列匹配项
-let g:ycm_min_num_of_chars_for_completion=1
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
-" 语法错误提示
-let g:ycm_error_symbol = '>>'
-" 语法警告
-let g:ycm_warning_symbol = '>*'
 
 
 " ==========NERDTree==========
@@ -132,6 +121,7 @@ let NERDTreeMinimalUI=1
 let NERDTreeAutoDeleteBuffer=1
 " 退出vim时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 
 " ==========Autoformat==========
 
@@ -158,7 +148,6 @@ let g:airline#extensions#tabline#buffers_label = ''
 " 设置背景颜色
 set background=dark
 " molokai主题
-let g:molokai_original = 1
 let g:rehash256 = 1
 colorscheme molokai
 
