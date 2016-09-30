@@ -1,6 +1,6 @@
 " ========== Vundle==========
 
-set nocompatible 
+set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -18,8 +18,6 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdcommenter'
 " 文件列表
 Plugin 'scrooloose/nerdtree'
-" 输入法优化 
-Plugin 'lilydjwg/fcitx.vim'
 " 括号匹配
 Plugin 'jiangmiao/auto-pairs'
 " 代码格式化
@@ -51,7 +49,8 @@ set autowrite
 set scrolloff=5
 " 菜单补全
 set completeopt=longest,menu
-
+" 快捷键延迟
+set ttimeoutlen=10
 
 " ==========界面显示==========
 
@@ -95,7 +94,8 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
+" 绑定ctrl+c为Esc
+imap <C-C> <Esc>
 
 " ==========YCM==========
 
@@ -146,7 +146,7 @@ let g:formatter_yapf_style = 'pep8'
 
 " 设置airline主题
 let g:airline_theme="monochrome"
-" 图标样式 
+" 图标样式
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
 " 打开tabline功能
@@ -157,6 +157,7 @@ let g:airline#extensions#whitespace#enabled = 0
 " 去除右上角buffer
 let g:airline#extensions#tabline#buffers_label = ''
 
+
 " ==========配色方案==========
 
 " 设置背景颜色
@@ -165,3 +166,16 @@ set background=dark
 let g:molokai_original = 1
 let g:rehash256 = 1
 colorscheme molokai
+
+
+" ==========其他==========
+
+" 输入法切换
+autocmd InsertLeave * call Fcitx2en()
+function! Fcitx2en()
+    let s:input_status=system("fcitx-remote")
+    if s:input_status==2
+        let g:input_toggle=1
+        let l:a=system("fcitx-remote -c")
+    endif
+endfunction
