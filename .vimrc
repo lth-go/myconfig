@@ -11,13 +11,13 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 " 主题配色
 Plugin 'tomasr/molokai'
+" 文件列表
+Plugin 'scrooloose/nerdtree'
 " 状态栏
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 " 注释
 Plugin 'scrooloose/nerdcommenter'
-" 文件列表
-Plugin 'scrooloose/nerdtree'
 " 括号匹配
 Plugin 'jiangmiao/auto-pairs'
 " 代码格式化
@@ -31,7 +31,7 @@ filetype plugin indent on
 
 " 开启文件检测类型
 filetype on
-" 根据侦测到的不同类型加载对应插件
+" 根据类型加载对应插件
 filetype plugin on
 " 设置编码格式
 set encoding=utf-8
@@ -39,20 +39,23 @@ set encoding=utf-8
 set incsearch
 " 搜索时大小写不敏感
 set ignorecase
-" 退格键正常处理indent, eol, start等
+" 退格键正常处理
 set backspace=2
 " 自动保存
 set autowrite
-" 光标的上方或下方至少会保留显示的行数
+" 光标下方保留的行数
 set scrolloff=5
 " 快捷键延迟
 set ttimeoutlen=10
 " 菜单补全
 set completeopt=longest,menu
-" 补全内容不以分割子窗口形式出现，只显示补全列表
+" 补全内容只显示补全列表
 set completeopt-=preview
 " vim 自身命令行模式智能补全
 set wildmenu
+" 输入法正常切换
+autocmd! InsertLeave *  if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
+
 
 " ==========界面显示==========
 
@@ -76,11 +79,11 @@ syntax on
 filetype indent on
 " 将制表符拓展为空格
 set expandtab
-" 设置编辑时制表符占用空格数
+" 制表符占用空格数
 set tabstop=4
 " 自动缩进距离
 set shiftwidth=4
-" 把连续数量的空格视为一个制表符
+" 连续空格视为制表符
 set softtabstop=4
 " 显示tab跟空格
 set list
@@ -103,7 +106,7 @@ imap <C-C> <Esc>
 
 " 补全功能在注释中同样有效
 let g:ycm_complete_in_comments=1
-" 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
+" 允许vim 加载 .ycm_extra_conf.py 文件，不再提示
 let g:ycm_confirm_extra_conf=0
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
@@ -150,16 +153,3 @@ set background=dark
 " molokai主题
 let g:rehash256 = 1
 colorscheme molokai
-
-
-" ==========其他==========
-
-" 输入法切换
-autocmd InsertLeave * call Fcitx2en()
-function! Fcitx2en()
-    let s:input_status=system("fcitx-remote")
-    if s:input_status==2
-        let g:input_toggle=1
-        let l:a=system("fcitx-remote -c")
-    endif
-endfunction
