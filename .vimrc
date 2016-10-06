@@ -20,6 +20,8 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdcommenter'
 " 括号匹配
 Plugin 'jiangmiao/auto-pairs'
+" 语法检查
+Plugin 'scrooloose/syntastic'
 " 代码格式化
 Plugin 'Chiel92/vim-autoformat'
 
@@ -54,7 +56,7 @@ set completeopt-=preview
 " vim 自身命令行模式智能补全
 set wildmenu
 " 输入法正常切换
-autocmd! InsertLeave *  if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
+autocmd! InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
 
 
 " ==========界面显示==========
@@ -106,11 +108,12 @@ imap <C-C> <Esc>
 
 " 补全功能在注释中同样有效
 let g:ycm_complete_in_comments=1
-" 允许vim 加载 .ycm_extra_conf.py 文件，不再提示
+" 允许vim 加载.ycm_extra_conf.py 文件，不再提示
 let g:ycm_confirm_extra_conf=0
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
-
+" 关闭语法检查
+let g:ycm_show_diagnostics_ui = 0
 
 " ==========NERDTree==========
 
@@ -124,11 +127,12 @@ let NERDTreeMinimalUI=1
 let NERDTreeAutoDeleteBuffer=1
 " 退出vim时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
+" 忽略一下文件的显示
+let NERDTreeIgnore=['\.pyc','\~$','\.swp']
 
 " ==========Autoformat==========
 
-" 需安装astyle python-autopep8 
+" 需安装astyle python-autopep8
 " 格式化代码快捷键
 noremap <F3> :Autoformat<CR>
 
@@ -144,6 +148,20 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#whitespace#enabled = 0
 " 去除右上角buffer
 let g:airline#extensions#tabline#buffers_label = ''
+" 分隔符
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = '|'
+
+" ==========Syntastic==========
+
+" 打开时语法检查
+let g:syntastic_check_on_open = 1
+" 设置python语法检查
+let g:syntastic_python_checkers=['pyflakes']
+" 右下角状态栏隐藏
+let g:syntastic_stl_format = ""
 
 
 " ==========配色方案==========
