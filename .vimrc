@@ -20,6 +20,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdcommenter'
 " 括号匹配
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'kien/rainbow_parentheses.vim'
 " 语法检查
 Plugin 'scrooloose/syntastic'
 " 代码格式化
@@ -114,6 +115,8 @@ let g:ycm_confirm_extra_conf=0
 let g:ycm_seed_identifiers_with_syntax=1
 " 关闭语法检查
 let g:ycm_show_diagnostics_ui = 0
+" 从第一个键入字符就开始罗列匹配项
+let g:ycm_min_num_of_chars_for_completion=1
 
 " ==========NERDTree==========
 
@@ -163,6 +166,32 @@ let g:syntastic_python_checkers=['pyflakes']
 " 右下角状态栏隐藏
 let g:syntastic_stl_format = ""
 
+
+" ==========RainbowParentheses==========
+
+let g:rbpt_colorpairs = [
+    \ ['brown',       'RoyalBlue3'],
+    \ ['Darkblue',    'SeaGreen3'],
+    \ ['darkgray',    'DarkOrchid3'],
+    \ ['darkgreen',   'firebrick3'],
+    \ ['darkcyan',    'RoyalBlue3'],
+    \ ['darkred',     'SeaGreen3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['brown',       'firebrick3'],
+    \ ['gray',        'RoyalBlue3'],
+    \ ['darkmagenta', 'DarkOrchid3'],
+    \ ['Darkblue',    'firebrick3'],
+    \ ['darkgreen',   'RoyalBlue3'],
+    \ ['darkcyan',    'SeaGreen3'],
+    \ ['darkred',     'DarkOrchid3'],
+    \ ['red',         'firebrick3'],
+    \ ]
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
 " ==========配色方案==========
 
