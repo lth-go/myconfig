@@ -58,6 +58,14 @@ set completeopt-=preview
 set wildmenu
 " 输入法正常切换
 autocmd! InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
+" 自动添加python文件头部
+function HeaderPython()
+    call setline(1, "#!/usr/bin/env python")
+    call append(1, "# -*- coding: utf-8 -*-")
+    normal G
+    normal o
+endf
+autocmd bufnewfile *.py call HeaderPython()
 
 
 " ==========界面显示==========
@@ -171,22 +179,15 @@ let g:syntastic_stl_format = ""
 
 let g:rbpt_colorpairs = [
     \ ['brown',       'RoyalBlue3'],
-    \ ['Darkblue',    'SeaGreen3'],
     \ ['darkgray',    'DarkOrchid3'],
     \ ['darkgreen',   'firebrick3'],
     \ ['darkcyan',    'RoyalBlue3'],
     \ ['darkred',     'SeaGreen3'],
     \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['brown',       'firebrick3'],
     \ ['gray',        'RoyalBlue3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['Darkblue',    'firebrick3'],
-    \ ['darkgreen',   'RoyalBlue3'],
-    \ ['darkcyan',    'SeaGreen3'],
-    \ ['darkred',     'DarkOrchid3'],
     \ ['red',         'firebrick3'],
     \ ]
-let g:rbpt_max = 16
+let g:rbpt_max = 8
 let g:rbpt_loadcmd_toggle = 0
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
