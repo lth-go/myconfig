@@ -25,6 +25,8 @@ Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'scrooloose/syntastic'
 " 代码格式化
 Plugin 'Chiel92/vim-autoformat'
+" 文件查找
+Plugin 'kien/ctrlp.vim'
 
 call vundle#end()
 filetype plugin indent on
