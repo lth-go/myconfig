@@ -27,6 +27,8 @@ Plugin 'scrooloose/syntastic'
 Plugin 'Chiel92/vim-autoformat'
 " 文件查找
 Plugin 'kien/ctrlp.vim'
+" 撤销
+Plugin 'mbbill/undotree'
 
 call vundle#end()
 filetype plugin indent on
