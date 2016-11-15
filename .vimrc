@@ -60,6 +60,8 @@ set completeopt=longest,menu
 set completeopt-=preview
 " vim 自身命令行模式智能补全
 set wildmenu
+" 显示当前正在输入的命令
+set showcmd
 " 输入法正常切换
 autocmd! InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
 " 自动添加python文件头部
@@ -80,8 +82,9 @@ set laststatus=2
 set ruler
 " 开启行号显示
 set number
-" 高亮显示当前行
+" 高亮显示当前行/列
 set cursorline
+"set cursorcolumn
 " 高亮显示搜索结果
 set hlsearch
 " 禁止拆行
@@ -197,6 +200,17 @@ au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadSquare
 au Syntax * RainbowParenthesesLoadBraces
+
+
+" ==========CtrlP==========
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git)$',
+  \ 'file': '\v\.(exe|so|zip|tar|tar.gz|pyc)$',
+  \ }
 
 " ==========配色方案==========
 
