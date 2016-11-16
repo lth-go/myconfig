@@ -2,13 +2,13 @@
 # encoding: utf-8
 
 schema:
-  schema_id: luna_pinyin_simp
-  name: 朙月拼音·简化字
-  version: "0.22"
+  schema_id: luna_pinyin_tw
+  name: 朙月拼音·臺灣正體
+  version: "0.20"
   author:
     - 佛振 <chen.sst@gmail.com>
   description: |
-    朙月拼音，簡化字輸出模式。
+    朙月拼音，臺灣正體字形輸出模式。
 
 switches:
   - name: ascii_mode
@@ -16,11 +16,11 @@ switches:
     states: [ 中文, 西文 ]
   - name: full_shape
     states: [ 半角, 全角 ]
-  - name: zh_simp
-    reset: 1
-    states: [ 漢字, 汉字 ]
   - name: ascii_punct
     states: [ 。，, ．， ]
+  - name: zh_tw
+    reset: 1
+    # 啓用opencc字形轉換，但不在選單中顯示
 
 engine:
   processors:
@@ -45,7 +45,6 @@ engine:
   filters:
     - simplifier
     - uniquifier
-    - cjk_minifier  #過濾拼音輸入法中的罕用字
 
 speller:
   alphabet: zyxwvutsrqponmlkjihgfedcba
@@ -67,7 +66,7 @@ speller:
 
 translator:
   dictionary: luna_pinyin
-  prism: luna_pinyin_simp
+  prism: luna_pinyin_tw
   preedit_format:
     - xform/([nl])v/$1ü/
     - xform/([nl])ue/$1üe/
@@ -82,16 +81,14 @@ custom_phrase:
   initial_quality: 1
 
 simplifier:
-  option_name: zh_simp
+  opencc_config: t2tw.json
+  option_name: zh_tw
 
 punctuator:
   import_preset: default
 
 key_binder:
   import_preset: default
-  bindings:
-    - { when: always, accept: Control+Shift+4, toggle: zh_simp }
-    - { when: always, accept: Control+Shift+dollar, toggle: zh_simp }
 
 recognizer:
   import_preset: default

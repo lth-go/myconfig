@@ -2,13 +2,20 @@
 # encoding: utf-8
 
 schema:
-  schema_id: luna_pinyin_simp
-  name: 朙月拼音·简化字
-  version: "0.22"
+  schema_id: luna_pinyin
+  name: 朙月拼音
+  version: "0.23"
   author:
     - 佛振 <chen.sst@gmail.com>
   description: |
-    朙月拼音，簡化字輸出模式。
+    Rime 預設的拼音輸入方案。
+    參考以下作品而創作：
+      * CC-CEDICT
+      * Android open source project
+      * Chewing - 新酷音
+      * opencc - 開放中文轉換
+  dependencies:
+    - stroke
 
 switches:
   - name: ascii_mode
@@ -16,8 +23,7 @@ switches:
     states: [ 中文, 西文 ]
   - name: full_shape
     states: [ 半角, 全角 ]
-  - name: zh_simp
-    reset: 1
+  - name: simplification
     states: [ 漢字, 汉字 ]
   - name: ascii_punct
     states: [ 。，, ．， ]
@@ -41,11 +47,11 @@ engine:
   translators:
     - punct_translator
     - table_translator@custom_phrase
+    - reverse_lookup_translator
     - script_translator
   filters:
     - simplifier
     - uniquifier
-    - cjk_minifier  #過濾拼音輸入法中的罕用字
 
 speller:
   alphabet: zyxwvutsrqponmlkjihgfedcba
@@ -67,7 +73,6 @@ speller:
 
 translator:
   dictionary: luna_pinyin
-  prism: luna_pinyin_simp
   preedit_format:
     - xform/([nl])v/$1ü/
     - xform/([nl])ue/$1üe/
@@ -81,17 +86,25 @@ custom_phrase:
   enable_sentence: false
   initial_quality: 1
 
-simplifier:
-  option_name: zh_simp
+reverse_lookup:
+  dictionary: stroke
+  enable_completion: true
+  prefix: "`"
+  suffix: "'"
+  tips: 〔筆畫〕
+  preedit_format:
+    - xlit/hspnz/一丨丿丶乙/
+  comment_format:
+    - xform/([nl])v/$1ü/
 
 punctuator:
-  import_preset: default
+  import_preset: symbols
 
 key_binder:
   import_preset: default
-  bindings:
-    - { when: always, accept: Control+Shift+4, toggle: zh_simp }
-    - { when: always, accept: Control+Shift+dollar, toggle: zh_simp }
 
 recognizer:
   import_preset: default
+  patterns:
+    punct: "^/([0-9]0?|[a-z]+)$"
+    reverse_lookup: "`[a-z]*'?$"

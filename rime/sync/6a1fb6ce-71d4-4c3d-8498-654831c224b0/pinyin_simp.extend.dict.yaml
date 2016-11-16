@@ -1,0 +1,13 @@
+---
+name: luna_pinyin.extended
+version: "2016.11.16"
+sort: by_weight
+use_preset_vocabulary: true
+
+import_tables:
+  - pinyin_simp.computer
+  - pinyin_simp.movie
+  - pinyin_simp.music
+  - pinyin_simp.name
+
+...

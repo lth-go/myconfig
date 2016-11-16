@@ -1,0 +1,18 @@
+# Rime user dictionary
+#@/db_name	pinyin_simp.userdb
+#@/db_type	userdb
+#@/rime_version	1.2.9
+#@/tick	14
+#@/user_id	6a1fb6ce-71d4-4c3d-8498-654831c224b0
+ci ku 	词库	c=1 d=0.955997 t=14
+ge 	个	c=1 d=0.995012 t=14
+lai lai 	来来	c=1 d=0.970446 t=14
+pei zhi 	配置	c=1 d=1 t=14
+qu 	去	c=2 d=1.96531 t=14
+qu qu 	去取	c=1 d=0.97531 t=14
+ru he 	如何	c=1 d=0.960789 t=14
+tian jia 	添加	c=2 d=1.90737 t=14
+tuo zhan 	拓展	c=1 d=0.951229 t=14
+yao 	要	c=1 d=0.99005 t=14
+yue 	月	c=1 d=1 t=14
+zi dian 	字典	c=1 d=0.946485 t=14

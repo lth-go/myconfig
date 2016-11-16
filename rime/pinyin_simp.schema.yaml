@@ -2,13 +2,15 @@
 # encoding: utf-8
 
 schema:
-  schema_id: luna_pinyin_simp
-  name: 朙月拼音·简化字
-  version: "0.22"
+  schema_id: pinyin_simp
+  name: 袖珍简化字拼音
+  version: "0.8"
   author:
-    - 佛振 <chen.sst@gmail.com>
+    - 佚名
   description: |
-    朙月拼音，簡化字輸出模式。
+    源自 Android 拼音
+  dependencies:
+    - stroke
 
 switches:
   - name: ascii_mode
@@ -16,9 +18,6 @@ switches:
     states: [ 中文, 西文 ]
   - name: full_shape
     states: [ 半角, 全角 ]
-  - name: zh_simp
-    reset: 1
-    states: [ 漢字, 汉字 ]
   - name: ascii_punct
     states: [ 。，, ．， ]
 
@@ -40,21 +39,16 @@ engine:
     - fallback_segmentor
   translators:
     - punct_translator
-    - table_translator@custom_phrase
     - script_translator
-  filters:
-    - simplifier
-    - uniquifier
-    - cjk_minifier  #過濾拼音輸入法中的罕用字
+    - reverse_lookup_translator
 
 speller:
   alphabet: zyxwvutsrqponmlkjihgfedcba
   delimiter: " '"
   algebra:
-    - erase/^xx$/
     - abbrev/^([a-z]).+$/$1/
     - abbrev/^([zcs]h).+$/$1/
-    - derive/^([nl])ve$/$1ue/
+    - derive/^([nl])ue$/$1ve/
     - derive/^([jqxy])u/$1v/
     - derive/un$/uen/
     - derive/ui$/uei/
@@ -66,32 +60,28 @@ speller:
     - derive/([iu])a(o|ng?)$/a$1$2/
 
 translator:
-  dictionary: luna_pinyin
-  prism: luna_pinyin_simp
+  dictionary: pinyin_simp
   preedit_format:
     - xform/([nl])v/$1ü/
     - xform/([nl])ue/$1üe/
     - xform/([jqxy])v/$1u/
 
-custom_phrase:
-  dictionary: ""
-  user_dict: custom_phrase
-  db_class: stabledb
-  enable_completion: false
-  enable_sentence: false
-  initial_quality: 1
-
-simplifier:
-  option_name: zh_simp
+reverse_lookup:
+  dictionary: stroke
+  enable_completion: true
+  prefix: "`"
+  suffix: "'"
+  tips: 〔笔画〕
+  preedit_format:
+    - xlit/hspnz/一丨丿丶乙/
 
 punctuator:
   import_preset: default
 
 key_binder:
   import_preset: default
-  bindings:
-    - { when: always, accept: Control+Shift+4, toggle: zh_simp }
-    - { when: always, accept: Control+Shift+dollar, toggle: zh_simp }
 
 recognizer:
   import_preset: default
+  patterns:
+    reverse_lookup: "`[a-z]*'?$"
