@@ -7,8 +7,8 @@ ascii_composer:
     Eisu_toggle: clear
     Shift_L: commit_code
     Shift_R: commit_code
-config_version: 0.36.custom.2889675771
-customization: 2889675771
+config_version: 0.36.custom.2420659571
+customization: 2420659571
 key_binder:
   bindings:
     - {accept: "Shift+space", toggle: full_shape, when: always}

@@ -1,26 +1,4 @@
-# Rime schema
-# encoding: utf-8
-
-schema:
-  schema_id: pinyin_simp
-  name: 袖珍简化字拼音
-  version: "0.8"
-  author:
-    - 佚名
-  description: |
-    源自 Android 拼音
-  dependencies:
-    - stroke
-
-switches:
-  - name: ascii_mode
-    reset: 0
-    states: [ 中文, 西文 ]
-  - name: full_shape
-    states: [ 半角, 全角 ]
-  - name: ascii_punct
-    states: [ 。，, ．， ]
-
+customization: 1681238863
 engine:
   processors:
     - ascii_composer
@@ -41,47 +19,68 @@ engine:
     - punct_translator
     - script_translator
     - reverse_lookup_translator
-
-speller:
-  alphabet: zyxwvutsrqponmlkjihgfedcba
-  delimiter: " '"
-  algebra:
-    - abbrev/^([a-z]).+$/$1/
-    - abbrev/^([zcs]h).+$/$1/
-    - derive/^([nl])ue$/$1ve/
-    - derive/^([jqxy])u/$1v/
-    - derive/un$/uen/
-    - derive/ui$/uei/
-    - derive/iu$/iou/
-    - derive/([aeiou])ng$/$1gn/
-    - derive/([dtngkhrzcs])o(u|ng)$/$1o/
-    - derive/ong$/on/
-    - derive/ao$/oa/
-    - derive/([iu])a(o|ng?)$/a$1$2/
-
-translator:
-  dictionary: pinyin_simp
-  preedit_format:
-    - xform/([nl])v/$1ü/
-    - xform/([nl])ue/$1üe/
-    - xform/([jqxy])v/$1u/
-
-reverse_lookup:
-  dictionary: stroke
-  enable_completion: true
-  prefix: "`"
-  suffix: "'"
-  tips: 〔笔画〕
-  preedit_format:
-    - xlit/hspnz/一丨丿丶乙/
-
-punctuator:
-  import_preset: default
-
+    - "table_translator@english"
+english:
+  dictionary: easy_en
+  enable_completion: false
+  enable_sentence: false
+  initial_quality: "-1"
+  spelling_hints: 9
 key_binder:
   import_preset: default
-
+punctuator:
+  import_preset: default
 recognizer:
   import_preset: default
   patterns:
     reverse_lookup: "`[a-z]*'?$"
+reverse_lookup:
+  dictionary: stroke
+  enable_completion: true
+  preedit_format:
+    - "xlit/hspnz/一丨丿丶乙/"
+  prefix: "`"
+  suffix: "'"
+  tips: "〔笔画〕"
+schema:
+  author:
+    - "佚名"
+  dependencies:
+    - stroke
+    - easy_en
+  description: |
+    源自 Android 拼音
+    
+  name: "袖珍简化字拼音"
+  schema_id: pinyin_simp
+  version: 0.8.custom.1681238863
+speller:
+  algebra:
+    - "abbrev/^([a-z]).+$/$1/"
+    - "abbrev/^([zcs]h).+$/$1/"
+    - "derive/^([nl])ue$/$1ve/"
+    - "derive/^([jqxy])u/$1v/"
+    - "derive/un$/uen/"
+    - "derive/ui$/uei/"
+    - "derive/iu$/iou/"
+    - "derive/([aeiou])ng$/$1gn/"
+    - "derive/([dtngkhrzcs])o(u|ng)$/$1o/"
+    - "derive/ong$/on/"
+    - "derive/ao$/oa/"
+    - "derive/([iu])a(o|ng?)$/a$1$2/"
+  alphabet: zyxwvutsrqponmlkjihgfedcba
+  delimiter: " '"
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: ["中文", "西文"]
+  - name: full_shape
+    states: ["半角", "全角"]
+  - name: ascii_punct
+    states: ["。，", "．，"]
+translator:
+  dictionary: pinyin_simp
+  preedit_format:
+    - "xform/([nl])v/$1ü/"
+    - "xform/([nl])ue/$1üe/"
+    - "xform/([jqxy])v/$1u/"

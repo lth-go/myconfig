@@ -12,7 +12,6 @@ patch:
     page_size: 5
 
   schema_list:
-  #- schema: luna_pinyin_simp     # 朙月拼音·简化字，可以按 ctrl+` 选择临时启用正體中文
   - schema: pinyin_simp
 
   ascii_composer:
@@ -26,7 +25,6 @@ patch:
       Eisu_toggle: clear
 
   # 默认标点符号
-  # (如果不灵，则 把 luna_pinyin_simp.custom.yaml 里的 punctuator 部分注释掉 )
   punctuator:
     half_shape:
     # 列出和 英文标点 不同的 标点 (即打中文时需要 "特别改" 的标点)
@@ -60,9 +58,6 @@ patch:
 
   key_binder:
     bindings:
-      #
-      # 快捷键，更多参见 ori_default.yaml
-      #
       - { when: always, accept: Shift+space, toggle: full_shape } # Shift+space 切换全角/半角
       - { when: has_menu, accept: bracketleft, send: Page_Up }
       - { when: has_menu, accept: bracketright, send: Page_Down }
