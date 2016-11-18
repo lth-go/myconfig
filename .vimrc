@@ -150,7 +150,7 @@ let NERDTreeAutoDeleteBuffer=1
 " 退出vim时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 忽略一下文件的显示
-let NERDTreeIgnore=['\.pyc','\~$','\.swp']
+let NERDTreeIgnore=['\.pyc','\~$','\.swp','\.git$','\.idea']
 
 " ==========Autoformat==========
 
