@@ -72,6 +72,10 @@ function HeaderPython()
     normal o
 endf
 autocmd bufnewfile *.py call HeaderPython()
+" 开启保存 undo 历史功能
+set undofile
+" undo 历史保存路径
+set undodir=~/.undo_history/
 
 
 " ==========界面显示==========
