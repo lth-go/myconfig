@@ -2,7 +2,9 @@
 #@/db_name	easy_en.userdb
 #@/db_type	userdb
 #@/rime_version	1.2.9
-#@/tick	7
+#@/tick	16
 #@/user_id	6a1fb6ce-71d4-4c3d-8498-654831c224b0
-i 	i	c=1 d=1 t=7
-python 	python	c=5 d=4.95037 t=5
+he 	he	c=1 d=0.99005 t=16
+i 	i	c=1 d=1 t=16
+python 	python	c=12 d=11.5573 t=16
+vim 	vim	c=1 d=0.970446 t=16

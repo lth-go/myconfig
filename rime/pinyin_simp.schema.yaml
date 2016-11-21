@@ -1,4 +1,4 @@
-customization: 1681238863
+customization: 2818581322
 engine:
   processors:
     - ascii_composer
@@ -24,7 +24,7 @@ english:
   dictionary: easy_en
   enable_completion: false
   enable_sentence: false
-  initial_quality: "-1"
+  initial_quality: 0
   spelling_hints: 9
 key_binder:
   import_preset: default
@@ -53,7 +53,7 @@ schema:
     
   name: "袖珍简化字拼音"
   schema_id: pinyin_simp
-  version: 0.8.custom.1681238863
+  version: 0.8.custom.2818581322
 speller:
   algebra:
     - "abbrev/^([a-z]).+$/$1/"
