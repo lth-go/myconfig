@@ -76,6 +76,9 @@ autocmd bufnewfile *.py call HeaderPython()
 set undofile
 " undo 历史保存路径
 set undodir=~/.undo_history/
+set nobackup
+set noswapfile
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 
 " ==========界面显示==========
@@ -97,6 +100,8 @@ set nowrap
 syntax enable
 " 允许替换默认配色
 syntax on
+" python高亮
+let python_highlight_all=1
 " 智能缩进
 filetype indent on
 " 将制表符拓展为空格
@@ -128,6 +133,10 @@ imap <C-C> <Esc>
 
 " 补全功能在注释中同样有效
 let g:ycm_complete_in_comments=1
+" 在字符串输入中也能补全
+let g:ycm_complete_in_strings = 1
+" 注释和字符串中的文字也会被收入补全
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
 " 允许vim 加载.ycm_extra_conf.py 文件，不再提示
 let g:ycm_confirm_extra_conf=0
 " 语法关键字补全
@@ -136,6 +145,8 @@ let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_show_diagnostics_ui = 0
 " 从第一个键入字符就开始罗列匹配项
 let g:ycm_min_num_of_chars_for_completion=1
+" 指定jedi的Python解释器路径，防止虚拟环境问题
+let g:ycm_server_python_interpreter = 'python'
 
 " ==========NERDTree==========
 
@@ -208,13 +219,12 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " ==========CtrlP==========
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git)$',
   \ 'file': '\v\.(exe|so|zip|tar|tar.gz|pyc)$',
   \ }
+
 
 " ==========配色方案==========
 
