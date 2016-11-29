@@ -26,7 +26,7 @@ Plugin 'scrooloose/syntastic'
 " 代码格式化
 Plugin 'Chiel92/vim-autoformat'
 " 文件查找
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 " 撤销
 Plugin 'mbbill/undotree'
 
@@ -36,34 +36,130 @@ filetype plugin indent on
 
 " ==========基础设置==========
 
-" 开启文件检测类型
+" 文件检测类型
 filetype on
 " 根据类型加载对应插件
 filetype plugin on
+" 智能缩进
+filetype indent on
+
 " 设置编码格式
 set encoding=utf-8
-" 开启实时搜索功能
-set incsearch
-" 搜索时大小写不敏感
-set ignorecase
-" 退格键正常处理
-set backspace=2
+
+" 文件修改自动载入
+set autoread
 " 自动保存
 set autowrite
-" 光标下方保留的行数
-set scrolloff=5
+" 取消备份
+set nobackup
+" 关闭交换文件
+set noswapfile
+
+" 正则magic模式
+set magic
+
 " 快捷键延迟
 set ttimeoutlen=10
+
+" history存储容量
+set history=2000
+" 开启undo历史功能
+set undofile
+" undo历史保存路径
+set undodir=~/.undo_history/
+" 忽略文件
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+
+
+" ==========界面==========
+
+" 改变终端标题
+set title
+
+" 总是显示状态栏
+set laststatus=2
+" 显示光标当前位置
+set ruler
+" 显示当前正在输入的命令
+set showcmd
+
 " 菜单补全
 set completeopt=longest,menu
 " 补全内容只显示补全列表
 set completeopt-=preview
 " vim 自身命令行模式智能补全
 set wildmenu
-" 显示当前正在输入的命令
-set showcmd
+
+" 相对行号
+set relativenumber number
+au FocusLost * :set norelativenumber number
+au FocusGained * :set relativenumber
+" 插入模式下用绝对行号, 普通模式下用相对
+autocmd InsertEnter * :set norelativenumber number
+autocmd InsertLeave * :set relativenumber
+
+" 禁止拆行
+set nowrap
+" 高亮显示当前行/列
+set cursorline
+"set cursorcolumn
+
+
+" ==========内容==========
+
+" 开启语法高亮功能
+syntax enable
+" 允许替换默认配色
+syntax on
+" python高亮
+let python_highlight_all=1
+
+" 括号配对情况, 跳转并高亮一下匹配的括号
+set showmatch
+" 括号匹配时间
+set matchtime=2
+
+" 高亮显示搜索结果
+set hlsearch
+" 开启实时搜索功能
+set incsearch
+" 搜索时大小写不敏感
+set ignorecase
+
+" 退格键正常处理
+set backspace=2
+
+" 智能缩进
+set smartindent
+" 自动缩进
+set autoindent
+
+" 制表符占用空格数
+set tabstop=4
+" 自动缩进距离
+set shiftwidth=4
+" 连续空格视为制表符
+set softtabstop=4
+" 按退格键一次删掉4个空格
+set smarttab
+" 将Tab自动转化成空格
+set expandtab
+" 只能缩进
+set shiftround
+
+" 显示tab跟空格
+set list
+set listchars=tab:>-,trail:·,nbsp:·
+
+" 光标下方保留的行数
+set scrolloff=5
+
+
+" ==========其他==========
+"
 " 输入法正常切换
 autocmd! InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
+
 " 自动添加python文件头部
 function HeaderPython()
     call setline(1, "#!/usr/bin/env python")
@@ -72,62 +168,36 @@ function HeaderPython()
     normal o
 endf
 autocmd bufnewfile *.py call HeaderPython()
-" 开启保存 undo 历史功能
-set undofile
-" undo 历史保存路径
-set undodir=~/.undo_history/
-set nobackup
-set noswapfile
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
-
-" ==========界面显示==========
-
-" 总是显示状态栏
-set laststatus=2
-" 显示光标当前位置
-set ruler
-" 开启行号显示
-set number
-" 高亮显示当前行/列
-set cursorline
-"set cursorcolumn
-" 高亮显示搜索结果
-set hlsearch
-" 禁止拆行
-set nowrap
-" 开启语法高亮功能
-syntax enable
-" 允许替换默认配色
-syntax on
-" python高亮
-let python_highlight_all=1
-" 智能缩进
-filetype indent on
-" 将制表符拓展为空格
-set expandtab
-" 制表符占用空格数
-set tabstop=4
-" 自动缩进距离
-set shiftwidth=4
-" 连续空格视为制表符
-set softtabstop=4
-" 显示tab跟空格
-set list
-set listchars=tab:>-,trail:·,nbsp:·
+" 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 
 
 " ==========快捷键==========
 
 " 定义快捷键前缀，即<Leader>
 let mapleader=";"
+
 " 切换布局快捷键
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-" 绑定ctrl+c为Esc
-imap <C-C> <Esc>
+
+" 切换buffer
+nnoremap <C-n> :bn<CR>
+nnoremap <C-p> :bp<CR>
+
+" 命令行模式增强，ctrl - a到行首， -e 到行尾
+cnoremap <C-j> <t_kd>
+cnoremap <C-k> <t_ku>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+
+
+" ==========插件==========
 
 " ==========YCM==========
 
@@ -147,11 +217,14 @@ let g:ycm_show_diagnostics_ui = 0
 let g:ycm_min_num_of_chars_for_completion=1
 " 指定jedi的Python解释器路径，防止虚拟环境问题
 let g:ycm_server_python_interpreter = 'python'
+" 函数跳转
+nnoremap <C-]> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
 
 " ==========NERDTree==========
 
 " 使用 NERDTree 插件查看工程文件
-nmap <Leader>fl :NERDTreeToggle<CR>
+nmap <Leader>d :NERDTreeToggle<CR>
 " 显示隐藏文件
 let NERDTreeShowHidden=1
 " NERDTree 子窗口中不显示冗余帮助信息
@@ -163,9 +236,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " 忽略一下文件的显示
 let NERDTreeIgnore=['\.pyc','\~$','\.swp','\.git$','\.idea']
 
+
 " ==========Autoformat==========
 
-" 需安装astyle python-autopep8
+" 需安装python-autopep8
 " 格式化代码快捷键
 noremap <F3> :Autoformat<CR>
 
@@ -187,6 +261,7 @@ let g:airline_right_alt_sep = ''
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = '|'
 
+
 " ==========Syntastic==========
 
 " 打开时语法检查
@@ -195,6 +270,12 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_python_checkers=['pyflakes']
 " 右下角状态栏隐藏
 let g:syntastic_stl_format = ""
+" to see error location list
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_enable_signs = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_auto_jump = 0
+let g:syntastic_loc_list_height = 5
 
 
 " ==========RainbowParentheses==========
@@ -219,17 +300,26 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " ==========CtrlP==========
 
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_map = '<leader>f'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git)$',
   \ 'file': '\v\.(exe|so|zip|tar|tar.gz|pyc)$',
   \ }
 
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_max_height=15
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_mruf_max=500
+let g:ctrlp_follow_symlinks=1
 
-" ==========配色方案==========
+
+" ==========主题设置==========
 
 " 设置背景颜色
 set background=dark
 " molokai主题
 let g:rehash256 = 1
 colorscheme molokai
+
+
