@@ -7,6 +7,8 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
+" 语法检查
+Plugin 'scrooloose/syntastic'
 " 代码补全
 Plugin 'Valloric/YouCompleteMe'
 " 主题配色
@@ -21,14 +23,10 @@ Plugin 'scrooloose/nerdcommenter'
 " 括号匹配
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/rainbow_parentheses.vim'
-" 语法检查
-Plugin 'scrooloose/syntastic'
 " 代码格式化
 Plugin 'Chiel92/vim-autoformat'
 " 文件查找
 Plugin 'ctrlpvim/ctrlp.vim'
-" 撤销
-Plugin 'mbbill/undotree'
 
 call vundle#end()
 filetype plugin indent on
@@ -199,8 +197,25 @@ cnoremap <C-e> <End>
 
 " ==========插件==========
 
+" ==========Syntastic==========
+
+" 打开时语法检查
+let g:syntastic_check_on_open = 1
+" 设置python语法检查
+let g:syntastic_python_checkers=['pyflakes']
+" 右下角状态栏隐藏
+let g:syntastic_stl_format = ""
+" to see error location list
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_loc_list_height = 5
+
+
 " ==========YCM==========
 
+" 下拉栏快捷键
+let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>', '<c-k>']
+let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<c-j>']
 " 补全功能在注释中同样有效
 let g:ycm_complete_in_comments=1
 " 在字符串输入中也能补全
@@ -260,22 +275,6 @@ let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = '|'
-
-
-" ==========Syntastic==========
-
-" 打开时语法检查
-let g:syntastic_check_on_open = 1
-" 设置python语法检查
-let g:syntastic_python_checkers=['pyflakes']
-" 右下角状态栏隐藏
-let g:syntastic_stl_format = ""
-" to see error location list
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_enable_signs = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_auto_jump = 0
-let g:syntastic_loc_list_height = 5
 
 
 " ==========RainbowParentheses==========
