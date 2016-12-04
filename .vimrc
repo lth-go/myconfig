@@ -11,6 +11,8 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/syntastic'
 " 代码补全
 Plugin 'Valloric/YouCompleteMe'
+" 文件查找
+Plugin 'ctrlpvim/ctrlp.vim'
 " 主题配色
 Plugin 'tomasr/molokai'
 " 文件列表
@@ -25,8 +27,6 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/rainbow_parentheses.vim'
 " 代码格式化
 Plugin 'Chiel92/vim-autoformat'
-" 文件查找
-Plugin 'ctrlpvim/ctrlp.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -66,13 +66,10 @@ set undofile
 " undo历史保存路径
 set undodir=~/.undo_history/
 " 忽略文件
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set wildignore+=,*.swp,*.pyc,.idea,.git
 
 
 " ==========界面==========
-
-" 改变终端标题
-set title
 
 " 总是显示状态栏
 set laststatus=2
@@ -174,6 +171,9 @@ endif
 
 
 " ==========快捷键==========
+
+" 废弃F1
+noremap <F1> <Esc>"
 
 " 定义快捷键前缀，即<Leader>
 let mapleader=";"
