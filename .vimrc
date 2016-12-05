@@ -66,7 +66,7 @@ set undofile
 " undo历史保存路径
 set undodir=~/.undo_history/
 " 忽略文件
-set wildignore+=,*.swp,*.pyc,.idea,.git
+set wildignore+=*.swp,*.pyc,.idea,.git
 
 
 " ==========界面==========
@@ -87,8 +87,8 @@ set wildmenu
 
 " 相对行号
 set relativenumber number
-au FocusLost * :set norelativenumber number
-au FocusGained * :set relativenumber
+autocmd FocusLost * :set norelativenumber number
+autocmd FocusGained * :set relativenumber
 " 插入模式下用绝对行号, 普通模式下用相对
 autocmd InsertEnter * :set norelativenumber number
 autocmd InsertLeave * :set relativenumber
@@ -153,7 +153,7 @@ set scrolloff=5
 " ==========其他==========
 "
 " 输入法正常切换
-autocmd! InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
+autocmd InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif 
 
 " 自动添加python文件头部
 function HeaderPython()
