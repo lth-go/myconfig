@@ -139,7 +139,7 @@ set softtabstop=4
 set smarttab
 " 将Tab自动转化成空格
 set expandtab
-" 只能缩进
+" 智能缩进
 set shiftround
 
 " 显示tab跟空格
@@ -153,7 +153,7 @@ set scrolloff=5
 " ==========其他==========
 "
 " 输入法正常切换
-autocmd InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif 
+autocmd InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
 
 " 自动添加python文件头部
 function HeaderPython()
@@ -164,9 +164,9 @@ function HeaderPython()
 endf
 autocmd bufnewfile *.py call HeaderPython()
 
-" 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写
+" 打开自动定位到最后编辑的位置
 if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
 
@@ -188,7 +188,7 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <C-n> :bn<CR>
 nnoremap <C-p> :bp<CR>
 
-" 命令行模式增强，ctrl - a到行首， -e 到行尾
+" 命令行模式增强
 cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>

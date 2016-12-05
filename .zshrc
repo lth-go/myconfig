@@ -81,4 +81,5 @@ source $ZSH/oh-my-zsh.sh
 bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
 
+# zsh-completions 需要
 autoload -U compinit && compinit
