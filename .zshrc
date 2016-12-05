@@ -32,3 +32,9 @@ bindkey "^N" down-line-or-search
 
 # zsh-completions 需要
 autoload -U compinit && compinit
+
+# 输入法相关
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+fcitx&
