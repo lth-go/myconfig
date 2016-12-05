@@ -1,32 +1,26 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
+# 主题
 ZSH_THEME="robbyrussell"
 
-# Uncomment the following line to use case-sensitive completion.
+# 补全区分大小写
 # CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
+# 关闭自动更新
 # DISABLE_AUTO_UPDATE="true"
 
-# Uncomment the following line to change how often to auto-update (in days).
+# 自动更新时间
 # export UPDATE_ZSH_DAYS=13
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
+# 关闭终端标题
 # DISABLE_AUTO_TITLE="true"
 
-# Uncomment the following line to enable command auto-correction.
+# 开启命令纠正
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
@@ -42,17 +36,11 @@ ZSH_THEME="robbyrussell"
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-# git://github.com/zsh-users
+# 插件
+# git://github.com/zsh-users/{}
 plugins=(git docker docker-compose docker-machine z sudo colored-man-pages extract zsh-completions zsh-autosuggestions zsh-syntax-highlighting)
 
-# User configuration
+# 用户配置
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -74,8 +62,6 @@ source $ZSH/oh-my-zsh.sh
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# keymap
 
 # 历史记录快捷键
 bindkey "^P" up-line-or-search
