@@ -61,10 +61,6 @@ set ttimeoutlen=10
 
 " history存储容量
 set history=2000
-" 开启undo历史功能
-set undofile
-" undo历史保存路径
-set undodir=~/.undo_history/
 " 忽略文件
 set wildignore+=*.swp,*.pyc,.idea,.git
 
