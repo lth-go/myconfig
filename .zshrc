@@ -19,8 +19,8 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=zh_CN.utf8
 
 # 历史记录快捷键
-bindkey "^P" up-line-or-search
-bindkey "^N" down-line-or-search
+bindkey "^P" history-beginning-search-backward
+bindkey "^N" history-beginning-search-forward
 
 # zsh-completions 需要
 autoload -U compinit && compinit
