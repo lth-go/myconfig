@@ -29,6 +29,12 @@ Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'Chiel92/vim-autoformat'
 " 历史回退
 Plugin 'sjl/gundo.vim'
+" 标签修改
+Plugin 'tpope/vim-surround'
+" html标签匹配
+Plugin 'valloric/MatchTagAlways'
+" 快速移动
+Plugin 'easymotion/vim-easymotion'
 
 call vundle#end()
 filetype plugin indent on
@@ -314,6 +320,17 @@ let g:ctrlp_follow_symlinks=1
 " ==========gundo==========
 
 nnoremap <Leader>ud :GundoToggle<CR>
+
+
+" ==========MatchTagAlways==========
+
+nnoremap <leader>% :MtaJumpToOtherTag<cr>
+
+
+" ==========easymotion==========
+
+" 忽略大小写
+let g:EasyMotion_smartcase = 1
 
 
 " ==========主题设置==========
