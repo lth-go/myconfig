@@ -72,6 +72,7 @@ set ttimeoutlen=10
 
 " history存储容量
 set history=2000
+
 " 忽略文件
 set wildignore+=*.swp,*.pyc,.idea,.git
 
@@ -340,11 +341,6 @@ nnoremap <leader>% :MtaJumpToOtherTag<CR>
 
 " 忽略大小写
 let g:EasyMotion_smartcase = 1
-
-" ==========closetag==========
-
-" 默认html风格
-let g:closetag_html_style=1
 
 
 " ==========主题设置==========
