@@ -6,4 +6,3 @@ set relativenumber
 nnoremap H ^
 nnoremap L $"
 nnoremap Y y$
-nnoremap p p=`]<C-o>`

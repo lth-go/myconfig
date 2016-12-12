@@ -34,8 +34,6 @@ Plugin 'sjl/gundo.vim'
 Plugin 'tpope/vim-surround'
 " 快速移动
 Plugin 'easymotion/vim-easymotion'
-" python jinja2语法
-Plugin 'Glench/Vim-Jinja2-Syntax'
 " html标签匹配
 Plugin 'valloric/MatchTagAlways'
 " 自动补全html/xml标签
