@@ -24,6 +24,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdcommenter'
 " 括号匹配
 Plugin 'jiangmiao/auto-pairs'
+" 彩虹括号
 Plugin 'kien/rainbow_parentheses.vim'
 " 代码格式化
 Plugin 'Chiel92/vim-autoformat'
@@ -31,10 +32,14 @@ Plugin 'Chiel92/vim-autoformat'
 Plugin 'sjl/gundo.vim'
 " 标签修改
 Plugin 'tpope/vim-surround'
-" html标签匹配
-Plugin 'valloric/MatchTagAlways'
 " 快速移动
 Plugin 'easymotion/vim-easymotion'
+" python jinja2语法
+Plugin 'Glench/Vim-Jinja2-Syntax'
+" html标签匹配
+Plugin 'valloric/MatchTagAlways'
+" 自动补全html/xml标签
+Plugin 'docunext/closetag.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -110,8 +115,6 @@ set cursorline
 syntax enable
 " 允许替换默认配色
 syntax on
-" python高亮
-let python_highlight_all=1
 
 " 括号配对情况, 跳转并高亮一下匹配的括号
 set showmatch
@@ -188,6 +191,10 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" 替换行首行尾快捷键
+noremap H ^
+noremap L $
+
 " 切换buffer
 nnoremap <C-n> :bn<CR>
 nnoremap <C-p> :bp<CR>
@@ -209,7 +216,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_python_checkers=['pyflakes']
 " 右下角状态栏隐藏
 let g:syntastic_stl_format = ""
-" to see error location list
+" 显示错误列表
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_loc_list_height = 5
@@ -237,7 +244,7 @@ let g:ycm_min_num_of_chars_for_completion=1
 " 指定jedi的Python解释器路径，防止虚拟环境问题
 let g:ycm_server_python_interpreter = 'python'
 " 函数跳转
-nnoremap <C-]> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 
 " ==========NERDTree==========
@@ -303,7 +310,9 @@ au Syntax * RainbowParenthesesLoadBraces
 
 " ==========CtrlP==========
 
+" 搜索快捷键修改
 let g:ctrlp_map = '<leader>f'
+" 忽略文件
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|idea)$',
   \ 'file': '\v\.(so|zip|tar|tar.gz|pyc)$',
@@ -319,18 +328,25 @@ let g:ctrlp_follow_symlinks=1
 
 " ==========gundo==========
 
+" gundo打开快捷键
 nnoremap <Leader>ud :GundoToggle<CR>
 
 
 " ==========MatchTagAlways==========
 
-nnoremap <leader>% :MtaJumpToOtherTag<cr>
+" html标签跳转
+nnoremap <leader>% :MtaJumpToOtherTag<CR>
 
 
 " ==========easymotion==========
 
 " 忽略大小写
 let g:EasyMotion_smartcase = 1
+
+" ==========closetag==========
+
+" 默认html风格
+let g:closetag_html_style=1
 
 
 " ==========主题设置==========
@@ -340,5 +356,3 @@ set background=dark
 " molokai主题
 let g:rehash256 = 1
 colorscheme molokai
-
-
