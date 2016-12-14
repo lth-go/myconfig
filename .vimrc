@@ -36,8 +36,6 @@ Plugin 'tpope/vim-surround'
 Plugin 'easymotion/vim-easymotion'
 " html标签匹配
 Plugin 'valloric/MatchTagAlways'
-" 自动补全html/xml标签
-Plugin 'docunext/closetag.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -172,7 +170,7 @@ autocmd bufnewfile *.py call HeaderPython()
 
 " 打开自动定位到最后编辑的位置
 if has("autocmd")
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
 
@@ -243,7 +241,7 @@ let g:ycm_min_num_of_chars_for_completion=1
 " 指定jedi的Python解释器路径，防止虚拟环境问题
 let g:ycm_server_python_interpreter = 'python'
 " 函数跳转
-nnoremap <leader>gd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 
 " ==========NERDTree==========
@@ -266,7 +264,7 @@ let NERDTreeIgnore=['\.pyc','\~$','\.swp','\.git$','\.idea']
 
 " 需安装python-autopep8
 " 格式化代码快捷键
-noremap <F3> :Autoformat<CR>
+noremap <Leader>a :Autoformat<CR>
 
 
 " ==========Airline==========
@@ -290,15 +288,15 @@ let g:airline_left_alt_sep = '|'
 " ==========RainbowParentheses==========
 
 let g:rbpt_colorpairs = [
-    \ ['brown',       'RoyalBlue3'],
-    \ ['darkgray',    'DarkOrchid3'],
-    \ ['darkgreen',   'firebrick3'],
-    \ ['darkcyan',    'RoyalBlue3'],
-    \ ['darkred',     'SeaGreen3'],
-    \ ['darkmagenta', 'DarkOrchid3'],
-    \ ['gray',        'RoyalBlue3'],
-    \ ['red',         'firebrick3'],
-    \ ]
+            \ ['brown',       'RoyalBlue3'],
+            \ ['darkgray',    'DarkOrchid3'],
+            \ ['darkgreen',   'firebrick3'],
+            \ ['darkcyan',    'RoyalBlue3'],
+            \ ['darkred',     'SeaGreen3'],
+            \ ['darkmagenta', 'DarkOrchid3'],
+            \ ['gray',        'RoyalBlue3'],
+            \ ['red',         'firebrick3'],
+            \ ]
 let g:rbpt_max = 8
 let g:rbpt_loadcmd_toggle = 0
 au VimEnter * RainbowParenthesesToggle
@@ -313,9 +311,9 @@ au Syntax * RainbowParenthesesLoadBraces
 let g:ctrlp_map = '<leader>f'
 " 忽略文件
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|idea)$',
-  \ 'file': '\v\.(so|zip|tar|tar.gz|pyc)$',
-  \ }
+            \ 'dir':  '\v[\/]\.(git|idea)$',
+            \ 'file': '\v\.(so|zip|tar|tar.gz|pyc)$',
+            \ }
 
 let g:ctrlp_working_path_mode=0
 let g:ctrlp_match_window_bottom=1
@@ -328,7 +326,7 @@ let g:ctrlp_follow_symlinks=1
 " ==========gundo==========
 
 " gundo打开快捷键
-nnoremap <Leader>ud :GundoToggle<CR>
+nnoremap <Leader>u :GundoToggle<CR>
 
 
 " ==========MatchTagAlways==========
