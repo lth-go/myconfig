@@ -105,6 +105,10 @@ set nowrap
 set cursorline
 "set cursorcolumn
 
+" 指定分割的区域
+set splitbelow
+set splitright
+
 
 " ==========内容==========
 
