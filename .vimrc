@@ -230,16 +230,16 @@ let g:ycm_complete_in_comments=1
 let g:ycm_complete_in_strings = 1
 " 注释和字符串中的文字也会被收入补全
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
-" 允许vim 加载.ycm_extra_conf.py 文件，不再提示
-let g:ycm_confirm_extra_conf=0
+" 加载ycm_extra_conf.py文件
+let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
-" 关闭语法检查
-let g:ycm_show_diagnostics_ui = 0
+" 跳转到定义处, 分屏打开
+let g:ycm_goto_buffer_command = 'horizontal-split'
 " 从第一个键入字符就开始罗列匹配项
 let g:ycm_min_num_of_chars_for_completion=1
-" 指定jedi的Python解释器路径，防止虚拟环境问题
-let g:ycm_server_python_interpreter = 'python'
+" 指定jedi的Python解释器路径
+let g:ycm_server_python_interpreter = '/work/mapboom/mapboom_env/bin/python'
 " 函数跳转
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
