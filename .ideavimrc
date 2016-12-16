@@ -2,6 +2,12 @@ set hlsearch
 set ignorecase
 set number
 set relativenumber
+set clipboard = unnamed
+set history = 2000
+set incsearch
+set showmode
+
+set surround
 
 nnoremap H ^
 nnoremap L $"

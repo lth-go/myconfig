@@ -238,7 +238,7 @@ let g:ycm_goto_buffer_command = 'horizontal-split'
 " 从第一个键入字符就开始罗列匹配项
 let g:ycm_min_num_of_chars_for_completion=1
 " 指定jedi的Python解释器路径
-let g:ycm_server_python_interpreter = '/work/mapboom/mapboom_env/bin/python'
+let g:ycm_server_python_interpreter = '/work/python_venv/mapboom_venv/bin/python'
 " 函数跳转
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
