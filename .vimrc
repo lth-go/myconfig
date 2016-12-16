@@ -38,25 +38,18 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'valloric/MatchTagAlways'
 
 call vundle#end()
-filetype plugin indent on
 
 
 " ==========基础设置==========
 
-" 文件检测类型
-filetype on
-" 根据类型加载对应插件
-filetype plugin on
-" 智能缩进
-filetype indent on
+" 文件类型检测
+filetype plugin indent on
 
 " 设置编码格式
 set encoding=utf-8
 
 " 文件修改自动载入
 set autoread
-" 自动保存
-set autowrite
 " 取消备份
 set nobackup
 " 关闭交换文件
@@ -116,6 +109,8 @@ set splitright
 syntax enable
 " 允许替换默认配色
 syntax on
+" python语法高亮
+let python_highlight_all = 1
 
 " 括号配对情况, 跳转并高亮一下匹配的括号
 set showmatch
