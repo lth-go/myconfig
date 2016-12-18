@@ -338,6 +338,8 @@ nnoremap <leader>% :MtaJumpToOtherTag<CR>
 
 " 忽略大小写
 let g:EasyMotion_smartcase = 1
+" s键快速跳转
+nmap s <Plug>(easymotion-s)
 
 
 " ==========主题设置==========
