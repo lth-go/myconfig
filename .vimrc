@@ -28,16 +28,12 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/rainbow_parentheses.vim'
 " 代码格式化
 Plugin 'Chiel92/vim-autoformat'
-" 历史回退
-Plugin 'sjl/gundo.vim'
 " 标签修改
 Plugin 'tpope/vim-surround'
 " 快速移动
 Plugin 'easymotion/vim-easymotion'
 " html标签匹配
 Plugin 'valloric/MatchTagAlways'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
 
 call vundle#end()
 
@@ -117,11 +113,6 @@ syntax enable
 syntax on
 " python语法高亮
 let python_highlight_all = 1
-
-" 括号配对情况, 跳转并高亮一下匹配的括号
-set showmatch
-" 括号匹配时间
-set matchtime=2
 
 " 高亮显示搜索结果
 set hlsearch
@@ -307,10 +298,10 @@ let g:rbpt_colorpairs = [
             \ ]
 let g:rbpt_max = 8
 let g:rbpt_loadcmd_toggle = 0
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+autocmd VimEnter * RainbowParenthesesToggle
+autocmd Syntax * RainbowParenthesesLoadRound
+autocmd Syntax * RainbowParenthesesLoadSquare
+autocmd Syntax * RainbowParenthesesLoadBraces
 
 
 " ==========CtrlP==========
@@ -327,14 +318,7 @@ let g:ctrlp_working_path_mode=0
 let g:ctrlp_match_window_bottom=1
 let g:ctrlp_max_height=15
 let g:ctrlp_match_window_reversed=0
-let g:ctrlp_mruf_max=500
 let g:ctrlp_follow_symlinks=1
-
-
-" ==========gundo==========
-
-" gundo打开快捷键
-nnoremap <Leader>u :GundoToggle<CR>
 
 
 " ==========MatchTagAlways==========
@@ -343,7 +327,7 @@ nnoremap <Leader>u :GundoToggle<CR>
 nnoremap <leader>% :MtaJumpToOtherTag<CR>
 
 
-" ==========easymotion==========
+" ==========EasyMotion==========
 
 " 关闭默认快捷键
 let g:EasyMotion_do_mapping = 0
@@ -354,36 +338,6 @@ nmap s <Plug>(easymotion-s)
 nmap S <Plug>(easymotion-sn)
 
 
-" ==========UltiSnips==========
-let g:UltiSnipsExpandTrigger       = "<tab>"
-let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-let g:UltiSnipsSnippetDirectories  = ['UltiSnips']
-let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-" 定义存放代码片段的文件夹 .vim/UltiSnips下，使用自定义和默认的，将会的到全局，有冲突的会提示
-" 进入对应filetype的snippets进行编辑
-map <leader>us :UltiSnipsEdit<CR>
-
-" ctrl+j/k 进行选择
-func! g:JInYCM()
-    if pumvisible()
-        return "\<C-n>"
-    else
-        return "\<c-j>"
-    endif
-endfunction
-
-func! g:KInYCM()
-    if pumvisible()
-        return "\<C-p>"
-    else
-        return "\<c-k>"
-    endif
-endfunction
-inoremap <c-j> <c-r>=g:JInYCM()<cr>
-au BufEnter,BufRead * exec "inoremap <silent> " . g:UltiSnipsJumpBackwordTrigger . " <C-R>=g:KInYCM()<cr>"
-let g:UltiSnipsJumpBackwordTrigger = "<c-k>"
-"
 " ==========主题设置==========
 
 " 设置背景颜色
