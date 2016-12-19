@@ -67,6 +67,9 @@ set history=2000
 " 忽略文件
 set wildignore+=*.swp,*.pyc,.idea,.git
 
+" 提高画面平滑度
+set ttyfast
+
 
 " ==========界面==========
 
@@ -83,6 +86,7 @@ set completeopt=longest,menu
 set completeopt-=preview
 " vim 自身命令行模式智能补全
 set wildmenu
+set wildmode=longest:full,full
 
 " 相对行号
 set relativenumber number
@@ -209,7 +213,8 @@ cnoremap <C-e> <End>
 " 打开时语法检查
 let g:syntastic_check_on_open = 1
 " 设置python语法检查
-let g:syntastic_python_checkers=['pyflakes']
+let g:syntastic_python_checkers=['pyflakes', 'pep8']
+let g:syntastic_python_pep8_args='--ignore=E501,E225,E124,E712'
 " 右下角状态栏隐藏
 let g:syntastic_stl_format = ""
 " 显示错误列表
@@ -340,6 +345,7 @@ nnoremap <leader>% :MtaJumpToOtherTag<CR>
 let g:EasyMotion_smartcase = 1
 " s键快速跳转
 nmap s <Plug>(easymotion-s)
+nmap S <Plug>(easymotion-sn)
 
 
 " ==========主题设置==========
