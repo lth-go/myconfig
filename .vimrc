@@ -36,6 +36,8 @@ Plugin 'tpope/vim-surround'
 Plugin 'easymotion/vim-easymotion'
 " html标签匹配
 Plugin 'valloric/MatchTagAlways'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 
 call vundle#end()
 
@@ -245,9 +247,10 @@ let g:ycm_goto_buffer_command = 'horizontal-split'
 let g:ycm_min_num_of_chars_for_completion=1
 " 指定jedi的Python解释器路径
 let g:ycm_server_python_interpreter = '/work/python_venv/mapboom_venv/bin/python'
+" 提示UltiSnips
+let g:ycm_use_ultisnips_completer = 1 
 " 函数跳转
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
 
 " ==========NERDTree==========
 
@@ -342,6 +345,8 @@ nnoremap <leader>% :MtaJumpToOtherTag<CR>
 
 " ==========easymotion==========
 
+" 关闭默认快捷键
+let g:EasyMotion_do_mapping = 0
 " 忽略大小写
 let g:EasyMotion_smartcase = 1
 " s键快速跳转
@@ -349,6 +354,36 @@ nmap s <Plug>(easymotion-s)
 nmap S <Plug>(easymotion-sn)
 
 
+" ==========UltiSnips==========
+let g:UltiSnipsExpandTrigger       = "<tab>"
+let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsSnippetDirectories  = ['UltiSnips']
+let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
+" 定义存放代码片段的文件夹 .vim/UltiSnips下，使用自定义和默认的，将会的到全局，有冲突的会提示
+" 进入对应filetype的snippets进行编辑
+map <leader>us :UltiSnipsEdit<CR>
+
+" ctrl+j/k 进行选择
+func! g:JInYCM()
+    if pumvisible()
+        return "\<C-n>"
+    else
+        return "\<c-j>"
+    endif
+endfunction
+
+func! g:KInYCM()
+    if pumvisible()
+        return "\<C-p>"
+    else
+        return "\<c-k>"
+    endif
+endfunction
+inoremap <c-j> <c-r>=g:JInYCM()<cr>
+au BufEnter,BufRead * exec "inoremap <silent> " . g:UltiSnipsJumpBackwordTrigger . " <C-R>=g:KInYCM()<cr>"
+let g:UltiSnipsJumpBackwordTrigger = "<c-k>"
+"
 " ==========主题设置==========
 
 " 设置背景颜色
