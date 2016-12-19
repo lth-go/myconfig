@@ -132,7 +132,8 @@ set ignorecase
 set backspace=2
 
 " 智能缩进
-set smartindent
+"set smartindent
+set cindent
 " 自动缩进
 set autoindent
 
