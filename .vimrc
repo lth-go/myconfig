@@ -34,6 +34,8 @@ Plugin 'tpope/vim-surround'
 Plugin 'easymotion/vim-easymotion'
 " html标签匹配
 Plugin 'valloric/MatchTagAlways'
+Plugin 'SirVer/ultisnips' 
+Plugin 'honza/vim-snippets'
 
 call vundle#end()
 
@@ -334,6 +336,14 @@ let g:EasyMotion_smartcase = 1
 " s键快速跳转
 nmap s <Plug>(easymotion-s)
 nmap S <Plug>(easymotion-sn)
+
+
+" ==========UltiSnips==========
+
+" 插入模板
+let g:UltiSnipsExpandTrigger = "<leader><tab>"
+" 模板目录
+let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
 
 
 " ==========主题设置==========
