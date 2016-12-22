@@ -2,7 +2,7 @@
 export ZSH=$HOME/.oh-my-zsh
 
 # 主题
-ZSH_THEME="robbyrussell"
+ZSH_THEME="lth"
 
 # 插件
 # git://github.com/zsh-users/{}
