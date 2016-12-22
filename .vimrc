@@ -11,8 +11,13 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/syntastic'
 " 代码补全
 Plugin 'Valloric/YouCompleteMe'
+" 模板补全
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 " 文件查找
 Plugin 'ctrlpvim/ctrlp.vim'
+" 快速移动
+Plugin 'easymotion/vim-easymotion'
 " 主题配色
 Plugin 'tomasr/molokai'
 " 文件列表
@@ -30,12 +35,8 @@ Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'Chiel92/vim-autoformat'
 " 标签修改
 Plugin 'tpope/vim-surround'
-" 快速移动
-Plugin 'easymotion/vim-easymotion'
 " html标签匹配
 Plugin 'valloric/MatchTagAlways'
-Plugin 'SirVer/ultisnips' 
-Plugin 'honza/vim-snippets'
 
 call vundle#end()
 
@@ -243,27 +244,57 @@ let g:ycm_server_python_interpreter = '/work/python_venv/mapboom_venv/bin/python
 " 函数跳转
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
+
+" ==========UltiSnips==========
+
+" 插入模板
+let g:UltiSnipsExpandTrigger = "<leader><tab>"
+" 模板目录
+let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
+
+
+" ==========CtrlP==========
+
+" 搜索快捷键修改
+let g:ctrlp_map = '<leader>f'
+" 忽略文件
+let g:ctrlp_custom_ignore = {
+            \ 'dir':  '\v[\/]\.(git|idea)$',
+            \ 'file': '\v\.(so|zip|tar|tar.gz|pyc)$',
+            \ }
+
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_max_height=15
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_follow_symlinks=1
+
+
+" ==========EasyMotion==========
+
+" 关闭默认快捷键
+let g:EasyMotion_do_mapping = 0
+" 忽略大小写
+let g:EasyMotion_smartcase = 1
+" s键快速跳转
+nmap s <Plug>(easymotion-s)
+nmap S <Plug>(easymotion-sn)
+
+
 " ==========NERDTree==========
 
-" 使用 NERDTree 插件查看工程文件
+" 使用NERDTree插件查看工程文件
 nmap <Leader>d :NERDTreeToggle<CR>
 " 显示隐藏文件
 let NERDTreeShowHidden=1
-" NERDTree 子窗口中不显示冗余帮助信息
+" NERDTree子窗口中不显示冗余帮助信息
 let NERDTreeMinimalUI=1
-" 删除文件时自动删除文件对应 buffer
+" 删除文件时自动删除文件对应buffer
 let NERDTreeAutoDeleteBuffer=1
 " 退出vim时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 忽略一下文件的显示
 let NERDTreeIgnore=['\.pyc','\~$','\.swp','\.git$','\.idea']
-
-
-" ==========Autoformat==========
-
-" 需安装python-autopep8
-" 格式化代码快捷键
-noremap <Leader>a :Autoformat<CR>
 
 
 " ==========Airline==========
@@ -284,6 +315,12 @@ let g:airline_left_sep = ''
 let g:airline_left_alt_sep = '|'
 
 
+" ==========Autoformat==========
+
+" 格式化代码快捷键,需安装python-autopep8
+noremap <Leader>a :Autoformat<CR>
+
+
 " ==========RainbowParentheses==========
 
 let g:rbpt_colorpairs = [
@@ -302,48 +339,6 @@ autocmd VimEnter * RainbowParenthesesToggle
 autocmd Syntax * RainbowParenthesesLoadRound
 autocmd Syntax * RainbowParenthesesLoadSquare
 autocmd Syntax * RainbowParenthesesLoadBraces
-
-
-" ==========CtrlP==========
-
-" 搜索快捷键修改
-let g:ctrlp_map = '<leader>f'
-" 忽略文件
-let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\v[\/]\.(git|idea)$',
-            \ 'file': '\v\.(so|zip|tar|tar.gz|pyc)$',
-            \ }
-
-let g:ctrlp_working_path_mode=0
-let g:ctrlp_match_window_bottom=1
-let g:ctrlp_max_height=15
-let g:ctrlp_match_window_reversed=0
-let g:ctrlp_follow_symlinks=1
-
-
-" ==========MatchTagAlways==========
-
-" html标签跳转
-nnoremap <leader>% :MtaJumpToOtherTag<CR>
-
-
-" ==========EasyMotion==========
-
-" 关闭默认快捷键
-let g:EasyMotion_do_mapping = 0
-" 忽略大小写
-let g:EasyMotion_smartcase = 1
-" s键快速跳转
-nmap s <Plug>(easymotion-s)
-nmap S <Plug>(easymotion-sn)
-
-
-" ==========UltiSnips==========
-
-" 插入模板
-let g:UltiSnipsExpandTrigger = "<leader><tab>"
-" 模板目录
-let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
 
 
 " ==========主题设置==========
