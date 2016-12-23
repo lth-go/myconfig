@@ -88,6 +88,8 @@ set completeopt-=preview
 " vim 自身命令行模式智能补全
 set wildmenu
 set wildmode=longest:full,full
+" 命令行忽略大小写
+set wildignorecase
 
 " 相对行号
 set relativenumber number
@@ -123,12 +125,12 @@ set hlsearch
 set incsearch
 " 搜索时大小写不敏感
 set ignorecase
+set smartcase 
 
 " 退格键正常处理
 set backspace=2
 
 " 智能缩进
-"set smartindent
 set cindent
 " 自动缩进
 set autoindent
@@ -239,6 +241,8 @@ let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_goto_buffer_command = 'horizontal-split'
 " 从第一个键入字符就开始罗列匹配项
 let g:ycm_min_num_of_chars_for_completion=1
+" 禁止缓存匹配项，每次都重新生成匹配项
+let g:ycm_cache_omnifunc=0
 " 指定jedi的Python解释器路径
 let g:ycm_server_python_interpreter = '/work/python_venv/mapboom_venv/bin/python'
 " 函数跳转
