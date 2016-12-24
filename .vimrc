@@ -16,12 +16,16 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 " 文件查找
 Plugin 'ctrlpvim/ctrlp.vim'
+" 文本搜索
+Plugin 'dyng/ctrlsf.vim'
 " 快速移动
 Plugin 'easymotion/vim-easymotion'
 " 主题配色
 Plugin 'tomasr/molokai'
 " 文件列表
 Plugin 'scrooloose/nerdtree'
+" 函数列表
+Plugin 'majutsushi/tagbar'
 " 状态栏
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -125,7 +129,7 @@ set hlsearch
 set incsearch
 " 搜索时大小写不敏感
 set ignorecase
-set smartcase 
+set smartcase
 
 " 退格键正常处理
 set backspace=2
@@ -274,6 +278,26 @@ let g:ctrlp_match_window_reversed=0
 let g:ctrlp_follow_symlinks=1
 
 
+" ==========CtrlSF==========
+
+nmap <leader>s <Plug>CtrlSFCwordPath<CR>
+let g:ctrlsf_position = 'below'
+let g:ctrlsf_winsize = '30%'
+let g:ctrlsf_auto_close = 0
+let g:ctrlsf_confirm_save = 0
+let g:ctrlsf_mapping = {
+            \ "open"  : "<Space>",
+            \ "openb" : "O",
+            \ "tab"   : "t",
+            \ "tabb"  : "T",
+            \ "prevw" : "p",
+            \ "quit"  : "q",
+            \ "next"  : "<C-J>",
+            \ "prev"  : "<C-K>",
+            \ "pquit" : "q",
+            \ }
+
+
 " ==========EasyMotion==========
 
 " 关闭默认快捷键
@@ -299,6 +323,14 @@ let NERDTreeAutoDeleteBuffer=1
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 忽略一下文件的显示
 let NERDTreeIgnore=['\.pyc','\~$','\.swp','\.git$','\.idea']
+
+
+" ==========tagbar==========
+
+nmap <F9> :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
+" let g:tagbar_autoshowtag = 1
+" let g:tagbar_show_visibility = 1
 
 
 " ==========Airline==========
