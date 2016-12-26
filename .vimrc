@@ -39,6 +39,7 @@ Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'Chiel92/vim-autoformat'
 " 标签修改
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
 " html标签匹配
 Plugin 'valloric/MatchTagAlways'
 
@@ -50,8 +51,12 @@ call vundle#end()
 " 文件类型检测
 filetype plugin indent on
 
+" vimrc文件修改之后自动加载
+"autocmd! bufwritepost .vimrc source %
+
 " 设置编码格式
 set encoding=utf-8
+set termencoding=utf-8
 
 " 文件修改自动载入
 set autoread
@@ -166,7 +171,7 @@ set scrolloff=5
 autocmd InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
 
 " 自动添加python文件头部
-function HeaderPython()
+function! HeaderPython()
     call setline(1, "#!/usr/bin/env python")
     call append(1, "# -*- coding: utf-8 -*-")
     normal G
@@ -207,6 +212,13 @@ cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
+
+" 搜索时关键词居中
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
 
 
 " ==========插件==========
@@ -281,21 +293,10 @@ let g:ctrlp_follow_symlinks=1
 " ==========CtrlSF==========
 
 nmap <leader>s <Plug>CtrlSFCwordPath<CR>
-let g:ctrlsf_position = 'below'
+let g:ctrlsf_position = 'bottom'
 let g:ctrlsf_winsize = '30%'
 let g:ctrlsf_auto_close = 0
 let g:ctrlsf_confirm_save = 0
-let g:ctrlsf_mapping = {
-            \ "open"  : "<Space>",
-            \ "openb" : "O",
-            \ "tab"   : "t",
-            \ "tabb"  : "T",
-            \ "prevw" : "p",
-            \ "quit"  : "q",
-            \ "next"  : "<C-J>",
-            \ "prev"  : "<C-K>",
-            \ "pquit" : "q",
-            \ }
 
 
 " ==========EasyMotion==========
@@ -327,10 +328,8 @@ let NERDTreeIgnore=['\.pyc','\~$','\.swp','\.git$','\.idea']
 
 " ==========tagbar==========
 
-nmap <F9> :TagbarToggle<CR>
+nmap <leader>t :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
-" let g:tagbar_autoshowtag = 1
-" let g:tagbar_show_visibility = 1
 
 
 " ==========Airline==========
