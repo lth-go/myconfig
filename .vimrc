@@ -335,7 +335,7 @@ let g:tagbar_autofocus = 1
 " ==========Airline==========
 
 " 设置airline主题
-let g:airline_theme="monochrome"
+let g:airline_theme="powerlineish"
 " 打开tabline功能
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
