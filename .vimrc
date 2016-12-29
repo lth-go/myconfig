@@ -230,6 +230,10 @@ nnoremap <silent> * *zz
 nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 
+" 调整缩进后自动选中，方便再次操作
+vnoremap < <gv
+vnoremap > >gv
+
 
 " ==========插件==========
 
@@ -239,6 +243,7 @@ nnoremap <silent> g* g*zz
 let g:syntastic_check_on_open = 1
 " 设置python语法检查
 let g:syntastic_python_checkers=['pyflakes', 'pep8']
+let g:syntastic_python_pyflakes_args='--ignore=F841'
 let g:syntastic_python_pep8_args='--ignore=E501,E225,E124,E712'
 " 右下角状态栏隐藏
 let g:syntastic_stl_format = ""
@@ -246,6 +251,15 @@ let g:syntastic_stl_format = ""
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_loc_list_height = 5
+function! ToggleErrors()
+    let old_last_winnr = winnr('$')
+    lclose
+    if old_last_winnr == winnr('$')
+        " Nothing was closed, open syntastic_error location panel
+        Errors
+    endif
+endfunction
+nnoremap <Leader>e :call ToggleErrors()<cr>
 
 
 " ==========YCM==========
