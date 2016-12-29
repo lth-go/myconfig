@@ -91,9 +91,7 @@ set ruler
 set showcmd
 
 " 菜单补全
-set completeopt=longest,menu
-" 补全内容只显示补全列表
-set completeopt-=preview
+set completeopt=menuone
 " vim 自身命令行模式智能补全
 set wildmenu
 set wildmode=longest:full,full
@@ -295,10 +293,7 @@ nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:UltiSnipsExpandTrigger = "<leader><tab>"
 " 模板目录
 let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-
-
-" ==========CtrlP==========
-
+" ==========CtrlP========== 
 " 搜索快捷键修改
 let g:ctrlp_map = '<leader>f'
 " 忽略文件
