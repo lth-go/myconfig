@@ -52,7 +52,7 @@ call vundle#end()
 filetype plugin indent on
 
 " vimrc文件修改之后自动加载
-"autocmd! bufwritepost .vimrc source %
+autocmd! bufwritepost .vimrc source %
 
 " 设置编码格式
 set encoding=utf-8
@@ -102,8 +102,9 @@ set wildignorecase
 
 " 相对行号
 set relativenumber number
-autocmd FocusLost * :set norelativenumber number
-autocmd FocusGained * :set relativenumber
+" 当前窗口用相对行号，其他窗口绝对行号
+autocmd WinEnter,FocusGained * :setlocal number relativenumber
+autocmd WinLeave,FocusLost   * :setlocal number norelativenumber
 " 插入模式下用绝对行号, 普通模式下用相对
 autocmd InsertEnter * :set norelativenumber number
 autocmd InsertLeave * :set relativenumber
@@ -206,6 +207,15 @@ noremap L $
 " 切换buffer
 nnoremap <C-n> :bn<CR>
 nnoremap <C-p> :bp<CR>
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
 
 " 命令行模式增强
 cnoremap <C-j> <t_kd>
@@ -307,7 +317,7 @@ let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 " s键快速跳转
 nmap s <Plug>(easymotion-s)
-nmap S <Plug>(easymotion-sn)
+nmap S <Plug>(easymotion-overwin-f)
 
 
 " ==========NERDTree==========
@@ -339,6 +349,8 @@ let g:airline_theme="powerlineish"
 " 打开tabline功能
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
+" 标签页只显示文件名
+let g:airline#extensions#tabline#fnamemod = ':t'
 " 关闭状态显示空白符号计数
 let g:airline#extensions#whitespace#enabled = 0
 " 去除右上角buffer
