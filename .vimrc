@@ -39,6 +39,7 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/rainbow_parentheses.vim'
 " 代码格式化
 Plugin 'Chiel92/vim-autoformat'
+Plugin 'hynek/vim-python-pep8-indent'
 " 标签修改
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
@@ -70,7 +71,7 @@ set nobackup
 set noswapfile
 
 " 正则magic模式
-set magic
+"set magic
 
 " 快捷键延迟
 set ttimeoutlen=10
