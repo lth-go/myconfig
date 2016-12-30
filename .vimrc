@@ -1,4 +1,6 @@
-" ========== Vundle==========
+"""""""""""""""""""""""""""""""""""""""""""""
+"                  Vundle                   "
+"""""""""""""""""""""""""""""""""""""""""""""
 
 set nocompatible
 filetype off
@@ -46,7 +48,9 @@ Plugin 'valloric/MatchTagAlways'
 call vundle#end()
 
 
-" ==========基础设置==========
+"""""""""""""""""""""""""""""""""""""""""""""
+"                   基础                    "
+"""""""""""""""""""""""""""""""""""""""""""""
 
 " 文件类型检测
 filetype plugin indent on
@@ -81,7 +85,9 @@ set wildignore+=*.swp,*.pyc,.idea,.git
 set ttyfast
 
 
-" ==========界面==========
+"""""""""""""""""""""""""""""""""""""""""""""
+"                   界面                    "
+"""""""""""""""""""""""""""""""""""""""""""""
 
 " 总是显示状态栏
 set laststatus=2
@@ -118,7 +124,9 @@ set splitbelow
 set splitright
 
 
-" ==========内容==========
+"""""""""""""""""""""""""""""""""""""""""""""
+"                   内容                    "
+"""""""""""""""""""""""""""""""""""""""""""""
 
 " 开启语法高亮功能
 syntax enable
@@ -164,8 +172,10 @@ set listchars=tab:>-,trail:·,nbsp:·
 set scrolloff=5
 
 
-" ==========其他==========
-"
+"""""""""""""""""""""""""""""""""""""""""""""
+"                   其他                    "
+"""""""""""""""""""""""""""""""""""""""""""""
+
 " 输入法正常切换
 autocmd InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
 
@@ -184,7 +194,9 @@ if has("autocmd")
 endif
 
 
-" ==========快捷键==========
+"""""""""""""""""""""""""""""""""""""""""""""
+"                  快捷键                   "
+"""""""""""""""""""""""""""""""""""""""""""""
 
 " 废弃F1
 noremap <F1> <Esc>"
@@ -232,17 +244,20 @@ nnoremap <silent> g* g*zz
 vnoremap < <gv
 vnoremap > >gv
 
+" w!用sudo保存
+cmap w!! w !sudo tee >/dev/null %
 
-" ==========插件==========
 
-" ==========Syntastic==========
+"""""""""""""""""""""""""""""""""""""""""""""
+"                 Syntastic                 "
+"""""""""""""""""""""""""""""""""""""""""""""
 
 " 打开时语法检查
 let g:syntastic_check_on_open = 1
 " 设置python语法检查
 let g:syntastic_python_checkers=['pyflakes', 'pep8']
-let g:syntastic_python_pyflakes_args='--ignore=F841'
-let g:syntastic_python_pep8_args='--ignore=E501,E225,E124,E712'
+let g:syntastic_python_pyflakes_args='--ignore=F401'
+let g:syntastic_python_pep8_args='--ignore=E501'
 " 右下角状态栏隐藏
 let g:syntastic_stl_format = ""
 " 显示错误列表
@@ -260,7 +275,9 @@ endfunction
 nnoremap <Leader>e :call ToggleErrors()<cr>
 
 
-" ==========YCM==========
+"""""""""""""""""""""""""""""""""""""""""""""
+"                   YCM                     "
+"""""""""""""""""""""""""""""""""""""""""""""
 
 " 下拉栏快捷键
 let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>', '<c-k>']
@@ -271,8 +288,6 @@ let g:ycm_complete_in_comments=1
 let g:ycm_complete_in_strings = 1
 " 注释和字符串中的文字也会被收入补全
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
-" 加载ycm_extra_conf.py文件
-let g:ycm_global_ycm_extra_conf = "~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py"
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
 " 跳转到定义处, 分屏打开
@@ -287,13 +302,15 @@ let g:ycm_server_python_interpreter = '/work/python_venv/mapboom_venv/bin/python
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 
-" ==========UltiSnips==========
+"""""""""""""""""""""""""""""""""""""""""""""
+"                 UltiSnips                 "
+"""""""""""""""""""""""""""""""""""""""""""""
 
 " 插入模板
 let g:UltiSnipsExpandTrigger = "<leader><tab>"
 " 模板目录
 let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-" ==========CtrlP========== 
+" ==========CtrlP==========
 " 搜索快捷键修改
 let g:ctrlp_map = '<leader>f'
 " 忽略文件
@@ -309,7 +326,9 @@ let g:ctrlp_match_window_reversed=0
 let g:ctrlp_follow_symlinks=1
 
 
-" ==========CtrlSF==========
+"""""""""""""""""""""""""""""""""""""""""""""
+"                   CtrlSF                  "
+"""""""""""""""""""""""""""""""""""""""""""""
 
 nmap <leader>s <Plug>CtrlSFCwordPath<CR>
 let g:ctrlsf_position = 'bottom'
@@ -318,7 +337,9 @@ let g:ctrlsf_auto_close = 0
 let g:ctrlsf_confirm_save = 0
 
 
-" ==========EasyMotion==========
+"""""""""""""""""""""""""""""""""""""""""""""
+"                 EasyMotion                "
+"""""""""""""""""""""""""""""""""""""""""""""
 
 " 关闭默认快捷键
 let g:EasyMotion_do_mapping = 0
@@ -329,7 +350,9 @@ nmap s <Plug>(easymotion-s)
 nmap S <Plug>(easymotion-overwin-f)
 
 
-" ==========NERDTree==========
+"""""""""""""""""""""""""""""""""""""""""""""
+"                  NERDTree                 "
+"""""""""""""""""""""""""""""""""""""""""""""
 
 " 使用NERDTree插件查看工程文件
 nmap <Leader>d :NERDTreeToggle<CR>
@@ -345,13 +368,18 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let NERDTreeIgnore=['\.pyc','\~$','\.swp','\.git$','\.idea']
 
 
-" ==========tagbar==========
+"""""""""""""""""""""""""""""""""""""""""""""
+"                   Tagbar                  "
+"""""""""""""""""""""""""""""""""""""""""""""
 
 nmap <leader>t :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
+let g:tagbar_show_linenumbers = -1
 
 
-" ==========Airline==========
+"""""""""""""""""""""""""""""""""""""""""""""
+"                  Airline                  "
+"""""""""""""""""""""""""""""""""""""""""""""
 
 " 设置airline主题
 let g:airline_theme="powerlineish"
@@ -371,13 +399,17 @@ let g:airline_left_sep = ''
 let g:airline_left_alt_sep = '|'
 
 
-" ==========Autoformat==========
+"""""""""""""""""""""""""""""""""""""""""""""
+"                 Autoformat                "
+"""""""""""""""""""""""""""""""""""""""""""""
 
 " 格式化代码快捷键,需安装python-autopep8
 noremap <Leader>a :Autoformat<CR>
 
 
-" ==========RainbowParentheses==========
+"""""""""""""""""""""""""""""""""""""""""""""
+"            RainbowParentheses             "
+"""""""""""""""""""""""""""""""""""""""""""""
 
 let g:rbpt_colorpairs = [
             \ ['brown',       'RoyalBlue3'],
@@ -397,7 +429,9 @@ autocmd Syntax * RainbowParenthesesLoadSquare
 autocmd Syntax * RainbowParenthesesLoadBraces
 
 
-" ==========主题设置==========
+"""""""""""""""""""""""""""""""""""""""""""""
+"                     主题                  "
+"""""""""""""""""""""""""""""""""""""""""""""
 
 " 设置背景颜色
 set background=dark
