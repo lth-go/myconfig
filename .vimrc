@@ -40,10 +40,13 @@ Plugin 'kien/rainbow_parentheses.vim'
 " 代码格式化
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'fisadev/vim-isort'
+Plugin 'Yggdroot/indentLine'
 " 标签修改
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 " html标签匹配
+Plugin 'alvan/vim-closetag'
 Plugin 'valloric/MatchTagAlways'
 
 call vundle#end()
@@ -216,8 +219,6 @@ noremap H ^
 noremap L $
 
 " 切换buffer
-nnoremap <C-n> :bn<CR>
-nnoremap <C-p> :bp<CR>
 nnoremap <Leader>1 :1b<CR>
 nnoremap <Leader>2 :2b<CR>
 nnoremap <Leader>3 :3b<CR>
@@ -428,6 +429,13 @@ autocmd VimEnter * RainbowParenthesesToggle
 autocmd Syntax * RainbowParenthesesLoadRound
 autocmd Syntax * RainbowParenthesesLoadSquare
 autocmd Syntax * RainbowParenthesesLoadBraces
+
+
+"""""""""""""""""""""""""""""""""""""""""""""
+"                   Isort                   "
+"""""""""""""""""""""""""""""""""""""""""""""
+
+let g:vim_isort_map = '<Leader>i'
 
 
 """""""""""""""""""""""""""""""""""""""""""""
