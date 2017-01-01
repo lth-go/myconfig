@@ -257,9 +257,8 @@ cmap w!! w !sudo tee >/dev/null %
 " 打开时语法检查
 let g:syntastic_check_on_open = 1
 " 设置python语法检查
-let g:syntastic_python_checkers=['pyflakes', 'pep8']
-let g:syntastic_python_pyflakes_args='--ignore=F401'
-let g:syntastic_python_pep8_args='--ignore=E501'
+let g:syntastic_python_checkers=['flake8']
+let g:syntastic_python_flake8_args='--ignore=E501'
 " 右下角状态栏隐藏
 let g:syntastic_stl_format = ""
 " 显示错误列表
