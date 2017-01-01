@@ -435,7 +435,7 @@ autocmd Syntax * RainbowParenthesesLoadBraces
 "                   Isort                   "
 """""""""""""""""""""""""""""""""""""""""""""
 
-let g:vim_isort_map = '<Leader>i'
+nnoremap <Leader>i :Isort<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""
