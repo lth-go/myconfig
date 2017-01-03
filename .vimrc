@@ -39,10 +39,14 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/rainbow_parentheses.vim'
 " 代码格式化
 Plugin 'Chiel92/vim-autoformat'
+Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'fisadev/vim-isort'
+Plugin 'Yggdroot/indentLine'
 " 标签修改
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 " html标签匹配
+Plugin 'alvan/vim-closetag'
 Plugin 'valloric/MatchTagAlways'
 
 call vundle#end()
@@ -70,7 +74,7 @@ set nobackup
 set noswapfile
 
 " 正则magic模式
-set magic
+"set magic
 
 " 快捷键延迟
 set ttimeoutlen=10
@@ -215,8 +219,6 @@ noremap H ^
 noremap L $
 
 " 切换buffer
-nnoremap <C-n> :bn<CR>
-nnoremap <C-p> :bp<CR>
 nnoremap <Leader>1 :1b<CR>
 nnoremap <Leader>2 :2b<CR>
 nnoremap <Leader>3 :3b<CR>
@@ -255,9 +257,8 @@ cmap w!! w !sudo tee >/dev/null %
 " 打开时语法检查
 let g:syntastic_check_on_open = 1
 " 设置python语法检查
-let g:syntastic_python_checkers=['pyflakes', 'pep8']
-let g:syntastic_python_pyflakes_args='--ignore=F401'
-let g:syntastic_python_pep8_args='--ignore=E501'
+let g:syntastic_python_checkers=['flake8']
+let g:syntastic_python_flake8_args='--ignore=E501'
 " 右下角状态栏隐藏
 let g:syntastic_stl_format = ""
 " 显示错误列表
@@ -310,7 +311,6 @@ nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:UltiSnipsExpandTrigger = "<leader><tab>"
 " 模板目录
 let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-" ==========CtrlP==========
 " 搜索快捷键修改
 let g:ctrlp_map = '<leader>f'
 " 忽略文件
@@ -430,7 +430,14 @@ autocmd Syntax * RainbowParenthesesLoadBraces
 
 
 """""""""""""""""""""""""""""""""""""""""""""
-"                   主题                    "
+"                   Isort                   "
+"""""""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <Leader>i :Isort<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""
+"                     主题                  "
 """""""""""""""""""""""""""""""""""""""""""""
 
 " 设置背景颜色
