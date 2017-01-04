@@ -258,7 +258,7 @@ cmap w!! w !sudo tee >/dev/null %
 let g:syntastic_check_on_open = 1
 " 设置python语法检查
 let g:syntastic_python_checkers=['flake8']
-let g:syntastic_python_flake8_args='--ignore=E116,E501'
+let g:syntastic_python_flake8_args='--ignore=E116,F401,E501'
 " 右下角状态栏隐藏
 let g:syntastic_stl_format = ""
 " 显示错误列表
@@ -403,9 +403,6 @@ let g:airline_left_alt_sep = '|'
 "                 Autoformat                "
 """""""""""""""""""""""""""""""""""""""""""""
 
-" 添加参数
-let g:formatdef_autopep8 = "'autopep8 --ignore=E116'"
-let g:formatters_python = ['autopep8']
 " 格式化代码快捷键,需安装python-autopep8
 noremap <Leader>a :Autoformat<CR>
 
