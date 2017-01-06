@@ -265,11 +265,11 @@ let g:syntastic_stl_format = ""
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_loc_list_height = 5
+" 打开错误面板
 function! ToggleErrors()
     let old_last_winnr = winnr('$')
     lclose
     if old_last_winnr == winnr('$')
-        " Nothing was closed, open syntastic_error location panel
         Errors
     endif
 endfunction
