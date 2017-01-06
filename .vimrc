@@ -373,6 +373,8 @@ let NERDTreeShowHidden=1
 let NERDTreeMinimalUI=1
 " 删除文件时自动删除文件对应buffer
 let NERDTreeAutoDeleteBuffer=1
+" 显示行号
+let NERDTreeShowLineNumbers=1
 " 退出vim时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 忽略一下文件的显示
@@ -417,6 +419,7 @@ let g:airline_left_alt_sep = '|'
 """""""""""""""""""""""""""""""""""""""""""""
 
 " pip install autopep8
+" Autoformat快捷键
 noremap <Leader>a :Autoformat<CR>
 
 
@@ -446,6 +449,7 @@ autocmd Syntax * RainbowParenthesesLoadBraces
 "                   Isort                   "
 """""""""""""""""""""""""""""""""""""""""""""
 
+" Isort快捷键
 nnoremap <Leader>i :Isort<CR>
 
 
