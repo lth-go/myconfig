@@ -6,9 +6,9 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
 Plugin 'VundleVim/Vundle.vim'
 
+" =====基础=====
 " 语法检查
 Plugin 'scrooloose/syntastic'
 " 代码补全
@@ -16,7 +16,7 @@ Plugin 'Valloric/YouCompleteMe'
 " 模板补全
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-" 文件查找
+" 文件搜索
 Plugin 'ctrlpvim/ctrlp.vim'
 " 文本搜索
 Plugin 'dyng/ctrlsf.vim'
@@ -39,12 +39,17 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'kien/rainbow_parentheses.vim'
 " 代码格式化
 Plugin 'Chiel92/vim-autoformat'
-Plugin 'hynek/vim-python-pep8-indent'
-Plugin 'fisadev/vim-isort'
+" 对齐线
 Plugin 'Yggdroot/indentLine'
 " 标签修改
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
+" =====python=====
+" python代码对齐
+Plugin 'hynek/vim-python-pep8-indent'
+" python导入优化
+Plugin 'fisadev/vim-isort'
+" =====Html=====
 " html标签匹配
 Plugin 'alvan/vim-closetag'
 Plugin 'valloric/MatchTagAlways'
@@ -235,14 +240,14 @@ cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 
-" 搜索时关键词居中
+" 搜索关键词居中
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
 nnoremap <silent> * *zz
 nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 
-" 调整缩进后自动选中，方便再次操作
+" 调整缩进后自动选中
 vnoremap < <gv
 vnoremap > >gv
 
@@ -254,6 +259,7 @@ cmap w!! w !sudo tee >/dev/null %
 "                 Syntastic                 "
 """""""""""""""""""""""""""""""""""""""""""""
 
+" pip install flake8
 " 打开时语法检查
 let g:syntastic_check_on_open = 1
 " 设置python语法检查
@@ -263,8 +269,7 @@ let g:syntastic_python_flake8_args='--ignore=E116,F401,E501'
 let g:syntastic_stl_format = ""
 " 显示错误列表
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_loc_list_height = 5
+"let g:syntastic_auto_loc_list = 0
 " 打开错误面板
 function! ToggleErrors()
     let old_last_winnr = winnr('$')
@@ -311,27 +316,33 @@ nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:UltiSnipsExpandTrigger = "<leader><tab>"
 " 模板目录
 let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
+
+
+"""""""""""""""""""""""""""""""""""""""""""""
+"                   CtrlP                   "
+"""""""""""""""""""""""""""""""""""""""""""""
+
 " 搜索快捷键修改
 let g:ctrlp_map = '<leader>f'
+" 禁用默认工作目录
+let g:ctrlp_working_path_mode=0
 " 忽略文件
 let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/]\.(git|idea)$',
             \ 'file': '\v\.(so|zip|tar|tar.gz|pyc)$',
             \ }
 
-let g:ctrlp_working_path_mode=0
-let g:ctrlp_match_window_bottom=1
-let g:ctrlp_max_height=15
-let g:ctrlp_match_window_reversed=0
-let g:ctrlp_follow_symlinks=1
-
 
 """""""""""""""""""""""""""""""""""""""""""""
 "                   CtrlSF                  "
 """""""""""""""""""""""""""""""""""""""""""""
 
+" dnf install ack
+" 设置搜索快捷键
 nmap <leader>s <Plug>CtrlSFCwordPath<CR>
+" 搜索框居底部
 let g:ctrlsf_position = 'bottom'
+" 设置高度
 let g:ctrlsf_winsize = '30%'
 let g:ctrlsf_auto_close = 0
 let g:ctrlsf_confirm_save = 0
@@ -373,7 +384,9 @@ let NERDTreeIgnore=['\.pyc','\~$','\.swp','\.git$','\.idea']
 """""""""""""""""""""""""""""""""""""""""""""
 
 nmap <leader>t :TagbarToggle<CR>
+" 打开Tagbar时光标跟随 
 let g:tagbar_autofocus = 1
+" 显示行号
 let g:tagbar_show_linenumbers = -1
 
 
@@ -403,7 +416,7 @@ let g:airline_left_alt_sep = '|'
 "                 Autoformat                "
 """""""""""""""""""""""""""""""""""""""""""""
 
-" 格式化代码快捷键,需安装python-autopep8
+" pip install autopep8
 noremap <Leader>a :Autoformat<CR>
 
 
@@ -440,7 +453,7 @@ nnoremap <Leader>i :Isort<CR>
 "                     主题                  "
 """""""""""""""""""""""""""""""""""""""""""""
 
-" 设置背景颜色
+" 背景颜色
 set background=dark
 " molokai主题
 let g:rehash256 = 1
