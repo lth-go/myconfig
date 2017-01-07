@@ -252,7 +252,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " w!用sudo保存
-cmap w!! w !sudo tee >/dev/null %
+cabbrev w!! w !sudo tee >/dev/null %<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""
