@@ -339,12 +339,14 @@ let g:ctrlp_custom_ignore = {
 
 " dnf install ack
 " 设置搜索快捷键
-nmap <leader>s <Plug>CtrlSFCwordPath<CR>
+nmap <leader>s <Plug>CtrlSFPrompt
 " 搜索框居底部
 let g:ctrlsf_position = 'bottom'
 " 设置高度
 let g:ctrlsf_winsize = '30%'
+" 打开文件时不关闭
 let g:ctrlsf_auto_close = 0
+" 关闭保存确认
 let g:ctrlsf_confirm_save = 0
 
 
@@ -386,7 +388,7 @@ let NERDTreeIgnore=['\.pyc','\~$','\.swp','\.git$','\.idea']
 """""""""""""""""""""""""""""""""""""""""""""
 
 nmap <leader>t :TagbarToggle<CR>
-" 打开Tagbar时光标跟随 
+" 打开Tagbar时光标跟随
 let g:tagbar_autofocus = 1
 " 显示行号
 let g:tagbar_show_linenumbers = -1
