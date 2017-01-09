@@ -64,7 +64,7 @@ call vundle#end()
 " 文件类型检测
 filetype plugin indent on
 
-" vimrc文件修改之后自动加载
+" vimrc修改后自动加载
 autocmd! bufwritepost .vimrc source %
 
 " 设置编码格式
@@ -116,11 +116,11 @@ set wildignorecase
 " 相对行号
 set relativenumber number
 " 当前窗口用相对行号，其他窗口绝对行号
-autocmd WinEnter,FocusGained * :setlocal number relativenumber
-autocmd WinLeave,FocusLost   * :setlocal number norelativenumber
+autocmd WinEnter * :setlocal number relativenumber
+autocmd WinLeave * :setlocal number norelativenumber
 " 插入模式下用绝对行号, 普通模式下用相对
-autocmd InsertEnter * :set norelativenumber number
-autocmd InsertLeave * :set relativenumber
+autocmd InsertEnter * :setlocal norelativenumber number
+autocmd InsertLeave * :setlocal relativenumber
 
 " 禁止拆行
 set nowrap
@@ -380,7 +380,7 @@ let NERDTreeShowLineNumbers=1
 " 退出vim时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 忽略一下文件的显示
-let NERDTreeIgnore=['\.pyc','\~$','\.swp','\.git$','\.idea']
+let NERDTreeIgnore=['\.pyc','\.pyo','\~$','\.swp','\.git$','\.idea']
 
 
 """""""""""""""""""""""""""""""""""""""""""""
