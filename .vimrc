@@ -84,9 +84,6 @@ set noswapfile
 " 正则magic模式
 "set magic
 
-" 快捷键延迟
-set ttimeoutlen=10
-
 " history存储容量
 set history=2000
 
@@ -189,6 +186,8 @@ set scrolloff=5
 """""""""""""""""""""""""""""""""""""""""""""
 
 " 输入法正常切换
+" 快捷键延迟
+set ttimeoutlen=10
 autocmd InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
 
 " 自动添加python文件头部
@@ -238,10 +237,13 @@ nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 
 " 命令行模式增强
-cnoremap <C-j> <t_kd>
-cnoremap <C-k> <t_ku>
+cnoremap <C-j> <Down>
+cnoremap <C-k> <Up>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
+" wildmode增强
+let &wildcharm = &wildchar
+cnoremap <expr> <C-j> wildmenumode() ? "\<Down>\<Tab>" : "\<c-j>"
 
 " 搜索关键词居中
 nnoremap <silent> n nzz
@@ -267,7 +269,7 @@ cabbrev w!! w !sudo tee >/dev/null %
 let g:syntastic_check_on_open = 1
 " 设置python语法检查
 let g:syntastic_python_checkers=['flake8']
-let g:syntastic_python_flake8_args='--ignore=E116,F401,E501'
+let g:syntastic_python_flake8_args='--ignore=E116,E501,F401'
 " 右下角状态栏隐藏
 let g:syntastic_stl_format = ""
 " 显示错误列表
@@ -317,8 +319,6 @@ nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " 插入模板
 let g:UltiSnipsExpandTrigger = "<leader><tab>"
-" 模板目录
-let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
 
 
 """""""""""""""""""""""""""""""""""""""""""""
