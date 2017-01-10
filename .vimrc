@@ -88,7 +88,7 @@ set noswapfile
 set history=2000
 
 " 忽略文件
-set wildignore+=*.swp,*.pyc,.idea,.git
+set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git
 
 
 """""""""""""""""""""""""""""""""""""""""""""
@@ -221,6 +221,10 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" 用于绕行
+noremap j gj
+noremap k gk
+
 " 替换行首行尾快捷键
 noremap H ^
 noremap L $
@@ -332,7 +336,7 @@ let g:ctrlp_working_path_mode=0
 " 忽略文件
 let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/]\.(git|idea)$',
-            \ 'file': '\v\.(so|zip|tar|tar.gz|pyc)$',
+            \ 'file': '\v\.(so|zip|tar|tar.gz|pyc|pyo|swp)$',
             \ }
 
 
