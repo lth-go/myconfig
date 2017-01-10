@@ -53,6 +53,9 @@ Plugin 'fisadev/vim-isort'
 " html标签匹配
 Plugin 'alvan/vim-closetag'
 Plugin 'valloric/MatchTagAlways'
+" =====Markdown=====
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 
 call vundle#end()
 
@@ -90,9 +93,6 @@ set history=2000
 " 忽略文件
 set wildignore+=*.swp,*.pyc,.idea,.git
 
-" 提高画面平滑度
-set ttyfast
-
 
 """""""""""""""""""""""""""""""""""""""""""""
 "                   界面                    "
@@ -104,6 +104,9 @@ set laststatus=2
 set ruler
 " 显示当前正在输入的命令
 set showcmd
+
+" 禁止折叠
+set nofoldenable
 
 " 菜单补全
 set completeopt=menuone
@@ -252,7 +255,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " w!用sudo保存
-cabbrev w!! w !sudo tee >/dev/null %<CR>
+cabbrev w!! w !sudo tee >/dev/null %
 
 
 """""""""""""""""""""""""""""""""""""""""""""
