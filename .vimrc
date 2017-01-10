@@ -351,6 +351,11 @@ let g:ctrlsf_winsize = '30%'
 let g:ctrlsf_auto_close = 0
 " 关闭保存确认
 let g:ctrlsf_confirm_save = 0
+" 快捷键设置
+let g:ctrlsf_mapping = {
+    \ "next"  : "<C-N>",
+    \ "prev"  : "<C-P>",
+    \ }
 
 
 """""""""""""""""""""""""""""""""""""""""""""
