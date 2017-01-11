@@ -10,7 +10,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 " =====基础=====
 " 语法检查
-Plugin 'scrooloose/syntastic'
+Plugin 'w0rp/ale'
 " 代码补全
 Plugin 'Valloric/YouCompleteMe'
 " 模板补全
@@ -241,13 +241,13 @@ nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 
 " 命令行模式增强
-cnoremap <C-j> <Down>
-cnoremap <C-k> <Up>
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
+cnoremap <C-J> <Down>
+cnoremap <C-K> <Up>
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
 " wildmode增强
 let &wildcharm = &wildchar
-cnoremap <expr> <C-j> wildmenumode() ? "\<Down>\<Tab>" : "\<c-j>"
+cnoremap <expr> <C-J> wildmenumode() ? "\<Down>\<Tab>" : "\<C-J>"
 
 " 搜索关键词居中
 nnoremap <silent> n nzz
@@ -265,26 +265,24 @@ cabbrev w!! w !sudo tee >/dev/null %
 
 
 """""""""""""""""""""""""""""""""""""""""""""
-"                 Syntastic                 "
+"                    Ale                    "
 """""""""""""""""""""""""""""""""""""""""""""
 
 " pip install flake8
-" 打开时语法检查
-let g:syntastic_check_on_open = 1
-" 设置python语法检查
-let g:syntastic_python_checkers=['flake8']
-let g:syntastic_python_flake8_args='--ignore=E116,E501,F401'
-" 右下角状态栏隐藏
-let g:syntastic_stl_format = ""
-" 显示错误列表
-let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 0
+let g:ale_linters = {'python': ['flake8']}
+let g:ale_python_flake8_args = '--ignore=E116,E501,F401 '
+" 关闭自动检查
+"let g:ale_lint_on_text_changed = 0
+" 保存时检查
+"let g:ale_lint_on_save = 1
+" 关闭airline显示
+let g:airline#extensions#ale#enabled = 0
 " 打开错误面板
 function! ToggleErrors()
     let old_last_winnr = winnr('$')
     lclose
     if old_last_winnr == winnr('$')
-        Errors
+        lopen
     endif
 endfunction
 nnoremap <Leader>e :call ToggleErrors()<cr>
@@ -295,8 +293,8 @@ nnoremap <Leader>e :call ToggleErrors()<cr>
 """""""""""""""""""""""""""""""""""""""""""""
 
 " 下拉栏快捷键
-let g:ycm_key_list_previous_completion = ['<S-TAB>', '<Up>', '<c-k>']
-let g:ycm_key_list_select_completion = ['<TAB>', '<Down>', '<c-j>']
+let g:ycm_key_list_previous_completion = ['<S-TAB>', '<C-K>']
+let g:ycm_key_list_select_completion = ['<TAB>', '<C-J>']
 " 补全功能在注释中同样有效
 let g:ycm_complete_in_comments=1
 " 在字符串输入中也能补全
@@ -399,11 +397,12 @@ let NERDTreeIgnore=['\.pyc','\.pyo','\~$','\.swp','\.git$','\.idea']
 "                   Tagbar                  "
 """""""""""""""""""""""""""""""""""""""""""""
 
-nmap <leader>t :TagbarToggle<CR>
 " 打开Tagbar时光标跟随
 let g:tagbar_autofocus = 1
 " 显示行号
 let g:tagbar_show_linenumbers = -1
+" 打开Tagbar
+nmap <leader>t :TagbarToggle<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""
