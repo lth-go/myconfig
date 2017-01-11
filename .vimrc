@@ -47,6 +47,8 @@ Plugin 'tpope/vim-repeat'
 " =====python=====
 " python代码对齐
 Plugin 'hynek/vim-python-pep8-indent'
+" python高亮
+Plugin 'kh3phr3n/python-syntax'
 " python导入优化
 Plugin 'fisadev/vim-isort'
 " =====Html=====
