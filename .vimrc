@@ -47,10 +47,10 @@ Plugin 'tpope/vim-repeat'
 " =====python=====
 " python代码对齐
 Plugin 'hynek/vim-python-pep8-indent'
-" python高亮
-Plugin 'kh3phr3n/python-syntax'
 " python导入优化
 Plugin 'fisadev/vim-isort'
+" python高亮
+Plugin 'kh3phr3n/python-syntax'
 " =====Html=====
 " html标签匹配
 Plugin 'alvan/vim-closetag'
@@ -273,12 +273,13 @@ cabbrev w!! w !sudo tee >/dev/null %
 " pip install flake8
 let g:ale_linters = {'python': ['flake8']}
 let g:ale_python_flake8_args = '--ignore=E116,E501,F401 '
-" 关闭自动检查
-"let g:ale_lint_on_text_changed = 0
-" 保存时检查
-"let g:ale_lint_on_save = 1
 " 关闭airline显示
 let g:airline#extensions#ale#enabled = 0
+" 标记栏自动打开
+"let g:ale_sign_column_always = 1
+" 保存时检查
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_save = 1
 " 打开错误面板
 function! ToggleErrors()
     let old_last_winnr = winnr('$')
