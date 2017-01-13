@@ -50,7 +50,7 @@ Plugin 'hynek/vim-python-pep8-indent'
 " python导入优化
 Plugin 'fisadev/vim-isort'
 " python高亮
-Plugin 'kh3phr3n/python-syntax'
+Plugin 'hdima/python-syntax'
 " =====Html=====
 " html标签匹配
 Plugin 'alvan/vim-closetag'
