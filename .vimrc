@@ -36,7 +36,7 @@ Plugin 'scrooloose/nerdcommenter'
 " 括号匹配
 Plugin 'jiangmiao/auto-pairs'
 " 彩虹括号
-Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'luochen1990/rainbow'
 " 代码格式化
 Plugin 'Chiel92/vim-autoformat'
 " 对齐线
@@ -145,6 +145,7 @@ syntax enable
 syntax on
 " python语法高亮
 let python_highlight_all = 1
+autocmd FileType python syn keyword pythonDecorator self cls
 
 " 高亮显示搜索结果
 set hlsearch
@@ -437,27 +438,11 @@ let g:airline_left_alt_sep = '|'
 " Autoformat快捷键
 noremap <Leader>a :Autoformat<CR>
 
-
 """""""""""""""""""""""""""""""""""""""""""""
 "            RainbowParentheses             "
 """""""""""""""""""""""""""""""""""""""""""""
 
-let g:rbpt_colorpairs = [
-            \ ['brown',       'RoyalBlue3'],
-            \ ['darkgray',    'DarkOrchid3'],
-            \ ['darkgreen',   'firebrick3'],
-            \ ['darkcyan',    'RoyalBlue3'],
-            \ ['darkred',     'SeaGreen3'],
-            \ ['darkmagenta', 'DarkOrchid3'],
-            \ ['gray',        'RoyalBlue3'],
-            \ ['red',         'firebrick3'],
-            \ ]
-let g:rbpt_max = 8
-let g:rbpt_loadcmd_toggle = 0
-autocmd VimEnter * RainbowParenthesesToggle
-autocmd Syntax * RainbowParenthesesLoadRound
-autocmd Syntax * RainbowParenthesesLoadSquare
-autocmd Syntax * RainbowParenthesesLoadBraces
+let g:rainbow_active = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""
