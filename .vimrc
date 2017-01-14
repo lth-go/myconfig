@@ -358,9 +358,9 @@ let g:ctrlsf_auto_close = 0
 let g:ctrlsf_confirm_save = 0
 " 快捷键设置
 let g:ctrlsf_mapping = {
-    \ "next"  : "<C-N>",
-    \ "prev"  : "<C-P>",
-    \ }
+            \ "next"  : "<C-N>",
+            \ "prev"  : "<C-P>",
+            \ }
 
 
 """""""""""""""""""""""""""""""""""""""""""""
@@ -431,12 +431,30 @@ let g:airline_left_alt_sep = '|'
 
 
 """""""""""""""""""""""""""""""""""""""""""""
+"               Nerdcommenter               "
+"""""""""""""""""""""""""""""""""""""""""""""
+
+" 关闭默认快捷键
+let g:NERDCreateDefaultMappings = 0
+" 注释符后添加空格
+let g:NERDSpaceDelims = 1
+" 注释符左对齐
+let g:NERDDefaultAlign = 'left'
+" 自动注释快捷键
+map <Leader>c <plug>NERDCommenterToggle
+
+
+"""""""""""""""""""""""""""""""""""""""""""""
 "                 Autoformat                "
 """""""""""""""""""""""""""""""""""""""""""""
 
 " pip install autopep8
+" 添加格式化参数
+let g:formatdef_custom_autopep8 = "'autopep8 - --ignore=E116'"
+let g:formatters_python = ['custom_autopep8']
 " Autoformat快捷键
 noremap <Leader>a :Autoformat<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""
 "            RainbowParentheses             "
