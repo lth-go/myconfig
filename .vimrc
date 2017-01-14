@@ -249,7 +249,7 @@ cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 " wildmode增强
 let &wildcharm = &wildchar
-cnoremap <expr> <C-J> wildmenumode() ? "\<Down>\<Tab>" : "\<C-J>"
+cnoremap <expr> <C-J> wildmenumode() ? "\<Down>" : "\<C-J>"
 
 " 搜索关键词居中
 nnoremap <silent> n nzz
@@ -275,17 +275,16 @@ let g:ale_linters = {'python': ['flake8']}
 let g:ale_python_flake8_args = '--ignore=E116,E501,F401 '
 " 关闭airline显示
 let g:airline#extensions#ale#enabled = 0
-" 标记栏自动打开
-"let g:ale_sign_column_always = 1
-" 保存时检查
+" 关闭自动检查
 let g:ale_lint_on_text_changed = 0
+" 保存时检查
 let g:ale_lint_on_save = 1
 " 打开错误面板
 function! ToggleErrors()
     let old_last_winnr = winnr('$')
     lclose
     if old_last_winnr == winnr('$')
-        lopen
+        lwindow
     endif
 endfunction
 nnoremap <Leader>e :call ToggleErrors()<cr>
