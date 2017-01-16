@@ -218,6 +218,10 @@ noremap <F1> <Esc>"
 " 定义快捷键前缀，即<Leader>
 let mapleader=";"
 
+" 快速保存及退出
+nnoremap <Leader>q :q<CR>
+nnoremap <Leader>w :w<CR>
+
 " 切换布局快捷键
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
