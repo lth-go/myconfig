@@ -335,19 +335,6 @@ let g:UltiSnipsExpandTrigger = "<leader><tab>"
 
 
 """""""""""""""""""""""""""""""""""""""""""""
-"                   CtrlP                   "
-"""""""""""""""""""""""""""""""""""""""""""""
-
-" 搜索快捷键修改
-let g:ctrlp_map = '<leader>p'
-" 忽略文件
-let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\v[\/]\.(git|idea)$',
-            \ 'file': '\v\.(so|zip|tar|tar.gz|pyc|pyo|swp)$',
-            \ }
-
-
-"""""""""""""""""""""""""""""""""""""""""""""
 "                   CtrlSF                  "
 """""""""""""""""""""""""""""""""""""""""""""
 
