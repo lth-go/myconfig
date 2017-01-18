@@ -339,9 +339,7 @@ let g:UltiSnipsExpandTrigger = "<leader><tab>"
 """""""""""""""""""""""""""""""""""""""""""""
 
 " 搜索快捷键修改
-let g:ctrlp_map = '<leader>s'
-" 禁用默认工作目录
-let g:ctrlp_working_path_mode=0
+let g:ctrlp_map = '<leader>p'
 " 忽略文件
 let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/]\.(git|idea)$',
@@ -355,7 +353,7 @@ let g:ctrlp_custom_ignore = {
 
 " dnf install ack
 " 设置搜索快捷键
-nmap <leader>f <Plug>CtrlSFQuickfixPrompt
+nmap <leader>f <Plug>CtrlSFPrompt
 " 搜索框居底部
 let g:ctrlsf_position = 'bottom'
 " 设置高度
@@ -364,10 +362,12 @@ let g:ctrlsf_winsize = '30%'
 let g:ctrlsf_auto_close = 0
 " 关闭保存确认
 let g:ctrlsf_confirm_save = 0
+" 上下文行数
+let g:ctrlsf_context = '-C 1'
 " 快捷键设置
 let g:ctrlsf_mapping = {
-            \ "next"  : "<C-N>",
-            \ "prev"  : "<C-P>",
+            \ "next"  : "n",
+            \ "prev"  : "N",
             \ }
 
 
