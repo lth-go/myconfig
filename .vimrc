@@ -318,8 +318,6 @@ let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_goto_buffer_command = 'horizontal-split'
 " 从第一个键入字符就开始罗列匹配项
 let g:ycm_min_num_of_chars_for_completion=1
-" 禁止缓存匹配项，每次都重新生成匹配项
-let g:ycm_cache_omnifunc=0
 " 指定jedi的Python解释器路径
 let g:ycm_server_python_interpreter = '/work/python_venv/mapboom_venv/bin/python'
 " 函数跳转
