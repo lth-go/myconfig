@@ -92,6 +92,10 @@ set history=2000
 " 忽略文件
 set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git
 
+" 提高画面流畅度
+set lazyredraw
+set ttyfast
+
 
 """""""""""""""""""""""""""""""""""""""""""""
 "                   界面                    "
@@ -335,7 +339,7 @@ let g:UltiSnipsExpandTrigger = "<leader><tab>"
 """""""""""""""""""""""""""""""""""""""""""""
 
 " 搜索快捷键修改
-let g:ctrlp_map = '<leader>f'
+let g:ctrlp_map = '<leader>s'
 " 禁用默认工作目录
 let g:ctrlp_working_path_mode=0
 " 忽略文件
@@ -351,7 +355,7 @@ let g:ctrlp_custom_ignore = {
 
 " dnf install ack
 " 设置搜索快捷键
-nmap <leader>s <Plug>CtrlSFPrompt
+nmap <leader>f <Plug>CtrlSFQuickfixPrompt
 " 搜索框居底部
 let g:ctrlsf_position = 'bottom'
 " 设置高度
@@ -376,8 +380,8 @@ let g:EasyMotion_do_mapping = 0
 " 忽略大小写
 let g:EasyMotion_smartcase = 1
 " s键快速跳转
-nmap s <Plug>(easymotion-s)
-nmap S <Plug>(easymotion-overwin-f)
+nmap f <Plug>(easymotion-s)
+nmap F <Plug>(easymotion-overwin-f)
 
 
 """""""""""""""""""""""""""""""""""""""""""""
