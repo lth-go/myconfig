@@ -58,6 +58,8 @@ Plugin 'valloric/MatchTagAlways'
 " =====Markdown=====
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+" =====Json=====
+Plugin 'elzr/vim-json'
 
 call vundle#end()
 
@@ -429,8 +431,6 @@ let g:airline_left_alt_sep = '|'
 
 " 关闭默认快捷键
 let g:NERDCreateDefaultMappings = 0
-" 注释符后添加空格
-let g:NERDSpaceDelims = 1
 " 注释符左对齐
 let g:NERDDefaultAlign = 'left'
 " 自动注释快捷键
@@ -462,6 +462,13 @@ let g:rainbow_active = 1
 
 " Isort快捷键
 nnoremap <Leader>i :Isort<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""
+"                    Json                   "
+"""""""""""""""""""""""""""""""""""""""""""""
+
+let g:vim_json_syntax_conceal = 0
 
 
 """""""""""""""""""""""""""""""""""""""""""""
