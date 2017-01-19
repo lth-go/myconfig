@@ -34,8 +34,7 @@ Plugin 'vim-airline/vim-airline-themes'
 " 注释
 Plugin 'scrooloose/nerdcommenter'
 " 括号匹配
-"Plugin 'jiangmiao/auto-pairs'
-Plugin 'Raimondi/delimitMate'
+Plugin 'lth-go/auto-pairs'
 " 彩虹括号
 Plugin 'luochen1990/rainbow'
 " 代码格式化
