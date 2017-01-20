@@ -58,6 +58,9 @@ Plugin 'valloric/MatchTagAlways'
 " =====Markdown=====
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
+" =====Json=====
+Plugin 'elzr/vim-json'
+let g:vim_json_syntax_conceal = 0
 
 call vundle#end()
 
@@ -95,6 +98,13 @@ set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git
 " 提高画面流畅度
 set lazyredraw
 set ttyfast
+
+
+" 垂直滚动
+set scrolloff=5
+" 水平滚动
+set sidescroll=1
+set sidescrolloff=10
 
 
 """""""""""""""""""""""""""""""""""""""""""""
@@ -184,9 +194,6 @@ set shiftround
 set list
 set listchars=tab:>-,trail:·,nbsp:·
 
-" 光标下方保留的行数
-set scrolloff=5
-
 
 """""""""""""""""""""""""""""""""""""""""""""
 "                   其他                    "
@@ -217,7 +224,7 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""
 
 " 废弃F1
-noremap <F1> <Esc>"
+noremap <F1> <Nop>
 
 " 定义快捷键前缀，即<Leader>
 let mapleader=";"
