@@ -65,12 +65,11 @@ call vundle#end()
 
 
 """""""""""""""""""""""""""""""""""""""""""""
-"                   基础                    "
+"                     基础                  "
 """""""""""""""""""""""""""""""""""""""""""""
 
 " 文件类型检测
 filetype plugin indent on
-
 " vimrc修改后自动加载
 autocmd! bufwritepost .vimrc source %
 
@@ -85,30 +84,8 @@ set nobackup
 " 关闭交换文件
 set noswapfile
 
-" 正则magic模式
-"set magic
 
-" history存储容量
-set history=2000
-
-" 忽略文件
-set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git
-
-" 提高画面流畅度
-set lazyredraw
-set ttyfast
-
-
-" 垂直滚动
-set scrolloff=5
-" 水平滚动
-set sidescroll=1
-set sidescrolloff=10
-
-
-"""""""""""""""""""""""""""""""""""""""""""""
-"                   界面                    "
-"""""""""""""""""""""""""""""""""""""""""""""
+" =====界面=====
 
 " 总是显示状态栏
 set laststatus=2
@@ -117,16 +94,22 @@ set ruler
 " 显示当前正在输入的命令
 set showcmd
 
-" 禁止折叠
-set nofoldenable
-
 " 菜单补全
 set completeopt=menuone
-" vim 自身命令行模式智能补全
+" history存储容量
+set history=2000
+" 正则magic模式
+"set magic
+" 命令行智能补全
 set wildmenu
 set wildmode=longest:full,full
 " 命令行忽略大小写
 set wildignorecase
+" 忽略文件
+set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git
+" wildmode增强
+let &wildcharm = &wildchar
+cnoremap <expr> <C-J> wildmenumode() ? "\<Down>" : "\<C-J>"
 
 " 相对行号
 set relativenumber number
@@ -147,6 +130,23 @@ set cursorline
 set splitbelow
 set splitright
 
+" 提高画面流畅度
+set lazyredraw
+set ttyfast
+
+" 垂直滚动
+set scrolloff=5
+" 水平滚动
+set sidescroll=1
+set sidescrolloff=10
+
+" 禁止折叠
+set nofoldenable
+
+" 显示tab跟空格
+set list
+set listchars=tab:>-,trail:·,nbsp:·
+
 
 """""""""""""""""""""""""""""""""""""""""""""
 "                   内容                    "
@@ -156,9 +156,6 @@ set splitright
 syntax enable
 " 允许替换默认配色
 syntax on
-" python语法高亮
-let python_highlight_all = 1
-autocmd FileType python syn keyword pythonDecorator self cls
 
 " 高亮显示搜索结果
 set hlsearch
@@ -168,14 +165,14 @@ set incsearch
 set ignorecase
 set smartcase
 
+" =====缩进=====
+
 " 退格键正常处理
 set backspace=2
-
 " 智能缩进
 set cindent
 " 自动缩进
 set autoindent
-
 " 制表符占用空格数
 set tabstop=4
 " 自动缩进距离
@@ -188,10 +185,6 @@ set smarttab
 set expandtab
 " 智能缩进
 set shiftround
-
-" 显示tab跟空格
-set list
-set listchars=tab:>-,trail:·,nbsp:·
 
 
 """""""""""""""""""""""""""""""""""""""""""""
@@ -216,6 +209,10 @@ autocmd bufnewfile *.py call HeaderPython()
 if has("autocmd")
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+
+" python语法高亮
+let python_highlight_all = 1
+autocmd FileType python syn keyword pythonDecorator self cls
 
 
 """""""""""""""""""""""""""""""""""""""""""""
@@ -262,9 +259,6 @@ cnoremap <C-J> <Down>
 cnoremap <C-K> <Up>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
-" wildmode增强
-let &wildcharm = &wildchar
-cnoremap <expr> <C-J> wildmenumode() ? "\<Down>" : "\<C-J>"
 
 " 搜索关键词居中
 nnoremap <silent> n nzz
