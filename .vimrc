@@ -41,7 +41,7 @@ Plugin 'luochen1990/rainbow'
 Plugin 'Chiel92/vim-autoformat'
 " 对齐线
 Plugin 'Yggdroot/indentLine'
-" 标签修改
+" 括号修改
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 " =====python=====
@@ -68,6 +68,8 @@ call vundle#end()
 "                     基础                  "
 """""""""""""""""""""""""""""""""""""""""""""
 
+" =====文件=====
+
 " 文件类型检测
 filetype plugin indent on
 " vimrc修改后自动加载
@@ -84,19 +86,11 @@ set nobackup
 " 关闭交换文件
 set noswapfile
 
-
-" =====界面=====
-
-" 总是显示状态栏
-set laststatus=2
-" 显示光标当前位置
-set ruler
-" 显示当前正在输入的命令
-set showcmd
-
+" =====命令行=====
+" 
 " 菜单补全
 set completeopt=menuone
-" history存储容量
+" 历史命令容量
 set history=2000
 " 正则magic模式
 "set magic
@@ -111,6 +105,17 @@ set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git
 let &wildcharm = &wildchar
 cnoremap <expr> <C-J> wildmenumode() ? "\<Down>" : "\<C-J>"
 
+" =====状态栏=====
+
+" 总是显示状态栏
+set laststatus=2
+" 显示光标当前位置
+set ruler
+" 显示当前正在输入的命令
+set showcmd
+
+" =====行号=====
+" 
 " 相对行号
 set relativenumber number
 " 当前窗口用相对行号，其他窗口绝对行号
@@ -120,25 +125,17 @@ autocmd WinLeave * :setlocal number norelativenumber
 autocmd InsertEnter * :setlocal norelativenumber number
 autocmd InsertLeave * :setlocal relativenumber
 
+" =====内容=====
+
 " 禁止拆行
 set nowrap
 " 高亮显示当前行/列
 set cursorline
 "set cursorcolumn
 
-" 指定分割的区域
-set splitbelow
-set splitright
-
 " 提高画面流畅度
 set lazyredraw
 set ttyfast
-
-" 垂直滚动
-set scrolloff=5
-" 水平滚动
-set sidescroll=1
-set sidescrolloff=10
 
 " 禁止折叠
 set nofoldenable
@@ -147,15 +144,24 @@ set nofoldenable
 set list
 set listchars=tab:>-,trail:·,nbsp:·
 
+" 指定分割的区域
+set splitbelow
+set splitright
 
-"""""""""""""""""""""""""""""""""""""""""""""
-"                   内容                    "
-"""""""""""""""""""""""""""""""""""""""""""""
+" 垂直滚动
+set scrolloff=5
+" 水平滚动
+set sidescroll=1
+set sidescrolloff=10
+
+" =====高亮=====
 
 " 开启语法高亮功能
 syntax enable
 " 允许替换默认配色
 syntax on
+
+" =====搜索=====
 
 " 高亮显示搜索结果
 set hlsearch
@@ -186,10 +192,7 @@ set expandtab
 " 智能缩进
 set shiftround
 
-
-"""""""""""""""""""""""""""""""""""""""""""""
-"                   其他                    "
-"""""""""""""""""""""""""""""""""""""""""""""
+" =====其他=====
 
 " 输入法正常切换
 " 快捷键延迟
@@ -221,6 +224,7 @@ autocmd FileType python syn keyword pythonDecorator self cls
 
 " 废弃F1
 noremap <F1> <Nop>
+inoremap <F1> <Nop>
 
 " 定义快捷键前缀，即<Leader>
 let mapleader=";"
@@ -337,8 +341,6 @@ let g:UltiSnipsExpandTrigger = "<leader><tab>"
 """""""""""""""""""""""""""""""""""""""""""""
 
 " dnf install ack
-" 设置搜索快捷键
-nmap <leader>f <Plug>CtrlSFPrompt
 " 搜索框居底部
 let g:ctrlsf_position = 'bottom'
 " 设置高度
@@ -354,6 +356,8 @@ let g:ctrlsf_mapping = {
             \ "next"  : "n",
             \ "prev"  : "N",
             \ }
+" 设置搜索快捷键
+nmap <leader>f <Plug>CtrlSFPrompt
 
 
 """""""""""""""""""""""""""""""""""""""""""""
@@ -373,13 +377,11 @@ nmap F <Plug>(easymotion-overwin-f)
 "                  NERDTree                 "
 """""""""""""""""""""""""""""""""""""""""""""
 
-" 使用NERDTree插件查看工程文件
-nmap <Leader>d :NERDTreeToggle<CR>
 " 显示隐藏文件
 let NERDTreeShowHidden=1
-" NERDTree子窗口中不显示冗余帮助信息
+" 不显示冗余帮助信息
 let NERDTreeMinimalUI=1
-" 删除文件时自动删除文件对应buffer
+" 自动删除文件对应buffer
 let NERDTreeAutoDeleteBuffer=1
 " 显示行号
 let NERDTreeShowLineNumbers=1
@@ -387,6 +389,8 @@ let NERDTreeShowLineNumbers=1
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 忽略一下文件的显示
 let NERDTreeIgnore=['\.pyc','\.pyo','\~$','\.swp','\.git$','\.idea']
+" 打开文件树
+nmap <Leader>d :NERDTreeToggle<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""
