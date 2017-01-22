@@ -87,7 +87,7 @@ set nobackup
 set noswapfile
 
 " =====命令行=====
-" 
+
 " 菜单补全
 set completeopt=menuone
 " 历史命令容量
@@ -115,15 +115,15 @@ set ruler
 set showcmd
 
 " =====行号=====
-" 
+
 " 相对行号
 set relativenumber number
 " 当前窗口用相对行号，其他窗口绝对行号
-autocmd WinEnter * :setlocal number relativenumber
-autocmd WinLeave * :setlocal number norelativenumber
+autocmd WinEnter * if &number | execute("setlocal number relativenumber") | endif
+autocmd WinLeave * if &number | execute("setlocal number norelativenumber") | endif
 " 插入模式下用绝对行号, 普通模式下用相对
 autocmd InsertEnter * :setlocal norelativenumber number
-autocmd InsertLeave * :setlocal relativenumber
+autocmd InsertLeave * :setlocal relativenumber number
 
 " =====内容=====
 
@@ -210,7 +210,7 @@ autocmd bufnewfile *.py call HeaderPython()
 
 " 打开自动定位到最后编辑的位置
 if has("autocmd")
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
 endif
 
 " python语法高亮
@@ -259,8 +259,8 @@ nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 
 " 命令行模式增强
-cnoremap <C-J> <Down>
-cnoremap <C-K> <Up>
+cnoremap <C-J> <t_kd>
+cnoremap <C-K> <t_ku>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 
@@ -280,10 +280,14 @@ cabbrev w!! w !sudo tee >/dev/null %
 
 
 """""""""""""""""""""""""""""""""""""""""""""
-"                    Ale                    "
+"                     插件                  "
 """""""""""""""""""""""""""""""""""""""""""""
 
+" =====Ale=====
+
 " pip install flake8
+
+" python语法检查
 let g:ale_linters = {'python': ['flake8']}
 let g:ale_python_flake8_args = '--ignore=E116,E501,F401 '
 " 关闭airline显示
@@ -302,10 +306,7 @@ function! ToggleErrors()
 endfunction
 nnoremap <Leader>e :call ToggleErrors()<cr>
 
-
-"""""""""""""""""""""""""""""""""""""""""""""
-"                    YCM                    "
-"""""""""""""""""""""""""""""""""""""""""""""
+" =====YCM=====
 
 " 下拉栏快捷键
 let g:ycm_key_list_previous_completion = ['<S-TAB>', '<C-K>']
@@ -327,18 +328,12 @@ let g:ycm_server_python_interpreter = '/work/python_venv/mapboom_venv/bin/python
 " 函数跳转
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-
-"""""""""""""""""""""""""""""""""""""""""""""
-"                 UltiSnips                 "
-"""""""""""""""""""""""""""""""""""""""""""""
+" =====UltiSnips=====
 
 " 插入模板
 let g:UltiSnipsExpandTrigger = "<leader><tab>"
 
-
-"""""""""""""""""""""""""""""""""""""""""""""
-"                   CtrlSF                  "
-"""""""""""""""""""""""""""""""""""""""""""""
+" =====CtrlSF=====
 
 " dnf install ack
 " 搜索框居底部
@@ -359,10 +354,7 @@ let g:ctrlsf_mapping = {
 " 设置搜索快捷键
 nmap <leader>f <Plug>CtrlSFPrompt
 
-
-"""""""""""""""""""""""""""""""""""""""""""""
-"                 EasyMotion                "
-"""""""""""""""""""""""""""""""""""""""""""""
+" =====EasyMotion=====
 
 " 关闭默认快捷键
 let g:EasyMotion_do_mapping = 0
@@ -372,10 +364,7 @@ let g:EasyMotion_smartcase = 1
 nmap f <Plug>(easymotion-s)
 nmap F <Plug>(easymotion-overwin-f)
 
-
-"""""""""""""""""""""""""""""""""""""""""""""
-"                  NERDTree                 "
-"""""""""""""""""""""""""""""""""""""""""""""
+" =====NERDTree=====
 
 " 显示隐藏文件
 let NERDTreeShowHidden=1
@@ -392,10 +381,7 @@ let NERDTreeIgnore=['\.pyc','\.pyo','\~$','\.swp','\.git$','\.idea']
 " 打开文件树
 nmap <Leader>d :NERDTreeToggle<CR>
 
-
-"""""""""""""""""""""""""""""""""""""""""""""
-"                   Tagbar                  "
-"""""""""""""""""""""""""""""""""""""""""""""
+" =====Tagbar=====
 
 " 打开Tagbar时光标跟随
 let g:tagbar_autofocus = 1
@@ -404,10 +390,7 @@ let g:tagbar_show_linenumbers = -1
 " 打开Tagbar
 nmap <leader>t :TagbarToggle<CR>
 
-
-"""""""""""""""""""""""""""""""""""""""""""""
-"                  Airline                  "
-"""""""""""""""""""""""""""""""""""""""""""""
+" =====Airline=====
 
 " 设置airline主题
 let g:airline_theme="powerlineish"
@@ -426,10 +409,7 @@ let g:airline_right_alt_sep = ''
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = '|'
 
-
-"""""""""""""""""""""""""""""""""""""""""""""
-"               Nerdcommenter               "
-"""""""""""""""""""""""""""""""""""""""""""""
+" =====Nerdcommenter=====
 
 " 关闭默认快捷键
 let g:NERDCreateDefaultMappings = 0
@@ -438,38 +418,29 @@ let g:NERDDefaultAlign = 'left'
 " 自动注释快捷键
 map <Leader>c <plug>NERDCommenterToggle
 
-
-"""""""""""""""""""""""""""""""""""""""""""""
-"                 Autoformat                "
-"""""""""""""""""""""""""""""""""""""""""""""
+" =====Autoformat=====
 
 " pip install autopep8
+
 " 添加格式化参数
 let g:formatdef_custom_autopep8 = "'autopep8 - --ignore=E116'"
 let g:formatters_python = ['custom_autopep8']
 " Autoformat快捷键
 noremap <Leader>a :Autoformat<CR>
 
+" =====RainbowParentheses=====
 
-"""""""""""""""""""""""""""""""""""""""""""""
-"            RainbowParentheses             "
-"""""""""""""""""""""""""""""""""""""""""""""
-
+" 开启彩虹括号
 let g:rainbow_active = 1
 
-
-"""""""""""""""""""""""""""""""""""""""""""""
-"                   Isort                   "
-"""""""""""""""""""""""""""""""""""""""""""""
+" =====Isort=====
 
 " Isort快捷键
 nnoremap <Leader>i :Isort<CR>
 
+" =====Json=====
 
-"""""""""""""""""""""""""""""""""""""""""""""
-"                    Json                   "
-"""""""""""""""""""""""""""""""""""""""""""""
-
+" 显示双引号
 let g:vim_json_syntax_conceal = 0
 
 
