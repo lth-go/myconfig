@@ -13,9 +13,6 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'w0rp/ale'
 " 代码补全
 Plugin 'Valloric/YouCompleteMe'
-" 模板补全
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
 " 文件搜索
 Plugin 'ctrlpvim/ctrlp.vim'
 " 文本搜索
@@ -39,27 +36,18 @@ Plugin 'lth-go/auto-pairs'
 Plugin 'luochen1990/rainbow'
 " 代码格式化
 Plugin 'Chiel92/vim-autoformat'
-" 对齐线
-Plugin 'Yggdroot/indentLine'
 " 括号修改
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 " =====python=====
 " python代码对齐
 Plugin 'hynek/vim-python-pep8-indent'
-" python导入优化
-Plugin 'fisadev/vim-isort'
 " python高亮
 Plugin 'hdima/python-syntax'
 " =====Html=====
 " html标签匹配
 Plugin 'alvan/vim-closetag'
 Plugin 'valloric/MatchTagAlways'
-" =====Markdown=====
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-" =====Json=====
-Plugin 'elzr/vim-json'
 
 call vundle#end()
 
@@ -199,14 +187,24 @@ set shiftround
 set ttimeoutlen=10
 autocmd InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
 
-" 自动添加python文件头部
-function! HeaderPython()
-    call setline(1, "#!/usr/bin/env python")
-    call append(1, "# -*- coding: utf-8 -*-")
+" 自动添加头部
+autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
+function! AutoSetFileHead()
+    "如果文件类型为.sh文件
+    if &filetype == 'sh'
+        call setline(1, "\#!/bin/bash")
+    endif
+
+    "如果文件类型为python
+    if &filetype == 'python'
+        call setline(1, "\#!/usr/bin/env python")
+        call append(1, "\# encoding: utf-8")
+    endif
+
     normal G
     normal o
-endf
-autocmd bufnewfile *.py call HeaderPython()
+    normal o
+endfunc
 
 " 打开自动定位到最后编辑的位置
 if has("autocmd")
@@ -328,14 +326,10 @@ let g:ycm_server_python_interpreter = '/work/python_venv/mapboom_venv/bin/python
 " 函数跳转
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-" =====UltiSnips=====
-
-" 插入模板
-let g:UltiSnipsExpandTrigger = "<leader><tab>"
-
 " =====CtrlSF=====
 
 " dnf install ack
+
 " 搜索框居底部
 let g:ctrlsf_position = 'bottom'
 " 设置高度
@@ -432,16 +426,6 @@ noremap <Leader>a :Autoformat<CR>
 
 " 开启彩虹括号
 let g:rainbow_active = 1
-
-" =====Isort=====
-
-" Isort快捷键
-nnoremap <Leader>i :Isort<CR>
-
-" =====Json=====
-
-" 显示双引号
-let g:vim_json_syntax_conceal = 0
 
 
 """""""""""""""""""""""""""""""""""""""""""""
