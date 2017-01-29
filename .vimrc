@@ -20,7 +20,7 @@ Plugin 'dyng/ctrlsf.vim'
 " 快速移动
 Plugin 'easymotion/vim-easymotion'
 " 主题配色
-Plugin 'tomasr/molokai'
+Plugin 'lth-go/molokai'
 " 文件列表
 Plugin 'scrooloose/nerdtree'
 " 函数列表
@@ -36,7 +36,7 @@ Plugin 'lth-go/auto-pairs'
 Plugin 'luochen1990/rainbow'
 " 代码格式化
 Plugin 'Chiel92/vim-autoformat'
-" 括号修改
+" 环绕修改
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 " =====python=====
@@ -314,11 +314,9 @@ let g:ycm_complete_in_comments=1
 " 在字符串输入中也能补全
 let g:ycm_complete_in_strings = 1
 " 注释和字符串中的文字也会被收入补全
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
+"let g:ycm_collect_identifiers_from_comments_and_strings = 1
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
-" 跳转到定义处, 分屏打开
-let g:ycm_goto_buffer_command = 'horizontal-split'
 " 从第一个键入字符就开始罗列匹配项
 let g:ycm_min_num_of_chars_for_completion=1
 " 指定jedi的Python解释器路径
@@ -417,7 +415,7 @@ map <Leader>c <plug>NERDCommenterToggle
 " pip install autopep8
 
 " 添加格式化参数
-let g:formatdef_custom_autopep8 = "'autopep8 - --ignore=E116'"
+let g:formatdef_custom_autopep8 = "'autopep8 - --ignore=E116,E501'"
 let g:formatters_python = ['custom_autopep8']
 " Autoformat快捷键
 noremap <Leader>a :Autoformat<CR>

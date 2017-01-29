@@ -19,7 +19,7 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 source $ZSH/oh-my-zsh.sh
 
 # 设置环境语言
-# export LANG=zh_CN.utf8
+export LANG=zh_CN.utf8
 
 # zsh-completions 需要
 autoload -U compinit && compinit
