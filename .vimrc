@@ -220,7 +220,7 @@ endif
 noremap <F1> <Nop>
 inoremap <F1> <Nop>
 
-" 定义快捷键前缀，即<Leader>
+" 定义<Leader>
 let mapleader=";"
 
 " 快速保存及退出
@@ -309,8 +309,6 @@ let g:ycm_key_list_select_completion = ['<TAB>', '<C-J>']
 let g:ycm_complete_in_comments=1
 " 在字符串输入中也能补全
 let g:ycm_complete_in_strings = 1
-" 注释和字符串中的文字也会被收入补全
-"let g:ycm_collect_identifiers_from_comments_and_strings = 1
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
 " 从第一个键入字符就开始罗列匹配项
@@ -429,5 +427,4 @@ let g:rainbow_active = 1
 " 背景颜色
 set background=dark
 " molokai主题
-let g:rehash256 = 1
 colorscheme molokai
