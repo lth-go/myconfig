@@ -43,7 +43,7 @@ Plugin 'tpope/vim-repeat'
 " python代码对齐
 Plugin 'hynek/vim-python-pep8-indent'
 " python高亮
-Plugin 'hdima/python-syntax'
+Plugin 'lth-go/python-syntax'
 " =====Html=====
 " html标签匹配
 Plugin 'alvan/vim-closetag'
@@ -210,10 +210,6 @@ endfunc
 if has("autocmd")
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
 endif
-
-" python语法高亮
-let python_highlight_all = 1
-autocmd FileType python syn keyword pythonDecorator self cls
 
 
 """""""""""""""""""""""""""""""""""""""""""""
