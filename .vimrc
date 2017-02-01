@@ -80,8 +80,6 @@ set noswapfile
 set completeopt=menuone
 " 历史命令容量
 set history=2000
-" 正则magic模式
-"set magic
 " 命令行智能补全
 set wildmenu
 set wildmode=longest:full,full
@@ -117,9 +115,8 @@ autocmd InsertLeave * :setlocal relativenumber number
 
 " 禁止拆行
 set nowrap
-" 高亮显示当前行/列
+" 高亮显示当前行
 set cursorline
-"set cursorcolumn
 
 " 提高画面流畅度
 set lazyredraw
@@ -269,7 +266,7 @@ nnoremap <silent> g* g*zz
 vnoremap < <gv
 vnoremap > >gv
 
-" w!用sudo保存
+" w!!用sudo保存
 cabbrev w!! w !sudo tee >/dev/null %
 
 
@@ -402,7 +399,7 @@ let g:NERDCreateDefaultMappings = 0
 " 注释符左对齐
 let g:NERDDefaultAlign = 'left'
 " 自动注释快捷键
-map <Leader>c <plug>NERDCommenterToggle
+map <C-_> <plug>NERDCommenterToggle
 
 " =====Autoformat=====
 
@@ -424,7 +421,5 @@ let g:rainbow_active = 1
 "                     主题                  "
 """""""""""""""""""""""""""""""""""""""""""""
 
-" 背景颜色
-set background=dark
 " molokai主题
 colorscheme molokai
