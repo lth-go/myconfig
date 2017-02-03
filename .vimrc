@@ -1,67 +1,58 @@
 """""""""""""""""""""""""""""""""""""""""""""
-"                   Vundle                  "
+"                    Plug                   "
 """""""""""""""""""""""""""""""""""""""""""""
 
+" 关闭vi兼容
 set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.vim/plugged')
 
 " =====基础=====
 " 语法检查
-Plugin 'w0rp/ale'
+Plug 'w0rp/ale'
 " 代码补全
-Plugin 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 " 文件搜索
-Plugin 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 " 文本搜索
-Plugin 'dyng/ctrlsf.vim'
+Plug 'dyng/ctrlsf.vim'
 " 快速移动
-Plugin 'easymotion/vim-easymotion'
+Plug 'easymotion/vim-easymotion'
 " 主题配色
-Plugin 'lth-go/molokai'
+Plug 'lth-go/molokai'
 " 文件列表
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 " 函数列表
-Plugin 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar'
 " 状态栏
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
 " 注释
-Plugin 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdcommenter'
 " 括号匹配
-Plugin 'lth-go/auto-pairs'
+Plug 'lth-go/auto-pairs'
 " 彩虹括号
-Plugin 'luochen1990/rainbow'
+Plug 'luochen1990/rainbow'
 " 代码格式化
-Plugin 'Chiel92/vim-autoformat'
+Plug 'Chiel92/vim-autoformat'
 " 环绕修改
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
+Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat'
 " =====python=====
-" python代码对齐
-Plugin 'hynek/vim-python-pep8-indent'
-" python高亮
-Plugin 'lth-go/python-syntax'
+" Python代码对齐
+Plug 'hynek/vim-python-pep8-indent'
+" Python高亮
+Plug 'lth-go/python-syntax'
 " =====Html=====
-" html标签匹配
-Plugin 'alvan/vim-closetag'
-Plugin 'valloric/MatchTagAlways'
+" Html标签匹配
+Plug 'alvan/vim-closetag'
+" Html标签显示
+Plug 'valloric/MatchTagAlways'
 
-call vundle#end()
-
+call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""
 "                     基础                  "
 """""""""""""""""""""""""""""""""""""""""""""
 
 " =====文件=====
-
-" 文件类型检测
-filetype plugin indent on
-" vimrc修改后自动加载
-autocmd! bufwritepost .vimrc source %
 
 " 设置编码格式
 set encoding=utf-8
@@ -139,13 +130,6 @@ set scrolloff=5
 set sidescroll=1
 set sidescrolloff=10
 
-" =====高亮=====
-
-" 开启语法高亮功能
-syntax enable
-" 允许替换默认配色
-syntax on
-
 " =====搜索=====
 
 " 高亮显示搜索结果
@@ -188,15 +172,10 @@ autocmd InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote
 autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
 function! AutoSetFileHead()
     "如果文件类型为.sh文件
-    if &filetype == 'sh'
-        call setline(1, "\#!/bin/bash")
-    endif
+    if &filetype == 'sh' | call setline(1, "\#!/bin/bash") | endif
 
     "如果文件类型为python
-    if &filetype == 'python'
-        call setline(1, "\#!/usr/bin/env python")
-        call append(1, "\# encoding: utf-8")
-    endif
+    if &filetype == 'python' | call setline(1, "\#!/usr/bin/env python") | call append(1, "\# encoding: utf-8") | endif
 
     normal G
     normal o
@@ -250,8 +229,8 @@ nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 
 " 命令行模式增强
-cnoremap <C-J> <t_kd>
-cnoremap <C-K> <t_ku>
+cnoremap <C-J> <Down>
+cnoremap <C-K> <Up>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 
@@ -280,7 +259,7 @@ cabbrev w!! w !sudo tee >/dev/null %
 
 " python语法检查
 let g:ale_linters = {'python': ['flake8']}
-let g:ale_python_flake8_args = '--ignore=E116,E501,F401 '
+let g:ale_python_flake8_args = '--ignore=E116,E501,F401'
 " 关闭airline显示
 let g:airline#extensions#ale#enabled = 0
 " 关闭自动检查
