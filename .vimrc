@@ -60,7 +60,7 @@ set termencoding=utf-8
 
 " 文件修改自动载入
 set autoread
-" 取消备份
+" 覆盖文件不备份
 set nobackup
 " 关闭交换文件
 set noswapfile
@@ -88,6 +88,9 @@ set laststatus=2
 set ruler
 " 显示当前正在输入的命令
 set showcmd
+
+" 允许在有未保存的修改时切换缓冲区
+set hidden
 
 " =====行号=====
 
@@ -137,6 +140,8 @@ set incsearch
 " 搜索时大小写不敏感
 set ignorecase
 set smartcase
+" 搜索不绕回
+set nowrapscan
 
 " =====缩进=====
 
