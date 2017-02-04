@@ -74,8 +74,6 @@ set history=2000
 " 命令行智能补全
 set wildmenu
 set wildmode=longest:full,full
-" 命令行忽略大小写
-"set wildignorecase
 " 忽略文件
 set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git
 " wildmode增强
@@ -334,8 +332,6 @@ let NERDTreeShowHidden=1
 let NERDTreeMinimalUI=1
 " 自动删除文件对应buffer
 let NERDTreeAutoDeleteBuffer=1
-" 显示行号
-let NERDTreeShowLineNumbers=1
 " 退出vim时自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 忽略一下文件的显示
@@ -347,8 +343,6 @@ nmap <Leader>d :NERDTreeToggle<CR>
 
 " 打开Tagbar时光标跟随
 let g:tagbar_autofocus = 1
-" 显示行号
-let g:tagbar_show_linenumbers = -1
 " 打开Tagbar
 nmap <leader>t :TagbarToggle<CR>
 
