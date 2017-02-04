@@ -33,7 +33,7 @@ Plug 'lth-go/auto-pairs'
 Plug 'luochen1990/rainbow'
 " 代码格式化
 Plug 'Chiel92/vim-autoformat'
-" 环绕修改
+" 结对符修改
 Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat'
 " =====python=====
 " Python代码对齐
@@ -75,7 +75,7 @@ set history=2000
 set wildmenu
 set wildmode=longest:full,full
 " 命令行忽略大小写
-set wildignorecase
+"set wildignorecase
 " 忽略文件
 set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git
 " wildmode增强
@@ -125,7 +125,7 @@ set splitbelow
 set splitright
 
 " 垂直滚动
-set scrolloff=5
+set scrolloff=10
 " 水平滚动
 set sidescroll=1
 set sidescrolloff=10
