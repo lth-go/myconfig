@@ -140,8 +140,6 @@ set incsearch
 " 搜索时大小写不敏感
 set ignorecase
 set smartcase
-" 搜索不绕回
-set nowrapscan
 
 " =====缩进=====
 
@@ -273,9 +271,7 @@ let g:ale_lint_on_save = 1
 function! ToggleErrors()
     let old_last_winnr = winnr('$')
     lclose
-    if old_last_winnr == winnr('$')
-        lwindow
-    endif
+    if old_last_winnr == winnr('$') | lwindow | endif
 endfunction
 nnoremap <Leader>e :call ToggleErrors()<cr>
 
@@ -295,7 +291,7 @@ let g:ycm_min_num_of_chars_for_completion=1
 " 指定jedi的Python解释器路径
 let g:ycm_server_python_interpreter = '/work/python_venv/mapboom_venv/bin/python'
 " 函数跳转
-nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>g :YcmCompleter GoTo<CR>
 
 " =====CtrlSF=====
 
@@ -303,8 +299,6 @@ nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " 搜索框居底部
 let g:ctrlsf_position = 'bottom'
-" 设置高度
-let g:ctrlsf_winsize = '30%'
 " 打开文件时不关闭
 let g:ctrlsf_auto_close = 0
 " 关闭保存确认
@@ -342,14 +336,14 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " 忽略一下文件的显示
 let NERDTreeIgnore=['\.pyc','\.pyo','\~$','\.swp','\.git$','\.idea']
 " 打开文件树
-nmap <Leader>d :NERDTreeToggle<CR>
+nmap <C-\> :NERDTreeToggle<CR>
 
 " =====Tagbar=====
 
 " 打开Tagbar时光标跟随
 let g:tagbar_autofocus = 1
 " 打开Tagbar
-nmap <leader>t :TagbarToggle<CR>
+nmap <C-t> :TagbarToggle<CR>
 
 " =====Airline=====
 

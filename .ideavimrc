@@ -6,9 +6,10 @@ set clipboard = unnamed
 set history = 2000
 set incsearch
 set showmode
+set matchpairs
+set smartcase
 
 set surround
 
-nnoremap H ^
-nnoremap L $"
-nnoremap Y y$
+noremap H ^
+noremap L $
