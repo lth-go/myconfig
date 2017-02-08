@@ -238,9 +238,41 @@ cnoremap <C-E> <End>
 " 搜索关键词居中
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
+
+" * 搜索不移动 可视模式高亮选中
+function! Starsearch_searchCWord()
+    let wordStr = expand("<cword>")
+    if strlen(wordStr) == 0 | return | endif
+
+    if wordStr[0] =~ '\<'
+        let @/ = '\<' . wordStr . '\>'
+    else
+        let @/ = wordStr
+    endif
+
+    let savedUnnamed = @"
+    let savedS = @s
+    normal! "syiw
+    if wordStr != @s
+        normal! w
+    endif
+    let @s = savedS
+    let @" = savedUnnamed
+    set hlsearch
+endfunction
+
+function! Starsearch_searchVWord()
+    let savedUnnamed = @"
+    let savedS = @s
+    normal! gv"sy
+    let @/ = '\V' . substitute(escape(@s, '\'), '\n', '\\n', 'g')
+    let @s = savedS
+    let @" = savedUnnamed
+    set hlsearch
+endfunction
+
+nnoremap <silent> * :set nohlsearch\|:call Starsearch_searchCWord()<CR>
+vnoremap <silent> * :set nohlsearch\|:<C-u>call Starsearch_searchVWord()<CR>
 
 " 调整缩进后自动选中
 vnoremap < <gv

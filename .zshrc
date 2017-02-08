@@ -14,7 +14,6 @@ plugins=(git docker docker-compose docker-machine z sudo colored-man-pages extra
 # 用户配置
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
-# export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
 
