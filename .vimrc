@@ -35,11 +35,15 @@ Plug 'luochen1990/rainbow'
 Plug 'Chiel92/vim-autoformat'
 " 结对符修改
 Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat'
-" =====python=====
+" =====Python=====
 " Python代码对齐
 Plug 'hynek/vim-python-pep8-indent'
 " Python高亮
 Plug 'lth-go/python-syntax'
+" =====javascript=====
+Plug 'othree/yajs.vim' | Plug 'pangloss/vim-javascript'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'marijnh/tern_for_vim'
 " =====Html=====
 " Html标签匹配
 Plug 'alvan/vim-closetag'
@@ -289,9 +293,10 @@ cabbrev w!! w !sudo tee >/dev/null %
 " =====Ale=====
 
 " pip install flake8
+" npm install -g eslint
 
 " python语法检查
-let g:ale_linters = {'python': ['flake8']}
+let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint']}
 let g:ale_python_flake8_args = '--ignore=E116,E501,F401'
 " 关闭airline显示
 let g:airline#extensions#ale#enabled = 0
@@ -408,6 +413,7 @@ map <C-_> <plug>NERDCommenterToggle
 " =====Autoformat=====
 
 " pip install autopep8
+" npm install -g js-beautify
 
 " 添加格式化参数
 let g:formatdef_custom_autopep8 = "'autopep8 - --ignore=E116,E501'"
