@@ -41,9 +41,10 @@ Plug 'hynek/vim-python-pep8-indent'
 " Python高亮
 Plug 'lth-go/python-syntax'
 " =====javascript=====
+" javascript高亮 对其
 Plug 'othree/yajs.vim' | Plug 'pangloss/vim-javascript'
+" javascript第三方库高亮
 Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'marijnh/tern_for_vim'
 " =====Html=====
 " Html标签匹配
 Plug 'alvan/vim-closetag'
