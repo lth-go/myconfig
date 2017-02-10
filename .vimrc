@@ -41,8 +41,8 @@ Plug 'hynek/vim-python-pep8-indent'
 " Python高亮
 Plug 'lth-go/python-syntax'
 " =====javascript=====
-" javascript高亮 对其
-Plug 'othree/yajs.vim' | Plug 'pangloss/vim-javascript'
+" javascript高亮
+Plug 'pangloss/vim-javascript'
 " javascript第三方库高亮
 Plug 'othree/javascript-libraries-syntax.vim'
 " =====Html=====
@@ -378,8 +378,14 @@ nmap <C-\> :NERDTreeToggle<CR>
 
 " =====Tagbar=====
 
+" npm install -g git+https://github.com/ramitos/jsctags.git
+
 " 打开Tagbar时光标跟随
 let g:tagbar_autofocus = 1
+" javascript tag支持
+let g:tagbar_type_javascript = {
+    \ 'ctagsbin' : 'jsctags'
+    \ }
 " 打开Tagbar
 nmap <C-t> :TagbarToggle<CR>
 
