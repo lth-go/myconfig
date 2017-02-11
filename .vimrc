@@ -343,6 +343,8 @@ let g:ctrlsf_auto_close = 0
 let g:ctrlsf_confirm_save = 0
 " 上下文行数
 let g:ctrlsf_context = '-C 1'
+" 忽略文件夹
+let g:ctrlsf_ignore_dir = ['.idea', '.git']
 " 快捷键设置
 let g:ctrlsf_mapping = {
             \ "next"  : "n",
