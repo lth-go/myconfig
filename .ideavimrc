@@ -13,6 +13,3 @@ set sidescroll=1
 set sidescrolloff=10
 
 set surround
-
-noremap H ^
-noremap L $

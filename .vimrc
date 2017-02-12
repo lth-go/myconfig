@@ -335,8 +335,6 @@ nnoremap <leader>g :YcmCompleter GoTo<CR>
 
 " dnf install ack
 
-" 搜索框居底部
-let g:ctrlsf_position = 'bottom'
 " 打开文件时不关闭
 let g:ctrlsf_auto_close = 0
 " 关闭保存确认
