@@ -305,6 +305,9 @@ let g:airline#extensions#ale#enabled = 0
 let g:ale_lint_on_text_changed = 0
 " 保存时检查
 let g:ale_lint_on_save = 1
+" 提示符修改
+let g:ale_sign_error = '•'
+let g:ale_sign_warning = '•'
 " 打开错误面板
 function! ToggleErrors()
     let old_last_winnr = winnr('$')
@@ -328,6 +331,22 @@ let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_min_num_of_chars_for_completion=1
 " 指定jedi的Python解释器路径
 let g:ycm_server_python_interpreter = '/work/python_venv/mapboom_venv/bin/python'
+let g:ycm_semantic_triggers =  {
+            \   'c' : ['->', '.'],
+            \   'objc' : ['->', '.'],
+            \   'ocaml' : ['.', '#'],
+            \   'cpp,objcpp' : ['->', '.', '::'],
+            \   'perl' : ['->'],
+            \   'php' : ['->', '::', '(', 'use ', 'namespace ', '\'],
+            \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.', 're!(?=[a-zA-Z]{3,4})'],
+            \   'html': ['<', '"', '</', ' '],
+            \   'vim' : ['re![_a-za-z]+[_\w]*\.'],
+            \   'ruby' : ['.', '::'],
+            \   'lua' : ['.', ':'],
+            \   'erlang' : [':'],
+            \   'haskell' : ['.', 're!.'],
+            \   'scss,css': [ 're!^\s{2,4}', 're!:\s+' ],
+            \ }
 " 函数跳转
 nnoremap <leader>g :YcmCompleter GoTo<CR>
 

@@ -1,11 +1,17 @@
 {
-    "libs": [
-        "browser",
-        "underscore",
-        "jquery"
-    ],
-    "plugins": {
-         "node": {},
-         "angular": {}
-    }
+  "libs": [
+    "browser",
+    "jquery"
+  ],
+  "plugins": {
+    "requirejs": {
+      "baseURL": "./",
+      "paths": {}
+    },
+    "node": {},
+    "complete_strings": {},
+    "angular": {},
+    "modules": {},
+    "es_modules": {}
+  }
 }
