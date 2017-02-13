@@ -324,6 +324,11 @@ let g:ycm_complete_in_comments=1
 let g:ycm_complete_in_strings = 1
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
+let g:ycm_semantic_triggers =  {
+            \   'c' : ['->', '.'],
+            \   'javascript,python' : ['.', 're!(?=[a-zA-Z_])'],
+            \   'html': ['<', '"', '</', ' '],
+            \ }
 " 从第一个键入字符就开始罗列匹配项
 let g:ycm_min_num_of_chars_for_completion=1
 " 指定jedi的Python解释器路径
@@ -384,8 +389,8 @@ nmap <C-\> :NERDTreeToggle<CR>
 let g:tagbar_autofocus = 1
 " javascript tag支持
 let g:tagbar_type_javascript = {
-    \ 'ctagsbin' : 'jsctags'
-    \ }
+            \ 'ctagsbin' : 'jsctags'
+            \ }
 " 打开Tagbar
 nmap <C-t> :TagbarToggle<CR>
 
