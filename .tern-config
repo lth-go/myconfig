@@ -7,9 +7,7 @@
     "plugins": {
         "node": {},
         "complete_strings": {},
-        "angular": {},
-        "modules": {},
-        "es_modules": {}
+        "angular": {}
     }
 }
 
