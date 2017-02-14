@@ -1,11 +1,15 @@
 {
     "libs": [
         "browser",
-        "underscore",
-        "jquery"
+        "jquery",
+        "keywords"
     ],
     "plugins": {
-         "node": {},
-         "angular": {}
+        "node": {},
+        "complete_strings": {},
+        "angular": {},
+        "modules": {},
+        "es_modules": {}
     }
 }
+
