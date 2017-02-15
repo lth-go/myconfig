@@ -1,7 +1,10 @@
 {
   "libs": [
     "browser",
-    "jquery"
+    "jquery",
+    "chai",
+    "ecmascript",
+    "underscore"
   ],
   "plugins": {
     "requirejs": {

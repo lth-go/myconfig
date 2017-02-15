@@ -336,22 +336,6 @@ let g:ycm_semantic_triggers =  {
 let g:ycm_min_num_of_chars_for_completion=1
 " 指定jedi的Python解释器路径
 let g:ycm_server_python_interpreter = '/work/python_venv/mapboom_venv/bin/python'
-let g:ycm_semantic_triggers =  {
-            \   'c' : ['->', '.'],
-            \   'objc' : ['->', '.'],
-            \   'ocaml' : ['.', '#'],
-            \   'cpp,objcpp' : ['->', '.', '::'],
-            \   'perl' : ['->'],
-            \   'php' : ['->', '::', '(', 'use ', 'namespace ', '\'],
-            \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.', 're!(?=[a-zA-Z]{3,4})'],
-            \   'html': ['<', '"', '</', ' '],
-            \   'vim' : ['re![_a-za-z]+[_\w]*\.'],
-            \   'ruby' : ['.', '::'],
-            \   'lua' : ['.', ':'],
-            \   'erlang' : [':'],
-            \   'haskell' : ['.', 're!.'],
-            \   'scss,css': [ 're!^\s{2,4}', 're!:\s+' ],
-            \ }
 " 函数跳转
 nnoremap <leader>g :YcmCompleter GoTo<CR>
 
