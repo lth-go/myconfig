@@ -240,6 +240,10 @@ cnoremap <C-K> <Up>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 
+"插入模式增强
+inoremap <C-A> <Home>
+inoremap <C-E> <End>
+
 " 搜索关键词居中
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz

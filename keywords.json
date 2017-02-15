@@ -1,0 +1,136 @@
+{
+    "!name": "keywords",
+    "!define":{
+        "keyword": {}
+    },
+    "break": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "do": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "instanceof": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "typeof": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "case": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "else": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "new": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "var": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "catch": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "finally": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "return": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "void": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "continue": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "for": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "swith": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "while": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "debugger": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "function": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "this": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "with": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "default": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "if": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "throw": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "delete": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "in": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    },
+    "try": {
+        "!type": "keyword",
+        "!url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements",
+        "!doc": "keyword"
+    }
+}

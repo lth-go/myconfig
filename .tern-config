@@ -1,20 +1,13 @@
 {
-  "libs": [
-    "browser",
-    "jquery",
-    "chai",
-    "ecmascript",
-    "underscore"
-  ],
-  "plugins": {
-    "requirejs": {
-      "baseURL": "./",
-      "paths": {}
-    },
-    "node": {},
-    "complete_strings": {},
-    "angular": {},
-    "modules": {},
-    "es_modules": {}
-  }
+    "libs": [
+        "browser",
+        "jquery",
+        "keywords"
+    ],
+    "plugins": {
+        "node": {},
+        "complete_strings": {},
+        "angular": {}
+    }
 }
+
