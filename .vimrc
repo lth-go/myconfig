@@ -24,7 +24,7 @@ Plug 'scrooloose/nerdtree'
 " 函数列表
 Plug 'majutsushi/tagbar'
 " 状态栏
-Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
 " 注释
 Plug 'scrooloose/nerdcommenter'
 " 括号匹配
