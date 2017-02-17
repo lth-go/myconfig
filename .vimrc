@@ -392,9 +392,7 @@ nmap <C-\> :NERDTreeToggle<CR>
 " 打开Tagbar时光标跟随
 let g:tagbar_autofocus = 1
 " javascript tag支持
-let g:tagbar_type_javascript = {
-            \ 'ctagsbin' : 'jsctags'
-            \ }
+let g:tagbar_type_javascript = {'ctagsbin': 'jsctags'}
 " 打开Tagbar
 nmap <C-t> :TagbarToggle<CR>
 
