@@ -309,6 +309,9 @@ let g:airline#extensions#ale#enabled = 0
 let g:ale_lint_on_text_changed = 0
 " 保存时检查
 let g:ale_lint_on_save = 1
+" 提示符修改
+let g:ale_sign_error = '•'
+let g:ale_sign_warning = '•'
 " 打开错误面板
 function! ToggleErrors()
     let old_last_winnr = winnr('$')
