@@ -1,6 +1,4 @@
-"""""""""""""""""""""""""""""""""""""""""""""
-"                    Plug                   "
-"""""""""""""""""""""""""""""""""""""""""""""
+" *****Plug*****
 
 " 关闭vi兼容
 set nocompatible
@@ -50,245 +48,7 @@ Plug 'alvan/vim-closetag'
 Plug 'valloric/MatchTagAlways'
 
 call plug#end()
-
-"""""""""""""""""""""""""""""""""""""""""""""
-"                     基础                  "
-"""""""""""""""""""""""""""""""""""""""""""""
-
-" =====文件=====
-
-" 设置编码格式
-set encoding=utf-8
-set termencoding=utf-8
-
-" 文件修改自动载入
-set autoread
-" 覆盖文件不备份
-set nobackup
-" 关闭交换文件
-set noswapfile
-
-" =====命令行=====
-
-" 菜单补全
-set completeopt=menuone
-" 历史命令容量
-set history=2000
-" 命令行智能补全
-set wildmenu
-set wildmode=longest:full,full
-" 忽略文件
-set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git
-" wildmode增强
-let &wildcharm = &wildchar
-cnoremap <expr> <C-J> wildmenumode() ? "\<Down>" : "\<C-J>"
-
-" =====状态栏=====
-
-" 总是显示状态栏
-set laststatus=2
-" 显示光标当前位置
-set ruler
-" 显示当前正在输入的命令
-set showcmd
-
-" 允许在有未保存的修改时切换缓冲区
-set hidden
-
-" =====行号=====
-
-" 相对行号
-set relativenumber number
-" 当前窗口用相对行号，其他窗口绝对行号
-autocmd WinEnter * if &number | execute("setlocal number relativenumber") | endif
-autocmd WinLeave * if &number | execute("setlocal number norelativenumber") | endif
-" 插入模式下用绝对行号, 普通模式下用相对
-autocmd InsertEnter * :setlocal norelativenumber number
-autocmd InsertLeave * :setlocal relativenumber number
-
-" =====内容=====
-
-" 禁止拆行
-set nowrap
-" 高亮显示当前行
-set cursorline
-
-" 提高画面流畅度
-set lazyredraw
-set ttyfast
-
-" 禁止折叠
-set nofoldenable
-
-" 显示tab跟空格
-set list
-set listchars=tab:>-,trail:·,nbsp:·
-
-" 指定分割的区域
-set splitbelow
-set splitright
-
-" 垂直滚动
-set scrolloff=10
-" 水平滚动
-set sidescroll=1
-set sidescrolloff=10
-
-" =====搜索=====
-
-" 高亮显示搜索结果
-set hlsearch
-" 开启实时搜索功能
-set incsearch
-" 搜索时大小写不敏感
-set ignorecase
-set smartcase
-
-" =====缩进=====
-
-" 退格键正常处理
-set backspace=2
-" 智能缩进
-set cindent
-" 自动缩进
-set autoindent
-" 制表符占用空格数
-set tabstop=4
-" 自动缩进距离
-set shiftwidth=4
-" 连续空格视为制表符
-set softtabstop=4
-" 按退格键一次删掉4个空格
-set smarttab
-" 将Tab自动转化成空格
-set expandtab
-" 智能缩进
-set shiftround
-
-" =====其他=====
-
-" 输入法正常切换
-" 快捷键延迟
-set ttimeoutlen=10
-autocmd InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
-
-" 自动添加头部
-autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
-function! AutoSetFileHead()
-    "如果文件类型为.sh文件
-    if &filetype == 'sh' | call setline(1, "\#!/bin/bash") | endif
-    "如果文件类型为python
-    if &filetype == 'python' | call setline(1, "\#!/usr/bin/env python") | call append(1, "\# encoding: utf-8") | endif
-    normal G
-    normal o
-    normal o
-endfunc
-
-" 打开自动定位到最后编辑的位置
-if has("autocmd")
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
-endif
-
-"""""""""""""""""""""""""""""""""""""""""""""
-"                  快捷键                   "
-"""""""""""""""""""""""""""""""""""""""""""""
-
-" 废弃F1
-noremap <F1> <Nop>
-inoremap <F1> <Nop>
-
-" 定义<Leader>
-let mapleader=";"
-
-" 快速保存及退出
-nnoremap <Leader>q :q<CR>
-nnoremap <Leader>w :w<CR>
-
-" 切换布局快捷键
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-" 用于绕行
-noremap j gj
-noremap k gk
-
-" 替换行首行尾快捷键
-noremap H ^
-noremap L $
-
-" 切换buffer
-nnoremap <Leader>1 :1b<CR>
-nnoremap <Leader>2 :2b<CR>
-nnoremap <Leader>3 :3b<CR>
-nnoremap <Leader>4 :4b<CR>
-nnoremap <Leader>5 :5b<CR>
-nnoremap <Leader>6 :6b<CR>
-nnoremap <Leader>7 :7b<CR>
-nnoremap <Leader>8 :8b<CR>
-nnoremap <Leader>9 :9b<CR>
-
-" 命令行模式增强
-cnoremap <C-J> <Down>
-cnoremap <C-K> <Up>
-cnoremap <C-A> <Home>
-cnoremap <C-E> <End>
-
-"插入模式增强
-inoremap <C-A> <Home>
-inoremap <C-E> <End>
-
-" 搜索关键词居中
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-
-" * 搜索不移动 可视模式高亮选中
-function! Starsearch_searchCWord()
-    let wordStr = expand("<cword>")
-    if strlen(wordStr) == 0 | return | endif
-
-    if wordStr[0] =~ '\<'
-        let @/ = '\<' . wordStr . '\>'
-    else
-        let @/ = wordStr
-    endif
-
-    let savedUnnamed = @"
-    let savedS = @s
-    normal! "syiw
-    if wordStr != @s
-        normal! w
-    endif
-    let @s = savedS
-    let @" = savedUnnamed
-    set hlsearch
-endfunction
-
-function! Starsearch_searchVWord()
-    let savedUnnamed = @"
-    let savedS = @s
-    normal! gv"sy
-    let @/ = '\V' . substitute(escape(@s, '\'), '\n', '\\n', 'g')
-    let @s = savedS
-    let @" = savedUnnamed
-    set hlsearch
-endfunction
-
-nnoremap <silent> * :set nohlsearch\|:call Starsearch_searchCWord()<CR>
-vnoremap <silent> * :set nohlsearch\|:<C-u>call Starsearch_searchVWord()<CR>
-
-" 调整缩进后自动选中
-vnoremap < <gv
-vnoremap > >gv
-
-" w!!用sudo保存
-cabbrev w!! w !sudo tee >/dev/null %
-
-"""""""""""""""""""""""""""""""""""""""""""""
-"                     插件                  "
-"""""""""""""""""""""""""""""""""""""""""""""
-
+ 
 " =====Ale=====
 
 " pip install flake8
@@ -437,9 +197,237 @@ noremap <Leader>a :Autoformat<CR>
 " 开启彩虹括号
 let g:rainbow_active = 1
 
-"""""""""""""""""""""""""""""""""""""""""""""
-"                     主题                  "
-"""""""""""""""""""""""""""""""""""""""""""""
+" *****基础*****
+
+" =====文件=====
+
+" 设置编码格式
+set encoding=utf-8
+set termencoding=utf-8
+
+" 文件修改自动载入
+set autoread
+" 覆盖文件不备份
+set nobackup
+" 关闭交换文件
+set noswapfile
+
+" =====命令行=====
+
+" 菜单补全
+set completeopt=menuone
+" 历史命令容量
+set history=2000
+" 命令行智能补全
+set wildmenu
+set wildmode=longest:full,full
+" 忽略文件
+set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git
+" wildmode增强
+let &wildcharm = &wildchar
+cnoremap <expr> <C-J> wildmenumode() ? "\<Down>" : "\<C-J>"
+
+" =====状态栏=====
+
+" 总是显示状态栏
+set laststatus=2
+" 显示光标当前位置
+set ruler
+" 显示当前正在输入的命令
+set showcmd
+
+" 允许在有未保存的修改时切换缓冲区
+set hidden
+
+" =====行号=====
+
+" 相对行号
+set relativenumber number
+" 当前窗口用相对行号，其他窗口绝对行号
+autocmd WinEnter * if &number | execute("setlocal number relativenumber") | endif
+autocmd WinLeave * if &number | execute("setlocal number norelativenumber") | endif
+" 插入模式下用绝对行号, 普通模式下用相对
+autocmd InsertEnter * :setlocal norelativenumber number
+autocmd InsertLeave * :setlocal relativenumber number
+
+" =====内容=====
+
+" 禁止拆行
+set nowrap
+" 高亮显示当前行
+set cursorline
+
+" 提高画面流畅度
+set lazyredraw
+set ttyfast
+
+" 禁止折叠
+set nofoldenable
+
+" 显示tab跟空格
+set list
+set listchars=tab:>-,trail:·,nbsp:·
+
+" 指定分割的区域
+set splitbelow
+set splitright
+
+" 垂直滚动
+set scrolloff=10
+" 水平滚动
+set sidescroll=1
+set sidescrolloff=10
+
+" =====搜索=====
+
+" 高亮显示搜索结果
+set hlsearch
+" 开启实时搜索功能
+set incsearch
+" 搜索时大小写不敏感
+set ignorecase
+set smartcase
+
+" =====缩进=====
+
+" 退格键正常处理
+set backspace=2
+" 智能缩进
+set cindent
+" 自动缩进
+set autoindent
+" 制表符占用空格数
+set tabstop=4
+" 自动缩进距离
+set shiftwidth=4
+" 连续空格视为制表符
+set softtabstop=4
+" 按退格键一次删掉4个空格
+set smarttab
+" 将Tab自动转化成空格
+set expandtab
+" 智能缩进
+set shiftround
+
+" =====其他=====
+
+" 输入法正常切换
+" 快捷键延迟
+set ttimeoutlen=10
+autocmd InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
+
+" 自动添加头部
+autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
+function! AutoSetFileHead()
+    "如果文件类型为.sh文件
+    if &filetype == 'sh' | call setline(1, "\#!/bin/bash") | endif
+    "如果文件类型为python
+    if &filetype == 'python' | call setline(1, "\#!/usr/bin/env python") | call append(1, "\# encoding: utf-8") | endif
+    normal G
+    normal o
+    normal o
+endfunc
+
+" 打开自动定位到最后编辑的位置
+if has("autocmd")
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
+endif
+
+" *****快捷键*****
+
+" 废弃F1
+noremap <F1> <Nop>
+inoremap <F1> <Nop>
+
+" 定义<Leader>
+let mapleader=";"
+
+" 快速保存及退出
+nnoremap <Leader>q :q<CR>
+nnoremap <Leader>w :w<CR>
+
+" 切换布局快捷键
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+" 用于绕行
+noremap j gj
+noremap k gk
+
+" 替换行首行尾快捷键
+noremap H ^
+noremap L $
+
+" 切换buffer
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
+
+" 命令行模式增强
+cnoremap <C-J> <Down>
+cnoremap <C-K> <Up>
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+
+"插入模式增强
+inoremap <C-A> <Home>
+inoremap <C-E> <End>
+
+" 搜索关键词居中
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+
+" * 搜索不移动 可视模式高亮选中
+function! Starsearch_searchCWord()
+    let wordStr = expand("<cword>")
+    if strlen(wordStr) == 0 | return | endif
+
+    if wordStr[0] =~ '\<'
+        let @/ = '\<' . wordStr . '\>'
+    else
+        let @/ = wordStr
+    endif
+
+    let savedUnnamed = @"
+    let savedS = @s
+    normal! "syiw
+    if wordStr != @s
+        normal! w
+    endif
+    let @s = savedS
+    let @" = savedUnnamed
+    set hlsearch
+endfunction
+
+function! Starsearch_searchVWord()
+    let savedUnnamed = @"
+    let savedS = @s
+    normal! gv"sy
+    let @/ = '\V' . substitute(escape(@s, '\'), '\n', '\\n', 'g')
+    let @s = savedS
+    let @" = savedUnnamed
+    set hlsearch
+endfunction
+
+nnoremap <silent> * :set nohlsearch\|:call Starsearch_searchCWord()<CR>
+vnoremap <silent> * :set nohlsearch\|:<C-u>call Starsearch_searchVWord()<CR>
+
+" 调整缩进后自动选中
+vnoremap < <gv
+vnoremap > >gv
+
+" w!!用sudo保存
+cabbrev w!! w !sudo tee >/dev/null %
+
+" *****主题*****
 
 " 分割线颜色
 let g:gruvbox_vert_split = 'bg0'
