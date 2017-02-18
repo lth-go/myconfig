@@ -436,5 +436,5 @@ set background=dark
 " 主题
 colorscheme gruvbox
 " 提示符颜色
-hi ALEErrorSign term=reverse cterm=bold ctermfg=167 ctermbg=237
-hi ALEWarningSign term=standout cterm=bold ctermfg=223 ctermbg=237
+highlight ALEErrorSign term=reverse cterm=bold ctermfg=167 ctermbg=237
+highlight ALEWarningSign term=standout cterm=bold ctermfg=223 ctermbg=237
