@@ -24,7 +24,7 @@ Plug 'scrooloose/nerdtree'
 " 函数列表
 Plug 'majutsushi/tagbar'
 " 状态栏
-Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
 " 注释
 Plug 'scrooloose/nerdcommenter'
 " 括号匹配
@@ -177,10 +177,8 @@ autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
 function! AutoSetFileHead()
     "如果文件类型为.sh文件
     if &filetype == 'sh' | call setline(1, "\#!/bin/bash") | endif
-
     "如果文件类型为python
     if &filetype == 'python' | call setline(1, "\#!/usr/bin/env python") | call append(1, "\# encoding: utf-8") | endif
-
     normal G
     normal o
     normal o
@@ -190,7 +188,6 @@ endfunc
 if has("autocmd")
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
 endif
-
 
 """""""""""""""""""""""""""""""""""""""""""""
 "                  快捷键                   "
@@ -288,7 +285,6 @@ vnoremap > >gv
 " w!!用sudo保存
 cabbrev w!! w !sudo tee >/dev/null %
 
-
 """""""""""""""""""""""""""""""""""""""""""""
 "                     插件                  "
 """""""""""""""""""""""""""""""""""""""""""""
@@ -308,8 +304,8 @@ let g:ale_lint_on_text_changed = 0
 " 保存时检查
 let g:ale_lint_on_save = 1
 " 提示符修改
-let g:ale_sign_error = '•'
-let g:ale_sign_warning = '•'
+let g:ale_sign_error = '——'
+let g:ale_sign_warning = '——'
 " 打开错误面板
 function! ToggleErrors()
     let old_last_winnr = winnr('$')
@@ -400,7 +396,7 @@ nmap <C-t> :TagbarToggle<CR>
 " =====Airline=====
 
 " 设置airline主题
-let g:airline_theme="powerlineish"
+let g:airline_theme="gruvbox"
 " 打开tabline功能
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -441,11 +437,16 @@ noremap <Leader>a :Autoformat<CR>
 " 开启彩虹括号
 let g:rainbow_active = 1
 
-
 """""""""""""""""""""""""""""""""""""""""""""
 "                     主题                  "
 """""""""""""""""""""""""""""""""""""""""""""
 
-" 主题
+" 分割线颜色
+let g:gruvbox_vert_split = 'bg0'
+" 背景颜色
 set background=dark
+" 主题
 colorscheme gruvbox
+" 提示符颜色
+hi ALEErrorSign term=reverse cterm=bold ctermfg=167 ctermbg=237
+hi ALEWarningSign term=standout cterm=bold ctermfg=223 ctermbg=237
