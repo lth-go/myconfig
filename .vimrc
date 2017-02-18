@@ -18,7 +18,7 @@ Plug 'dyng/ctrlsf.vim'
 " 快速移动
 Plug 'easymotion/vim-easymotion'
 " 主题配色
-Plug 'lth-go/molokai'
+Plug 'morhetz/gruvbox'
 " 文件列表
 Plug 'scrooloose/nerdtree'
 " 函数列表
@@ -38,8 +38,6 @@ Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat'
 " =====Python=====
 " Python代码对齐
 Plug 'hynek/vim-python-pep8-indent'
-" Python高亮
-Plug 'lth-go/python-syntax'
 " =====javascript=====
 " javascript高亮
 Plug 'pangloss/vim-javascript'
@@ -448,5 +446,6 @@ let g:rainbow_active = 1
 "                     主题                  "
 """""""""""""""""""""""""""""""""""""""""""""
 
-" molokai主题
-colorscheme molokai
+" 主题
+set background=dark
+colorscheme gruvbox
