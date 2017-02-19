@@ -6,7 +6,6 @@
     ],
     "plugins": {
         "node": {},
-        "complete_strings": {},
         "angular": {}
     }
 }
