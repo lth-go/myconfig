@@ -34,6 +34,8 @@ Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat'
 " =====Python=====
 " Python代码对齐
 Plug 'hynek/vim-python-pep8-indent'
+" Jinja2高亮
+Plug 'Glench/Vim-Jinja2-Syntax'
 " =====javascript=====
 " javascript高亮
 Plug 'pangloss/vim-javascript'
