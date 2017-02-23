@@ -284,7 +284,7 @@ cabbrev w!! w !sudo tee >/dev/null %
 
 " python语法检查
 let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint']}
-let g:ale_python_flake8_args = '--ignore=E116,E501,F401'
+let g:ale_python_flake8_args = '--ignore=E116,E402,E501,F401'
 " 关闭airline显示
 let g:airline#extensions#ale#enabled = 0
 " 关闭自动检查
@@ -294,6 +294,8 @@ let g:ale_lint_on_save = 1
 " 提示符修改
 let g:ale_sign_error = '——'
 let g:ale_sign_warning = '——'
+" 取消错误高亮
+let g:ale_set_highlights = 0
 " 打开错误面板
 function! ToggleErrors()
     let old_last_winnr = winnr('$')
@@ -437,7 +439,7 @@ set background=dark
 " 主题
 colorscheme gruvbox
 " vim-javascript高亮修改
-hi link jsOperator javaScriptOperator
+highlight link jsOperator javaScriptOperator
 " ale提示符颜色
 highlight ALEErrorSign term=reverse cterm=bold ctermfg=167 ctermbg=237
 highlight ALEWarningSign term=standout cterm=bold ctermfg=223 ctermbg=237

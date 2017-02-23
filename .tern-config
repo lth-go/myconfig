@@ -6,7 +6,9 @@
     ],
     "plugins": {
         "node": {},
-        "angular": {}
+        "angular": {},
+        "modules": {},
+        "es_modules": {}
     }
 }
 
