@@ -4,9 +4,9 @@ call plug#begin('~/.vim/plugged')
 
 " =====基础=====
 " 语法检查
-Plug 'w0rp/ale'
+Plug 'w0rp/ale', {'for': ['python', 'javascript']}
 " 代码补全
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', {'for': ['python', 'javascript']}
 " 文件搜索
 Plug 'ctrlpvim/ctrlp.vim'
 " 文本搜索
@@ -323,7 +323,7 @@ let g:ycm_semantic_triggers =  {
 " 从第一个键入字符就开始罗列匹配项
 let g:ycm_min_num_of_chars_for_completion=1
 " 指定jedi的Python解释器路径
-let g:ycm_server_python_interpreter = '/work/python_venv/mapboom_venv/bin/python'
+let g:ycm_server_python_interpreter = '/work/python_venv/nav_biz_venv/bin/python'
 " 函数跳转
 nnoremap <leader>g :YcmCompleter GoTo<CR>
 
