@@ -366,7 +366,7 @@ let NERDTreeMinimalUI=1
 " 自动删除文件对应buffer
 let NERDTreeAutoDeleteBuffer=1
 " 退出vim时自动关闭
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 忽略一下文件的显示
 let NERDTreeIgnore=['\.pyc','\.pyo','\~$','\.swp','\.git$','\.idea']
 " 打开文件树
@@ -438,6 +438,8 @@ let g:gruvbox_vert_split = 'bg0'
 set background=dark
 " 主题
 colorscheme gruvbox
+" python高亮修改
+autocmd Filetype python syntax keyword pythonBuiltin cls self
 " vim-javascript高亮修改
 highlight link jsOperator javaScriptOperator
 " ale提示符颜色
