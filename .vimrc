@@ -185,9 +185,11 @@ endif
 
 " =====快捷键=====
 
-" 废弃F1
+" 废弃快捷键
 noremap <F1> <Nop>
 inoremap <F1> <Nop>
+noremap q <Nop>
+noremap Q <Nop>
 
 " 定义<Leader>
 let mapleader=";"
