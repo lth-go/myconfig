@@ -9,7 +9,7 @@ ZSH_THEME="lth"
 
 # 插件
 # git://github.com/zsh-users/
-plugins=(git docker docker-compose docker-machine z sudo colored-man-pages extract zsh-completions zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git docker docker-compose z sudo colored-man-pages zsh-completions zsh-autosuggestions zsh-syntax-highlighting)
 
 # 用户配置
 
