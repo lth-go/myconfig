@@ -179,9 +179,7 @@ function! AutoSetFileHead()
 endfunc
 
 " 打开自动定位到最后编辑的位置
-if has("autocmd")
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
-endif
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
 
 " =====快捷键=====
 
@@ -211,17 +209,6 @@ noremap k gk
 " 替换行首行尾快捷键
 noremap H ^
 noremap L $
-
-" 切换buffer
-nnoremap <Leader>1 :1b<CR>
-nnoremap <Leader>2 :2b<CR>
-nnoremap <Leader>3 :3b<CR>
-nnoremap <Leader>4 :4b<CR>
-nnoremap <Leader>5 :5b<CR>
-nnoremap <Leader>6 :6b<CR>
-nnoremap <Leader>7 :7b<CR>
-nnoremap <Leader>8 :8b<CR>
-nnoremap <Leader>9 :9b<CR>
 
 " 命令行模式增强
 cnoremap <C-J> <Down>
@@ -391,7 +378,6 @@ nmap <C-t> :TagbarToggle<CR>
 let g:airline_theme="gruvbox"
 " 打开tabline功能
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
 " 标签页只显示文件名
 let g:airline#extensions#tabline#fnamemod = ':t'
 " 关闭状态显示空白符号计数
@@ -403,6 +389,29 @@ let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 let g:airline_left_sep = ''
 let g:airline_left_alt_sep = '|'
+" 标签页快捷键
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+let g:airline#extensions#tabline#buffer_idx_format = {
+    \ '0': '0: ',
+    \ '1': '1: ',
+    \ '2': '2: ',
+    \ '3': '3: ',
+    \ '4': '4: ',
+    \ '5': '5: ',
+    \ '6': '6: ',
+    \ '7': '7: ',
+    \ '8': '8: ',
+    \ '9': '9: '
+    \}
 
 " =====Nerdcommenter=====
 
