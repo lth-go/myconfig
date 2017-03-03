@@ -6,7 +6,7 @@ call plug#begin('~/.vim/plugged')
 " 语法检查
 Plug 'w0rp/ale', {'for': ['python', 'javascript']}
 " 代码补全
-Plug 'Valloric/YouCompleteMe', {'for': ['python', 'javascript']}
+Plug 'Valloric/YouCompleteMe', {'for': ['python', 'javascript', 'c']}
 " 文件搜索
 Plug 'ctrlpvim/ctrlp.vim'
 " 文本搜索
@@ -305,7 +305,7 @@ let g:ycm_complete_in_strings = 1
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_semantic_triggers =  {
-            \   'c' : ['->', '.'],
+            \   'c' : ['->', '.', 're!(?=[a-zA-Z_])'],
             \   'javascript,python' : ['.', 're!(?=[a-zA-Z_])'],
             \   'html': ['<', '"', '</', ' '],
             \ }
@@ -313,6 +313,8 @@ let g:ycm_semantic_triggers =  {
 let g:ycm_min_num_of_chars_for_completion=1
 " 指定jedi的Python解释器路径
 let g:ycm_server_python_interpreter = '/work/python_venv/nav_biz_venv/bin/python'
+" c语言补全不提示
+let g:ycm_confirm_extra_conf=0
 " 函数跳转
 nnoremap <leader>g :YcmCompleter GoTo<CR>
 
@@ -426,10 +428,14 @@ map <C-_> <plug>NERDCommenterToggle
 
 " pip install autopep8
 " npm install -g js-beautify
+" dnf install astyle
 
-" 添加格式化参数
+" Python
 let g:formatdef_custom_autopep8 = "'autopep8 - --ignore=E116,E501'"
 let g:formatters_python = ['custom_autopep8']
+" C
+let g:formatdef_custom_c='"astyle --mode=c --style=google"'
+let g:formatters_c = ['custom_c']
 " Autoformat快捷键
 noremap <Leader>a :Autoformat<CR>
 
