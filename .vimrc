@@ -4,7 +4,7 @@ call plug#begin('~/.vim/plugged')
 
 " =====基础=====
 " 语法检查
-Plug 'w0rp/ale', {'for': ['python', 'javascript']}
+Plug 'w0rp/ale', {'for': ['python', 'javascript', 'c']}
 " 代码补全
 Plug 'Valloric/YouCompleteMe', {'for': ['python', 'javascript', 'c']}
 " 文件搜索
@@ -315,6 +315,8 @@ let g:ycm_min_num_of_chars_for_completion=1
 let g:ycm_server_python_interpreter = '/work/python_venv/nav_biz_venv/bin/python'
 " c语言补全不提示
 let g:ycm_confirm_extra_conf=0
+" 关闭c语法检查
+let g:ycm_show_diagnostics_ui = 0
 " 函数跳转
 nnoremap <leader>g :YcmCompleter GoTo<CR>
 
