@@ -86,7 +86,7 @@ set ruler
 " 显示当前正在输入的命令
 set showcmd
 
-" 允许在有未保存的修改时切换缓冲区
+" 允许有未保存时切换缓冲区
 set hidden
 
 " =====行号=====
@@ -228,13 +228,11 @@ nnoremap <silent> N Nzz
 function! Starsearch_searchCWord()
     let wordStr = expand("<cword>")
     if strlen(wordStr) == 0 | return | endif
-
     if wordStr[0] =~ '\<'
         let @/ = '\<' . wordStr . '\>'
     else
         let @/ = wordStr
     endif
-
     let savedUnnamed = @"
     let savedS = @s
     normal! "syiw
