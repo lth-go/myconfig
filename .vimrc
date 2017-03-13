@@ -371,6 +371,8 @@ nmap <C-\> :NERDTreeToggle<CR>
 let g:tagbar_autofocus = 1
 " javascript tag支持
 let g:tagbar_type_javascript = {'ctagsbin': 'jsctags'}
+" 不显示冗余信息
+let g:tagbar_compact=1
 " 打开Tagbar
 nmap <C-t> :TagbarToggle<CR>
 
