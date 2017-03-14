@@ -346,7 +346,9 @@ let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 " s键快速跳转
 nmap f <Plug>(easymotion-s)
+vmap f <Plug>(easymotion-s)
 nmap F <Plug>(easymotion-overwin-f)
+vmap F <Plug>(easymotion-overwin-f)
 
 " =====NERDTree=====
 
