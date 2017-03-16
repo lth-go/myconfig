@@ -4,9 +4,9 @@ call plug#begin('~/.vim/plugged')
 
 " =====基础=====
 " 语法检查
-Plug 'w0rp/ale', {'for': ['python', 'javascript', 'c']}
+Plug 'w0rp/ale'
 " 代码补全
-Plug 'Valloric/YouCompleteMe', {'for': ['python', 'javascript', 'c']}
+Plug 'Valloric/YouCompleteMe'
 " 文件搜索
 Plug 'ctrlpvim/ctrlp.vim'
 " 文本搜索
@@ -304,6 +304,7 @@ let g:ycm_complete_in_strings = 1
 let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_semantic_triggers =  {
             \   'c' : ['->', '.', 're!(?=[a-zA-Z_])'],
+            \   'cpp' : ['->', '.', '::', 're!(?=[a-zA-Z_])'],
             \   'javascript,python' : ['.', 're!(?=[a-zA-Z_])'],
             \   'html': ['<', '"', '</', ' '],
             \ }
