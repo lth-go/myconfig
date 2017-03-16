@@ -327,8 +327,6 @@ nnoremap <leader>g :YcmCompleter GoTo<CR>
 let g:ctrlsf_auto_close = 0
 " 关闭保存确认
 let g:ctrlsf_confirm_save = 0
-" 上下文行数
-let g:ctrlsf_context = '-C 1'
 " 忽略文件夹
 let g:ctrlsf_ignore_dir = ['.idea', '.git']
 " 快捷键设置
@@ -346,10 +344,8 @@ let g:EasyMotion_do_mapping = 0
 " 忽略大小写
 let g:EasyMotion_smartcase = 1
 " s键快速跳转
-nmap f <Plug>(easymotion-s)
-vmap f <Plug>(easymotion-s)
-nmap F <Plug>(easymotion-overwin-f)
-vmap F <Plug>(easymotion-overwin-f)
+map f <Plug>(easymotion-s)
+map F <Plug>(easymotion-overwin-f)
 
 " =====NERDTree=====
 
@@ -361,7 +357,7 @@ let NERDTreeMinimalUI=1
 let NERDTreeAutoDeleteBuffer=1
 " 退出vim时自动关闭
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" 忽略一下文件的显示
+" 忽略显示
 let NERDTreeIgnore=['\.pyc','\.pyo','\~$','\.swp','\.git$','\.idea']
 " 打开文件树
 nmap <C-\> :NERDTreeToggle<CR>
@@ -392,10 +388,9 @@ let g:airline#extensions#whitespace#enabled = 0
 " 去除右上角buffer
 let g:airline#extensions#tabline#buffers_label = ''
 " 分隔符
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = '|'
+if !exists('g:airline_symbols') | let g:airline_symbols = {} | endif
+let g:airline_symbols.linenr = ''
+let g:airline_symbols.maxlinenr = ''
 " 标签页快捷键
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 nmap <leader>1 <Plug>AirlineSelectTab1
