@@ -51,6 +51,9 @@ call plug#end()
 
 " =====文件=====
 
+" 使用系统剪切板
+set clipboard=unnamedplus
+
 " 设置编码格式
 set encoding=utf-8
 set termencoding=utf-8
