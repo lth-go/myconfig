@@ -28,3 +28,7 @@ export PYPI_PWD=Fg1_02DJcinw@1as
 
 # docker
 alias dps="docker ps --format \"table {{.Names}}\t{{.Image}}\t{{.ID}}\t{{.Status}}\""
+
+# Vim
+alias vi='vimx'
+alias vim='vimx'
