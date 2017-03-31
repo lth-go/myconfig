@@ -6,7 +6,7 @@ call plug#begin('~/.vim/plugged')
 " 语法检查
 Plug 'w0rp/ale'
 " 代码补全
-Plug 'Valloric/YouCompleteMe', { 'frozen': 1 }
+Plug 'Valloric/YouCompleteMe', {'frozen': 1}
 " 文件搜索
 Plug 'ctrlpvim/ctrlp.vim'
 " 文本搜索
@@ -50,11 +50,6 @@ Plug 'valloric/MatchTagAlways'
 call plug#end()
 
 " =====文件=====
-
-" 使用系统剪切板
-" sudo dnf install vim-X11 
-" alias vim='vimx'
-set clipboard=unnamedplus
 
 " 设置编码格式
 set encoding=utf-8
@@ -166,6 +161,11 @@ set shiftround
 
 " =====其他=====
 
+" 使用系统剪切板
+" sudo dnf install vim-X11 
+" alias vim='vimx'
+set clipboard=unnamedplus
+
 " 输入法正常切换
 " 快捷键延迟
 set ttimeoutlen=10
@@ -230,7 +230,7 @@ nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
 
 " * 搜索不移动 可视模式高亮选中
-function! Starsearch_searchCWord()
+function! Starsearch_CWord()
     let wordStr = expand("<cword>")
     if strlen(wordStr) == 0 | return | endif
     if wordStr[0] =~ '\<'
@@ -249,7 +249,7 @@ function! Starsearch_searchCWord()
     set hlsearch
 endfunction
 
-function! Starsearch_searchVWord()
+function! Starsearch_VWord()
     let savedUnnamed = @"
     let savedS = @s
     normal! gv"sy
@@ -259,8 +259,8 @@ function! Starsearch_searchVWord()
     set hlsearch
 endfunction
 
-nnoremap <silent> * :set nohlsearch\|:call Starsearch_searchCWord()<CR>
-vnoremap <silent> * :set nohlsearch\|:<C-u>call Starsearch_searchVWord()<CR>
+nnoremap <silent> * :set nohlsearch\|:call Starsearch_CWord()<CR>
+vnoremap <silent> * :<C-u>set nohlsearch\|:call Starsearch_VWord()<CR>
 
 " 调整缩进后自动选中
 vnoremap < <gv
