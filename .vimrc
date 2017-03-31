@@ -65,7 +65,7 @@ set noswapfile
 " =====命令行=====
 
 " 菜单补全
-set completeopt=menuone
+set completeopt-=preview
 " 历史命令容量
 set history=2000
 " 命令行智能补全
@@ -75,7 +75,7 @@ set wildmode=longest:full,full
 set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git
 " wildmode增强
 let &wildcharm = &wildchar
-cnoremap <expr> <C-J> wildmenumode() ? "\<Down>" : "\<C-J>"
+cnoremap <expr> / wildmenumode() ? "\<Down>" : "/"
 
 " =====状态栏=====
 
@@ -166,9 +166,9 @@ set shiftround
 " alias vim='vimx'
 set clipboard=unnamedplus
 
-" 输入法正常切换
 " 快捷键延迟
 set ttimeoutlen=10
+" 输入法正常切换
 autocmd InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
 
 " 自动添加头部
