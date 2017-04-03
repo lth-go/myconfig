@@ -328,10 +328,8 @@ nnoremap <leader>g :YcmCompleter GoTo<CR>
 
 " dnf install ack
 
-" 打开文件时不关闭
+" 打开文件不关闭
 let g:ctrlsf_auto_close = 0
-" 关闭保存确认
-let g:ctrlsf_confirm_save = 0
 " 忽略文件夹
 let g:ctrlsf_ignore_dir = ['.idea', '.git']
 " 快捷键设置
@@ -460,6 +458,7 @@ let g:gruvbox_vert_split = 'bg0'
 set background=dark
 " 主题
 colorscheme gruvbox
+
 " python高亮修改
 autocmd Filetype python syntax keyword pythonBuiltin cls self
 " vim-javascript高亮修改
