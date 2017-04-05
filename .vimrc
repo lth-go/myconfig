@@ -267,7 +267,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " w!!用sudo保存
-cabbrev w!! w !sudo tee >/dev/null %
+cabbrev w!! w !sudo tee > /dev/null %
 
 " =====Ale=====
 
@@ -346,7 +346,9 @@ nmap <leader>f <Plug>CtrlSFPrompt
 let g:EasyMotion_do_mapping = 0
 " 忽略大小写
 let g:EasyMotion_smartcase = 1
-" s键快速跳转
+" 跳转键
+let g:EasyMotion_keys = 'asdghklqwertyuiopzxcvbnmfj'
+" f键快速跳转
 map f <Plug>(easymotion-s)
 map F <Plug>(easymotion-overwin-f)
 
