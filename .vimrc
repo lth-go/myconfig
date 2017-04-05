@@ -443,11 +443,6 @@ noremap <Leader>a :Autoformat<CR>
 " 开启彩虹括号
 let g:rainbow_active = 1
 
-" =====Gruvbox=====
-
-" 分割线颜色
-let g:gruvbox_vert_split = 'bg0'
-
 " =====主题=====
 
 " 背景颜色
