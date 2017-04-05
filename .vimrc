@@ -280,9 +280,7 @@ let g:ale_python_flake8_args = '--ignore=E116,E402,E501,F401'
 " 关闭airline显示
 let g:airline#extensions#ale#enabled = 0
 " 关闭自动检查
-let g:ale_lint_on_text_changed = 0
-" 保存时检查
-let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 'never'
 " 提示符修改
 let g:ale_sign_error = '——'
 let g:ale_sign_warning = '——'
@@ -392,10 +390,6 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#whitespace#enabled = 0
 " 去除右上角buffer
 let g:airline#extensions#tabline#buffers_label = ''
-" 分隔符
-if !exists('g:airline_symbols') | let g:airline_symbols = {} | endif
-let g:airline_symbols.linenr = ''
-let g:airline_symbols.maxlinenr = ''
 " 标签页快捷键
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 nmap <leader>1 <Plug>AirlineSelectTab1
