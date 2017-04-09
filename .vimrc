@@ -233,29 +233,18 @@ nnoremap <silent> N Nzz
 function! Starsearch_CWord()
     let wordStr = expand("<cword>")
     if strlen(wordStr) == 0 | return | endif
-    if wordStr[0] =~ '\<'
-        let @/ = '\<' . wordStr . '\>'
-    else
-        let @/ = wordStr
-    endif
-    let savedUnnamed = @"
+    let @/ = wordStr
     let savedS = @s
     normal! "syiw
-    if wordStr != @s
-        normal! w
-    endif
     let @s = savedS
-    let @" = savedUnnamed
     set hlsearch
 endfunction
 
 function! Starsearch_VWord()
-    let savedUnnamed = @"
     let savedS = @s
     normal! gv"sy
     let @/ = '\V' . substitute(escape(@s, '\'), '\n', '\\n', 'g')
     let @s = savedS
-    let @" = savedUnnamed
     set hlsearch
 endfunction
 
