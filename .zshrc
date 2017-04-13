@@ -32,3 +32,7 @@ alias dps="docker ps --format \"table {{.Names}}\t{{.Image}}\t{{.ID}}\t{{.Status
 # Vim
 alias vi='vimx'
 alias vim='vimx'
+
+# 搜索
+bindkey '^p' up-line-or-beginning-search
+bindkey '^n' down-line-or-beginning-search

@@ -216,8 +216,8 @@ noremap H ^
 noremap L $
 
 " 命令行模式增强
-cnoremap <C-J> <Down>
-cnoremap <C-K> <Up>
+cnoremap <C-N> <Down>
+cnoremap <C-P> <Up>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 
