@@ -439,10 +439,17 @@ set background=dark
 " 主题
 colorscheme gruvbox
 
-" python高亮修改
+" =====高亮修改=====
+
+" python高亮
 autocmd Filetype python syntax keyword pythonBuiltin cls self
-" vim-javascript高亮修改
+
+" vim-javascript高亮
 highlight link jsOperator javaScriptOperator
+
+" markdown
+highlight link markdownError None
+
 " ale提示符颜色
 highlight ALEErrorSign term=reverse cterm=bold ctermfg=167 ctermbg=237
 highlight ALEWarningSign term=standout cterm=bold ctermfg=223 ctermbg=237
