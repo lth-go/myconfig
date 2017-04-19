@@ -294,17 +294,11 @@ let g:ycm_complete_in_comments=1
 let g:ycm_complete_in_strings = 1
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax=1
-let g:ycm_semantic_triggers =  {
-            \   'c' : ['->', '.', 're!(?=[a-zA-Z_])'],
-            \   'cpp' : ['->', '.', '::', 're!(?=[a-zA-Z_])'],
-            \   'javascript,python' : ['.', 're!(?=[a-zA-Z_])'],
-            \   'html': ['<', '"', '</', ' '],
-            \ }
 " 从第一个键入字符就开始罗列匹配项
 let g:ycm_min_num_of_chars_for_completion=1
 " 指定jedi的Python解释器路径
 let g:ycm_server_python_interpreter = '/work/python_venv/nav_biz_venv/bin/python'
-" c语言补全不提示
+" c语言不提示
 let g:ycm_confirm_extra_conf=0
 " 关闭c语法检查
 let g:ycm_show_diagnostics_ui = 0
