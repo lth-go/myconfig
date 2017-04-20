@@ -289,19 +289,28 @@ nnoremap <Leader>e :call ToggleErrors()<cr>
 let g:ycm_key_list_previous_completion = ['<S-TAB>', '<C-K>']
 let g:ycm_key_list_select_completion = ['<TAB>', '<C-J>']
 " 补全功能在注释中同样有效
-let g:ycm_complete_in_comments=1
+let g:ycm_complete_in_comments = 1
 " 在字符串输入中也能补全
 let g:ycm_complete_in_strings = 1
 " 语法关键字补全
-let g:ycm_seed_identifiers_with_syntax=1
+let g:ycm_seed_identifiers_with_syntax = 1
 " 从第一个键入字符就开始罗列匹配项
-let g:ycm_min_num_of_chars_for_completion=1
+let g:ycm_min_num_of_chars_for_completion = 1
 " 指定jedi的Python解释器路径
 let g:ycm_server_python_interpreter = '/work/python_venv/nav_biz_venv/bin/python'
 " c语言不提示
-let g:ycm_confirm_extra_conf=0
+let g:ycm_confirm_extra_conf = 0
 " 关闭c语法检查
 let g:ycm_show_diagnostics_ui = 0
+" 智能补全
+let g:ycm_semantic_triggers =  {
+            \   'c': ['->', '.'],
+            \   'cpp': ['->', '.', '::'],
+            \   'python,javascript': ['re![a-zA-Z_][a-zA-Z_0-9]{2,}'],
+            \   'html': ['<', '"', '</', ' '],
+            \   'vim': ['re![_a-za-z]+[_\w]*\.'],
+            \   'css': ['re!^\s{2,4}', 're!:\s+' ],
+            \ }
 " 函数跳转
 nnoremap <leader>g :YcmCompleter GoTo<CR>
 
@@ -336,11 +345,11 @@ map F <Plug>(easymotion-overwin-f)
 " =====NERDTree=====
 
 " 显示隐藏文件
-let NERDTreeShowHidden=1
+let NERDTreeShowHidden = 1
 " 不显示冗余帮助信息
-let NERDTreeMinimalUI=1
+let NERDTreeMinimalUI = 1
 " 自动删除文件对应buffer
-let NERDTreeAutoDeleteBuffer=1
+let NERDTreeAutoDeleteBuffer = 1
 " 退出vim时自动关闭
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 忽略显示
@@ -357,7 +366,7 @@ let g:tagbar_autofocus = 1
 " javascript tag支持
 let g:tagbar_type_javascript = {'ctagsbin': 'jsctags'}
 " 不显示冗余信息
-let g:tagbar_compact=1
+let g:tagbar_compact = 1
 " 打开Tagbar
 nmap <C-t> :TagbarToggle<CR>
 
