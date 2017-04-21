@@ -6,7 +6,7 @@ call plug#begin('~/.vim/plugged')
 " 语法检查
 Plug 'w0rp/ale'
 " 代码补全
-Plug 'Valloric/YouCompleteMe', {'frozen': 1}
+Plug 'Valloric/YouCompleteMe'
 " 文件搜索
 Plug 'ctrlpvim/ctrlp.vim'
 " 文本搜索
