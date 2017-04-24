@@ -265,7 +265,7 @@ cabbrev w!! w !sudo tee > /dev/null %
 
 " python语法检查
 let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint']}
-let g:ale_python_flake8_args = '--ignore=E116,E402,E501,F401'
+let g:ale_python_flake8_args = '--ignore=E116,E402,E501'
 " 关闭airline显示
 let g:airline#extensions#ale#enabled = 0
 " 关闭自动检查
