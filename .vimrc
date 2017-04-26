@@ -285,9 +285,6 @@ nnoremap <Leader>e :call ToggleErrors()<cr>
 
 " =====YCM=====
 
-" 下拉栏快捷键
-let g:ycm_key_list_previous_completion = ['<S-TAB>', '<C-K>']
-let g:ycm_key_list_select_completion = ['<TAB>', '<C-J>']
 " 补全功能在注释中同样有效
 let g:ycm_complete_in_comments = 1
 " 在字符串输入中也能补全
