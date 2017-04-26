@@ -273,8 +273,6 @@ let g:ale_lint_on_text_changed = 'never'
 " 提示符修改
 let g:ale_sign_error = '——'
 let g:ale_sign_warning = '——'
-" 取消错误高亮
-let g:ale_set_highlights = 0
 " 打开错误面板
 function! ToggleErrors()
     let old_last_winnr = winnr('$')
