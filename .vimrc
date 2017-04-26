@@ -6,7 +6,7 @@ call plug#begin('~/.vim/plugged')
 " 语法检查
 Plug 'w0rp/ale'
 " 代码补全
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', {'frozen': 1, 'for': 'python'}
 " 文件搜索
 Plug 'ctrlpvim/ctrlp.vim'
 " 文本搜索
@@ -162,7 +162,7 @@ set shiftround
 " =====其他=====
 
 " 使用系统剪切板
-" sudo dnf install vim-X11 
+" sudo dnf install vim-X11
 " alias vim='vimx'
 set clipboard=unnamedplus
 
@@ -265,7 +265,7 @@ cabbrev w!! w !sudo tee > /dev/null %
 
 " python语法检查
 let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint']}
-let g:ale_python_flake8_args = '--ignore=E116,E402,E501,F401'
+let g:ale_python_flake8_args = '--ignore=E116,E402,E501'
 " 关闭airline显示
 let g:airline#extensions#ale#enabled = 0
 " 关闭自动检查
@@ -285,9 +285,6 @@ nnoremap <Leader>e :call ToggleErrors()<cr>
 
 " =====YCM=====
 
-" 下拉栏快捷键
-let g:ycm_key_list_previous_completion = ['<S-TAB>', '<C-K>']
-let g:ycm_key_list_select_completion = ['<TAB>', '<C-J>']
 " 补全功能在注释中同样有效
 let g:ycm_complete_in_comments = 1
 " 在字符串输入中也能补全
@@ -312,7 +309,11 @@ let g:ycm_semantic_triggers =  {
             \   'css': ['re!^\s{2,4}', 're!:\s+' ],
             \ }
 " 函数跳转
-nnoremap <leader>g :YcmCompleter GoTo<CR>
+nnoremap <Leader>g :YcmCompleter GoTo<CR>
+
+" =====CtrlP=====
+
+let g:ctrlp_map = '<Leader>f'
 
 " =====CtrlSF=====
 
@@ -328,7 +329,7 @@ let g:ctrlsf_mapping = {
             \ "prev"  : "N",
             \ }
 " 设置搜索快捷键
-nmap <leader>f <Plug>CtrlSFPrompt
+nmap <Leader>s <Plug>CtrlSFPrompt
 
 " =====EasyMotion=====
 
@@ -384,15 +385,15 @@ let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#tabline#buffers_label = ''
 " 标签页快捷键
 let g:airline#extensions#tabline#buffer_idx_mode = 1
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
+nmap <Leader>1 <Plug>AirlineSelectTab1
+nmap <Leader>2 <Plug>AirlineSelectTab2
+nmap <Leader>3 <Plug>AirlineSelectTab3
+nmap <Leader>4 <Plug>AirlineSelectTab4
+nmap <Leader>5 <Plug>AirlineSelectTab5
+nmap <Leader>6 <Plug>AirlineSelectTab6
+nmap <Leader>7 <Plug>AirlineSelectTab7
+nmap <Leader>8 <Plug>AirlineSelectTab8
+nmap <Leader>9 <Plug>AirlineSelectTab9
 let g:airline#extensions#tabline#buffer_idx_format = {
     \ '0': '0: ',
     \ '1': '1: ',
