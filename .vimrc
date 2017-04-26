@@ -283,14 +283,8 @@ nnoremap <Leader>e :call ToggleErrors()<cr>
 
 " =====YCM=====
 
-" 补全功能在注释中同样有效
-let g:ycm_complete_in_comments = 1
-" 在字符串输入中也能补全
-let g:ycm_complete_in_strings = 1
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax = 1
-" 从第一个键入字符就开始罗列匹配项
-let g:ycm_min_num_of_chars_for_completion = 1
 " 指定jedi的Python解释器路径
 let g:ycm_server_python_interpreter = '/work/python_venv/nav_biz_venv/bin/python'
 " c语言不提示
@@ -393,17 +387,17 @@ nmap <Leader>7 <Plug>AirlineSelectTab7
 nmap <Leader>8 <Plug>AirlineSelectTab8
 nmap <Leader>9 <Plug>AirlineSelectTab9
 let g:airline#extensions#tabline#buffer_idx_format = {
-    \ '0': '0: ',
-    \ '1': '1: ',
-    \ '2': '2: ',
-    \ '3': '3: ',
-    \ '4': '4: ',
-    \ '5': '5: ',
-    \ '6': '6: ',
-    \ '7': '7: ',
-    \ '8': '8: ',
-    \ '9': '9: '
-    \}
+            \ '0': '0: ',
+            \ '1': '1: ',
+            \ '2': '2: ',
+            \ '3': '3: ',
+            \ '4': '4: ',
+            \ '5': '5: ',
+            \ '6': '6: ',
+            \ '7': '7: ',
+            \ '8': '8: ',
+            \ '9': '9: '
+            \}
 
 " =====Nerdcommenter=====
 
@@ -427,7 +421,7 @@ let g:formatters_python = ['custom_autopep8']
 let g:formatdef_custom_c='"astyle --mode=c --style=google"'
 let g:formatters_c = ['custom_c']
 " Autoformat快捷键
-noremap <Leader>a :Autoformat<CR>
+noremap <Leader>af :Autoformat<CR>
 
 " =====RainbowParentheses=====
 
