@@ -316,10 +316,7 @@ let g:ctrlsf_auto_close = 0
 " 忽略文件夹
 let g:ctrlsf_ignore_dir = ['.idea', '.git']
 " 快捷键设置
-let g:ctrlsf_mapping = {
-            \ "next"  : "n",
-            \ "prev"  : "N",
-            \ }
+let g:ctrlsf_mapping = {"next": "n", "prev": "N"}
 " 设置搜索快捷键
 nmap <Leader>s <Plug>CtrlSFPrompt
 
@@ -341,8 +338,6 @@ map F <Plug>(easymotion-overwin-f)
 let NERDTreeShowHidden = 1
 " 不显示冗余帮助信息
 let NERDTreeMinimalUI = 1
-" 自动删除文件对应buffer
-let NERDTreeAutoDeleteBuffer = 1
 " 退出vim时自动关闭
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 忽略显示
@@ -387,16 +382,8 @@ nmap <Leader>7 <Plug>AirlineSelectTab7
 nmap <Leader>8 <Plug>AirlineSelectTab8
 nmap <Leader>9 <Plug>AirlineSelectTab9
 let g:airline#extensions#tabline#buffer_idx_format = {
-            \ '0': '0: ',
-            \ '1': '1: ',
-            \ '2': '2: ',
-            \ '3': '3: ',
-            \ '4': '4: ',
-            \ '5': '5: ',
-            \ '6': '6: ',
-            \ '7': '7: ',
-            \ '8': '8: ',
-            \ '9': '9: '
+            \ '0': '0: ', '1': '1: ', '2': '2: ', '3': '3: ', '4': '4: ',
+            \ '5': '5: ', '6': '6: ', '7': '7: ', '8': '8: ', '9': '9: '
             \}
 
 " =====Nerdcommenter=====
