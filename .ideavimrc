@@ -33,6 +33,8 @@ map dL d$
 map cL c$
 map yL y$
 
+map <Leader>q :q<CR>
+
 " Go To
 map <Leader>f :action GotoFile<CR>
 map <Leader>c :action GotoClass<CR>
