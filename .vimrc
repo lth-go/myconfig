@@ -6,7 +6,7 @@ call plug#begin('~/.vim/plugged')
 " 语法检查
 Plug 'w0rp/ale'
 " 代码补全
-Plug 'Valloric/YouCompleteMe', {'frozen': 1, 'for': 'python'}
+Plug 'Valloric/YouCompleteMe', {'frozen': 1, 'for': ['python', 'c']}
 " 文件搜索
 Plug 'ctrlpvim/ctrlp.vim'
 " 文本搜索
@@ -233,7 +233,11 @@ nnoremap <silent> N Nzz
 function! Starsearch_CWord()
     let wordStr = expand("<cword>")
     if strlen(wordStr) == 0 | return | endif
-    let @/ = wordStr
+    if wordStr[0] =~ '\<'
+        let @/ = '\<' . wordStr . '\>'
+    else
+        let @/ = wordStr
+    endif
     let savedS = @s
     normal! "syiw
     let @s = savedS
@@ -291,9 +295,11 @@ let g:ycm_server_python_interpreter = '/work/python_venv/nav_biz_venv/bin/python
 let g:ycm_confirm_extra_conf = 0
 " 关闭c语法检查
 let g:ycm_show_diagnostics_ui = 0
+" c头文件识别
+let g:c_syntax_for_h=1
 " 智能补全
 let g:ycm_semantic_triggers =  {
-            \   'c': ['->', '.'],
+            \   'c': ['->', '.', 're![a-zA-Z_][a-zA-Z_0-9]{2,}'],
             \   'cpp': ['->', '.', '::'],
             \   'python,javascript': ['re![a-zA-Z_][a-zA-Z_0-9]{2,}'],
             \   'html': ['<', '"', '</', ' '],
