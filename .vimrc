@@ -6,7 +6,7 @@ call plug#begin('~/.vim/plugged')
 " 语法检查
 Plug 'w0rp/ale'
 " 代码补全
-Plug 'Valloric/YouCompleteMe', {'frozen': 1, 'for': ['python', 'c']}
+Plug 'Valloric/YouCompleteMe' ", {'frozen': 1, 'for': ['python', 'c']}
 " 文件搜索
 Plug 'ctrlpvim/ctrlp.vim'
 " 文本搜索
@@ -267,9 +267,10 @@ cabbrev w!! w !sudo tee > /dev/null %
 " pip install flake8
 " npm install -g eslint
 
-" python语法检查
-let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint']}
-let g:ale_python_flake8_args = '--ignore=E116,E402,E501'
+" 语法检查
+let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint'], 'c': ['clang']}
+let g:ale_python_flake8_options = '--ignore=E116,E402,E501'
+let g:ale_c_clang_options = '-std=c99 -Wall'
 " 关闭airline显示
 let g:airline#extensions#ale#enabled = 0
 " 关闭自动检查
@@ -362,7 +363,7 @@ let g:tagbar_type_javascript = {'ctagsbin': 'jsctags'}
 " 不显示冗余信息
 let g:tagbar_compact = 1
 " 打开Tagbar
-nmap <C-t> :TagbarToggle<CR>
+nmap <Leader>t :TagbarToggle<CR>
 
 " =====Airline=====
 

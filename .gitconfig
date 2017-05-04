@@ -1,19 +1,21 @@
 [user]
-	name = li.tianhua
-	email = li.tianhua@yihe.io
+    name = li.tianhua
+    email = li.tianhua@yihe.io
 [push]
-	default = simple
-[color]
-	ui = auto
-	diff = auto
-	status = auto
-	branch = auto
-	interactive = auto
+    default = simple
 [format]
-	pretty = oneline
+    pretty = oneline
 [core]
-	editor = vim
+    editor = vim
     # sudo npm install -g diff-so-fancy
     pager = diff-so-fancy | less --tabs=4 -RFX
-[diff-so-fancy]
-	stripLeadingSymbols = false
+[color]
+    ui = always
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
