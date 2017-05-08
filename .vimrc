@@ -6,7 +6,7 @@ call plug#begin('~/.vim/plugged')
 " 语法检查
 Plug 'w0rp/ale'
 " 代码补全
-Plug 'Valloric/YouCompleteMe' ", {'frozen': 1, 'for': ['python', 'c']}
+Plug 'Valloric/YouCompleteMe', {'frozen': 1, 'for': ['python', 'c', 'javascript']}
 " 文件搜索
 Plug 'ctrlpvim/ctrlp.vim'
 " 文本搜索
@@ -297,12 +297,11 @@ let g:ycm_confirm_extra_conf = 0
 " 关闭c语法检查
 let g:ycm_show_diagnostics_ui = 0
 " c头文件识别
-let g:c_syntax_for_h=1
+let g:c_syntax_for_h = 1
 " 智能补全
 let g:ycm_semantic_triggers =  {
             \   'c': ['->', '.', 're![a-zA-Z_][a-zA-Z_0-9]{2,}'],
-            \   'cpp': ['->', '.', '::'],
-            \   'python,javascript': ['re![a-zA-Z_][a-zA-Z_0-9]{2,}'],
+            \   'python,javascript': ['.', 're![a-zA-Z_][a-zA-Z_0-9]{2,}'],
             \   'html': ['<', '"', '</', ' '],
             \   'vim': ['re![_a-za-z]+[_\w]*\.'],
             \   'css': ['re!^\s{2,4}', 're!:\s+' ],
