@@ -317,8 +317,6 @@ let g:ctrlp_map = '<Leader>f'
 
 " dnf install ack
 
-" 打开文件不关闭
-let g:ctrlsf_auto_close = 0
 " 忽略文件夹
 let g:ctrlsf_ignore_dir = ['.idea', '.git']
 " 快捷键设置

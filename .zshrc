@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 CASE_SENSITIVE="true"
 
 # 主题
-ZSH_THEME="lth"
+ZSH_THEME="my"
 
 # 插件
 # git://github.com/zsh-users/
