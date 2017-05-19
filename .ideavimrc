@@ -25,25 +25,20 @@ vnoremap > >gv
 nnoremap * *``zz
 
 map H ^
-map dH d^
-map cH c^
-map yH y^
 map L $
-map dL d$
-map cL c$
-map yL y$
 
 map <Leader>q :q<CR>
 
 " Go To
 map <Leader>f :action GotoFile<CR>
+nnoremap <Space> :action GotoFile<CR>
 map <Leader>c :action GotoClass<CR>
 map <Leader>s :action GotoSymbol<CR>
 
 " AceJump
 map f :action AceAction<CR>
-vnoremap f :<BS><BS><BS><BS><BS>action AceAction<CR>
-nnoremap <Space> m'`<v``
+"vnoremap f :<BS><BS><BS><BS><BS>action AceAction<CR>
+"nnoremap <Space> m'`<v``
 map F :action AceTargetAction<CR>
 
 " Structure

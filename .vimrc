@@ -311,7 +311,7 @@ nnoremap <Leader>g :YcmCompleter GoTo<CR>
 
 " =====CtrlP=====
 
-let g:ctrlp_map = '<Leader>f'
+let g:ctrlp_map = '<Space>'
 
 " =====CtrlSF=====
 
