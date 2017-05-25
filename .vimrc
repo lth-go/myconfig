@@ -31,6 +31,8 @@ Plug 'luochen1990/rainbow'
 Plug 'Chiel92/vim-autoformat'
 " 结对符修改
 Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat'
+" 平滑滚动
+Plug 'terryma/vim-smooth-scroll'
 " =====Python=====
 " Python代码对齐
 Plug 'hynek/vim-python-pep8-indent'
@@ -418,6 +420,13 @@ noremap <Leader>af :Autoformat<CR>
 
 " 开启彩虹括号
 let g:rainbow_active = 1
+
+" =====vim-smooth-scroll=====
+
+nnoremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+nnoremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+nnoremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+nnoremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " =====主题=====
 
