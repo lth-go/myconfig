@@ -43,3 +43,7 @@ map F :action AceTargetAction<CR>
 
 " Structure
 nnoremap <Leader>t :action FileStructurePopup<CR>
+
+" scroll
+nnoremap <C-D> :action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScroll<CR>
+nnoremap <C-U> :action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>
