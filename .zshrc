@@ -23,9 +23,6 @@ export LANG=zh_CN.utf8
 # zsh-completions 需要
 autoload -U compinit && compinit
 
-export PYPI_USER=jcing
-export PYPI_PWD=Fg1_02DJcinw@1as
-
 # docker
 alias dps="docker ps --format \"table {{.Names}}\t{{.Image}}\t{{.ID}}\t{{.Status}}\""
 
