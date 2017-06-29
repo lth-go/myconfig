@@ -6,7 +6,7 @@ call plug#begin('~/.vim/plugged')
 " 语法检查
 Plug 'w0rp/ale'
 " 代码补全
-Plug 'Valloric/YouCompleteMe', {'frozen': 1, 'for': ['python', 'c', 'javascript']}
+Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'javascript', 'go']}
 " 文件搜索
 Plug 'ctrlpvim/ctrlp.vim'
 " 文本搜索
@@ -303,7 +303,7 @@ let g:c_syntax_for_h = 1
 " 智能补全
 let g:ycm_semantic_triggers =  {
             \   'c': ['->', '.', 're![a-zA-Z_][a-zA-Z_0-9]{2,}'],
-            \   'python,javascript': ['.', 're![a-zA-Z_][a-zA-Z_0-9]{2,}'],
+            \   'python,javascript,go': ['.', 're![a-zA-Z_][a-zA-Z_0-9]{2,}'],
             \   'html': ['<', '"', '</', ' '],
             \   'vim': ['re![_a-za-z]+[_\w]*\.'],
             \   'css': ['re!^\s{2,4}', 're!:\s+' ],
@@ -448,6 +448,9 @@ autocmd Filetype python syntax keyword pythonBuiltin cls self
 
 " vim-javascript高亮
 highlight link jsOperator javaScriptOperator
+
+" go
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 " markdown
 highlight link markdownError None

@@ -20,6 +20,6 @@
     changed = green
     untracked = cyan
 [diff]
-	tool = vimdiff
+    tool = vimdiff
 [merge]
-	tool = vimdiff
+    tool = vimdiff
