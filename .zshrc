@@ -9,7 +9,7 @@ ZSH_THEME="my"
 
 # 插件
 # git://github.com/zsh-users/
-plugins=(git docker docker-compose z sudo pip zsh-completions zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git docker docker-compose z golang sudo pip zsh-completions zsh-autosuggestions zsh-syntax-highlighting)
 
 # 用户配置
 
@@ -29,6 +29,10 @@ alias dps="docker ps --format \"table {{.Names}}\t{{.Image}}\t{{.ID}}\t{{.Status
 # Vim
 alias vi='vimx'
 alias vim='vimx'
+
+# Golang
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
 
 # 搜索
 bindkey '^p' up-line-or-beginning-search
