@@ -34,6 +34,9 @@ alias vim='vimx'
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
+# Tldr
+alias tldr='tldr -t ocean'
+
 # 搜索
 bindkey '^p' up-line-or-beginning-search
 bindkey '^n' down-line-or-beginning-search
