@@ -270,7 +270,7 @@ cabbrev w!! w !sudo tee > /dev/null %
 " npm install -g eslint
 
 " 语法检查
-let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint'], 'c': ['clang']}
+let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint'], 'c': ['clang'], 'go': ['go build', 'gofmt', 'golint', 'go vet']}
 let g:ale_python_flake8_options = '--ignore=E116,E402,E501'
 let g:ale_c_clang_options = '-std=c99 -Wall'
 " 关闭airline显示
