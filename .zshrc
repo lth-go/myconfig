@@ -13,8 +13,6 @@ plugins=(git docker docker-compose z golang sudo pip zsh-completions zsh-autosug
 
 # 用户配置
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 source $ZSH/oh-my-zsh.sh
 
 # 设置环境语言
