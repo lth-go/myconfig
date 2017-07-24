@@ -13,6 +13,8 @@ plugins=(git docker docker-compose z golang sudo pip zsh-completions zsh-autosug
 
 # 用户配置
 
+export PATH=${PATH}:/usr/sbin
+
 source $ZSH/oh-my-zsh.sh
 
 # 设置环境语言
@@ -23,10 +25,6 @@ autoload -U compinit && compinit
 
 # docker
 alias dps="docker ps --format \"table {{.Names}}\t{{.Image}}\t{{.ID}}\t{{.Status}}\""
-
-# Vim
-alias vi='vimx'
-alias vim='vimx'
 
 # Golang
 export GOPATH=$HOME/go
@@ -48,3 +46,6 @@ export LESS_TERMCAP_se=$'\e[0m'           # end standout-mode
 export LESS_TERMCAP_us=$'\e[04;38;5;146m' # begin underline
 export LESS_TERMCAP_ue=$'\e[0m'           # end underline
 export GROFF_NO_SGR=1                     # for gnome-terminal
+
+# deepin terminator颜色显示
+TERM=xterm-256color
