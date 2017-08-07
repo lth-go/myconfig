@@ -9,7 +9,7 @@ ZSH_THEME="my"
 
 # 插件
 # git://github.com/zsh-users/
-plugins=(git docker docker-compose z golang sudo pip zsh-completions zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git docker docker-compose golang sudo pip kubectl zsh-completions zsh-autosuggestions zsh-syntax-highlighting)
 
 # 用户配置
 
