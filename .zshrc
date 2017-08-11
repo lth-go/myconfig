@@ -49,3 +49,6 @@ export GROFF_NO_SGR=1                     # for gnome-terminal
 
 # deepin terminator颜色显示
 TERM=xterm-256color
+
+# deepin sh
+alias sh='bash'
