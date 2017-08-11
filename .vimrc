@@ -195,6 +195,7 @@ noremap <F1> <Nop>
 inoremap <F1> <Nop>
 noremap q <Nop>
 noremap Q <Nop>
+noremap K <Nop>
 
 " 定义<Leader>
 let mapleader=";"
