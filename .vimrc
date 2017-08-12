@@ -161,6 +161,9 @@ set expandtab
 " 智能缩进
 set shiftround
 
+" yaml缩进
+autocmd FileType javascript,yaml set tabstop=2 shiftwidth=2 softtabstop=2
+
 " =====其他=====
 
 " 使用系统剪切板
@@ -332,7 +335,7 @@ let g:ctrlsf_ignore_dir = ['.idea', '.git']
 " 快捷键设置
 let g:ctrlsf_mapping = {"next": "n", "prev": "N"}
 " 设置搜索快捷键
-nmap <Leader>s <Plug>CtrlSFPrompt
+nmap <Leader>f <Plug>CtrlSFPrompt
 
 " =====EasyMotion=====
 
