@@ -472,6 +472,27 @@ nnoremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " =====vim-expand-region=====
 
+" 选中区域配置, 1表示递归
+let g:expand_region_text_objects = {
+      \ 'iw'  :0,
+      \ 'i"'  :0,
+      \ 'a"'  :0,
+      \ 'i''' :0,
+      \ 'a''' :0,
+      \ 'i`'  :0,
+      \ 'a`'  :0,
+      \ 'i]'  :1,
+      \ 'a]'  :1,
+      \ 'ib'  :1,
+      \ 'ab'  :1,
+      \ 'iB'  :1,
+      \ 'aB'  :1,
+      \ 'i>'  :1,
+      \ 'a>'  :1,
+      \ 'it'  :1,
+      \ 'at'  :1,
+      \ }
+" 快捷键
 vmap v <Plug>(expand_region_expand)
 vmap V <Plug>(expand_region_shrink)
 
