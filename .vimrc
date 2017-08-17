@@ -33,6 +33,8 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat'
 " 平滑滚动
 Plug 'terryma/vim-smooth-scroll'
+" 快速选中
+Plug 'terryma/vim-expand-region'
 " =====Python=====
 " Python代码对齐
 Plug 'hynek/vim-python-pep8-indent'
@@ -451,7 +453,7 @@ map <C-_> <plug>NERDCommenterToggle
 let g:formatdef_custom_autopep8 = "'autopep8 - --ignore=E116,E501'"
 let g:formatters_python = ['custom_autopep8']
 " C
-let g:formatdef_custom_c='"astyle --mode=c --style=google"'
+let g:formatdef_custom_c = '"astyle --mode=c --style=google"'
 let g:formatters_c = ['custom_c']
 " Autoformat快捷键
 noremap <Leader>af :Autoformat<CR>
@@ -467,6 +469,11 @@ nnoremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
 nnoremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 nnoremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 nnoremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+
+" =====vim-expand-region=====
+
+vmap v <Plug>(expand_region_expand)
+vmap V <Plug>(expand_region_shrink)
 
 " =====主题=====
 
