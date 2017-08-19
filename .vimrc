@@ -487,8 +487,6 @@ let g:expand_region_text_objects = {
       \ 'ab'  :1,
       \ 'iB'  :1,
       \ 'aB'  :1,
-      \ 'i>'  :1,
-      \ 'a>'  :1,
       \ 'it'  :1,
       \ 'at'  :1,
       \ }
