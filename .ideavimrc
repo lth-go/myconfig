@@ -49,4 +49,4 @@ nnoremap <C-D> :action EditorMoveDownAndScroll<CR>:action EditorMoveDownAndScrol
 nnoremap <C-U> :action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>:action EditorMoveUpAndScroll<CR>
 
 " 高亮
-nnoremap <silent><Leader><Leader> :nohlsearch<CR>
+nnoremap <Leader><Leader> :nohlsearch<CR>
