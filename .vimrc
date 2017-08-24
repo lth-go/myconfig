@@ -237,6 +237,8 @@ inoremap <C-E> <End>
 " 搜索关键词居中
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
+nnoremap <silent> <C-o> <C-o>zz
+nnoremap <silent> <C-i> <C-i>zz
 
 nnoremap <silent><Leader><Leader> :nohlsearch<CR>
 
@@ -322,6 +324,9 @@ nnoremap <Leader>g :YcmCompleter GoTo<CR>
 
 " =====CtrlP=====
 
+" 默认搜索当前文件夹下
+let g:ctrlp_cmd = 'CtrlPRoot'
+" 快捷键
 let g:ctrlp_map = '<Space>'
 let g:ctrlp_prompt_mappings = {
     \ 'PrtSelectMove("j")': ['<c-n>'],
