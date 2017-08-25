@@ -344,7 +344,7 @@ let g:ctrlsf_ignore_dir = ['.idea', '.git']
 " 快捷键设置
 let g:ctrlsf_mapping = {"next": "n", "prev": "N"}
 " 设置搜索快捷键
-nmap <Leader>f <Plug>CtrlSFPrompt
+nmap <Leader>f <Plug>CtrlSFCwordPath
 
 " =====EasyMotion=====
 
