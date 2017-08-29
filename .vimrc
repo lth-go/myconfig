@@ -318,7 +318,7 @@ let g:ycm_semantic_triggers =  {
             \   'css': ['re!^\s{2,4}', 're!:\s+' ],
             \ }
 " 函数跳转
-nnoremap <Leader>g :YcmCompleter GoTo<CR>
+nnoremap <Leader>g :YcmCompleter GoTo<CR>zz
 
 " =====CtrlP=====
 
