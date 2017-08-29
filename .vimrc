@@ -273,6 +273,9 @@ vnoremap > >gv
 " w!!用sudo保存
 cabbrev w!! w !sudo tee > /dev/null %
 
+" 关闭当前buf外的其他buf
+nnoremap <Leader>b :%bd \| e # \| bd #<CR>
+
 " =====Ale=====
 
 " pip install flake8
@@ -322,8 +325,6 @@ nnoremap <Leader>g :YcmCompleter GoTo<CR>zz
 
 " =====CtrlP=====
 
-" 默认搜索当前文件夹下
-let g:ctrlp_cmd = 'CtrlPRoot'
 " 快捷键
 let g:ctrlp_map = '<Space>'
 let g:ctrlp_prompt_mappings = {
