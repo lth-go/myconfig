@@ -9,9 +9,11 @@ ZSH_THEME="my"
 
 # 插件
 # git://github.com/zsh-users/
-plugins=(git docker docker-compose golang kubectl pip
+plugins=(
+git docker docker-compose golang kubectl pip
 sudo history-substring-search extract
-zsh-completions zsh-autosuggestions zsh-syntax-highlighting)
+zsh-completions zsh-autosuggestions zsh-syntax-highlighting
+)
 
 # 用户配置
 
