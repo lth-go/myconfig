@@ -459,13 +459,13 @@ map <C-_> <plug>NERDCommenterToggle
 
 " pip install autopep8
 " npm install -g js-beautify
-" dnf install astyle
+" sudo dnf install llvm
 
 " Python
 let g:formatdef_custom_autopep8 = "'autopep8 - --ignore=E116,E501'"
 let g:formatters_python = ['custom_autopep8']
 " C
-let g:formatdef_custom_c = '"astyle --mode=c --style=google"'
+let g:formatdef_custom_c = '"clang-format --style=Google"'
 let g:formatters_c = ['custom_c']
 " Autoformat快捷键
 noremap <Leader>af :Autoformat<CR>
