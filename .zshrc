@@ -11,8 +11,9 @@ ZSH_THEME="my"
 # git://github.com/zsh-users/
 plugins=(
 git docker docker-compose golang kubectl pip
-sudo history-substring-search extract
+sudo extract
 zsh-completions zsh-autosuggestions zsh-syntax-highlighting
+history-substring-search 
 )
 
 # 用户配置
