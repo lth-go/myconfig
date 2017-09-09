@@ -325,6 +325,8 @@ nnoremap <Leader>g :YcmCompleter GoTo<CR>zz
 
 " =====CtrlP=====
 
+" 按文件名搜索
+let g:ctrlp_by_filename = 1
 " 快捷键
 let g:ctrlp_map = '<Space>'
 let g:ctrlp_prompt_mappings = {
