@@ -459,7 +459,7 @@ map <C-_> <plug>NERDCommenterToggle
 let g:formatdef_custom_autopep8 = "'autopep8 - --ignore=E116,E501'"
 let g:formatters_python = ['custom_autopep8']
 " C
-let g:formatdef_custom_c = '"clang-format --style=Google"'
+let g:formatdef_custom_c = '"clang-format --style=\"{BasedOnStyle: Google, IndentWidth: 4}\""'
 let g:formatters_c = ['custom_c']
 " Autoformat快捷键
 noremap <Leader>af :Autoformat<CR>
