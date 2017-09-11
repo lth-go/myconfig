@@ -342,7 +342,7 @@ let g:ctrlp_prompt_mappings = {
 
 " =====CtrlSF=====
 
-" dnf install ack
+" dnf install the_silver_searcher
 
 " 忽略文件夹
 let g:ctrlsf_ignore_dir = ['.idea', '.git']
