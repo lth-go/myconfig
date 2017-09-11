@@ -325,6 +325,8 @@ nnoremap <Leader>g :YcmCompleter GoTo<CR>zz
 
 " =====CtrlP=====
 
+" 搜索当前目录
+let g:ctrlp_cmd = 'CtrlPCurWD'
 " 按文件名搜索
 let g:ctrlp_by_filename = 1
 " 快捷键
