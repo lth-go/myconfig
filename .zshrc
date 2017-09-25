@@ -13,7 +13,6 @@ plugins=(
 git docker docker-compose golang kubectl pip
 sudo extract
 zsh-completions zsh-autosuggestions zsh-syntax-highlighting
-history-substring-search 
 )
 
 # 用户配置
