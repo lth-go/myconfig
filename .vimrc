@@ -3,12 +3,10 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 
 " =====基础=====
-" 中文帮助
-Plug 'yianwillis/vimcdoc'
 " 语法检查
 Plug 'w0rp/ale'
 " 代码补全
-Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'javascript', 'go']}
 " 文件搜索
 Plug 'ctrlpvim/ctrlp.vim'
 " 文本搜索
@@ -56,6 +54,9 @@ Plug 'valloric/MatchTagAlways'
 call plug#end()
 
 " =====文件=====
+
+" 文件类型检测
+filetype plugin indent on
 
 " 设置编码格式
 set encoding=utf-8
@@ -165,14 +166,13 @@ set expandtab
 " 智能缩进
 set shiftround
 
-" yaml文件锁紧
 " yaml缩进
 autocmd FileType javascript,yaml set tabstop=2 shiftwidth=2 softtabstop=2
 
 " =====其他=====
 
 " 使用系统剪切板
-" sudo dnf install vim-X11
+" dnf install vim-X11
 " alias vim='vimx'
 set clipboard=unnamedplus
 
@@ -291,8 +291,10 @@ let g:ale_python_flake8_options = '--ignore=E116,E402,E501'
 let g:ale_c_clang_options = '-std=c99 -Wall'
 " 关闭airline显示
 let g:airline#extensions#ale#enabled = 0
-" 关闭自动检查
-let g:ale_lint_on_text_changed = 'never'
+" 自动检查模式
+let g:ale_lint_on_text_changed = 'normal'
+" 离开插入模式时检查
+let g:ale_lint_on_insert_leave = 1
 " 提示符修改
 let g:ale_sign_error = '——'
 let g:ale_sign_warning = '——'
@@ -309,7 +311,7 @@ nnoremap <Leader>e :call ToggleErrors()<cr>
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax = 1
 " 指定jedi的Python解释器路径
-let g:ycm_server_python_interpreter = '/work/python_venv/mapboom_venv/bin/python'
+let g:ycm_server_python_interpreter = '/work/python_venv/nav_biz_venv/bin/python'
 " c语言不提示
 let g:ycm_confirm_extra_conf = 0
 " 关闭c语法检查
@@ -329,6 +331,8 @@ nnoremap <Leader>g :YcmCompleter GoTo<CR>zz
 
 " =====CtrlP=====
 
+" 搜索当前目录
+let g:ctrlp_cmd = 'CtrlPCurWD'
 " 按文件名搜索
 let g:ctrlp_by_filename = 1
 " 快捷键
@@ -342,7 +346,7 @@ let g:ctrlp_prompt_mappings = {
 
 " =====CtrlSF=====
 
-" dnf install the_silver_searcher
+" dnf install ack
 
 " 忽略文件夹
 let g:ctrlsf_ignore_dir = ['.idea', '.git']
@@ -372,12 +376,13 @@ let NERDTreeMinimalUI = 1
 " 退出vim时自动关闭
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 忽略显示
-let NERDTreeIgnore=['\.pyc','\.pyo','\~$','\.swp','\.git$','\.idea']
+let NERDTreeIgnore = ['\.pyc','\.pyo','\~$','\.swp','\.git$','\.idea']
 " 打开文件树
 nmap <C-\> :NERDTreeToggle<CR>
 
 " =====Tagbar=====
 
+" dnf install ctags
 " npm install -g git+https://github.com/ramitos/jsctags.git
 " go get -u github.com/jstemmer/gotags
 
@@ -389,31 +394,31 @@ let g:tagbar_compact = 1
 let g:tagbar_type_javascript = {'ctagsbin': 'jsctags'}
 " Golang tag支持
 let g:tagbar_type_go = {
-	\ 'ctagstype': 'go',
-	\ 'kinds': [
-		\ 'p:package',
-		\ 'i:imports:1',
-		\ 'c:constants',
-		\ 'v:variables',
-		\ 't:types',
-		\ 'n:interfaces',
-		\ 'w:fields',
-		\ 'e:embedded',
-		\ 'm:methods',
-		\ 'r:constructor',
-		\ 'f:functions'
-	\ ],
-	\ 'sro': '.',
-	\ 'kind2scope': {
-		\ 't': 'ctype',
-		\ 'n': 'ntype'
-	\ },
-	\ 'scope2kind': {
-		\ 'ctype': 't',
-		\ 'ntype': 'n'
-	\ },
-	\ 'ctagsbin': 'gotags',
-	\ 'ctagsargs': '-sort -silent'
+    \ 'ctagstype': 'go',
+    \ 'kinds': [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro': '.',
+    \ 'kind2scope': {
+        \ 't': 'ctype',
+        \ 'n': 'ntype'
+    \ },
+    \ 'scope2kind': {
+        \ 'ctype': 't',
+        \ 'ntype': 'n'
+    \ },
+    \ 'ctagsbin': 'gotags',
+    \ 'ctagsargs': '-sort -silent'
 \ }
 " 打开Tagbar
 nmap <Leader>t :TagbarToggle<CR>
@@ -421,7 +426,7 @@ nmap <Leader>t :TagbarToggle<CR>
 " =====Airline=====
 
 " 设置airline主题
-let g:airline_theme="gruvbox"
+let g:airline_theme = "gruvbox"
 " 打开tabline功能
 let g:airline#extensions#tabline#enabled = 1
 " 标签页只显示文件名
@@ -442,9 +447,9 @@ nmap <Leader>7 <Plug>AirlineSelectTab7
 nmap <Leader>8 <Plug>AirlineSelectTab8
 nmap <Leader>9 <Plug>AirlineSelectTab9
 let g:airline#extensions#tabline#buffer_idx_format = {
-            \ '0': '0: ', '1': '1: ', '2': '2: ', '3': '3: ', '4': '4: ',
-            \ '5': '5: ', '6': '6: ', '7': '7: ', '8': '8: ', '9': '9: '
-            \}
+    \ '0': '0: ', '1': '1: ', '2': '2: ', '3': '3: ', '4': '4: ',
+    \ '5': '5: ', '6': '6: ', '7': '7: ', '8': '8: ', '9': '9: '
+\}
 
 " =====Nerdcommenter=====
 
@@ -459,13 +464,13 @@ map <C-_> <plug>NERDCommenterToggle
 
 " pip install autopep8
 " npm install -g js-beautify
-" sudo dnf install llvm
+" dnf install llvm
 
 " Python
 let g:formatdef_custom_autopep8 = "'autopep8 - --ignore=E116,E501'"
 let g:formatters_python = ['custom_autopep8']
 " C
-let g:formatdef_custom_c = '"clang-format --style=Google"'
+let g:formatdef_custom_c = '"clang-format --style=\"{BasedOnStyle: Google, IndentWidth: 4}\""'
 let g:formatters_c = ['custom_c']
 " Autoformat快捷键
 noremap <Leader>af :Autoformat<CR>
@@ -508,11 +513,13 @@ vmap V <Plug>(expand_region_shrink)
 
 " =====主题=====
 
+" 高亮
+syntax enable
+
 " 背景颜色
 set background=dark
 " 主题
 colorscheme gruvbox
-highlight Normal ctermbg=None
 
 " =====高亮修改=====
 
@@ -531,3 +538,5 @@ highlight link markdownError None
 " ale提示符颜色
 highlight ALEErrorSign term=reverse cterm=bold ctermfg=167 ctermbg=237
 highlight ALEWarningSign term=standout cterm=bold ctermfg=223 ctermbg=237
+
+highlight Normal ctermbg=None
