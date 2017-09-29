@@ -17,8 +17,6 @@ zsh-completions zsh-autosuggestions zsh-syntax-highlighting
 
 # 用户配置
 
-export PATH=${PATH}:/usr/sbin
-
 source $ZSH/oh-my-zsh.sh
 
 # 设置环境语言
