@@ -3,6 +3,8 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 
 " =====基础=====
+" 中文帮助
+Plug 'yianwillis/vimcdoc'
 " 语法检查
 Plug 'w0rp/ale'
 " 代码补全
