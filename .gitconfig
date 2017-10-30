@@ -4,7 +4,7 @@
 [push]
     default = simple
 [format]
-    pretty = oneline
+    pretty = medium
 [core]
     editor = vim
     # sudo npm install -g diff-so-fancy

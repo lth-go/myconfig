@@ -313,7 +313,7 @@ nnoremap <Leader>e :call ToggleErrors()<cr>
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax = 1
 " 指定jedi的Python解释器路径
-let g:ycm_server_python_interpreter = '/work/python_venv/nav_biz_venv/bin/python'
+let g:ycm_server_python_interpreter = '/work/python_venv/mapboom_venv/bin/python'
 " c语言不提示
 let g:ycm_confirm_extra_conf = 0
 " 关闭c语法检查
