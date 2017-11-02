@@ -10,8 +10,13 @@ ZSH_THEME="my"
 # 插件
 # git://github.com/zsh-users/
 plugins=(
-git docker docker-compose golang kubectl pip
-sudo extract
+git
+docker docker-compose
+golang
+kubectl
+pip
+sudo
+extract
 zsh-completions zsh-autosuggestions zsh-syntax-highlighting
 )
 

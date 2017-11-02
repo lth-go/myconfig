@@ -10,8 +10,11 @@ ZSH_THEME="my"
 # 插件
 # git://github.com/zsh-users/
 plugins=(
-git docker docker-compose golang kubectl pip
-sudo extract
+git
+docker docker-compose
+golang
+sudo
+pip
 zsh-completions zsh-autosuggestions zsh-syntax-highlighting
 )
 
@@ -27,6 +30,10 @@ autoload -U compinit && compinit
 
 # docker
 alias dps="docker ps --format \"table {{.Names}}\t{{.Image}}\t{{.ID}}\t{{.Status}}\""
+
+# Vim
+alias vi='vimx'
+alias vim='vimx'
 
 # Golang
 export GOPATH=$HOME/go
@@ -48,9 +55,3 @@ export LESS_TERMCAP_se=$'\e[0m'           # end standout-mode
 export LESS_TERMCAP_us=$'\e[04;38;5;146m' # begin underline
 export LESS_TERMCAP_ue=$'\e[0m'           # end underline
 export GROFF_NO_SGR=1                     # for gnome-terminal
-
-# deepin terminator颜色显示
-TERM=xterm-256color
-
-# deepin sh
-alias sh='bash'
