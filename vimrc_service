@@ -162,6 +162,8 @@ inoremap <C-E> <End>
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
 
+nnoremap <silent><Leader><Leader> :nohlsearch<CR>
+
 " * 搜索不移动 可视模式高亮选中
 function! Starsearch_CWord()
     let wordStr = expand("<cword>")
@@ -212,3 +214,6 @@ autocmd Filetype python syntax keyword pythonBuiltin cls self
 
 " markdown
 highlight link markdownError None
+
+" 关闭yaml高亮
+autocmd BufEnter *.yml syntax off
