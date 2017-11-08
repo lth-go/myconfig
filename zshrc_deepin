@@ -18,6 +18,7 @@ pip
 sudo
 extract
 zsh-completions zsh-autosuggestions zsh-syntax-highlighting
+safe-paste
 )
 
 # 用户配置

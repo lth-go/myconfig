@@ -169,7 +169,7 @@ set expandtab
 set shiftround
 
 " yaml缩进
-autocmd FileType javascript,yaml set tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType javascript,yaml,sh set tabstop=2 shiftwidth=2 softtabstop=2
 
 " =====其他=====
 
