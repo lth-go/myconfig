@@ -15,6 +15,7 @@ docker docker-compose
 golang
 sudo
 pip
+z
 zsh-completions zsh-autosuggestions zsh-syntax-highlighting
 )
 
