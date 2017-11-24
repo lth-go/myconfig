@@ -169,7 +169,7 @@ set expandtab
 set shiftround
 
 " yaml缩进
-autocmd FileType javascript,yaml,sh set tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType javascript,json,yaml,sh set tabstop=2 shiftwidth=2 softtabstop=2
 
 " =====其他=====
 
@@ -312,6 +312,8 @@ nnoremap <Leader>e :call ToggleErrors()<cr>
 
 " 语法关键字补全
 let g:ycm_seed_identifiers_with_syntax = 1
+" 注释中补全
+let g:ycm_complete_in_comments = 1
 " 指定jedi的Python解释器路径
 let g:ycm_server_python_interpreter = '/work/python_venv/mapboom_venv/bin/python'
 " c语言不提示

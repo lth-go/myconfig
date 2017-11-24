@@ -16,7 +16,6 @@ golang
 kubectl
 pip
 sudo
-extract
 zsh-completions zsh-autosuggestions zsh-syntax-highlighting
 safe-paste
 )
@@ -33,10 +32,6 @@ autoload -U compinit && compinit
 
 # docker
 alias dps="docker ps --format \"table {{.Names}}\t{{.Image}}\t{{.ID}}\t{{.Status}}\""
-
-# Golang
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
 
 # Tldr
 alias tldr='tldr -t ocean'
