@@ -56,3 +56,6 @@ export LESS_TERMCAP_se=$'\e[0m'           # end standout-mode
 export LESS_TERMCAP_us=$'\e[04;38;5;146m' # begin underline
 export LESS_TERMCAP_ue=$'\e[0m'           # end underline
 export GROFF_NO_SGR=1                     # for gnome-terminal
+
+# deepin terminator颜色显示
+TERM=xterm-256color
