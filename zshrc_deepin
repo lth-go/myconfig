@@ -10,14 +10,16 @@ ZSH_THEME="my"
 # 插件
 # git://github.com/zsh-users/
 plugins=(
+safe-paste
 git
 docker docker-compose
 golang
 kubectl
 pip
 sudo
+z
 zsh-completions zsh-autosuggestions zsh-syntax-highlighting
-safe-paste
+zsh-history-substring-search
 )
 
 # 用户配置
@@ -30,15 +32,22 @@ export LANG=zh_CN.utf8
 # zsh-completions 需要
 autoload -U compinit && compinit
 
+# 搜索
+bindkey '^p' up-line-or-beginning-search
+bindkey '^n' down-line-or-beginning-search
+
+# zsh-history-substring-search
+setopt HIST_FIND_NO_DUPS
+export HISTORY_SUBSTRING_SEARCH_FUZZY=1
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 # docker
 alias dps="docker ps --format \"table {{.Names}}\t{{.Image}}\t{{.ID}}\t{{.Status}}\""
 
 # Tldr
 alias tldr='tldr -t ocean'
-
-# 搜索
-bindkey '^p' up-line-or-beginning-search
-bindkey '^n' down-line-or-beginning-search
 
 # 彩色man
 export LESS_TERMCAP_mb=$'\e[01;31m'       # begin blinking
