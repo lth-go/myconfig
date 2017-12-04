@@ -353,8 +353,9 @@ let g:fzf_colors = {
     \ 'spinner': ['fg', 'Label'],
     \ 'header':  ['fg', 'Comment']
 \ }
+
 " 全局搜索
-nnoremap <Leader>f :Ag <C-R><C-W>
+nnoremap <expr> <Leader>f ":Ag " . expand('<cword>')
 " 文件搜索
 nnoremap <Space> :Files<CR>
 
