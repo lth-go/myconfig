@@ -508,9 +508,8 @@ vmap v <Plug>(expand_region_expand)
 vmap V <Plug>(expand_region_shrink)
 
 " =====vim_current_word=====
-"
+
 let g:vim_current_word#highlight_current_word = 0
-hi CurrentWordTwins ctermbg=238 cterm=None
 
 " =====主题=====
 
@@ -526,6 +525,9 @@ colorscheme gruvbox
 
 " 搜索高亮
 hi Search ctermbg=53 ctermfg=None cterm=None
+
+" vim_current_word
+hi CurrentWordTwins ctermbg=238 cterm=None
 
 " python高亮
 autocmd Filetype python syntax keyword pythonBuiltin cls self
