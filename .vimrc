@@ -354,7 +354,7 @@ let g:fzf_colors = {
     \ 'header':  ['fg', 'Comment']
 \ }
 " 全局搜索
-nnoremap <Leader>f :Ag<Space>
+nnoremap <Leader>f :Ag <C-R><C-W>
 " 文件搜索
 nnoremap <Space> :Files<CR>
 
