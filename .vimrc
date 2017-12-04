@@ -37,6 +37,8 @@ Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat'
 Plug 'terryma/vim-smooth-scroll'
 " 快速选中
 Plug 'terryma/vim-expand-region'
+" 高亮当前单词
+Plug 'dominikduda/vim_current_word', {'for': ['python', 'c', 'javascript', 'go']}
 " =====Python=====
 " Python代码对齐
 Plug 'hynek/vim-python-pep8-indent'
@@ -286,6 +288,7 @@ nnoremap <Leader>b :%bd \| e # \| bd #<CR>
 
 " pip install flake8
 " npm install -g eslint
+" dnf install clang
 
 " 语法检查
 let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint'], 'c': ['clang']}
@@ -352,6 +355,8 @@ let g:ctrlp_prompt_mappings = {
 
 " dnf install ack
 
+" 显示模式
+let g:ctrlsf_default_view_mode = 'compact'
 " 忽略文件夹
 let g:ctrlsf_ignore_dir = ['.idea', '.git']
 " 快捷键设置
@@ -496,24 +501,22 @@ nnoremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 " 选中区域配置, 1表示递归
 let g:expand_region_text_objects = {
     \ 'iw'  :0,
-    \ 'i"'  :0,
-    \ 'a"'  :0,
-    \ 'i''' :0,
-    \ 'a''' :0,
-    \ 'i`'  :0,
-    \ 'a`'  :0,
-    \ 'i]'  :1,
-    \ 'a]'  :1,
-    \ 'ib'  :1,
-    \ 'ab'  :1,
-    \ 'iB'  :1,
-    \ 'aB'  :1,
-    \ 'it'  :1,
-    \ 'at'  :1,
+    \ 'i"'  :0, 'a"'  :0,
+    \ 'i''' :0, 'a''' :0,
+    \ 'i`'  :0, 'a`'  :0,
+    \ 'i]'  :1, 'a]'  :1,
+    \ 'ib'  :1, 'ab'  :1,
+    \ 'iB'  :1, 'aB'  :1,
+    \ 'it'  :1, 'at'  :1,
 \ }
 " 快捷键
 vmap v <Plug>(expand_region_expand)
 vmap V <Plug>(expand_region_shrink)
+
+" =====vim_current_word=====
+"
+let g:vim_current_word#highlight_current_word = 0
+hi CurrentWordTwins ctermbg=238 cterm=None
 
 " =====主题=====
 
@@ -527,6 +530,9 @@ colorscheme gruvbox
 
 " =====高亮修改=====
 
+" 搜索高亮
+hi Search ctermbg=53 ctermfg=None cterm=None
+
 " python高亮
 autocmd Filetype python syntax keyword pythonBuiltin cls self
 
@@ -539,4 +545,5 @@ autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 " markdown
 highlight link markdownError None
 
+" 背景透明
 highlight Normal ctermbg=None
