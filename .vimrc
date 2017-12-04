@@ -9,10 +9,9 @@ Plug 'yianwillis/vimcdoc'
 Plug 'w0rp/ale'
 " 代码补全
 Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'javascript', 'go']}
-" 文件搜索
-Plug 'ctrlpvim/ctrlp.vim'
-" 文本搜索
-Plug 'dyng/ctrlsf.vim'
+" 搜索
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 " 快速移动
 Plug 'easymotion/vim-easymotion'
 " 主题配色
@@ -30,7 +29,7 @@ Plug 'lth-go/auto-pairs'
 " 彩虹括号
 Plug 'luochen1990/rainbow'
 " 代码格式化
-Plug 'Chiel92/vim-autoformat'
+Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
 " 结对符修改
 Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat'
 " 平滑滚动
@@ -333,31 +332,28 @@ let g:ycm_semantic_triggers =  {
 " 函数跳转
 nnoremap <Leader>g :YcmCompleter GoTo<CR>zz
 
-" =====CtrlP=====
+" =====fzf=====
 
-" 搜索当前目录
-let g:ctrlp_cmd = 'CtrlPCurWD'
-" 按文件名搜索
-let g:ctrlp_by_filename = 1
-" 快捷键
-let g:ctrlp_map = '<Space>'
-let g:ctrlp_prompt_mappings = {
-    \ 'PrtSelectMove("j")': ['<c-n>'],
-    \ 'PrtSelectMove("k")': ['<c-p>'],
-    \ 'PrtHistory(-1)': [],
-    \ 'PrtHistory(1)': []
-    \ }
-
-" =====CtrlSF=====
-
-" dnf install ack
-
-" 忽略文件夹
-let g:ctrlsf_ignore_dir = ['.idea', '.git']
-" 快捷键设置
-let g:ctrlsf_mapping = {"next": "n", "prev": "N"}
-" 设置搜索快捷键
-nmap <Leader>f <Plug>CtrlSFCwordPath
+" 配色
+let g:fzf_colors = { 
+    \ 'fg':      ['fg', 'Normal'],
+    \ 'bg':      ['bg', 'Normal'],
+    \ 'hl':      ['fg', 'Comment'],
+    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+    \ 'hl+':     ['fg', 'Statement'],
+    \ 'info':    ['fg', 'PreProc'],
+    \ 'border':  ['fg', 'Ignore'],
+    \ 'prompt':  ['fg', 'Conditional'],
+    \ 'pointer': ['fg', 'Exception'],
+    \ 'marker':  ['fg', 'Keyword'],
+    \ 'spinner': ['fg', 'Label'],
+    \ 'header':  ['fg', 'Comment']
+\ }
+" 全局搜索
+nnoremap <Leader>f :Ag<Space>
+" 文件搜索
+nnoremap <Space> :Files<CR>
 
 " =====EasyMotion=====
 
