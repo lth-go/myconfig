@@ -29,6 +29,9 @@ source $ZSH/oh-my-zsh.sh
 # 设置环境语言
 export LANG=zh_CN.utf8
 
+# PATH
+export PATH=$PATH:~/go/bin
+
 # zsh-completions 需要
 autoload -U compinit && compinit
 
