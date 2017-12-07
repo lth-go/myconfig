@@ -234,6 +234,7 @@ cnoremap <C-N> <Down>
 cnoremap <C-P> <Up>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
+cnoremap <C-D> <Del>
 
 "插入模式增强
 inoremap <C-A> <Home>

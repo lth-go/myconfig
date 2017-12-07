@@ -30,7 +30,9 @@ source $ZSH/oh-my-zsh.sh
 export LANG=zh_CN.utf8
 
 # PATH
-export PATH=$PATH:~/go/bin
+export GOROOT="/opt/go"
+export GOPATH="/home/lth/go"
+export PATH="${GOROOT}/bin:${GOPATH}/bin:${PATH}"
 
 # zsh-completions 需要
 autoload -U compinit && compinit
