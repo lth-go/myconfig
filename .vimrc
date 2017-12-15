@@ -38,6 +38,8 @@ Plug 'terryma/vim-smooth-scroll'
 Plug 'terryma/vim-expand-region'
 " 高亮当前单词
 Plug 'dominikduda/vim_current_word', {'for': ['python', 'c', 'javascript', 'go']}
+" 搜索优化
+Plug 'osyo-manga/vim-anzu'
 " =====Python=====
 " Python代码对齐
 Plug 'hynek/vim-python-pep8-indent'
@@ -117,8 +119,7 @@ set nowrap
 " 高亮显示当前行
 set cursorline
 
-" 提高画面流畅度
-set lazyredraw
+" 提高画面流畅度 set lazyredraw
 set ttyfast
 
 " 禁止折叠
@@ -176,6 +177,7 @@ autocmd FileType javascript,json,yaml,sh set tabstop=2 shiftwidth=2 softtabstop=
 
 " 使用系统剪切板
 " dnf install vim-X11
+" apt install vim-gnome
 " alias vim='vimx'
 set clipboard=unnamedplus
 
@@ -303,6 +305,8 @@ let g:ale_lint_on_insert_leave = 1
 " 提示符修改
 let g:ale_sign_error = '——'
 let g:ale_sign_warning = '——'
+" 关闭错误高亮
+let g:ale_set_highlights = 0
 " 打开错误面板
 function! ToggleErrors()
     let old_last_winnr = winnr('$')
@@ -513,6 +517,11 @@ vmap V <Plug>(expand_region_shrink)
 
 let g:vim_current_word#highlight_current_word = 0
 
+" =====vim-anzu=====
+
+nmap n <Plug>(anzu-n-with-echo)
+nmap N <Plug>(anzu-N-with-echo)
+
 " =====主题=====
 
 " 高亮
@@ -525,11 +534,8 @@ colorscheme gruvbox
 
 " =====高亮修改=====
 
-" 搜索高亮
-hi Search ctermbg=53 ctermfg=None cterm=None
-
 " vim_current_word
-hi CurrentWordTwins ctermbg=238 cterm=None
+highlight CurrentWordTwins ctermbg=238 cterm=None
 
 " python高亮
 autocmd Filetype python syntax keyword pythonBuiltin cls self

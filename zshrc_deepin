@@ -18,8 +18,8 @@ kubectl
 pip
 sudo
 z
+extract
 zsh-completions zsh-autosuggestions zsh-syntax-highlighting
-zsh-history-substring-search
 )
 
 # 用户配置
@@ -41,12 +41,8 @@ autoload -U compinit && compinit
 bindkey '^p' up-line-or-beginning-search
 bindkey '^n' down-line-or-beginning-search
 
-# zsh-history-substring-search
-setopt HIST_FIND_NO_DUPS
-export HISTORY_SUBSTRING_SEARCH_FUZZY=1
-
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # docker
 alias dps="docker ps --format \"table {{.Names}}\t{{.Image}}\t{{.ID}}\t{{.Status}}\""

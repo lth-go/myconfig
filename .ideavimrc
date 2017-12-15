@@ -30,7 +30,6 @@ map L $
 map <Leader>q :q<CR>
 
 " Go To
-map <Leader>f :action GotoFile<CR>
 nnoremap <Space> :action GotoFile<CR>
 map <Leader>c :action GotoClass<CR>
 map <Leader>s :action GotoSymbol<CR>
@@ -46,3 +45,12 @@ nnoremap <Leader>t :action FileStructurePopup<CR>
 
 " 高亮
 nnoremap <Leader><Leader> :nohlsearch<CR>
+
+" rename
+nnoremap <Leader>r :action RenameElement<CR>
+
+" 关闭所有其他标签
+nnoremap <Leader>b :action CloseAllEditorsButActive<CR>
+
+" 查找引用
+nnoremap <Leader>f :action FindUsages<CR>
