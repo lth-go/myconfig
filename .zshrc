@@ -10,12 +10,14 @@ ZSH_THEME="my"
 # 插件
 # git://github.com/zsh-users/
 plugins=(
+safe-paste
 git
 docker docker-compose
 golang
 sudo
 pip
 z
+extract
 zsh-completions zsh-autosuggestions zsh-syntax-highlighting
 )
 
@@ -26,22 +28,19 @@ source $ZSH/oh-my-zsh.sh
 # 设置环境语言
 export LANG=zh_CN.utf8
 
-# zsh-completions 需要
-autoload -U compinit && compinit
-
-# docker
-alias dps="docker ps --format \"table {{.Names}}\t{{.Image}}\t{{.ID}}\t{{.Status}}\""
-
-# Vim
-alias vi='vimx'
-alias vim='vimx'
-
 # Golang
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
-# Tldr
-alias tldr='tldr -t ocean'
+# zsh-completions 需要
+autoload -U compinit && compinit
+
+# zsh-syntax-highlighting
+ZSH_HIGHLIGHT_STYLES[globbing]='fg=cyan'
+
+# Vim
+alias vi='vimx'
+alias vim='vimx'
 
 # 搜索
 bindkey '^p' up-line-or-beginning-search
@@ -49,6 +48,15 @@ bindkey '^n' down-line-or-beginning-search
 
 bindkey '^[[A' up-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
+
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# docker
+alias dps="docker ps --format \"table {{.Names}}\t{{.Image}}\t{{.ID}}\t{{.Status}}\""
+
+# Tldr
+alias tldr='tldr -t ocean'
 
 # 彩色man
 export LESS_TERMCAP_mb=$'\e[01;31m'       # begin blinking
