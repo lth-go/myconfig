@@ -41,6 +41,9 @@ autoload -U compinit && compinit
 bindkey '^p' up-line-or-beginning-search
 bindkey '^n' down-line-or-beginning-search
 
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
