@@ -38,7 +38,7 @@ export PATH="${GOROOT}/bin:${GOPATH}/bin:${PATH}"
 autoload -U compinit && compinit
 
 # zsh-syntax-highlighting
-ZSH_HIGHLIGHT_STYLES[globbing]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[globbing]='fg=yellow'
 
 # 搜索
 bindkey '^p' up-line-or-beginning-search
