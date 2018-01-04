@@ -16,6 +16,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
 " 主题配色
 Plug 'morhetz/gruvbox'
+Plug 'lth-go/onehalf', {'rtp': 'vim'}
 " 文件列表
 Plug 'scrooloose/nerdtree'
 " 函数列表
@@ -435,7 +436,8 @@ nmap <Leader>t :TagbarToggle<CR>
 " =====Airline=====
 
 " 设置airline主题
-let g:airline_theme = "gruvbox"
+"let g:airline_theme = 'gruvbox'
+let g:airline_theme= 'onehalfdark'
 " 打开tabline功能
 let g:airline#extensions#tabline#enabled = 1
 " 标签页只显示文件名
@@ -530,7 +532,8 @@ syntax enable
 " 背景颜色
 set background=dark
 " 主题
-colorscheme gruvbox
+"colorscheme gruvbox
+colorscheme onehalfdark
 
 " =====高亮修改=====
 
