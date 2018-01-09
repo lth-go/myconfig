@@ -41,6 +41,8 @@ Plug 'terryma/vim-expand-region'
 Plug 'dominikduda/vim_current_word', {'for': ['python', 'c', 'javascript', 'go']}
 " 搜索优化
 Plug 'osyo-manga/vim-anzu'
+" =====C=====
+Plug 'justinmk/vim-syntax-extra'
 " =====Python=====
 " Python代码对齐
 Plug 'hynek/vim-python-pep8-indent'
@@ -85,7 +87,7 @@ set history=2000
 set wildmenu
 set wildmode=longest:full,full
 " 忽略文件
-set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git
+set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git,*.o,tags
 " wildmode增强
 let &wildcharm = &wildchar
 cnoremap <expr> / wildmenumode() ? "\<Down>" : "/"
@@ -97,7 +99,7 @@ set laststatus=2
 " 显示光标当前位置
 set ruler
 " 显示当前正在输入的命令
-set showcmd
+" set showcmd
 
 " 允许有未保存时切换缓冲区
 set hidden
@@ -287,6 +289,32 @@ cabbrev w!! w !sudo tee > /dev/null %
 " 关闭当前buf外的其他buf
 nnoremap <Leader>b :%bd \| e # \| bd #<CR>
 
+" C
+" ctags
+set tags=./tags;
+function! DelTagOfFile(file)
+  let fullpath = a:file
+  let cwd = getcwd()
+  let tagfilename = cwd . "/tags"
+  let f = substitute(fullpath, cwd . "/", "", "")
+  let f = escape(f, './')
+  let cmd = 'sed -i "/' . f . '/d" "' . tagfilename . '"'
+  let resp = system(cmd)
+endfunction
+
+function! UpdateTags()
+  let f = expand("%:p")
+  let cwd = getcwd()
+  let tagfilename = cwd . "/tags"
+  let cmd = 'ctags -a -f ' . tagfilename . ' --fields=+iaS --extra=+q ' . '"' . f . '"'
+  call DelTagOfFile(f)
+  let resp = system(cmd)
+endfunction
+autocmd BufWritePost *.h,*.c call UpdateTags()
+
+" go
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+
 " =====Ale=====
 
 " pip install flake8
@@ -339,7 +367,7 @@ let g:ycm_semantic_triggers =  {
     \ 'css': ['re!^\s{2,4}', 're!:\s+' ],
     \ }
 " 函数跳转
-nnoremap <Leader>g :YcmCompleter GoTo<CR>zz
+nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>zz
 
 " =====fzf=====
 
@@ -386,7 +414,7 @@ let NERDTreeMinimalUI = 1
 " 退出vim时自动关闭
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 忽略显示
-let NERDTreeIgnore = ['\.pyc','\.pyo','\~$','\.swp','\.git$','\.idea']
+let NERDTreeIgnore = ['\.pyc','\.pyo','\~$','\.swp','\.git$','\.idea', '\.o', 'tags']
 " 打开文件树
 nmap <C-\> :NERDTreeToggle<CR>
 
@@ -436,8 +464,8 @@ nmap <Leader>t :TagbarToggle<CR>
 " =====Airline=====
 
 " 设置airline主题
-"let g:airline_theme = 'gruvbox'
-let g:airline_theme= 'onehalfdark'
+let g:airline_theme = 'gruvbox'
+"let g:airline_theme= 'onehalfdark'
 " 打开tabline功能
 let g:airline#extensions#tabline#enabled = 1
 " 标签页只显示文件名
@@ -481,7 +509,7 @@ map <C-_> <plug>NERDCommenterToggle
 let g:formatdef_custom_autopep8 = "'autopep8 - --ignore=E116,E501'"
 let g:formatters_python = ['custom_autopep8']
 " C
-let g:formatdef_custom_c = '"clang-format --style=\"{BasedOnStyle: Google, IndentWidth: 4}\""'
+let g:formatdef_custom_c = '"clang-format --style=\"{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 120, BinPackArguments: false}\""'
 let g:formatters_c = ['custom_c']
 " Autoformat快捷键
 noremap <Leader>af :Autoformat<CR>
@@ -532,22 +560,23 @@ syntax enable
 " 背景颜色
 set background=dark
 " 主题
-"colorscheme gruvbox
-colorscheme onehalfdark
+colorscheme gruvbox
+"colorscheme onehalfdark
 
 " =====高亮修改=====
 
 " vim_current_word
 highlight CurrentWordTwins ctermbg=238 cterm=None
 
+" C高亮
+highlight def link cUserFunction None
+highlight def link cUserFunctionPointer cFunction
+
 " python高亮
 autocmd Filetype python syntax keyword pythonBuiltin cls self
 
 " vim-javascript高亮
 highlight link jsOperator javaScriptOperator
-
-" go
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 " markdown
 highlight link markdownError None
