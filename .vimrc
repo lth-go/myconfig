@@ -503,7 +503,7 @@ map <C-_> <plug>NERDCommenterToggle
 
 " pip install autopep8
 " npm install -g js-beautify
-" dnf install llvm
+" dnf install llvm | apt install clang-format
 
 " Python
 let g:formatdef_custom_autopep8 = "'autopep8 - --ignore=E116,E501'"
