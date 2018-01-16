@@ -16,7 +16,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'easymotion/vim-easymotion'
 " 主题配色
 Plug 'morhetz/gruvbox'
-Plug 'lth-go/onehalf', {'rtp': 'vim'}
 " 文件列表
 Plug 'scrooloose/nerdtree'
 " 函数列表
@@ -48,6 +47,8 @@ Plug 'justinmk/vim-syntax-extra'
 Plug 'hynek/vim-python-pep8-indent'
 " Jinja2高亮
 Plug 'Glench/Vim-Jinja2-Syntax'
+" Golang高亮
+Plug 'lth-go/vim-go-syntax'
 " =====javascript=====
 " javascript高亮
 Plug 'pangloss/vim-javascript'
@@ -322,7 +323,7 @@ autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 " dnf install clang
 
 " 语法检查
-let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint'], 'c': ['clang']}
+let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint'], 'c': ['clang'], 'go': ['gofmt', 'golint', 'go vet', 'go build']}
 let g:ale_python_flake8_options = '--ignore=E116,E402,E501'
 let g:ale_c_clang_options = '-std=c99 -Wall'
 " 关闭airline显示
@@ -392,6 +393,8 @@ let g:fzf_colors = {
 nnoremap <expr> <Leader>f ":Ag " . expand('<cword>')
 " 文件搜索
 nnoremap <Space> :Files<CR>
+" 模糊搜索
+nnoremap ? :BLines<CR>
 
 " =====EasyMotion=====
 
@@ -561,7 +564,6 @@ syntax enable
 set background=dark
 " 主题
 colorscheme gruvbox
-"colorscheme onehalfdark
 
 " =====高亮修改=====
 
@@ -574,6 +576,9 @@ highlight def link cUserFunctionPointer cFunction
 
 " python高亮
 autocmd Filetype python syntax keyword pythonBuiltin cls self
+
+" Golang高亮
+highlight link goOperator GruvboxRed
 
 " vim-javascript高亮
 highlight link jsOperator javaScriptOperator
