@@ -47,6 +47,7 @@ Plug 'justinmk/vim-syntax-extra'
 Plug 'hynek/vim-python-pep8-indent'
 " Jinja2高亮
 Plug 'Glench/Vim-Jinja2-Syntax'
+" =====Golang=====
 " Golang高亮
 Plug 'lth-go/vim-go-syntax'
 " =====javascript=====
@@ -240,17 +241,24 @@ cnoremap <C-N> <Down>
 cnoremap <C-P> <Up>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
+cnoremap <C-F> <Right>
+cnoremap <C-B> <Left>
 cnoremap <C-D> <Del>
 
 "插入模式增强
 inoremap <C-A> <Home>
 inoremap <C-E> <End>
+inoremap <C-F> <Right>
+inoremap <C-B> <Left>
+inoremap <C-D> <Del>
+
 
 " 搜索关键词居中
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
 nnoremap <silent> <C-o> <C-o>zz
 nnoremap <silent> <C-i> <C-i>zz
+nnoremap <silent> <C-]> <C-]>zz
 
 nnoremap <silent><Leader><Leader> :nohlsearch<CR>
 
@@ -552,8 +560,8 @@ let g:vim_current_word#highlight_current_word = 0
 
 " =====vim-anzu=====
 
-nmap n <Plug>(anzu-n-with-echo)
-nmap N <Plug>(anzu-N-with-echo)
+nmap n <Plug>(anzu-n-with-echo)zz
+nmap N <Plug>(anzu-N-with-echo)zz
 
 " =====主题=====
 
