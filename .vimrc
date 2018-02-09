@@ -8,7 +8,7 @@ Plug 'yianwillis/vimcdoc'
 " 语法检查
 Plug 'w0rp/ale'
 " 代码补全
-Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'javascript', 'go']}
+Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'go']}
 " 搜索
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -37,7 +37,7 @@ Plug 'terryma/vim-smooth-scroll'
 " 快速选中
 Plug 'terryma/vim-expand-region'
 " 高亮当前单词
-Plug 'dominikduda/vim_current_word', {'for': ['python', 'c', 'javascript', 'go']}
+Plug 'dominikduda/vim_current_word', {'for': ['python', 'c', 'go']}
 " 搜索优化
 Plug 'osyo-manga/vim-anzu'
 " =====C=====
@@ -234,7 +234,10 @@ noremap k gk
 
 " 替换行首行尾快捷键
 noremap H ^
-noremap L $
+noremap L g_
+
+" 选中粘贴
+"vnoremap p "_dp
 
 " 命令行模式增强
 cnoremap <C-N> <Down>
@@ -331,7 +334,7 @@ autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 " dnf install clang
 
 " 语法检查
-let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint'], 'c': ['clang'], 'go': ['gofmt', 'golint', 'go vet', 'go build']}
+let g:ale_linters = {'python': ['flake8'], 'javascript': [], 'c': ['clang'], 'go': ['gofmt', 'golint', 'go vet', 'go build']}
 let g:ale_python_flake8_options = '--ignore=E116,E402,E501'
 let g:ale_c_clang_options = '-std=c99 -Wall'
 " 关闭airline显示

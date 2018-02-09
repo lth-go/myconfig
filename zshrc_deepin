@@ -15,6 +15,7 @@ git
 docker docker-compose
 golang
 kubectl
+helm
 pip
 sudo
 z

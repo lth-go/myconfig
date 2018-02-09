@@ -34,12 +34,6 @@ nnoremap <Space> :action GotoFile<CR>
 map <Leader>c :action GotoClass<CR>
 map <Leader>s :action GotoSymbol<CR>
 
-" AceJump
-map f :action AceAction<CR>
-"vnoremap f :<BS><BS><BS><BS><BS>action AceAction<CR>
-"nnoremap <Space> m'`<v``
-map F :action AceTargetAction<CR>
-
 " Structure
 nnoremap <Leader>t :action FileStructurePopup<CR>
 
