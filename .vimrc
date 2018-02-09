@@ -236,9 +236,6 @@ noremap k gk
 noremap H ^
 noremap L g_
 
-" 选中粘贴
-"vnoremap p "_dp
-
 " 命令行模式增强
 cnoremap <C-N> <Down>
 cnoremap <C-P> <Up>
@@ -248,13 +245,12 @@ cnoremap <C-F> <Right>
 cnoremap <C-B> <Left>
 cnoremap <C-D> <Del>
 
-"插入模式增强
+" 插入模式增强
 inoremap <C-A> <Home>
 inoremap <C-E> <End>
 inoremap <C-F> <Right>
 inoremap <C-B> <Left>
 inoremap <C-D> <Del>
-
 
 " 搜索关键词居中
 nnoremap <silent> n nzz
@@ -334,7 +330,7 @@ autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 " dnf install clang
 
 " 语法检查
-let g:ale_linters = {'python': ['flake8'], 'javascript': [], 'c': ['clang'], 'go': ['gofmt', 'golint', 'go vet', 'go build']}
+let g:ale_linters = {'python': ['flake8'], 'javascript': [], 'c': ['clang'], 'go': ['gofmt', 'go build']}
 let g:ale_python_flake8_options = '--ignore=E116,E402,E501'
 let g:ale_c_clang_options = '-std=c99 -Wall'
 " 关闭airline显示
@@ -414,7 +410,7 @@ let g:EasyMotion_do_mapping = 0
 " 忽略大小写
 let g:EasyMotion_smartcase = 1
 " 跳转键
-let g:EasyMotion_keys = 'asdghklqwertyuiopzxcvbnmfj'
+let g:EasyMotion_keys = 'asdghklfj'
 " f键快速跳转
 map f <Plug>(easymotion-s)
 map F <Plug>(easymotion-overwin-f)
