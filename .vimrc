@@ -396,6 +396,12 @@ let g:fzf_colors = {
     \ 'header':  ['fg', 'Comment']
 \ }
 
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 '--ignore tags',
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
 " 全局搜索
 nnoremap <expr> <Leader>f ":Ag " . expand('<cword>')
 nnoremap <Leader>ag :Ag<CR>
