@@ -49,6 +49,7 @@ bindkey '^[[A' up-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
 
 # fzf
+export FZF_DEFAULT_COMMAND='ag --ignore tags -g ""'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # docker

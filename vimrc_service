@@ -147,7 +147,7 @@ noremap k gk
 
 " 替换行首行尾快捷键
 noremap H ^
-noremap L $
+noremap L g_
 
 " 命令行模式增强
 cnoremap <C-N> <Down>
