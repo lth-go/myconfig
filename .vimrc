@@ -328,7 +328,6 @@ autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 " pip install flake8
 " npm install -g eslint
 " dnf install clang
-
 " 语法检查
 let g:ale_linters = {'python': ['flake8'], 'javascript': [], 'c': ['clang'], 'go': ['gofmt', 'go build']}
 let g:ale_python_flake8_options = '--ignore=E116,E402,E501'
@@ -376,6 +375,7 @@ let g:ycm_semantic_triggers =  {
     \ }
 " 函数跳转
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>zz
+nnoremap <Leader>vg <C-W><C-V>:YcmCompleter GoToDefinition<CR>zz
 
 " =====fzf=====
 
@@ -398,6 +398,7 @@ let g:fzf_colors = {
 
 " 全局搜索
 nnoremap <expr> <Leader>f ":Ag " . expand('<cword>')
+nnoremap <Leader>ag :Ag<CR>
 " 文件搜索
 nnoremap <Space> :Files<CR>
 " 模糊搜索

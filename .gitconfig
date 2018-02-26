@@ -23,5 +23,7 @@
     tool = vimdiff
 [merge]
     tool = vimdiff
+[difftool]
+    prompt = false
 [log]
     date = iso
