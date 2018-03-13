@@ -38,8 +38,6 @@ Plug 'terryma/vim-smooth-scroll'
 Plug 'terryma/vim-expand-region'
 " 高亮当前单词
 Plug 'dominikduda/vim_current_word', {'for': ['python', 'c', 'go']}
-" 搜索优化
-Plug 'osyo-manga/vim-anzu'
 " =====C=====
 Plug 'justinmk/vim-syntax-extra'
 " =====Python=====
@@ -259,7 +257,7 @@ nnoremap <silent> <C-o> <C-o>zz
 nnoremap <silent> <C-i> <C-i>zz
 nnoremap <silent> <C-]> <C-]>zz
 
-nnoremap <silent><Leader><Leader> :nohlsearch<CR>
+nnoremap <silent><Backspace> :nohlsearch<CR>
 
 " * 搜索不移动 可视模式高亮选中
 function! Starsearch_CWord()
@@ -563,11 +561,6 @@ vmap V <Plug>(expand_region_shrink)
 " =====vim_current_word=====
 
 let g:vim_current_word#highlight_current_word = 0
-
-" =====vim-anzu=====
-
-nmap n <Plug>(anzu-n-with-echo)zz
-nmap N <Plug>(anzu-N-with-echo)zz
 
 " =====主题=====
 
