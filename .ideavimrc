@@ -24,8 +24,14 @@ vnoremap > >gv
 
 nnoremap * *``zz
 
+" 切换布局快捷键
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <c-k> <c-w>k
+nnoremap <c-j> <c-w>j
+
 map H ^
-map L $
+map L g_
 
 map <Leader>q :q<CR>
 
@@ -38,7 +44,7 @@ map <Leader>s :action GotoSymbol<CR>
 nnoremap <Leader>t :action FileStructurePopup<CR>
 
 " 高亮
-nnoremap <Leader><Leader> :nohlsearch<CR>
+nnoremap <Backspace> :nohlsearch<CR>
 
 " rename
 nnoremap <Leader>r :action RenameElement<CR>
