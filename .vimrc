@@ -293,7 +293,7 @@ vnoremap > >gv
 cabbrev w!! w !sudo tee > /dev/null %
 
 " 关闭当前buf外的其他buf
-nnoremap <Leader>b :%bd \| e # \| bd #<CR>
+nnoremap <Leader>bd :%bd \| e # \| bd #<CR>
 
 " C
 " ctags
@@ -373,7 +373,6 @@ let g:ycm_semantic_triggers =  {
     \ }
 " 函数跳转
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>zz
-nnoremap <Leader>vg <C-W><C-V>:YcmCompleter GoToDefinition<CR>zz
 
 " =====fzf=====
 
@@ -394,17 +393,19 @@ let g:fzf_colors = {
     \ 'header':  ['fg', 'Comment']
 \ }
 
+" 忽略tags文件
 command! -bang -nargs=* Ag
   \ call fzf#vim#ag(<q-args>,
   \                 '--ignore tags',
   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
   \                 <bang>0)
-" 全局搜索
-nnoremap <expr> <Leader>f ":Ag " . expand('<cword>')
-nnoremap <Leader>ag :Ag<CR>
-" 文件搜索
-nnoremap <Space> :Files<CR>
+" 搜索当前(find current word)
+nnoremap <expr> <Leader>fc ":Ag " . expand('<cword>')
+" 全局搜索(find global)
+nnoremap <Leader>fg :Ag<CR>
+" 文件搜索(find file)
+nnoremap ff :Files<CR>
 " 模糊搜索
 nnoremap ? :BLines<CR>
 
@@ -417,8 +418,7 @@ let g:EasyMotion_smartcase = 1
 " 跳转键
 let g:EasyMotion_keys = 'asdghklfj'
 " f键快速跳转
-map f <Plug>(easymotion-s)
-map F <Plug>(easymotion-overwin-f)
+map s <Plug>(easymotion-s)
 
 " =====NERDTree=====
 
