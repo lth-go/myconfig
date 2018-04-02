@@ -17,6 +17,8 @@ set surround
 " Keymap
 
 let mapleader=";"
+noremap <Space> ;
+
 map <leader>g gd
 
 vnoremap < <gv
@@ -36,9 +38,10 @@ map L g_
 map <Leader>q :q<CR>
 
 " Go To
-nnoremap <Space> :action GotoFile<CR>
-map <Leader>c :action GotoClass<CR>
-map <Leader>s :action GotoSymbol<CR>
+nnoremap <Leader>ff :action GotoFile<CR>
+
+" 查找引用
+nnoremap <Leader>fc :action FindUsages<CR>
 
 " Structure
 nnoremap <Leader>t :action FileStructurePopup<CR>
@@ -50,7 +53,4 @@ nnoremap <Backspace> :nohlsearch<CR>
 nnoremap <Leader>r :action RenameElement<CR>
 
 " 关闭所有其他标签
-nnoremap <Leader>b :action CloseAllEditorsButActive<CR>
-
-" 查找引用
-nnoremap <Leader>f :action FindUsages<CR>
+nnoremap <Leader>bd :action CloseAllEditorsButActive<CR>

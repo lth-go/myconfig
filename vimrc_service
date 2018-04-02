@@ -114,6 +114,9 @@ set expandtab
 " 智能缩进
 set shiftround
 
+" yaml缩进
+autocmd FileType javascript,json,yaml,sh set tabstop=2 shiftwidth=2 softtabstop=2
+
 " =====其他=====
 
 " 打开自动定位到最后编辑的位置
@@ -130,6 +133,8 @@ noremap K <Nop>
 
 " 定义<Leader>
 let mapleader=";"
+
+noremap <Space> ;
 
 " 快速保存及退出
 nnoremap <Leader>q :q<CR>
@@ -154,17 +159,25 @@ cnoremap <C-N> <Down>
 cnoremap <C-P> <Up>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
+cnoremap <C-F> <Right>
+cnoremap <C-B> <Left>
 cnoremap <C-D> <Del>
 
 "插入模式增强
 inoremap <C-A> <Home>
 inoremap <C-E> <End>
+inoremap <C-F> <Right>
+inoremap <C-B> <Left>
+inoremap <C-D> <Del>
 
 " 搜索关键词居中
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
+nnoremap <silent> <C-o> <C-o>zz
+nnoremap <silent> <C-i> <C-i>zz
+nnoremap <silent> <C-]> <C-]>zz
 
-nnoremap <silent><Leader><Leader> :nohlsearch<CR>
+nnoremap <silent><Backspace> :nohlsearch<CR>
 
 " * 搜索不移动 可视模式高亮选中
 function! Starsearch_CWord()
@@ -198,6 +211,9 @@ vnoremap > >gv
 
 " w!!用sudo保存
 cabbrev w!! w !sudo tee > /dev/null %
+
+" 关闭当前buf外的其他buf
+nnoremap <Leader>bd :%bd \| e # \| bd #<CR>
 
 " =====主题=====
 

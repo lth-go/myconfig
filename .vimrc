@@ -122,7 +122,8 @@ set nowrap
 " 高亮显示当前行
 set cursorline
 
-" 提高画面流畅度 set lazyredraw
+" 提高画面流畅度 
+set lazyredraw
 set ttyfast
 
 " 禁止折叠
@@ -511,6 +512,8 @@ let g:airline#extensions#tabline#buffer_idx_format = {
 let g:NERDCreateDefaultMappings = 0
 " 注释符左对齐
 let g:NERDDefaultAlign = 'left'
+" 注释有空格
+let g:NERDSpaceDelims = 1
 " 自动注释快捷键
 map <C-_> <plug>NERDCommenterToggle
 
