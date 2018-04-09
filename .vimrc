@@ -217,6 +217,8 @@ noremap K <Nop>
 " 定义<Leader>
 let mapleader=";"
 
+noremap <Space> ;
+
 " 快速保存及退出
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>w :w<CR>
@@ -406,7 +408,7 @@ nnoremap <expr> <Leader>fc ":Ag " . expand('<cword>')
 " 全局搜索(find global)
 nnoremap <Leader>fg :Ag<CR>
 " 文件搜索(find file)
-nnoremap ff :Files<CR>
+nnoremap <Leader>ff :Files<CR>
 " 模糊搜索
 nnoremap ? :BLines<CR>
 

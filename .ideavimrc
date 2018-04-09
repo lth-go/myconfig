@@ -37,6 +37,17 @@ map L g_
 
 map <Leader>q :q<CR>
 
+noremap q <Nop>
+noremap Q <Nop>
+noremap K <Nop>
+
+" 插入模式增强
+inoremap <C-A> <Home>
+inoremap <C-E> <End>
+inoremap <C-F> <Right>
+inoremap <C-B> <Left>
+inoremap <C-D> <Del>
+
 " Go To
 nnoremap <Leader>ff :action GotoFile<CR>
 
