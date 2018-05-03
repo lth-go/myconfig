@@ -40,6 +40,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'dominikduda/vim_current_word', {'for': ['python', 'c', 'go']}
 " =====C=====
 Plug 'justinmk/vim-syntax-extra'
+Plug 'ludovicchabant/vim-gutentags'
 " =====Python=====
 " Python代码对齐
 Plug 'hynek/vim-python-pep8-indent'
@@ -299,29 +300,9 @@ cabbrev w!! w !sudo tee > /dev/null %
 nnoremap <Leader>bd :%bd \| e # \| bd #<CR>
 
 " C
-" ctags
-set tags=./tags;
-function! DelTagOfFile(file)
-  let fullpath = a:file
-  let cwd = getcwd()
-  let tagfilename = cwd . "/tags"
-  let f = substitute(fullpath, cwd . "/", "", "")
-  let f = escape(f, './')
-  let cmd = 'sed -i "/' . f . '/d" "' . tagfilename . '"'
-  let resp = system(cmd)
-endfunction
+set tags=./tags;,tags
 
-function! UpdateTags()
-  let f = expand("%:p")
-  let cwd = getcwd()
-  let tagfilename = cwd . "/tags"
-  let cmd = 'ctags -a -f ' . tagfilename . ' --fields=+iaS --extra=+q ' . '"' . f . '"'
-  call DelTagOfFile(f)
-  let resp = system(cmd)
-endfunction
-autocmd BufWritePost *.h,*.c call UpdateTags()
-
-" go
+" Go
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 " =====Ale=====
@@ -368,11 +349,7 @@ let g:ycm_show_diagnostics_ui = 0
 let g:c_syntax_for_h = 1
 " 智能补全
 let g:ycm_semantic_triggers =  {
-    \ 'c': ['->', '.', 're![a-zA-Z_][a-zA-Z_0-9]{2,}'],
-    \ 'python,javascript,go': ['.', 're![a-zA-Z_][a-zA-Z_0-9]{2,}'],
-    \ 'html': ['<', '"', '</', ' '],
-    \ 'vim': ['re![_a-za-z]+[_\w]*\.'],
-    \ 'css': ['re!^\s{2,4}', 're!:\s+' ],
+    \ 'c,python,go,javascript': ['re!\w{2}'],
     \ }
 " 函数跳转
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>zz
@@ -438,7 +415,8 @@ nmap <C-\> :NERDTreeToggle<CR>
 
 " =====Tagbar=====
 
-" dnf install ctags
+" ctags https://github.com/universal-ctags/ctags
+
 " npm install -g git+https://github.com/ramitos/jsctags.git
 " go get -u github.com/jstemmer/gotags
 
@@ -566,6 +544,20 @@ vmap V <Plug>(expand_region_shrink)
 " =====vim_current_word=====
 
 let g:vim_current_word#highlight_current_word = 0
+
+" =====vim-gutentags=====
+
+" tags统一目录
+let s:vim_tags = expand('~/.cache/ctags')
+let g:gutentags_cache_dir = s:vim_tags
+if !isdirectory(s:vim_tags)
+    silent! call mkdir(s:vim_tags, 'p')
+endif
+
+" 额外参数
+let g:gutentags_ctags_extra_args = []
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 
 " =====主题=====
 
