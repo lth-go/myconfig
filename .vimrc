@@ -299,23 +299,29 @@ function! s:SortTimeStamps(lhs, rhs)
     return a:lhs[0] > a:rhs[0]
 endfunction
 
-function! s:Close(nb_to_keep)
+function! s:CloseBuffer(nb_to_keep)
   " 列出所有buffer, 过滤已修改的
   let saved_buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && ! getbufvar(v:val, "&modified")')
   " 过滤当前已打开的buffer
   let window_buffers = map(range(1, winnr('$')), 'winbufnr(v:val)')
   let saved_buffers = filter(saved_buffers, 'index(window_buffers, v:val) == -1')
-
+  " buffer按时间排序
   let buffer_to_time = map(copy(saved_buffers), '[(v:val), getftime(bufname(v:val))]')
   call filter(buffer_to_time, 'v:val[1] > 0')
   call sort(buffer_to_time, function('s:SortTimeStamps'))
-  let buffers_to_strip = map(copy(buffer_to_time[:-(a:nb_to_keep + 1)]), 'v:val[0]')
+  " 关闭buffer
+  let buffers_to_strip = map(copy(buffer_to_time[:-a:nb_to_keep]), 'v:val[0]')
   if len(buffers_to_strip) > 0 | exe 'bd '.join(buffers_to_strip, ' ') | endif
 endfunction
 
+command! -nargs=1 CloseOldBuffers call s:CloseBuffer(<args>)
+
+" 关闭当前buffer外的其他buffer
+nnoremap <Leader>bd :CloseOldBuffers 1<CR>
+
 augroup CloseOldBuffers
   au!
-  au BufNew * call s:Close(g:nb_buffers_to_keep)
+  au BufNew * call s:CloseBuffer(g:nb_buffers_to_keep)
 augroup END
 
 " 最大buffer数
@@ -329,9 +335,6 @@ vnoremap > >gv
 
 " w!!用sudo保存
 cabbrev w!! w !sudo tee > /dev/null %
-
-" 关闭当前buf外的其他buf
-nnoremap <Leader>bd :%bd \| e # \| bd #<CR>
 
 " C
 set tags=./tags;,tags
@@ -589,9 +592,7 @@ if !isdirectory(s:vim_tags)
 endif
 
 " 额外参数
-let g:gutentags_ctags_extra_args = []
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=+px']
 
 " =====主题=====
 
