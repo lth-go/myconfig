@@ -69,6 +69,7 @@ filetype plugin indent on
 
 " 设置编码格式
 set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,latin1
 set termencoding=utf-8
 
 " 文件修改自动载入
@@ -109,12 +110,12 @@ set hidden
 
 " 相对行号
 set relativenumber number
-" 当前窗口用相对行号，其他窗口绝对行号
-autocmd WinEnter * if &number | execute("setlocal number relativenumber") | endif
-autocmd WinLeave * if &number | execute("setlocal number norelativenumber") | endif
-" 插入模式下用绝对行号, 普通模式下用相对
-autocmd InsertEnter * :setlocal norelativenumber number
-autocmd InsertLeave * :setlocal relativenumber number
+" 行号切换
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | set relativenumber   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | set norelativenumber | endif
+augroup END
 
 " =====内容=====
 
@@ -272,7 +273,7 @@ nnoremap <silent> <C-]> <C-]>zz
 
 nnoremap <silent><Backspace> :nohlsearch<CR>
 
-" * 搜索不移动 可视模式高亮选中
+" * 搜索不移动 可视模式高亮选中 -----
 function! Starsearch_CWord()
     let wordStr = expand("<cword>")
     if strlen(wordStr) == 0 | return | endif
@@ -298,15 +299,51 @@ endfunction
 nnoremap <silent> * :set nohlsearch\|:call Starsearch_CWord()<CR>
 vnoremap <silent> * :<C-u>set nohlsearch\|:call Starsearch_VWord()<CR>
 
+" ----- start_search end -----
+
+" 自动关闭buffer -----
+function! s:SortTimeStamps(lhs, rhs)
+    if a:lhs[1] > a:rhs[1] | return 1 | endif
+    if a:lhs[1] < a:rhs[1] | return -1 | endif
+    return a:lhs[0] > a:rhs[0]
+endfunction
+
+function! s:CloseBuffer(nb_to_keep)
+  " 列出所有buffer, 过滤已修改的
+  let saved_buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && ! getbufvar(v:val, "&modified")')
+  " 过滤当前已打开的buffer
+  let window_buffers = map(range(1, winnr('$')), 'winbufnr(v:val)')
+  let saved_buffers = filter(saved_buffers, 'index(window_buffers, v:val) == -1')
+  " buffer按时间排序
+  let buffer_to_time = map(copy(saved_buffers), '[(v:val), getftime(bufname(v:val))]')
+  call filter(buffer_to_time, 'v:val[1] > 0')
+  call sort(buffer_to_time, function('s:SortTimeStamps'))
+  " 关闭buffer
+  let buffers_to_strip = map(copy(buffer_to_time[:-a:nb_to_keep]), 'v:val[0]')
+  if len(buffers_to_strip) > 0 | exe 'bd '.join(buffers_to_strip, ' ') | endif
+endfunction
+
+command! -nargs=1 CloseOldBuffers call s:CloseBuffer(<args>)
+
+" 关闭当前buffer外的其他buffer
+nnoremap <Leader>bd :CloseOldBuffers 1<CR>
+
+augroup CloseOldBuffers
+  au!
+  au BufNew * call s:CloseBuffer(g:nb_buffers_to_keep)
+augroup END
+
+" 最大buffer数
+let g:nb_buffers_to_keep = 6
+
+" ----- auto_close_buffers end -----
+
 " 调整缩进后自动选中
 vnoremap < <gv
 vnoremap > >gv
 
 " w!!用sudo保存
 cabbrev w!! w !sudo tee > /dev/null %
-
-" 关闭当前buf外的其他buf
-nnoremap <Leader>bd :%bd \| e # \| bd #<CR>
 
 " C
 set tags=./tags;,tags
@@ -382,17 +419,17 @@ let g:fzf_colors = {
     \ 'header':  ['fg', 'Comment']
 \ }
 
-" 忽略tags文件
-command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(<q-args>,
-  \                 '--ignore tags',
-  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \                 <bang>0)
+" 定义Rg命令, 需安装ripgrep
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
 " 搜索当前(find current word)
-nnoremap <expr> <Leader>fc ":Ag " . expand('<cword>')
+nnoremap <expr> <Leader>fc ":Rg " . expand('<cword>')
 " 全局搜索(find global)
-nnoremap <Leader>fg :Ag<CR>
+nnoremap <Leader>fg :Rg<CR>
 " 文件搜索(find file)
 nnoremap <Leader>ff :Files<CR>
 " 模糊搜索
@@ -564,9 +601,7 @@ if !isdirectory(s:vim_tags)
 endif
 
 " 额外参数
-let g:gutentags_ctags_extra_args = []
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=+px']
 
 " =====主题=====
 
