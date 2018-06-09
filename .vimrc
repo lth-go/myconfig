@@ -118,6 +118,12 @@ autocmd InsertLeave * :setlocal relativenumber number
 
 " =====内容=====
 
+" html标签匹配
+runtime! macros/matchit.vim
+
+" 连接文本删除注释
+set formatoptions+=j
+
 " 禁止拆行
 set nowrap
 " 高亮显示当前行
@@ -185,6 +191,9 @@ autocmd FileType javascript,json,yaml,sh set tabstop=2 shiftwidth=2 softtabstop=
 " apt install vim-gnome
 " alias vim='vimx'
 set clipboard=unnamedplus
+
+" ctrl-a ctrl-x 忽略八进制
+set nrformats-=octal
 
 " 快捷键延迟
 set ttimeoutlen=10
