@@ -27,3 +27,5 @@
     prompt = false
 [log]
     date = iso
+[pull]
+    rebase = true

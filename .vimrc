@@ -6,7 +6,7 @@ call plug#begin('~/.vim/plugged')
 " 中文帮助
 Plug 'yianwillis/vimcdoc'
 " 语法检查
-Plug 'w0rp/ale'
+Plug 'w0rp/ale', {'for': ['python', 'c', 'go']}
 " 代码补全
 Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'go']}
 " 搜索
@@ -27,9 +27,9 @@ Plug 'scrooloose/nerdcommenter'
 " 括号匹配
 Plug 'lth-go/auto-pairs'
 " 彩虹括号
-Plug 'luochen1990/rainbow'
+Plug 'luochen1990/rainbow', {'for': ['python', 'c', 'go']}
 " 代码格式化
-Plug 'Chiel92/vim-autoformat', { 'on': 'Autoformat' }
+Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat', 'for': ['python', 'c', 'go']}
 " 结对符修改
 Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat'
 " 平滑滚动
@@ -39,26 +39,19 @@ Plug 'terryma/vim-expand-region'
 " 高亮当前单词
 Plug 'dominikduda/vim_current_word', {'for': ['python', 'c', 'go']}
 " =====C=====
-Plug 'justinmk/vim-syntax-extra'
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'justinmk/vim-syntax-extra', {'for': ['c']}
+Plug 'ludovicchabant/vim-gutentags', {'for': ['python', 'c', 'go']}
 " =====Python=====
 " Python代码对齐
-Plug 'hynek/vim-python-pep8-indent'
-" Jinja2高亮
-Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'hynek/vim-python-pep8-indent', {'for': ['python']}
 " =====Golang=====
 " Golang高亮
-Plug 'lth-go/vim-go-syntax'
-" =====javascript=====
-" javascript高亮
-Plug 'pangloss/vim-javascript'
-" javascript第三方库高亮
-Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'lth-go/vim-go-syntax', {'for': ['go']}
 " =====Html=====
 " Html标签匹配
-Plug 'alvan/vim-closetag'
+Plug 'alvan/vim-closetag', {'for': ['html']}
 " Html标签显示
-Plug 'valloric/MatchTagAlways'
+Plug 'valloric/MatchTagAlways', {'for': ['html']}
 
 call plug#end()
 
@@ -348,7 +341,7 @@ autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 " npm install -g eslint
 " dnf install clang
 " 语法检查
-let g:ale_linters = {'python': ['flake8'], 'javascript': [], 'c': ['clang'], 'go': ['gofmt', 'go build']}
+let g:ale_linters = {'python': ['flake8'], 'c': ['clang'], 'go': ['gofmt', 'go build']}
 let g:ale_python_flake8_options = '--ignore=E116,E402,E501'
 let g:ale_c_clang_options = '-std=c99 -Wall'
 " 关闭airline显示
@@ -386,7 +379,7 @@ let g:ycm_show_diagnostics_ui = 0
 let g:c_syntax_for_h = 1
 " 智能补全
 let g:ycm_semantic_triggers =  {
-    \ 'c,python,go,javascript': ['re!\w{2}'],
+    \ 'c,python,go': ['re!\w{2}'],
     \ }
 " 函数跳转
 nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>zz
@@ -453,16 +446,13 @@ nmap <C-\> :NERDTreeToggle<CR>
 " =====Tagbar=====
 
 " ctags https://github.com/universal-ctags/ctags
-
-" npm install -g git+https://github.com/ramitos/jsctags.git
+"
 " go get -u github.com/jstemmer/gotags
 
 " 打开Tagbar时光标跟随
 let g:tagbar_autofocus = 1
 " 不显示冗余信息
 let g:tagbar_compact = 1
-" javascript tag支持
-let g:tagbar_type_javascript = {'ctagsbin': 'jsctags'}
 " Golang tag支持
 let g:tagbar_type_go = {
     \ 'ctagstype': 'go',
@@ -618,9 +608,6 @@ autocmd Filetype python syntax keyword pythonBuiltin cls self
 
 " Golang高亮
 highlight link goOperator GruvboxRed
-
-" vim-javascript高亮
-highlight link jsOperator javaScriptOperator
 
 " markdown
 highlight link markdownError None
