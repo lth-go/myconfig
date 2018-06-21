@@ -6,7 +6,7 @@ call plug#begin('~/.vim/plugged')
 " 中文帮助
 Plug 'yianwillis/vimcdoc'
 " 语法检查
-Plug 'w0rp/ale', {'for': ['python', 'c', 'go']}
+Plug 'w0rp/ale'
 " 代码补全
 Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'go']}
 " 搜索
@@ -19,7 +19,7 @@ Plug 'morhetz/gruvbox'
 " 文件列表
 Plug 'scrooloose/nerdtree'
 " 函数列表
-Plug 'majutsushi/tagbar'
+Plug 'majutsushi/tagbar', {'for': ['python', 'c', 'go']}
 " 状态栏
 Plug 'vim-airline/vim-airline'
 " 注释
@@ -93,8 +93,6 @@ cnoremap <expr> / wildmenumode() ? "\<Down>" : "/"
 set laststatus=2
 " 显示光标当前位置
 set ruler
-" 显示当前正在输入的命令
-" set showcmd
 
 " 允许有未保存时切换缓冲区
 set hidden
@@ -111,6 +109,12 @@ augroup numbertoggle
 augroup END
 
 " =====内容=====
+
+" html标签匹配
+runtime! macros/matchit.vim
+
+" 连接文本删除注释
+set formatoptions+=j
 
 " 禁止拆行
 set nowrap
@@ -179,6 +183,9 @@ autocmd FileType javascript,json,yaml,sh set tabstop=2 shiftwidth=2 softtabstop=
 " apt install vim-gnome
 " alias vim='vimx'
 set clipboard=unnamedplus
+
+" ctrl-a ctrl-x 忽略八进制
+set nrformats-=octal
 
 " 快捷键延迟
 set ttimeoutlen=10
@@ -446,7 +453,6 @@ nmap <C-\> :NERDTreeToggle<CR>
 " =====Tagbar=====
 
 " ctags https://github.com/universal-ctags/ctags
-"
 " go get -u github.com/jstemmer/gotags
 
 " 打开Tagbar时光标跟随
@@ -488,7 +494,6 @@ nmap <Leader>t :TagbarToggle<CR>
 
 " 设置airline主题
 let g:airline_theme = 'gruvbox'
-"let g:airline_theme= 'onehalfdark'
 " 打开tabline功能
 let g:airline#extensions#tabline#enabled = 1
 " 标签页只显示文件名
