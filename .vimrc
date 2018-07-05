@@ -40,7 +40,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'dominikduda/vim_current_word', {'for': ['python', 'c', 'go']}
 " =====C=====
 Plug 'justinmk/vim-syntax-extra', {'for': ['c']}
-Plug 'ludovicchabant/vim-gutentags', {'for': ['python', 'c', 'go']}
+Plug 'ludovicchabant/vim-gutentags'
 " =====Python=====
 " Python代码对齐
 Plug 'hynek/vim-python-pep8-indent', {'for': ['python']}

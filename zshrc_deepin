@@ -32,8 +32,9 @@ export LANG=zh_CN.utf8
 
 # PATH
 export GOROOT="/opt/go"
-export GOPATH="/home/lth/go"
-export PATH="${GOROOT}/bin:${GOPATH}/bin:${PATH}"
+export GOPATH="/home/lth/go:/work/go"
+export GOBINPATH="/home/lth/go/bin:/work/go/bin"
+export PATH="${GOROOT}/bin:${GOBINPATH}:${PATH}"
 
 # zsh-completions 需要
 autoload -U compinit && compinit
