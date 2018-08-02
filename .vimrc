@@ -587,7 +587,7 @@ if !isdirectory(s:vim_tags)
 endif
 
 " 额外参数
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=+px']
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=+px', '--languages=C,Go,Python,JavaScript']
 
 " =====主题=====
 
@@ -608,7 +608,7 @@ highlight CurrentWordTwins ctermbg=238 cterm=None
 highlight def link cUserFunction None
 highlight def link cUserFunctionPointer cFunction
 
-" python高亮
+" Python高亮
 autocmd Filetype python syntax keyword pythonBuiltin cls self
 
 " Golang高亮

@@ -28,4 +28,4 @@
 [log]
     date = iso
 [pull]
-    rebase = true
+	rebase = true

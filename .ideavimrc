@@ -1,3 +1,9 @@
+" idea plugins
+" Window Decorate Mode Switcher
+" GoToTabs
+" IdeaVim
+" Main Menu toggle
+
 set hlsearch
 set ignorecase
 set number
