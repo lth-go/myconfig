@@ -350,7 +350,6 @@ autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 " 语法检查
 let g:ale_linters = {'python': ['flake8'], 'c': ['clang'], 'go': ['gofmt', 'go build']}
 let g:ale_python_flake8_options = '--ignore=E116,E402,E501'
-let g:ale_c_clang_options = '-std=c99 -Wall'
 " 关闭airline显示
 let g:airline#extensions#ale#enabled = 0
 " 自动检查模式
