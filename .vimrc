@@ -4,7 +4,7 @@ call plug#begin('~/.vim/plugged')
 
 " =====基础=====
 " 中文帮助
-Plug 'yianwillis/vimcdoc'
+" Plug 'yianwillis/vimcdoc'
 " 语法检查
 Plug 'w0rp/ale'
 " 代码补全
@@ -13,13 +13,11 @@ Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'go']}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " 快速移动
-Plug 'easymotion/vim-easymotion'
+" Plug 'easymotion/vim-easymotion'
 " 主题配色
 Plug 'morhetz/gruvbox'
 " 文件列表
 Plug 'scrooloose/nerdtree'
-" 函数列表
-Plug 'majutsushi/tagbar', {'for': ['python', 'c', 'go']}
 " 状态栏
 Plug 'vim-airline/vim-airline'
 " 注释
@@ -49,9 +47,9 @@ Plug 'hynek/vim-python-pep8-indent', {'for': ['python']}
 Plug 'lth-go/vim-go-syntax', {'for': ['go']}
 " =====Html=====
 " Html标签匹配
-Plug 'alvan/vim-closetag', {'for': ['html']}
+" Plug 'alvan/vim-closetag', {'for': ['html']}
 " Html标签显示
-Plug 'valloric/MatchTagAlways', {'for': ['html']}
+" Plug 'valloric/MatchTagAlways', {'for': ['html']}
 
 call plug#end()
 
@@ -367,7 +365,7 @@ function! ToggleErrors()
     lclose
     if old_last_winnr == winnr('$') | lwindow | endif
 endfunction
-nnoremap <Leader>e :call ToggleErrors()<cr>
+nnoremap <Leader>e :call ToggleErrors()<CR>
 
 " =====YCM=====
 
@@ -409,13 +407,6 @@ let g:fzf_colors = {
     \ 'header':  ['fg', 'Comment']
 \ }
 
-" 定义Rg命令, 需安装ripgrep
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
 " 搜索当前(find current word)
 nnoremap <expr> <Leader>fc ":Rg " . expand('<cword>')
 " 全局搜索(find global)
@@ -425,16 +416,16 @@ nnoremap <Leader>ff :Files<CR>
 " 模糊搜索
 nnoremap ? :BLines<CR>
 
-" =====EasyMotion=====
+" " =====EasyMotion=====
 
-" 关闭默认快捷键
-let g:EasyMotion_do_mapping = 0
-" 忽略大小写
-let g:EasyMotion_smartcase = 1
-" 跳转键
-let g:EasyMotion_keys = 'asdghklfj'
-" f键快速跳转
-map s <Plug>(easymotion-s)
+" " 关闭默认快捷键
+" let g:EasyMotion_do_mapping = 0
+" " 忽略大小写
+" let g:EasyMotion_smartcase = 1
+" " 跳转键
+" let g:EasyMotion_keys = 'asdghklfj'
+" " f键快速跳转
+" map s <Plug>(easymotion-s)
 
 " =====NERDTree=====
 
@@ -448,46 +439,6 @@ autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let NERDTreeIgnore = ['\.pyc','\.pyo','\~$','\.swp','\.git$','\.idea', '\.o', 'tags']
 " 打开文件树
 nmap <C-\> :NERDTreeToggle<CR>
-
-" =====Tagbar=====
-
-" ctags https://github.com/universal-ctags/ctags
-" go get -u github.com/jstemmer/gotags
-
-" 打开Tagbar时光标跟随
-let g:tagbar_autofocus = 1
-" 不显示冗余信息
-let g:tagbar_compact = 1
-" Golang tag支持
-let g:tagbar_type_go = {
-    \ 'ctagstype': 'go',
-    \ 'kinds': [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro': '.',
-    \ 'kind2scope': {
-        \ 't': 'ctype',
-        \ 'n': 'ntype'
-    \ },
-    \ 'scope2kind': {
-        \ 'ctype': 't',
-        \ 'ntype': 'n'
-    \ },
-    \ 'ctagsbin': 'gotags',
-    \ 'ctagsargs': '-sort -silent'
-\ }
-" 打开Tagbar
-nmap <Leader>t :TagbarToggle<CR>
 
 " =====Airline=====
 
@@ -538,7 +489,7 @@ map <C-_> <plug>NERDCommenterToggle
 let g:formatdef_custom_autopep8 = "'autopep8 - --ignore=E116,E501'"
 let g:formatters_python = ['custom_autopep8']
 " C
-let g:formatdef_custom_c = '"clang-format --style=\"{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 120, BinPackArguments: false}\""'
+let g:formatdef_custom_c = '"clang-format --style=\"{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 200, BinPackArguments: false}\""'
 let g:formatters_c = ['custom_c']
 " Autoformat快捷键
 noremap <Leader>af :Autoformat<CR>
@@ -578,6 +529,8 @@ let g:vim_current_word#highlight_current_word = 0
 
 " =====vim-gutentags=====
 
+" ctags https://github.com/universal-ctags/ctags
+
 " tags统一目录
 let s:vim_tags = expand('~/.cache/ctags')
 let g:gutentags_cache_dir = s:vim_tags
@@ -586,7 +539,7 @@ if !isdirectory(s:vim_tags)
 endif
 
 " 额外参数
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=+px', '--languages=C,Go,Python,JavaScript']
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=+px', '--languages=C,C++,Go,Python,JavaScript']
 
 " =====主题=====
 
