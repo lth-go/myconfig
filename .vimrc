@@ -3,8 +3,6 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 
 " =====基础=====
-" 中文帮助
-" Plug 'yianwillis/vimcdoc'
 " 语法检查
 Plug 'w0rp/ale'
 " 代码补全
@@ -12,8 +10,6 @@ Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'go']}
 " 搜索
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-" 快速移动
-" Plug 'easymotion/vim-easymotion'
 " 主题配色
 Plug 'morhetz/gruvbox'
 " 文件列表
@@ -30,8 +26,6 @@ Plug 'luochen1990/rainbow', {'for': ['python', 'c', 'go']}
 Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat', 'for': ['python', 'c', 'go']}
 " 结对符修改
 Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat'
-" 平滑滚动
-Plug 'terryma/vim-smooth-scroll'
 " 快速选中
 Plug 'terryma/vim-expand-region'
 " 高亮当前单词
@@ -45,11 +39,6 @@ Plug 'hynek/vim-python-pep8-indent', {'for': ['python']}
 " =====Golang=====
 " Golang高亮
 Plug 'lth-go/vim-go-syntax', {'for': ['go']}
-" =====Html=====
-" Html标签匹配
-" Plug 'alvan/vim-closetag', {'for': ['html']}
-" Html标签显示
-" Plug 'valloric/MatchTagAlways', {'for': ['html']}
 
 call plug#end()
 
@@ -416,17 +405,6 @@ nnoremap <Leader>ff :Files<CR>
 " 模糊搜索
 nnoremap ? :BLines<CR>
 
-" " =====EasyMotion=====
-
-" " 关闭默认快捷键
-" let g:EasyMotion_do_mapping = 0
-" " 忽略大小写
-" let g:EasyMotion_smartcase = 1
-" " 跳转键
-" let g:EasyMotion_keys = 'asdghklfj'
-" " f键快速跳转
-" map s <Plug>(easymotion-s)
-
 " =====NERDTree=====
 
 " 显示隐藏文件
@@ -498,13 +476,6 @@ noremap <Leader>af :Autoformat<CR>
 
 " 开启彩虹括号
 let g:rainbow_active = 1
-
-" =====vim-smooth-scroll=====
-
-nnoremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-nnoremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-nnoremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-nnoremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " =====vim-expand-region=====
 
