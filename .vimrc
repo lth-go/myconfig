@@ -28,17 +28,10 @@ Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat', 'for': ['python', 'c', 'go']
 Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat'
 " 快速选中
 Plug 'terryma/vim-expand-region'
-" 高亮当前单词
-Plug 'dominikduda/vim_current_word', {'for': ['python', 'c', 'go']}
-" =====C=====
-Plug 'justinmk/vim-syntax-extra', {'for': ['c']}
+" Tag跳转
 Plug 'ludovicchabant/vim-gutentags'
-" =====Python=====
-" Python代码对齐
-Plug 'hynek/vim-python-pep8-indent', {'for': ['python']}
-" =====Golang=====
-" Golang高亮
-Plug 'lth-go/vim-go-syntax', {'for': ['go']}
+" 高亮, 对齐
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
@@ -162,6 +155,9 @@ set shiftround
 
 " yaml缩进
 autocmd FileType javascript,json,yaml,sh set tabstop=2 shiftwidth=2 softtabstop=2
+
+" Go
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 " =====其他=====
 
@@ -323,11 +319,8 @@ vnoremap > >gv
 " w!!用sudo保存
 cabbrev w!! w !sudo tee > /dev/null %
 
-" C
+" tags
 set tags=./tags;,tags
-
-" Go
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 " =====Ale=====
 
@@ -494,10 +487,6 @@ let g:expand_region_text_objects = {
 vmap v <Plug>(expand_region_expand)
 vmap V <Plug>(expand_region_shrink)
 
-" =====vim_current_word=====
-
-let g:vim_current_word#highlight_current_word = 0
-
 " =====vim-gutentags=====
 
 " ctags https://github.com/universal-ctags/ctags
@@ -512,6 +501,19 @@ endif
 " 额外参数
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=+px', '--languages=C,C++,Go,Python,JavaScript']
 
+" =====vim-polyglot=====
+
+" go
+
+let g:go_highlight_extra_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_types = 1
+
+highlight link goOperator GruvboxRed
+
 " =====主题=====
 
 " 高亮
@@ -522,23 +524,10 @@ set background=dark
 " 主题
 colorscheme gruvbox
 
-" =====高亮修改=====
-
-" vim_current_word
-highlight CurrentWordTwins ctermbg=238 cterm=None
-
-" C高亮
-highlight def link cUserFunction None
-highlight def link cUserFunctionPointer cFunction
-
-" Python高亮
-autocmd Filetype python syntax keyword pythonBuiltin cls self
-
-" Golang高亮
-highlight link goOperator GruvboxRed
+" =====高亮修正=====
 
 " markdown
-highlight link markdownError None
+" highlight link markdownError None
 
 " 背景透明
 highlight Normal ctermbg=None
