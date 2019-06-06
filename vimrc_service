@@ -230,8 +230,5 @@ colorscheme desert
 " python高亮
 autocmd Filetype python syntax keyword pythonBuiltin cls self
 
-" markdown
-highlight link markdownError None
-
 " 关闭yaml高亮
 autocmd BufEnter *.yml syntax off

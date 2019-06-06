@@ -3,17 +3,8 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 
 " =====基础=====
-" 语法检查
-Plug 'w0rp/ale', {'for': ['python', 'c', 'go', 'sh']}
-" 代码补全
-Plug 'Valloric/YouCompleteMe', {'for': ['python', 'c', 'go'], 'do': './install.py --clang-completer --go-completer'}
-" 搜索
-Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
-Plug 'junegunn/fzf.vim'
 " 主题配色
 Plug 'morhetz/gruvbox'
-" 文件列表
-Plug 'scrooloose/nerdtree'
 " 状态栏
 Plug 'vim-airline/vim-airline'
 " 注释
@@ -22,14 +13,10 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'lth-go/auto-pairs'
 " 彩虹括号
 Plug 'luochen1990/rainbow', {'for': ['python', 'c', 'go']}
-" 代码格式化
-Plug 'Chiel92/vim-autoformat', {'on': 'Autoformat', 'for': ['python', 'c', 'go']}
 " 结对符修改
 Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat'
 " 快速选中
 Plug 'terryma/vim-expand-region'
-" Tag跳转
-Plug 'ludovicchabant/vim-gutentags'
 " 高亮, 对齐
 Plug 'sheerun/vim-polyglot'
 
@@ -165,7 +152,7 @@ autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 " dnf install vim-X11
 " apt install vim-gnome
 " alias vim='vimx'
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
 
 " ctrl-a ctrl-x 忽略八进制
 set nrformats-=octal
@@ -173,19 +160,19 @@ set nrformats-=octal
 " 快捷键延迟
 set ttimeoutlen=10
 " 输入法正常切换
-autocmd InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
+" autocmd InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
 
 " 自动添加头部
-autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
-function! AutoSetFileHead()
-    "如果文件类型为.sh文件
-    if &filetype == 'sh' | call setline(1, "\#!/bin/bash") | endif
-    "如果文件类型为python
-    if &filetype == 'python' | call setline(1, "\#!/usr/bin/env python") | call append(1, "\# encoding: utf-8") | endif
-    normal G
-    normal o
-    normal o
-endfunc
+" autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
+" function! AutoSetFileHead()
+"     "如果文件类型为.sh文件
+"     if &filetype == 'sh' | call setline(1, "\#!/bin/bash") | endif
+"     "如果文件类型为python
+"     if &filetype == 'python' | call setline(1, "\#!/usr/bin/env python") | call append(1, "\# encoding: utf-8") | endif
+"     normal G
+"     normal o
+"     normal o
+" endfunc
 
 " 打开自动定位到最后编辑的位置
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
@@ -322,95 +309,6 @@ cabbrev w!! w !sudo tee > /dev/null %
 " tags
 set tags=./tags;,tags
 
-" =====Ale=====
-
-" pip install flake8
-" npm install -g eslint
-" dnf install clang
-" 语法检查
-let g:ale_linters = {'python': ['flake8'], 'c': ['clang'], 'go': ['gofmt', 'gobuild']}
-let g:ale_python_flake8_options = '--ignore=E116,E402,E501'
-" 关闭airline显示
-let g:airline#extensions#ale#enabled = 0
-" 自动检查模式
-let g:ale_lint_on_text_changed = 'normal'
-" 离开插入模式时检查
-let g:ale_lint_on_insert_leave = 1
-" 提示符修改
-let g:ale_sign_error = '——'
-let g:ale_sign_warning = '——'
-" 关闭错误高亮
-let g:ale_set_highlights = 0
-" 打开错误面板
-function! ToggleErrors()
-    let old_last_winnr = winnr('$')
-    lclose
-    if old_last_winnr == winnr('$') | lwindow | endif
-endfunction
-nnoremap <Leader>e :call ToggleErrors()<CR>
-
-" =====YCM=====
-
-" 语法关键字补全
-let g:ycm_seed_identifiers_with_syntax = 1
-" 注释中补全
-let g:ycm_complete_in_comments = 1
-" 指定jedi的Python解释器路径
-let g:ycm_server_python_interpreter = '/work/python_venv/mapboom_venv/bin/python'
-" c语言不提示
-let g:ycm_confirm_extra_conf = 0
-" 关闭c语法检查
-let g:ycm_show_diagnostics_ui = 0
-" c头文件识别
-let g:c_syntax_for_h = 1
-" 智能补全
-let g:ycm_semantic_triggers =  {
-    \ 'c,python,go': ['re!\w{2}'],
-    \ }
-" 函数跳转
-nnoremap <Leader>g :YcmCompleter GoToDefinition<CR>zz
-
-" =====fzf=====
-
-" 配色
-let g:fzf_colors = { 
-    \ 'fg':      ['fg', 'Normal'],
-    \ 'bg':      ['bg', 'Normal'],
-    \ 'hl':      ['fg', 'Comment'],
-    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-    \ 'hl+':     ['fg', 'Statement'],
-    \ 'info':    ['fg', 'PreProc'],
-    \ 'border':  ['fg', 'Ignore'],
-    \ 'prompt':  ['fg', 'Conditional'],
-    \ 'pointer': ['fg', 'Exception'],
-    \ 'marker':  ['fg', 'Keyword'],
-    \ 'spinner': ['fg', 'Label'],
-    \ 'header':  ['fg', 'Comment']
-\ }
-
-" 搜索当前(find current word)
-nnoremap <expr> <Leader>fc ":Rg " . expand('<cword>')
-" 全局搜索(find global)
-nnoremap <Leader>fg :Rg<CR>
-" 文件搜索(find file)
-nnoremap <Leader>ff :Files<CR>
-" 模糊搜索
-nnoremap ? :BLines<CR>
-
-" =====NERDTree=====
-
-" 显示隐藏文件
-let NERDTreeShowHidden = 1
-" 不显示冗余帮助信息
-let NERDTreeMinimalUI = 1
-" 退出vim时自动关闭
-autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" 忽略显示
-let NERDTreeIgnore = ['\.pyc','\.pyo','\~$','\.swp','\.git$','\.idea', '\.o', 'tags']
-" 打开文件树
-nmap <C-\> :NERDTreeToggle<CR>
-
 " =====Airline=====
 
 " 设置airline主题
@@ -450,21 +348,6 @@ let g:NERDSpaceDelims = 1
 " 自动注释快捷键
 map <C-_> <plug>NERDCommenterToggle
 
-" =====Autoformat=====
-
-" pip install autopep8
-" npm install -g js-beautify
-" dnf install llvm | apt install clang-format
-
-" Python
-let g:formatdef_custom_autopep8 = "'autopep8 - --ignore=E116,E501'"
-let g:formatters_python = ['custom_autopep8']
-" C
-let g:formatdef_custom_c = '"clang-format --style=\"{BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 200, BinPackArguments: false}\""'
-let g:formatters_c = ['custom_c']
-" Autoformat快捷键
-noremap <Leader>af :Autoformat<CR>
-
 " =====RainbowParentheses=====
 
 " 开启彩虹括号
@@ -486,20 +369,6 @@ let g:expand_region_text_objects = {
 " 快捷键
 vmap v <Plug>(expand_region_expand)
 vmap V <Plug>(expand_region_shrink)
-
-" =====vim-gutentags=====
-
-" ctags https://github.com/universal-ctags/ctags
-
-" tags统一目录
-let s:vim_tags = expand('~/.cache/ctags')
-let g:gutentags_cache_dir = s:vim_tags
-if !isdirectory(s:vim_tags)
-    silent! call mkdir(s:vim_tags, 'p')
-endif
-
-" 额外参数
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=+px', '--languages=C,C++,Go,Python,JavaScript']
 
 " =====vim-polyglot=====
 
@@ -526,8 +395,5 @@ colorscheme gruvbox
 
 " =====高亮修正=====
 
-" markdown
-" highlight link markdownError None
-
-" 背景透明
-" highlight Normal ctermbg=None
+" 关闭yaml高亮
+autocmd BufEnter *.yml syntax off
