@@ -20,6 +20,7 @@ pip
 sudo
 z
 extract
+ripgrep
 zsh-completions zsh-autosuggestions zsh-syntax-highlighting
 )
 
