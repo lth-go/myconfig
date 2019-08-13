@@ -1,0 +1,58 @@
+{
+  "languageserver": {
+    "golang": {
+      "command": "go-langserver",
+      "filetypes": [
+        "go"
+      ],
+      "initializationOptions": {
+        "gocodeCompletionEnabled": true,
+        "diagnosticsEnabled": true,
+        "lintTool": "golint"
+      }
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": [
+        "start"
+      ],
+      "filetypes": [
+        "sh"
+      ],
+      "ignoredRootPaths": [
+        "~"
+      ]
+    },
+    "flow": {
+      "command": "flow",
+      "args": [
+        "lsp"
+      ],
+      "filetypes": [
+        "javascript",
+        "javascriptreact"
+      ],
+      "initializationOptions": {},
+      "requireRootPattern": true,
+      "settings": {},
+      "rootPatterns": [
+        ".flowconfig"
+      ]
+    }
+  },
+  "list.insertMappings": {
+    "<C-n>": "normal:j",
+    "<C-p>": "normal:k",
+    "<C-v>": "action:vsplit",
+    "<C-s>": "action:split"
+  },
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.linting.enabled": true,
+  "python.linting.flake8Args": [
+    "--ignore=E116,E402,E501"
+  ],
+  "python.formatting.autopep8Args": [
+    "--ignore=E116,E501"
+  ]
+}

@@ -35,6 +35,7 @@ export LANG=zh_CN.utf8
 export GOPATH="/home/lth/go:/work/go"
 export GOBINPATH="/home/lth/go/bin:/work/go/bin"
 export PATH="${GOROOT}/bin:${GOBINPATH}:${PATH}"
+export PATH="/opt/node-v12.6.0-linux-x64/bin:${PATH}"
 
 # zsh-completions 需要
 autoload -U compinit && compinit
@@ -70,6 +71,9 @@ alias tldr='tldr -t ocean'
 
 # kubectl
 alias k='kubectl'
+
+# vim
+alias vim='nvim'
 
 # 彩色man
 export LESS_TERMCAP_mb=$'\e[01;31m'       # begin blinking
