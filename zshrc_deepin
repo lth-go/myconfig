@@ -90,3 +90,6 @@ TERM=xterm-256color
 
 # deepin sh
 alias sh='bash'
+
+# mc
+complete -o nospace -C /home/lth/go/bin/mc mc

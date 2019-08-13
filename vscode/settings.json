@@ -1,0 +1,248 @@
+{
+    //
+    // Base
+    //
+    "editor.minimap.enabled": false,
+    "editor.folding": false,
+    "editor.selectionHighlight": false,
+    "editor.lineNumbers": "relative",
+    "workbench.colorTheme": "One Dark Pro Bold",
+    "workbench.editor.enablePreview": false,
+    "window.titleBarStyle": "custom",
+    "window.title": "${dirty}${activeEditorMedium}${separator}${rootName}",
+    "window.enableMenuBarMnemonics": false,
+    "window.customMenuBarAltFocus": false,
+    "problems.decorations.enabled": false,
+    "breadcrumbs.enabled": false,
+    "explorer.autoReveal": false,
+    "update.mode": "manual",
+    "files.autoSave": "afterDelay",
+    //
+    // Javascript
+    //
+    "javascript.validate.enable": false,
+    "typescript.validate.enable": false,
+    //
+    // Golang
+    //
+    "go.useLanguageServer": true,
+    "go.toolsEnvVars": {
+        "GO111MODULE": "on"
+    },
+    //
+    // Vim start
+    //
+    "vim.leader": ";",
+    "vim.useSystemClipboard": true,
+    "vim.hlsearch": true,
+    "vim.visualstar": true,
+    "vim.overrideCopy": true,
+    "vim.handleKeys": {
+        "<C-f>": false,
+        "<C-c>": false,
+    },
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [
+                "H",
+            ],
+            "after": [
+                "^",
+            ]
+        },
+        {
+            "before": [
+                "L",
+            ],
+            "after": [
+                "g",
+                "_",
+            ]
+        },
+    ],
+    "vim.normalModeKeyBindingsNonRecursive": [
+        // Workaround: Visual Mode chord bug
+        // https://github.com/VSCodeVim/Vim/issues/2842
+        {
+            "before": [
+                "v"
+            ],
+            "after": [
+                "v",
+                "l",
+                "h"
+            ]
+        },
+        {
+            "before": [
+                "<C-h>",
+            ],
+            "after": [
+                "<C-w>",
+                "h"
+            ]
+        },
+        {
+            "before": [
+                "<C-l>",
+            ],
+            "after": [
+                "<C-w>",
+                "l"
+            ]
+        },
+        {
+            "before": [
+                "<C-k>",
+            ],
+            "after": [
+                "<C-w>",
+                "k"
+            ]
+        },
+        {
+            "before": [
+                "<C-j>",
+            ],
+            "after": [
+                "<C-w>",
+                "j"
+            ]
+        },
+        {
+            "before": [
+                "<Backspace>"
+            ],
+            "commands": [
+                ":nohl"
+            ]
+        },
+        {
+            "before": [
+                "<Leader>",
+                "q"
+            ],
+            "commands": [
+                ":q"
+            ]
+        },
+        {
+            "before": [
+                "*",
+            ],
+            "after": [
+                "*",
+                "`",
+                "`",
+                "z",
+                "z",
+            ]
+        },
+        {
+            "before": [
+                "<Leader>",
+                "g",
+            ],
+            "after": [
+                "g",
+                "d",
+                "z",
+                "z",
+            ]
+        },
+        {
+            "before": [
+                "<C-o>",
+            ],
+            "after": [
+                "<C-o>",
+                "z",
+                "z",
+            ]
+        },
+        {
+            "before": [
+                "<C-i>",
+            ],
+            "after": [
+                "<C-i>",
+                "z",
+                "z",
+            ]
+        },
+        {
+            "before": [
+                "<Leader>",
+                "b",
+                "d"
+            ],
+            "commands": [
+                "workbench.action.closeOtherEditors",
+            ]
+        },
+    ],
+    "vim.insertModeKeyBindings": [],
+    "vim.insertModeKeyBindingsNonRecursive": [],
+    "vim.visualModeKeyBindings": [],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "H"
+            ],
+            "after": [
+                "^"
+            ]
+        },
+        {
+            "before": [
+                "L"
+            ],
+            "after": [
+                "g",
+                "_",
+            ]
+        },
+        {
+            "before": [
+                "<",
+            ],
+            "commands": [
+                "editor.action.outdentLines"
+            ]
+        },
+        {
+            "before": [
+                ">",
+            ],
+            "commands": [
+                "editor.action.indentLines"
+            ]
+        },
+        {
+            "before": [
+                "v",
+            ],
+            "after": [
+                "a",
+                "f",
+            ]
+        },
+        {
+            "before": [
+                "p",
+            ],
+            "after": [
+                "p",
+                "g",
+                "v",
+                "y"
+            ]
+        }
+    ],
+    //
+    // Git History
+    //
+    "gitHistory.hideCommitViewExplorer": true,
+    "workbench.tree.renderIndentGuides": "none",
+    "workbench.tree.indent": 16,
+}
