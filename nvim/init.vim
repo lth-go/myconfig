@@ -189,8 +189,8 @@ inoremap <C-B> <Left>
 inoremap <C-D> <Del>
 
 " 搜索关键词居中
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
+nnoremap n nzz
+nnoremap N Nzz
 nnoremap <silent> <C-o> <C-o>zz
 nnoremap <silent> <C-i> <C-i>zz
 nnoremap <silent> <C-]> <C-]>zz
@@ -271,19 +271,44 @@ cabbrev w!! w !sudo tee > /dev/null %
 
 " =====Coc=====
 
-nmap <silent> <leader>g <Plug>(coc-definition)
+" extensions
+" coc-tsserver
+" coc-python
+" coc-pairs
+" coc-lists
+" coc-json
+" coc-html
+
+nmap <silent> <leader>g <Plug>(coc-definition)zz
 nmap <Leader>af  <Plug>(coc-format)
 nmap <Leader>o :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 nmap <Leader>r <Plug>(coc-rename)
 
 nmap <Leader>ff :CocList files<CR>
-nmap <expr> <Leader>fc ":CocList grep " . expand('<cword>')
-nmap <expr> <Leader>fg ":CocList grep "
+nnoremap <silent> <Leader>fc :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+nnoremap <silent> <Leader>fg :exe 'CocList -I grep'<CR>
+
+vnoremap <leader>fc :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
+
+function! s:GrepFromSelected(type)
+  let saved_unnamed_register = @@
+  if a:type ==# 'v'
+    normal! `<v`>y
+  elseif a:type ==# 'char'
+    normal! `[v`]y
+  else
+    return
+  endif
+  let word = substitute(@@, '\n$', '', 'g')
+  let word = escape(word, '| ')
+  let @@ = saved_unnamed_register
+  execute 'CocList grep '.word
+endfunction
 
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
@@ -300,7 +325,7 @@ let NERDTreeMinimalUI = 1
 " 退出vim时自动关闭
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 忽略显示
-let NERDTreeIgnore = ['\.pyc','\.pyo','\~$','\.swp','\.git$','\.idea', '\.o', 'tags']
+let NERDTreeIgnore = ['\.pyc','\.pyo','\~$','\.swp','\.git$','\.idea', '\.o', 'tags', '\.so', '__pycache__']
 " 打开文件树
 nmap <C-\> :NERDTreeToggle<CR>
 
@@ -381,6 +406,9 @@ let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=
 
 " =====vim-polyglot=====
 
+" TODO: 高亮有问题
+let g:polyglot_disabled = ['javascript']
+
 " go
 
 let g:go_highlight_extra_types = 1
@@ -390,7 +418,9 @@ let g:go_highlight_function_parameters = 1
 let g:go_highlight_function_calls = 1
 let g:go_highlight_types = 1
 
-highlight link goOperator GruvboxRed
+" javascript
+
+let g:javascript_plugin_flow = 1
 
 " =====主题=====
 
@@ -400,5 +430,7 @@ set background=dark
 " 主题
 let g:gruvbox_contrast_dark='hard'
 colorscheme gruvbox
+
+highlight link Operator GruvboxRed
 
 set termguicolors

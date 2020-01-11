@@ -1,15 +1,15 @@
 {
   "languageserver": {
     "golang": {
-      "command": "go-langserver",
+      "command": "gopls",
+      "rootPatterns": [
+        "go.mod",
+        ".vim/",
+        ".git/"
+      ],
       "filetypes": [
         "go"
-      ],
-      "initializationOptions": {
-        "gocodeCompletionEnabled": true,
-        "diagnosticsEnabled": true,
-        "lintTool": "golint"
-      }
+      ]
     },
     "bash": {
       "command": "bash-language-server",
@@ -38,13 +38,31 @@
       "rootPatterns": [
         ".flowconfig"
       ]
+    },
+    "ccls": {
+      "command": "ccls",
+      "filetypes": [
+        "c"
+      ],
+      "rootPatterns": [
+        ".ccls",
+        "compile_commands.json",
+        ".vim/",
+        ".git/"
+      ],
+      "initializationOptions": {
+        "cache": {
+          "directory": "/tmp/ccls"
+        }
+      }
     }
   },
   "list.insertMappings": {
     "<C-n>": "normal:j",
     "<C-p>": "normal:k",
     "<C-v>": "action:vsplit",
-    "<C-s>": "action:split"
+    "<C-s>": "action:split",
+    "<C-u>": "feedkeys:\\<C-u>"
   },
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
