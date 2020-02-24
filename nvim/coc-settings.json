@@ -1,11 +1,10 @@
 {
+  "suggest.enablePreselect": false,
   "languageserver": {
     "golang": {
       "command": "gopls",
       "rootPatterns": [
-        "go.mod",
-        ".vim/",
-        ".git/"
+        "go.mod"
       ],
       "filetypes": [
         "go"
@@ -72,5 +71,6 @@
   ],
   "python.formatting.autopep8Args": [
     "--ignore=E116,E501"
-  ]
+  ],
+  "python.venvPath": "/work/python_venv/"
 }
