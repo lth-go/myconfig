@@ -3,7 +3,6 @@ export ZSH=$HOME/.oh-my-zsh
 
 # 补全大小写敏感
 CASE_SENSITIVE="true"
-
 # 粘贴修正
 DISABLE_MAGIC_FUNCTIONS=true
 
@@ -13,17 +12,17 @@ ZSH_THEME="my"
 # 插件
 # git://github.com/zsh-users/
 plugins=(
-    git
-    docker docker-compose
-    golang
-    kubectl
-    helm
-    pip
-    sudo
-    z
-    extract
-    ripgrep
-    zsh-completions zsh-autosuggestions zsh-syntax-highlighting
+  git
+  docker docker-compose
+  golang
+  kubectl
+  helm
+  pip
+  sudo
+  z
+  extract
+  ripgrep
+  zsh-completions zsh-autosuggestions zsh-syntax-highlighting
 )
 
 # 用户配置
@@ -78,13 +77,3 @@ alias k='kubectl'
 
 # vim
 alias vim='nvim'
-
-# 彩色man
-export LESS_TERMCAP_mb=$'\e[01;31m'       # begin blinking
-export LESS_TERMCAP_md=$'\e[01;38;5;74m'  # begin bold
-export LESS_TERMCAP_me=$'\e[0m'           # end mode
-export LESS_TERMCAP_so=$'\e[38;5;246m'    # begin standout-mode - info box
-export LESS_TERMCAP_se=$'\e[0m'           # end standout-mode
-export LESS_TERMCAP_us=$'\e[01;38;5;146m' # begin underline
-export LESS_TERMCAP_ue=$'\e[0m'           # end underline
-export GROFF_NO_SGR=1                     # for gnome-terminal
