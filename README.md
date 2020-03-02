@@ -1,8 +1,8 @@
 # my_config
 
-# Init
+## Init
 
-```
+```sh
 # Make Dir
 mkdir ~/.ssh/
 mkdir ~/work/
@@ -19,6 +19,9 @@ sudo dnf install -y zsh nvim htop
 sudo dnf install -y docker docker-compose
 sudo dnf install -y python2 golang nodejs
 sudo dnf install -y ripgrep fd-find
+
+sudo dnf install -y fcitx fcitx-configtool
+# https://github.com/fcitx/fcitx/issues/337
 
 # soft link
 cd ~
@@ -49,14 +52,10 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 # vim
 cd ~/myconfig
 cp vim/plug.vim ~/.local/share/nvim/site/autoload
-vim 
-## :PlugInstall
-## :CocInstall coc-tsserver
-## :CocInstall coc-python
-## :CocInstall coc-pairs
-## :CocInstall coc-lists
-## :CocInstall coc-json
-## :CocInstall coc-html
+## $ vim :PlugInstall
+
+# ctags https://github.com/universal-ctags/ctags
+
 
 # Python
 pip install --user virtualenv
@@ -78,7 +77,10 @@ pip install --user jedi autopep8 flake8
 # Golang
 
 # Nodejs
+npm config set registry https://registry.npm.taobao.org
+
 sudo npm install -g diff-so-fancy tldr
+sudo npm -g install flow-bin
 
 # Docker
 sudo systemctl enable docker
@@ -90,9 +92,9 @@ sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
 
 ```
 
-# Update
+## Update
 
-```
+```sh
 cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git pull
 cd ~/.oh-my-zsh/custom/plugins/zsh-completions && git pull
 cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull

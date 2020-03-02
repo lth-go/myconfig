@@ -11,6 +11,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 " 注释
 Plug 'scrooloose/nerdcommenter'
+" 括号匹配
+Plug 'lth-go/auto-pairs'
 " 彩虹括号
 Plug 'luochen1990/rainbow', {'for': ['python', 'c', 'go']}
 " 结对符修改
@@ -271,13 +273,18 @@ cabbrev w!! w !sudo tee > /dev/null %
 
 " =====Coc=====
 
-" extensions
-" coc-tsserver
-" coc-python
-" coc-pairs
-" coc-lists
-" coc-json
-" coc-html
+let g:coc_global_extensions = [
+  \ 'coc-lists',
+  \ 'coc-json',
+  \ 'coc-xml',
+  \ 'coc-html',
+  \ 'coc-yaml',
+  \ 'coc-markdownlint',
+  \ 'coc-python',
+  \ 'coc-tsserver',
+  \ 'coc-flow',
+  \ 'coc-tabnine',
+\ ]
 
 nmap <silent> <leader>g <Plug>(coc-definition)zz
 nmap <Leader>af  <Plug>(coc-format)
@@ -306,9 +313,9 @@ function! s:GrepFromSelected(type)
 endfunction
 
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
@@ -325,7 +332,18 @@ let NERDTreeMinimalUI = 1
 " 退出vim时自动关闭
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 忽略显示
-let NERDTreeIgnore = ['\.pyc','\.pyo','\~$','\.swp','\.git$','\.idea', '\.o', 'tags', '\.so', '__pycache__']
+let NERDTreeIgnore = [
+  \ 'tags',
+  \ '\.git$',
+  \ '\.idea',
+  \ '\.pyc',
+  \ '\.pyo',
+  \ '__pycache__',
+  \ '\~$',
+  \ '\.swp',
+  \ '\.o',
+  \ '\.so',
+\ ]
 " 打开文件树
 nmap <C-\> :NERDTreeToggle<CR>
 

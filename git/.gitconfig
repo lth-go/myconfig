@@ -20,11 +20,13 @@
     changed = green
     untracked = cyan
 [diff]
-    tool = vimdiff
-[merge]
-    tool = vimdiff
+    tool = nvimdiff2
+[difftool "nvimdiff2"]
+    cmd = nvim -d $LOCAL $REMOTE
 [difftool]
     prompt = false
+[merge]
+    tool = vimdiff
 [log]
     date = iso
 [pull]
