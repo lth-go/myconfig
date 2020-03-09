@@ -283,7 +283,6 @@ let g:coc_global_extensions = [
   \ 'coc-python',
   \ 'coc-tsserver',
   \ 'coc-flow',
-  \ 'coc-tabnine',
 \ ]
 
 nmap <silent> <leader>g <Plug>(coc-definition)zz
@@ -371,8 +370,8 @@ nmap <Leader>7 <Plug>AirlineSelectTab7
 nmap <Leader>8 <Plug>AirlineSelectTab8
 nmap <Leader>9 <Plug>AirlineSelectTab9
 let g:airline#extensions#tabline#buffer_idx_format = {
-    \ '0': '0: ', '1': '1: ', '2': '2: ', '3': '3: ', '4': '4: ',
-    \ '5': '5: ', '6': '6: ', '7': '7: ', '8': '8: ', '9': '9: '
+  \ '0': '0: ', '1': '1: ', '2': '2: ', '3': '3: ', '4': '4: ',
+  \ '5': '5: ', '6': '6: ', '7': '7: ', '8': '8: ', '9': '9: '
 \}
 
 " =====Nerdcommenter=====
@@ -395,14 +394,14 @@ let g:rainbow_active = 1
 
 " 选中区域配置, 1表示递归
 let g:expand_region_text_objects = {
-    \ 'iw'  :0,
-    \ 'i"'  :0, 'a"'  :0,
-    \ 'i''' :0, 'a''' :0,
-    \ 'i`'  :0, 'a`'  :0,
-    \ 'i]'  :1, 'a]'  :1,
-    \ 'ib'  :1, 'ab'  :1,
-    \ 'iB'  :1, 'aB'  :1,
-    \ 'it'  :1, 'at'  :1,
+  \ 'iw'  :0,
+  \ 'i"'  :0, 'a"'  :0,
+  \ 'i''' :0, 'a''' :0,
+  \ 'i`'  :0, 'a`'  :0,
+  \ 'i]'  :1, 'a]'  :1,
+  \ 'ib'  :1, 'ab'  :1,
+  \ 'iB'  :1, 'aB'  :1,
+  \ 'it'  :1, 'at'  :1,
 \ }
 " 快捷键
 vmap v <Plug>(expand_region_expand)

@@ -77,3 +77,5 @@ alias k='kubectl'
 
 # vim
 alias vim='nvim'
+
+export MANPAGER='nvim +Man!'
