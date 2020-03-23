@@ -1,8 +1,6 @@
 [user]
     name = li.tianhua
     email = li.tianhua@yihe.io
-[push]
-    default = simple
 [format]
     pretty = medium
 [core]
@@ -20,14 +18,14 @@
     changed = green
     untracked = cyan
 [diff]
-    tool = nvimdiff2
-[difftool "nvimdiff2"]
-    cmd = nvim -d $LOCAL $REMOTE
+    tool = vimdiff
+[difftool "vimdiff"]
+    path = nvim
 [difftool]
     prompt = false
-[merge]
-    tool = vimdiff
 [log]
     date = iso
+[push]
+    default = simple
 [pull]
     rebase = true
