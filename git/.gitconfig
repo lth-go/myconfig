@@ -1,12 +1,13 @@
 [user]
-    name = li.tianhua
-    email = li.tianhua@yihe.io
+    name = 李天华
+    email = lith@weipaitang.com
 [format]
     pretty = medium
 [core]
-    editor = vim
+    editor = nvim
     # sudo npm install -g diff-so-fancy
     pager = diff-so-fancy | less --tabs=4 -RFX
+	excludesfile = /Users/litianhua/.gitignore_global
 [color]
     ui = always
 [color "branch"]
@@ -29,3 +30,9 @@
     default = simple
 [pull]
     rebase = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

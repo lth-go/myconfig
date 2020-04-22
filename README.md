@@ -3,6 +3,11 @@
 ## Init
 
 ```sh
+# 关闭Mac保护
+csrutil disable
+
+# Set ssh key
+
 # Make Dir
 mkdir ~/.ssh/
 mkdir ~/work/
@@ -10,18 +15,22 @@ mkdir ~/data/
 mkdir ~/.pip/
 
 # config
-cd ~ && git clone --depth 1 https://email%40password@github.com/lth-go/myconfig.git
+cd ~ && git clone --depth 1 git@github.com:lth-go/myconfig.git
 
-# Set ssh key
+# brew
+cd /usr/local/ && git clone git://mirrors.ustc.edu.cn/brew.git
+cd /usr/local/Homebrew/ && mkdir -p Library/Taps/homebrew/
+git clone git://mirrors.ustc.edu.cn/homebrew-core.git
+git clone git://mirrors.ustc.edu.cn/homebrew-cask.git
+cd ~/myconfig/mac/brew/ && sh ./install.sh
 
-# dnf
-sudo dnf install -y zsh nvim htop
-sudo dnf install -y docker docker-compose
-sudo dnf install -y python2 golang nodejs
-sudo dnf install -y ripgrep fd-find
+brew install nvim htop wget iproute2mac jq
+brew install docker-compose
+brew install golang nodejs
+brew install protobuf
+brew install ripgrep fd-find
 
-sudo dnf install -y fcitx fcitx-configtool
-# https://github.com/fcitx/fcitx/issues/337
+brew cask install docker iterm2
 
 # soft link
 cd ~
@@ -41,9 +50,9 @@ cd ~/myconfig/zsh/ && sh ./install.sh
 cd ~/.oh-my-zsh/custom/themes/ && ln -sf ~/myconfig/zsh/my.zsh-theme my.zsh-theme
 
 cd ~/.oh-my-zsh/custom/plugins
-git clone git://github.com/zsh-users/zsh-autosuggestions.git
-git clone git://github.com/zsh-users/zsh-completions.git
-git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
+git clone --depth 1 git@github.com:zsh-users/zsh-autosuggestions.git
+git clone --depth 1 git@github.com:zsh-users/zsh-completions.git
+git clone --depth 1 git@github.com:zsh-users/zsh-syntax-highlighting.git
 
 # fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -55,7 +64,8 @@ cp vim/plug.vim ~/.local/share/nvim/site/autoload
 ## $ vim :PlugInstall
 
 # ctags https://github.com/universal-ctags/ctags
-
+brew tap universal-ctags/universal-ctags
+brew install --HEAD universal-ctags
 
 # Python
 pip install --user virtualenv
@@ -75,21 +85,29 @@ pip install --user dstat
 pip install --user jedi autopep8 flake8
 
 # Golang
+GO111MODULE=on go get golang.org/x/tools/gopls@lates
+GO111MODULE=on go get golang.org/x/lint/golint
 
 # Nodejs
 npm config set registry https://registry.npm.taobao.org
 
 sudo npm install -g diff-so-fancy tldr
-sudo npm -g install flow-bin
+sudo npm install -g flow-bin
+sudo npm install -g bash-language-server
 
-# Docker
-sudo systemctl enable docker
+# PHP
+brew install composer
+composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+composer global require "squizlabs/php_codesniffer=*"
 
-## Bug
-sudo dnf install -y grubby
-grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
-sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
+sudo ln -s "$(xcrun --show-sdk-path)/usr/include" /usr/include
 
+cd /usr/local/include/ && ln -s /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Security.framework/Versions/A/Headers/ Security
+cd /usr/local/include/ && ln -s /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Versions/A/Headers/ CoreFoundation
+
+sudo pecl install swoole
+
+vim /etc/php.ini # extension=swoole.so
 ```
 
 ## Update

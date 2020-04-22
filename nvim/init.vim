@@ -13,8 +13,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/nerdcommenter'
 " 括号匹配
 Plug 'lth-go/auto-pairs'
-" 彩虹括号
-Plug 'luochen1990/rainbow', {'for': ['python', 'c', 'go']}
 " 结对符修改
 Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat'
 " 快速选中
@@ -55,6 +53,7 @@ set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git,*.o,tags
 
 " 允许有未保存时切换缓冲区
 set hidden
+set noshowcmd
 
 " =====行号=====
 
@@ -125,14 +124,14 @@ autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 set clipboard=unnamedplus
 
 " 输入法正常切换
-autocmd InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
+autocmd InsertLeave * call system('~/myconfig/mac/vim/im-select com.apple.keylayout.ABC')
 
 " 自动添加头部
 autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
 function! AutoSetFileHead()
-    "如果文件类型为.sh文件
-    if &filetype == 'sh' | call setline(1, "\#!/bin/bash") | endif
-    "如果文件类型为python
+    " sh
+    if &filetype == 'sh' | call setline(1, "\#!/bin/bash") | call append(1, ["", "set -xeuo pipefail"]) | endif
+    " Python
     if &filetype == 'python' | call setline(1, "\#!/usr/bin/env python") | call append(1, "\# encoding: utf-8") | endif
     normal G
     normal o
@@ -281,17 +280,23 @@ let g:coc_global_extensions = [
   \ 'coc-yaml',
   \ 'coc-markdownlint',
   \ 'coc-python',
+  \ 'coc-phpls',
   \ 'coc-tsserver',
   \ 'coc-flow',
 \ ]
 
 nmap <silent> <leader>g <Plug>(coc-definition)zz
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 nmap <Leader>af  <Plug>(coc-format)
+xmap <leader>af  <Plug>(coc-format-selected)
 nmap <Leader>o :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 nmap <Leader>r <Plug>(coc-rename)
 
 nmap <Leader>ff :CocList files<CR>
-nnoremap <silent> <Leader>fc :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+nnoremap <silent> <Leader>fc :exe 'CocList grep ' . expand('<cword>')<CR>
 nnoremap <silent> <Leader>fg :exe 'CocList -I grep'<CR>
 
 vnoremap <leader>fc :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
@@ -384,11 +389,7 @@ let g:NERDDefaultAlign = 'left'
 let g:NERDSpaceDelims = 1
 " 自动注释快捷键
 map <C-_> <plug>NERDCommenterToggle
-
-" =====RainbowParentheses=====
-
-" 开启彩虹括号
-let g:rainbow_active = 1
+map <Leader>cc <plug>NERDCommenterToggle
 
 " =====vim-expand-region=====
 
@@ -419,7 +420,7 @@ if !isdirectory(s:vim_tags)
 endif
 
 " 额外参数
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=+px', '--languages=C,C++,Go,Python']
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=+px', '--languages=C,C++,Go,Python,Php']
 
 " =====vim-polyglot=====
 
