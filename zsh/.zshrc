@@ -74,10 +74,11 @@ alias dps="docker ps --format \"table {{.Names}}\t{{.Image}}\t{{.ID}}\t{{.Status
 # Tldr
 alias tldr='tldr -t ocean'
 
-# kubectl
-alias k='kubectl'
-
 # vim
 alias vim='nvim'
 alias vi='nvim'
 export MANPAGER='nvim +Man!'
+
+# work env
+export PANSDK_ETCD_ADDRS=10.3.7.57:2380
+export MICRO_REGISTRY_ADDRESS=127.0.0.1:2379
