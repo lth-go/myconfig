@@ -21,6 +21,8 @@ Plug 'terryma/vim-expand-region'
 Plug 'ludovicchabant/vim-gutentags'
 " 高亮, 对齐
 Plug 'sheerun/vim-polyglot'
+" Git
+Plug 'tpope/vim-fugitive'
 
 call plug#end()
 
@@ -140,6 +142,9 @@ endfunc
 
 " 打开自动定位到最后编辑的位置
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
+
+" 复制当前行号
+nnoremap <silent> <C-g> :let @+ = join([expand('%'),  line(".")], ':')\|:echo @+<CR>
 
 " =====快捷键=====
 
@@ -283,6 +288,7 @@ let g:coc_global_extensions = [
   \ 'coc-phpls',
   \ 'coc-tsserver',
   \ 'coc-flow',
+  \ 'coc-translator',
 \ ]
 
 nmap <silent> <leader>g <Plug>(coc-definition)zz
@@ -327,6 +333,21 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" coc-translator
+nmap <Leader>t <Plug>(coc-translator-p)
+vmap <Leader>t <Plug>(coc-translator-pv)
+
 " =====NERDTree=====
 
 " 显示隐藏文件
@@ -359,6 +380,8 @@ let g:airline_theme = 'gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 " 标签页只显示文件名
 let g:airline#extensions#tabline#fnamemod = ':t'
+" 不显示vim-fugitive分支名
+let g:airline#extensions#branch#enabled = 0
 " 关闭状态显示空白符号计数
 let g:airline#extensions#whitespace#enabled = 0
 " 去除右上角buffer

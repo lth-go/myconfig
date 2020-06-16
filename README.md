@@ -108,6 +108,9 @@ cd /usr/local/include/ && ln -s /Library/Developer/CommandLineTools/SDKs/MacOSX.
 sudo pecl install swoole
 
 vim /etc/php.ini # extension=swoole.so
+
+# psysh
+composer g require psy/psysh:@stable
 ```
 
 ## Update
