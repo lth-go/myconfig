@@ -14,11 +14,8 @@ plugins=(
   git
   docker docker-compose
   golang
-  kubectl
-  helm
   pip
   sudo
-  z
   extract
   ripgrep
   zsh-completions zsh-autosuggestions zsh-syntax-highlighting

@@ -6,6 +6,7 @@
       "rootPatterns": [
         "go.mod"
       ],
+      "disableWorkspaceFolders": true,
       "filetypes": [
         "go"
       ]

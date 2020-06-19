@@ -451,7 +451,6 @@ let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=
 let g:polyglot_disabled = ['javascript']
 
 " go
-
 let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_functions = 1
@@ -460,7 +459,6 @@ let g:go_highlight_function_calls = 1
 let g:go_highlight_types = 1
 
 " javascript
-
 let g:javascript_plugin_flow = 1
 
 " =====主题=====
