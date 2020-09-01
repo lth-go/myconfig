@@ -24,6 +24,7 @@
     path = nvim
 [difftool]
     prompt = false
+	trustExitCode = true
 [log]
     date = iso
 [push]

@@ -22,30 +22,13 @@
       "ignoredRootPaths": [
         "~"
       ]
-    },
-    "ccls": {
-      "command": "ccls",
-      "filetypes": [
-        "c"
-      ],
-      "rootPatterns": [
-        ".ccls",
-        "compile_commands.json",
-        ".vim/",
-        ".git/"
-      ],
-      "initializationOptions": {
-        "cache": {
-          "directory": "/tmp/ccls"
-        }
-      }
     }
   },
   "list.insertMappings": {
+    "<C-f>": "feedkeys:\\<C-f>",
+    "<C-b>": "feedkeys:\\<C-b>",
     "<C-n>": "normal:j",
     "<C-p>": "normal:k",
-    "<C-v>": "action:vsplit",
-    "<C-s>": "action:split",
     "<C-u>": "feedkeys:\\<C-u>"
   },
   "python.linting.pylintEnabled": false,

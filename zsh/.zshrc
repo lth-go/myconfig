@@ -76,6 +76,10 @@ alias vim='nvim'
 alias vi='nvim'
 export MANPAGER='nvim +Man!'
 
+# llvm
+export PATH="/usr/local/opt/llvm/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/llvm/lib"
+export CPPFLAGS="-I/usr/local/opt/llvm/include"
+
 # work env
-export PANSDK_ETCD_ADDRS=10.3.7.57:2380
-export MICRO_REGISTRY_ADDRESS=127.0.0.1:2379
+[ -f ~/.work.zsh ] && source ~/.work.zsh

@@ -111,6 +111,9 @@ vim /etc/php.ini # extension=swoole.so
 
 # psysh
 composer g require psy/psysh:@stable
+
+# clang
+brew install llvm bear
 ```
 
 ## Update

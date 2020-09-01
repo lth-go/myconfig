@@ -18,7 +18,7 @@ Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat'
 " 快速选中
 Plug 'terryma/vim-expand-region'
 " Tag跳转
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 " 高亮, 对齐
 Plug 'sheerun/vim-polyglot'
 " Git
@@ -39,6 +39,10 @@ set noswapfile
 
 set updatetime=300
 set shortmess+=c
+
+if &diff
+    set noreadonly
+endif
 
 " =====命令行=====
 
@@ -145,6 +149,8 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "
 
 " 复制当前行号
 nnoremap <silent> <C-g> :let @+ = join([expand('%'),  line(".")], ':')\|:echo @+<CR>
+
+xnoremap <expr> p 'pgv"'.v:register.'y'
 
 " =====快捷键=====
 
@@ -288,6 +294,7 @@ let g:coc_global_extensions = [
   \ 'coc-phpls',
   \ 'coc-tsserver',
   \ 'coc-flow',
+  \ 'coc-clangd',
   \ 'coc-translator',
 \ ]
 
@@ -447,8 +454,9 @@ let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=
 
 " =====vim-polyglot=====
 
-" TODO: 高亮有问题
-let g:polyglot_disabled = ['javascript']
+" TODO: js高亮有问题
+" TODO: php高亮太慢
+let g:polyglot_disabled = ['javascript', 'php']
 
 " go
 let g:go_highlight_extra_types = 1
