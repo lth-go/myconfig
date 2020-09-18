@@ -20,11 +20,20 @@
     untracked = cyan
 [diff]
     tool = vimdiff
-[difftool "vimdiff"]
-    path = nvim
 [difftool]
     prompt = false
-	trustExitCode = true
+    trustExitCode = true
+[difftool "vimdiff"]
+    path = nvim
+[merge]
+    tool = vimdiff
+    # conflictstyle = diff3
+[mergetool]
+    prompt = false
+    trustExitCode = true
+    keepBackup = false
+[mergetool "vimdiff"]
+    path = nvim
 [log]
     date = iso
 [push]
