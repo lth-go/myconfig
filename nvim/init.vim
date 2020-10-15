@@ -1,3 +1,6 @@
+" TODO: 防止警告
+let g:polyglot_disabled = ['javascript', 'php']
+
 call plug#begin('~/.local/share/nvim/plugged')
 
 " =====插件=====
@@ -23,6 +26,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'sheerun/vim-polyglot'
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 
 call plug#end()
 
@@ -123,6 +127,9 @@ autocmd FileType javascript,json,yaml,sh set tabstop=2 shiftwidth=2 softtabstop=
 " Go
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
+" Git
+autocmd FileType git set foldenable
+
 " =====其他=====
 
 " 使用系统剪切板
@@ -135,13 +142,13 @@ autocmd InsertLeave * call system('~/myconfig/mac/vim/im-select com.apple.keylay
 " 自动添加头部
 autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
 function! AutoSetFileHead()
-    " sh
-    if &filetype == 'sh' | call setline(1, "\#!/bin/bash") | call append(1, ["", "set -xeuo pipefail"]) | endif
-    " Python
-    if &filetype == 'python' | call setline(1, "\#!/usr/bin/env python") | call append(1, "\# encoding: utf-8") | endif
-    normal G
-    normal o
-    normal o
+  " sh
+  if &filetype == 'sh' | call setline(1, "\#!/bin/bash") | call append(1, ["", "set -xeuo pipefail"]) | endif
+  " Python
+  if &filetype == 'python' | call setline(1, "\#!/usr/bin/env python") | call append(1, "\# encoding: utf-8") | endif
+  normal G
+  normal o
+  normal o
 endfunc
 
 " 打开自动定位到最后编辑的位置
@@ -211,17 +218,17 @@ nnoremap <silent><Backspace> :nohlsearch<CR>
 
 " * 搜索不移动 可视模式高亮选中 -----
 function! Starsearch_CWord()
-    let wordStr = expand("<cword>")
-    if strlen(wordStr) == 0 | return | endif
-    if wordStr[0] =~ '\<'
-        let @/ = '\<' . wordStr . '\>'
-    else
-        let @/ = wordStr
-    endif
-    let savedS = @s
-    normal! "syiw
-    let @s = savedS
-    set hlsearch
+  let wordStr = expand("<cword>")
+  if strlen(wordStr) == 0 | return | endif
+  if wordStr[0] =~ '\<'
+    let @/ = '\<' . wordStr . '\>'
+  else
+    let @/ = wordStr
+  endif
+  let savedS = @s
+  normal! "syiw
+  let @s = savedS
+  set hlsearch
 endfunction
 
 function! Starsearch_VWord()
@@ -239,9 +246,9 @@ vnoremap <silent> * :<C-u>set nohlsearch\|:call Starsearch_VWord()<CR>
 
 " 自动关闭buffer -----
 function! s:SortTimeStamps(lhs, rhs)
-    if a:lhs[1] > a:rhs[1] | return 1 | endif
-    if a:lhs[1] < a:rhs[1] | return -1 | endif
-    return a:lhs[0] > a:rhs[0]
+  if a:lhs[1] > a:rhs[1] | return 1 | endif
+  if a:lhs[1] < a:rhs[1] | return -1 | endif
+  return a:lhs[0] > a:rhs[0]
 endfunction
 
 function! s:CloseBuffer(nb_to_keep)
@@ -290,11 +297,14 @@ let g:coc_global_extensions = [
   \ 'coc-html',
   \ 'coc-yaml',
   \ 'coc-markdownlint',
+  \ 'coc-sh',
+  \ 'coc-sql',
   \ 'coc-python',
   \ 'coc-phpls',
   \ 'coc-tsserver',
   \ 'coc-flow',
   \ 'coc-clangd',
+  \ 'coc-vimlsp',
   \ 'coc-translator',
 \ ]
 
@@ -361,6 +371,21 @@ endfunction
 nmap <Leader>t <Plug>(coc-translator-p)
 vmap <Leader>t <Plug>(coc-translator-pv)
 
+function! AirlineInit()
+  let g:airline_section_x = airline#section#create_right(['%{GetCurrentFunction()}']) . g:airline_section_x 
+endfunction
+autocmd User AirlineAfterInit call AirlineInit()
+
+function! GetCurrentFunction() abort
+  let funcName = get(b:,'coc_current_function','')
+
+  if funcName == ""
+      return ""
+  endif
+
+  return funcName . '() '
+endfunction
+
 " =====NERDTree=====
 
 " 显示隐藏文件
@@ -414,6 +439,7 @@ let g:airline#extensions#tabline#buffer_idx_format = {
   \ '0': '0: ', '1': '1: ', '2': '2: ', '3': '3: ', '4': '4: ',
   \ '5': '5: ', '6': '6: ', '7': '7: ', '8': '8: ', '9': '9: '
 \}
+
 
 " =====Nerdcommenter=====
 
@@ -474,6 +500,22 @@ let g:go_highlight_types = 1
 
 " javascript
 let g:javascript_plugin_flow = 1
+
+" =====vim-fugitive=====
+
+command! GitDiffFileList call s:GitDiff_NameOnly()
+
+function! s:GitDiff_NameOnly()
+  exe 'Git difftool --name-only origin/master'
+  exe 'copen'
+  nnoremap <silent> <buffer> o :call <SID>GitOpenDiff()<CR>
+endfunction
+
+function! s:GitOpenDiff()
+  let l:list_index = line('.') - 1
+  let l:list = getqflist()[l:list_index]
+  exe 'Git difftool -y origin/master -- ' bufname(l:list.bufnr)
+endfunction
 
 " =====主题=====
 
