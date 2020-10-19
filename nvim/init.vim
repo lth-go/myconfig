@@ -17,7 +17,8 @@ Plug 'scrooloose/nerdcommenter'
 " 括号匹配
 Plug 'lth-go/auto-pairs'
 " 结对符修改
-Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 " 快速选中
 Plug 'terryma/vim-expand-region'
 " Tag跳转
@@ -57,7 +58,6 @@ cnoremap <expr> / pumvisible() ? "\<Down>" : "/"
 
 " 忽略文件
 set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git,*.o,tags
-
 
 " =====状态栏=====
 
@@ -142,10 +142,18 @@ autocmd InsertLeave * call system('~/myconfig/mac/vim/im-select com.apple.keylay
 " 自动添加头部
 autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
 function! AutoSetFileHead()
-  " sh
-  if &filetype == 'sh' | call setline(1, "\#!/bin/bash") | call append(1, ["", "set -xeuo pipefail"]) | endif
+  " Shell
+  if &filetype == 'sh'
+    call setline(1, "\#!/bin/bash")
+    call append(1, ["", "set -xeuo pipefail"])
+  endif
+
   " Python
-  if &filetype == 'python' | call setline(1, "\#!/usr/bin/env python") | call append(1, "\# encoding: utf-8") | endif
+  if &filetype == 'python'
+    call setline(1, "\#!/usr/bin/env python")
+    call append(1, "\# encoding: utf-8")
+  endif
+
   normal G
   normal o
   normal o
@@ -157,6 +165,7 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "
 " 复制当前行号
 nnoremap <silent> <C-g> :let @+ = join([expand('%'),  line(".")], ':')\|:echo @+<CR>
 
+" 粘贴不覆盖
 xnoremap <expr> p 'pgv"'.v:register.'y'
 
 " =====快捷键=====
@@ -169,8 +178,7 @@ noremap Q <Nop>
 noremap K <Nop>
 
 " 定义<Leader>
-let mapleader=";"
-
+let mapleader = ";"
 noremap <Space> ;
 
 " 快速保存及退出
@@ -217,7 +225,7 @@ nnoremap <silent> <C-]> <C-]>zz
 nnoremap <silent><Backspace> :nohlsearch<CR>
 
 " * 搜索不移动 可视模式高亮选中 -----
-function! Starsearch_CWord()
+function! s:Starsearch_CWord()
   let wordStr = expand("<cword>")
   if strlen(wordStr) == 0 | return | endif
   if wordStr[0] =~ '\<'
@@ -231,7 +239,7 @@ function! Starsearch_CWord()
   set hlsearch
 endfunction
 
-function! Starsearch_VWord()
+function! s:Starsearch_VWord()
     let savedS = @s
     normal! gv"sy
     let @/ = '\V' . substitute(escape(@s, '\'), '\n', '\\n', 'g')
@@ -239,8 +247,8 @@ function! Starsearch_VWord()
     set hlsearch
 endfunction
 
-nnoremap <silent> * :set nohlsearch\|:call Starsearch_CWord()<CR>
-vnoremap <silent> * :<C-u>set nohlsearch\|:call Starsearch_VWord()<CR>
+nnoremap <silent> * :set nohlsearch\|:call <SID>Starsearch_CWord()<CR>
+vnoremap <silent> * :<C-u>set nohlsearch\|:call <SID>Starsearch_VWord()<CR>
 
 " ----- start_search end -----
 
@@ -251,19 +259,33 @@ function! s:SortTimeStamps(lhs, rhs)
   return a:lhs[0] > a:rhs[0]
 endfunction
 
+" TODO: fugitive打开的buf不能自动执行
 function! s:CloseBuffer(nb_to_keep)
   " 列出所有buffer, 过滤已修改的
-  let saved_buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && ! getbufvar(v:val, "&modified")')
+  let saved_buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && !getbufvar(v:val, "&modified")')
+
   " 过滤当前已打开的buffer
   let window_buffers = map(range(1, winnr('$')), 'winbufnr(v:val)')
   let saved_buffers = filter(saved_buffers, 'index(window_buffers, v:val) == -1')
+
   " buffer按时间排序
   let buffer_to_time = map(copy(saved_buffers), '[(v:val), getftime(bufname(v:val))]')
+
+  " 关闭未命名buff
+  let no_name_buffer = filter(copy(buffer_to_time), 'v:val[1] <= 0 && getbufvar(v:val[0], "&buftype") == ""')
+  if len(no_name_buffer) > 0
+    exe 'bd ' . join(map(no_name_buffer, 'v:val[0]'), ' ')
+  endif
+
+  " 过滤并排序
   call filter(buffer_to_time, 'v:val[1] > 0')
   call sort(buffer_to_time, function('s:SortTimeStamps'))
+
   " 关闭buffer
   let buffers_to_strip = map(copy(buffer_to_time[:-a:nb_to_keep]), 'v:val[0]')
-  if len(buffers_to_strip) > 0 | exe 'bd '.join(buffers_to_strip, ' ') | endif
+  if len(buffers_to_strip) > 0 
+    exe 'bd ' . join(buffers_to_strip, ' ') 
+  endif
 endfunction
 
 command! -nargs=1 CloseOldBuffers call s:CloseBuffer(<args>)
@@ -321,6 +343,7 @@ nmap <Leader>r <Plug>(coc-rename)
 nmap <Leader>ff :CocList files<CR>
 nnoremap <silent> <Leader>fc :exe 'CocList grep ' . expand('<cword>')<CR>
 nnoremap <silent> <Leader>fg :exe 'CocList -I grep'<CR>
+nnoremap <silent> <Leader>fs :exe 'CocList -I symbols'<CR>
 
 vnoremap <leader>fc :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
 
@@ -506,15 +529,13 @@ let g:javascript_plugin_flow = 1
 command! GitDiffFileList call s:GitDiff_NameOnly()
 
 function! s:GitDiff_NameOnly()
-  exe 'Git difftool --name-only origin/master'
-  exe 'copen'
-  nnoremap <silent> <buffer> o :call <SID>GitOpenDiff()<CR>
-endfunction
+  " TODO: 支持自定义branch
+  let branch = 'origin/master'
 
-function! s:GitOpenDiff()
-  let l:list_index = line('.') - 1
-  let l:list = getqflist()[l:list_index]
-  exe 'Git difftool -y origin/master -- ' bufname(l:list.bufnr)
+  exe 'Git difftool --name-only ' . branch
+  exe 'copen'
+
+  nnoremap <silent> <buffer> o <CR>\|:Gvdiffsplit! origin/master<CR>
 endfunction
 
 " =====主题=====
@@ -523,7 +544,7 @@ endfunction
 set background=dark
 
 " 主题
-let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 
 highlight link Operator GruvboxRed
