@@ -15,7 +15,7 @@ Plug 'vim-airline/vim-airline'
 " 注释
 Plug 'scrooloose/nerdcommenter'
 " 括号匹配
-Plug 'lth-go/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 " 结对符修改
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -28,6 +28,10 @@ Plug 'sheerun/vim-polyglot'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
+" tag
+Plug 'liuchengxu/vista.vim'
+" 快速跳转
+Plug 'justinmk/vim-sneak'
 
 call plug#end()
 
@@ -122,13 +126,16 @@ set expandtab
 set shiftround
 
 " yaml缩进
-autocmd FileType javascript,json,yaml,sh set tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType javascript,json,yaml,sh setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 " Go
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 " Git
-autocmd FileType git set foldenable
+autocmd FileType git setlocal foldenable
+
+" Markdown
+autocmd FileType markdown setlocal wrap
 
 " =====其他=====
 
@@ -173,8 +180,8 @@ xnoremap <expr> p 'pgv"'.v:register.'y'
 " 废弃快捷键
 noremap <F1> <Nop>
 inoremap <F1> <Nop>
-noremap q <Nop>
-noremap Q <Nop>
+" noremap q <Nop>
+" noremap Q <Nop>
 noremap K <Nop>
 
 " 定义<Leader>
@@ -342,10 +349,10 @@ nmap <Leader>r <Plug>(coc-rename)
 
 nmap <Leader>ff :CocList files<CR>
 nnoremap <silent> <Leader>fc :exe 'CocList grep ' . expand('<cword>')<CR>
-nnoremap <silent> <Leader>fg :exe 'CocList -I grep'<CR>
-nnoremap <silent> <Leader>fs :exe 'CocList -I symbols'<CR>
-
 vnoremap <leader>fc :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
+nnoremap <silent> <Leader>fg :exe 'CocList -I grep --ignore-case'<CR>
+nnoremap <silent><nowait> <Leader>fs  :<C-u>CocList -I symbols<cr>
+nnoremap <silent><nowait> <Leader>fu  :<C-u>CocList outline<cr>
 
 function! s:GrepFromSelected(type)
   let saved_unnamed_register = @@
@@ -394,20 +401,27 @@ endfunction
 nmap <Leader>t <Plug>(coc-translator-p)
 vmap <Leader>t <Plug>(coc-translator-pv)
 
-function! AirlineInit()
-  let g:airline_section_x = airline#section#create_right(['%{GetCurrentFunction()}']) . g:airline_section_x 
-endfunction
-autocmd User AirlineAfterInit call AirlineInit()
+" function! AirlineInit()
+  " let g:airline_section_x = airline#section#create_right(['%{GetCurrentFunction()}']) . g:airline_section_x 
+" endfunction
+" autocmd User AirlineAfterInit call AirlineInit()
 
-function! GetCurrentFunction() abort
-  let funcName = get(b:,'coc_current_function','')
+" function! GetCurrentFunction() abort
+"   let funcName = get(b:,'coc_current_function','')
 
-  if funcName == ""
-      return ""
-  endif
+"   if funcName == ""
+"       return ""
+"   endif
 
-  return funcName . '() '
-endfunction
+"   return funcName . '() '
+" endfunction
+
+" 多光标
+" nmap <silent> <C-c> <Plug>(coc-cursors-position)
+" nmap <silent> <C-d> <Plug>(coc-cursors-word)
+xmap <silent> <C-d> <Plug>(coc-cursors-range)
+" use normal command like `<leader>xi(`
+" nmap <leader>x  <Plug>(coc-cursors-operator)
 
 " =====NERDTree=====
 
@@ -474,7 +488,6 @@ let g:NERDDefaultAlign = 'left'
 let g:NERDSpaceDelims = 1
 " 自动注释快捷键
 map <C-_> <plug>NERDCommenterToggle
-map <Leader>cc <plug>NERDCommenterToggle
 
 " =====vim-expand-region=====
 
@@ -511,7 +524,7 @@ let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=
 
 " TODO: js高亮有问题
 " TODO: php高亮太慢
-let g:polyglot_disabled = ['javascript', 'php']
+" let g:polyglot_disabled = ['javascript', 'php']
 
 " go
 let g:go_highlight_extra_types = 1
@@ -526,17 +539,35 @@ let g:javascript_plugin_flow = 1
 
 " =====vim-fugitive=====
 
-command! GitDiffFileList call s:GitDiff_NameOnly()
+command! -nargs=? -complete=customlist,s:diffcomplete GitDiffFileList call s:GitDiff_NameOnly(<f-args>)
 
-function! s:GitDiff_NameOnly()
-  " TODO: 支持自定义branch
+function! s:GitDiff_NameOnly(...)
   let branch = 'origin/master'
+
+  if a:0 && !empty(a:1)
+    let branch = a:1
+  endif
 
   exe 'Git difftool --name-only ' . branch
   exe 'copen'
 
-  nnoremap <silent> <buffer> o <CR>\|:Gvdiffsplit! origin/master<CR>
+  execute 'nnoremap <silent> <buffer> o <C-w><C-o><CR>\|:Gvdiffsplit! ' . branch . '<CR>'
 endfunction
+
+" 命令行补全
+function! s:diffcomplete(a, l, p) abort
+  return fugitive#repo().superglob(a:a)
+endfunction
+
+" =====vista=====
+
+let g:vista#renderer#enable_icon = 0
+let g:vista_echo_cursor = 0
+let g:vista_default_executive = 'coc' 
+
+" =====vim-sneak=====
+
+map <Space> <Plug>Sneak_;
 
 " =====主题=====
 
