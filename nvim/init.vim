@@ -101,7 +101,6 @@ set splitright
 " 垂直滚动
 set scrolloff=10
 " 水平滚动
-set sidescroll=1
 set sidescrolloff=10
 
 " =====搜索=====
@@ -570,9 +569,6 @@ let g:vista_default_executive = 'coc'
 map <Space> <Plug>Sneak_;
 
 " =====主题=====
-
-" 背景颜色
-set background=dark
 
 " 主题
 let g:gruvbox_contrast_dark = 'hard'
