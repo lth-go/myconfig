@@ -1,6 +1,3 @@
-" TODO: 防止警告
-let g:polyglot_disabled = ['javascript', 'php']
-
 call plug#begin('~/.local/share/nvim/plugged')
 
 " =====插件=====
@@ -24,7 +21,7 @@ Plug 'terryma/vim-expand-region'
 " Tag跳转
 " Plug 'ludovicchabant/vim-gutentags'
 " 高亮, 对齐
-Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot', { 'tag': 'v4.16.0'}
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
@@ -521,9 +518,19 @@ let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=
 
 " =====vim-polyglot=====
 
-" TODO: js高亮有问题
-" TODO: php高亮太慢
-" let g:polyglot_disabled = ['javascript', 'php']
+" 需放最开头
+" let g:polyglot_disabled = []
+
+" php
+" 去除多余高亮
+let php_sql_query = 0
+let php_sql_heredoc = 0
+let php_sql_nowdoc = 0
+let php_html_in_heredoc = 0
+let php_html_in_nowdoc = 0
+let php_html_load = 0
+let php_ignore_phpdoc = 0
+let g:php_syntax_extensions_enabled = []
 
 " go
 let g:go_highlight_extra_types = 1
