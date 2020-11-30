@@ -419,6 +419,16 @@ xmap <silent> <C-d> <Plug>(coc-cursors-range)
 " use normal command like `<leader>xi(`
 " nmap <leader>x  <Plug>(coc-cursors-operator)
 
+" text object
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
 " =====NERDTree=====
 
 " 显示隐藏文件
@@ -526,11 +536,12 @@ let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=
 let php_sql_query = 0
 let php_sql_heredoc = 0
 let php_sql_nowdoc = 0
+let php_html_in_strings = 0
 let php_html_in_heredoc = 0
 let php_html_in_nowdoc = 0
 let php_html_load = 0
-let php_ignore_phpdoc = 0
-let g:php_syntax_extensions_enabled = []
+let php_ignore_phpdoc = 1
+" let g:php_syntax_extensions_enabled = []
 
 " go
 let g:go_highlight_extra_types = 1
