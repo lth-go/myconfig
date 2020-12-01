@@ -16,6 +16,8 @@ Plug 'jiangmiao/auto-pairs'
 " 结对符修改
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+" 字符处理
+Plug 'tpope/vim-abolish'
 " 快速选中
 Plug 'terryma/vim-expand-region'
 " Tag跳转
@@ -29,6 +31,8 @@ Plug 'junegunn/gv.vim'
 Plug 'liuchengxu/vista.vim'
 " 快速跳转
 Plug 'justinmk/vim-sneak'
+" 文本对齐
+Plug 'junegunn/vim-easy-align'
 
 call plug#end()
 
@@ -397,20 +401,14 @@ endfunction
 nmap <Leader>t <Plug>(coc-translator-p)
 vmap <Leader>t <Plug>(coc-translator-pv)
 
-" function! AirlineInit()
-  " let g:airline_section_x = airline#section#create_right(['%{GetCurrentFunction()}']) . g:airline_section_x 
-" endfunction
-" autocmd User AirlineAfterInit call AirlineInit()
+function! AirlineInit()
+  let g:airline_section_x = airline#section#create_right(['%{GetCurrentFunction()} ']) . g:airline_section_x
+endfunction
+autocmd User AirlineAfterInit call AirlineInit()
 
-" function! GetCurrentFunction() abort
-"   let funcName = get(b:,'coc_current_function','')
-
-"   if funcName == ""
-"       return ""
-"   endif
-
-"   return funcName . '() '
-" endfunction
+function! GetCurrentFunction() abort
+  return get(b:, 'coc_current_function', '')
+endfunction
 
 " 多光标
 " nmap <silent> <C-c> <Plug>(coc-cursors-position)
@@ -463,6 +461,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 " 不显示vim-fugitive分支名
 let g:airline#extensions#branch#enabled = 0
+" 不显示vista
+let g:airline#extensions#vista#enabled = 0
 " 关闭状态显示空白符号计数
 let g:airline#extensions#whitespace#enabled = 0
 " 去除右上角buffer
@@ -586,9 +586,13 @@ let g:vista_default_executive = 'coc'
 
 map <Space> <Plug>Sneak_;
 
+" =====vim-easy-align=====
+"
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
 " =====主题=====
 
-" 主题
 let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 
