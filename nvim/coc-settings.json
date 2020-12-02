@@ -30,5 +30,6 @@
     "--ignore=E116,E501"
   ],
   "python.venvPath": "/work/python_venv/",
+  "markdownlint.onOpen": false,
   "intelephense.diagnostics.languageConstraints": false
 }

@@ -36,7 +36,7 @@ Plug 'junegunn/vim-easy-align'
 
 call plug#end()
 
-" =====文件=====
+" =====基础配置=====
 
 " 设置编码格式
 set fileencodings=ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,latin1
@@ -54,8 +54,6 @@ if &diff
     set noreadonly
 endif
 
-" =====命令行=====
-
 " 菜单补全
 set wildmode=longest:full,full
 let &wildcharm = &wildchar
@@ -64,13 +62,9 @@ cnoremap <expr> / pumvisible() ? "\<Down>" : "/"
 " 忽略文件
 set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git,*.o,tags
 
-" =====状态栏=====
-
 " 允许有未保存时切换缓冲区
 set hidden
 set noshowcmd
-
-" =====行号=====
 
 " 相对行号
 set relativenumber number
@@ -80,8 +74,6 @@ augroup numbertoggle
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | set relativenumber   | endif
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | set norelativenumber | endif
 augroup END
-
-" =====内容=====
 
 " 禁止拆行
 set nowrap
@@ -104,13 +96,9 @@ set scrolloff=10
 " 水平滚动
 set sidescrolloff=10
 
-" =====搜索=====
-
 " 搜索时大小写不敏感
 set ignorecase
 set smartcase
-
-" =====缩进=====
 
 " 智能缩进
 set cindent
@@ -137,14 +125,15 @@ autocmd FileType git setlocal foldenable
 " Markdown
 autocmd FileType markdown setlocal wrap
 
-" =====其他=====
-
 " 使用系统剪切板
 " need xsel
 set clipboard=unnamedplus
 
 " 输入法正常切换
 autocmd InsertLeave * call system('~/myconfig/mac/vim/im-select com.apple.keylayout.ABC')
+
+" 打开自动定位到最后编辑的位置
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
 
 " 自动添加头部
 autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
@@ -165,15 +154,6 @@ function! AutoSetFileHead()
   normal o
   normal o
 endfunc
-
-" 打开自动定位到最后编辑的位置
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
-
-" 复制当前行号
-nnoremap <silent> <C-g> :let @+ = join([expand('%'),  line(".")], ':')\|:echo @+<CR>
-
-" 粘贴不覆盖
-xnoremap <expr> p 'pgv"'.v:register.'y'
 
 " =====快捷键=====
 
@@ -230,6 +210,19 @@ nnoremap <silent> <C-i> <C-i>zz
 nnoremap <silent> <C-]> <C-]>zz
 
 nnoremap <silent><Backspace> :nohlsearch<CR>
+
+" 调整缩进后自动选中
+vnoremap < <gv
+vnoremap > >gv
+
+" w!!用sudo保存
+cabbrev w!! w !sudo tee > /dev/null %
+
+" 复制当前行号
+nnoremap <silent> <C-g> :let @+ = join([expand('%'),  line(".")], ':')\|:echo @+<CR>
+
+" 粘贴不覆盖
+xnoremap <expr> p 'pgv"'.v:register.'y'
 
 " * 搜索不移动 可视模式高亮选中 -----
 function! s:Starsearch_CWord()
@@ -310,13 +303,6 @@ let g:nb_buffers_to_keep = 6
 
 " ----- auto_close_buffers end -----
 
-" 调整缩进后自动选中
-vnoremap < <gv
-vnoremap > >gv
-
-" w!!用sudo保存
-cabbrev w!! w !sudo tee > /dev/null %
-
 " =====Coc=====
 
 let g:coc_global_extensions = [
@@ -366,7 +352,7 @@ function! s:GrepFromSelected(type)
   let word = substitute(@@, '\n$', '', 'g')
   let word = escape(word, '| ')
   let @@ = saved_unnamed_register
-  execute 'CocList grep '.word
+  execute 'CocList grep ' . word
 endfunction
 
 inoremap <silent><expr> <TAB>
@@ -391,7 +377,7 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
+    execute 'h ' . expand('<cword>')
   else
     call CocAction('doHover')
   endif
@@ -401,6 +387,7 @@ endfunction
 nmap <Leader>t <Plug>(coc-translator-p)
 vmap <Leader>t <Plug>(coc-translator-pv)
 
+" 状态栏右下角添加当前函数名
 function! AirlineInit()
   let g:airline_section_x = airline#section#create_right(['%{GetCurrentFunction()} ']) . g:airline_section_x
 endfunction
@@ -481,7 +468,7 @@ nmap <Leader>9 <Plug>AirlineSelectTab9
 let g:airline#extensions#tabline#buffer_idx_format = {
   \ '0': '0: ', '1': '1: ', '2': '2: ', '3': '3: ', '4': '4: ',
   \ '5': '5: ', '6': '6: ', '7': '7: ', '8': '8: ', '9': '9: '
-\}
+\ }
 
 
 " =====Nerdcommenter=====
@@ -587,7 +574,7 @@ let g:vista_default_executive = 'coc'
 map <Space> <Plug>Sneak_;
 
 " =====vim-easy-align=====
-"
+
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
