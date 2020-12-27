@@ -3,25 +3,38 @@
 ## Init
 
 ```sh
+# sudo 免密
+# sudo vim /etc/sudoers
+# lth     ALL=(ALL)       NOPASSWD: ALL
+
+# disable selinux
+# sudo vim /etc/selinux/config
+
+# disable firewaa
+# sudo systemctl disable firewalld
+
+# 修正目录名
+
 # Make Dir
 mkdir ~/.ssh/
 mkdir ~/work/
 mkdir ~/data/
 mkdir ~/.pip/
 
-# config
-cd ~ && git clone --depth 1 https://email%40password@github.com/lth-go/myconfig.git
-
 # Set ssh key
 
 # dnf
-sudo dnf install -y zsh nvim htop
+sudo dnf install -y git
+sudo dnf install -y zsh neovim python3-neovim htop
 sudo dnf install -y docker docker-compose
 sudo dnf install -y python2 golang nodejs
 sudo dnf install -y ripgrep fd-find
 
 sudo dnf install -y fcitx fcitx-configtool
 # https://github.com/fcitx/fcitx/issues/337
+
+# config
+cd ~ && git clone --depth 1 https://email%40password@github.com/lth-go/myconfig.git
 
 # soft link
 cd ~
@@ -41,9 +54,9 @@ cd ~/myconfig/zsh/ && sh ./install.sh
 cd ~/.oh-my-zsh/custom/themes/ && ln -sf ~/myconfig/zsh/my.zsh-theme my.zsh-theme
 
 cd ~/.oh-my-zsh/custom/plugins
-git clone git://github.com/zsh-users/zsh-autosuggestions.git
-git clone git://github.com/zsh-users/zsh-completions.git
-git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
+git clone https://github.com/zsh-users/zsh-autosuggestions.git
+git clone https://github.com/zsh-users/zsh-completions.git
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
 
 # fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -51,6 +64,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 
 # vim
 cd ~/myconfig
+mkdir -p ~/.local/share/nvim/site/autoload
 cp vim/plug.vim ~/.local/share/nvim/site/autoload
 ## $ vim :PlugInstall
 
@@ -59,9 +73,10 @@ cp vim/plug.vim ~/.local/share/nvim/site/autoload
 
 # Python
 pip install --user virtualenv
+mkdir ~/work/python_venv/
 cd /work/python_venv/
-virtualenv --python=python2 py2_venv
-virtualenv --python=python3 py3_venv
+~/.local/bin/virtualenv --python=python2 py2_venv
+~/.local/bin/virtualenv --python=python3 py3_venv
 
 source /work/python_venv/py2_venv/bin/activate
 pip install jedi autopep8 flake8
@@ -69,6 +84,7 @@ pip install jedi autopep8 flake8
 source /work/python_venv/py3_venv/bin/activate
 pip install jedi autopep8 flake8
 
+deactivate
 pip install --user ipython
 pip install --user requests
 pip install --user dstat
