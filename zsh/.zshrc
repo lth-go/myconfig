@@ -10,35 +10,33 @@ DISABLE_MAGIC_FUNCTIONS=true
 ZSH_THEME="my"
 
 # 插件
-# git://github.com/zsh-users/
 plugins=(
   git
   docker docker-compose
   golang
-  kubectl
-  helm
   pip
   sudo
-  z
   extract
   ripgrep
   zsh-completions zsh-autosuggestions zsh-syntax-highlighting
 )
-
-# 用户配置
 
 source $ZSH/oh-my-zsh.sh
 
 # 设置环境语言
 export LANG=zh_CN.utf8
 
-# PATH
-PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-export GOPATH="/home/lth/go:/work/go"
-export GOBINPATH="/home/lth/go/bin:/work/go/bin"
-export PATH="${GOROOT}/bin:${GOBINPATH}:${PATH}"
-
+# Golang
+export GOPATH="$HOME/go"
+export GOBINPATH="$HOME/go/bin"
 export GOPROXY=https://goproxy.io
+export GO111MODULE=on
+
+# PATH
+PATH="$HOME/.local/bin:$PATH"
+PATH="$HOME/bin:$PATH"
+PATH="${GOROOT}/bin:${GOBINPATH}:${PATH}"
+export PATH
 
 # zsh-completions 需要
 autoload -U compinit && compinit
@@ -72,10 +70,7 @@ alias dps="docker ps --format \"table {{.Names}}\t{{.Image}}\t{{.ID}}\t{{.Status
 # Tldr
 alias tldr='tldr -t ocean'
 
-# kubectl
-alias k='kubectl'
-
 # vim
 alias vim='nvim'
-
+alias vi='nvim'
 export MANPAGER='nvim +Man!'

@@ -12,21 +12,31 @@ Plug 'vim-airline/vim-airline'
 " 注释
 Plug 'scrooloose/nerdcommenter'
 " 括号匹配
-Plug 'lth-go/auto-pairs'
-" 彩虹括号
-Plug 'luochen1990/rainbow', {'for': ['python', 'c', 'go']}
+Plug 'jiangmiao/auto-pairs'
 " 结对符修改
-Plug 'tpope/vim-surround' | Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+" 字符处理
+Plug 'tpope/vim-abolish'
 " 快速选中
 Plug 'terryma/vim-expand-region'
 " Tag跳转
-Plug 'ludovicchabant/vim-gutentags'
+" Plug 'ludovicchabant/vim-gutentags'
 " 高亮, 对齐
-Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot', { 'tag': 'v4.16.0'}
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
+" tag
+Plug 'liuchengxu/vista.vim'
+" 快速跳转
+Plug 'justinmk/vim-sneak'
+" 文本对齐
+Plug 'junegunn/vim-easy-align'
 
 call plug#end()
 
-" =====文件=====
+" =====基础配置=====
 
 " 设置编码格式
 set fileencodings=ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,latin1
@@ -40,7 +50,9 @@ set noswapfile
 set updatetime=300
 set shortmess+=c
 
-" =====命令行=====
+if &diff
+    set noreadonly
+endif
 
 " 菜单补全
 set wildmode=longest:full,full
@@ -50,13 +62,9 @@ cnoremap <expr> / pumvisible() ? "\<Down>" : "/"
 " 忽略文件
 set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git,*.o,tags
 
-
-" =====状态栏=====
-
 " 允许有未保存时切换缓冲区
 set hidden
-
-" =====行号=====
+set noshowcmd
 
 " 相对行号
 set relativenumber number
@@ -66,8 +74,6 @@ augroup numbertoggle
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | set relativenumber   | endif
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | set norelativenumber | endif
 augroup END
-
-" =====内容=====
 
 " 禁止拆行
 set nowrap
@@ -88,16 +94,11 @@ set splitright
 " 垂直滚动
 set scrolloff=10
 " 水平滚动
-set sidescroll=1
 set sidescrolloff=10
-
-" =====搜索=====
 
 " 搜索时大小写不敏感
 set ignorecase
 set smartcase
-
-" =====缩进=====
 
 " 智能缩进
 set cindent
@@ -113,12 +114,16 @@ set expandtab
 set shiftround
 
 " yaml缩进
-autocmd FileType javascript,json,yaml,sh set tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType javascript,json,yaml,sh setlocal tabstop=2 shiftwidth=2 softtabstop=2
 
 " Go
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
-" =====其他=====
+" Git
+autocmd FileType git setlocal foldenable
+
+" Markdown
+autocmd FileType markdown setlocal wrap
 
 " 使用系统剪切板
 " need xsel
@@ -127,33 +132,40 @@ set clipboard=unnamedplus
 " 输入法正常切换
 autocmd InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
 
+" 打开自动定位到最后编辑的位置
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
+
 " 自动添加头部
 autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
 function! AutoSetFileHead()
-    "如果文件类型为.sh文件
-    if &filetype == 'sh' | call setline(1, "\#!/bin/bash") | endif
-    "如果文件类型为python
-    if &filetype == 'python' | call setline(1, "\#!/usr/bin/env python") | call append(1, "\# encoding: utf-8") | endif
-    normal G
-    normal o
-    normal o
-endfunc
+  " Shell
+  if &filetype == 'sh'
+    call setline(1, "\#!/bin/bash")
+    call append(1, ["", "set -xeuo pipefail"])
+  endif
 
-" 打开自动定位到最后编辑的位置
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
+  " Python
+  if &filetype == 'python'
+    call setline(1, "\#!/usr/bin/env python")
+    call append(1, "\# encoding: utf-8")
+  endif
+
+  normal G
+  normal o
+  normal o
+endfunc
 
 " =====快捷键=====
 
 " 废弃快捷键
 noremap <F1> <Nop>
 inoremap <F1> <Nop>
-noremap q <Nop>
-noremap Q <Nop>
+" noremap q <Nop>
+" noremap Q <Nop>
 noremap K <Nop>
 
 " 定义<Leader>
-let mapleader=";"
-
+let mapleader = ";"
 noremap <Space> ;
 
 " 快速保存及退出
@@ -199,22 +211,35 @@ nnoremap <silent> <C-]> <C-]>zz
 
 nnoremap <silent><Backspace> :nohlsearch<CR>
 
+" 调整缩进后自动选中
+vnoremap < <gv
+vnoremap > >gv
+
+" w!!用sudo保存
+cabbrev w!! w !sudo tee > /dev/null %
+
+" 复制当前行号
+nnoremap <silent> <C-g> :let @+ = join([expand('%'),  line(".")], ':')\|:echo @+<CR>
+
+" 粘贴不覆盖
+xnoremap <expr> p 'pgv"'.v:register.'y'
+
 " * 搜索不移动 可视模式高亮选中 -----
-function! Starsearch_CWord()
-    let wordStr = expand("<cword>")
-    if strlen(wordStr) == 0 | return | endif
-    if wordStr[0] =~ '\<'
-        let @/ = '\<' . wordStr . '\>'
-    else
-        let @/ = wordStr
-    endif
-    let savedS = @s
-    normal! "syiw
-    let @s = savedS
-    set hlsearch
+function! s:Starsearch_CWord()
+  let wordStr = expand("<cword>")
+  if strlen(wordStr) == 0 | return | endif
+  if wordStr[0] =~ '\<'
+    let @/ = '\<' . wordStr . '\>'
+  else
+    let @/ = wordStr
+  endif
+  let savedS = @s
+  normal! "syiw
+  let @s = savedS
+  set hlsearch
 endfunction
 
-function! Starsearch_VWord()
+function! s:Starsearch_VWord()
     let savedS = @s
     normal! gv"sy
     let @/ = '\V' . substitute(escape(@s, '\'), '\n', '\\n', 'g')
@@ -222,31 +247,45 @@ function! Starsearch_VWord()
     set hlsearch
 endfunction
 
-nnoremap <silent> * :set nohlsearch\|:call Starsearch_CWord()<CR>
-vnoremap <silent> * :<C-u>set nohlsearch\|:call Starsearch_VWord()<CR>
+nnoremap <silent> * :set nohlsearch\|:call <SID>Starsearch_CWord()<CR>
+vnoremap <silent> * :<C-u>set nohlsearch\|:call <SID>Starsearch_VWord()<CR>
 
 " ----- start_search end -----
 
 " 自动关闭buffer -----
 function! s:SortTimeStamps(lhs, rhs)
-    if a:lhs[1] > a:rhs[1] | return 1 | endif
-    if a:lhs[1] < a:rhs[1] | return -1 | endif
-    return a:lhs[0] > a:rhs[0]
+  if a:lhs[1] > a:rhs[1] | return 1 | endif
+  if a:lhs[1] < a:rhs[1] | return -1 | endif
+  return a:lhs[0] > a:rhs[0]
 endfunction
 
+" TODO: fugitive打开的buf不能自动执行
 function! s:CloseBuffer(nb_to_keep)
   " 列出所有buffer, 过滤已修改的
-  let saved_buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && ! getbufvar(v:val, "&modified")')
+  let saved_buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && !getbufvar(v:val, "&modified")')
+
   " 过滤当前已打开的buffer
   let window_buffers = map(range(1, winnr('$')), 'winbufnr(v:val)')
   let saved_buffers = filter(saved_buffers, 'index(window_buffers, v:val) == -1')
+
   " buffer按时间排序
   let buffer_to_time = map(copy(saved_buffers), '[(v:val), getftime(bufname(v:val))]')
+
+  " 关闭未命名buff
+  let no_name_buffer = filter(copy(buffer_to_time), 'v:val[1] <= 0 && getbufvar(v:val[0], "&buftype") == ""')
+  if len(no_name_buffer) > 0
+    exe 'bd ' . join(map(no_name_buffer, 'v:val[0]'), ' ')
+  endif
+
+  " 过滤并排序
   call filter(buffer_to_time, 'v:val[1] > 0')
   call sort(buffer_to_time, function('s:SortTimeStamps'))
+
   " 关闭buffer
   let buffers_to_strip = map(copy(buffer_to_time[:-a:nb_to_keep]), 'v:val[0]')
-  if len(buffers_to_strip) > 0 | exe 'bd '.join(buffers_to_strip, ' ') | endif
+  if len(buffers_to_strip) > 0 
+    exe 'bd ' . join(buffers_to_strip, ' ') 
+  endif
 endfunction
 
 command! -nargs=1 CloseOldBuffers call s:CloseBuffer(<args>)
@@ -264,13 +303,6 @@ let g:nb_buffers_to_keep = 6
 
 " ----- auto_close_buffers end -----
 
-" 调整缩进后自动选中
-vnoremap < <gv
-vnoremap > >gv
-
-" w!!用sudo保存
-cabbrev w!! w !sudo tee > /dev/null %
-
 " =====Coc=====
 
 let g:coc_global_extensions = [
@@ -280,21 +312,33 @@ let g:coc_global_extensions = [
   \ 'coc-html',
   \ 'coc-yaml',
   \ 'coc-markdownlint',
+  \ 'coc-sh',
+  \ 'coc-sql',
   \ 'coc-python',
+  \ 'coc-phpls',
   \ 'coc-tsserver',
   \ 'coc-flow',
+  \ 'coc-clangd',
+  \ 'coc-vimlsp',
+  \ 'coc-translator',
 \ ]
 
 nmap <silent> <leader>g <Plug>(coc-definition)zz
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 nmap <Leader>af  <Plug>(coc-format)
+xmap <leader>af  <Plug>(coc-format-selected)
 nmap <Leader>o :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 nmap <Leader>r <Plug>(coc-rename)
 
 nmap <Leader>ff :CocList files<CR>
-nnoremap <silent> <Leader>fc :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
-nnoremap <silent> <Leader>fg :exe 'CocList -I grep'<CR>
-
+nnoremap <silent> <Leader>fc :exe 'CocList grep ' . expand('<cword>')<CR>
 vnoremap <leader>fc :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
+nnoremap <silent> <Leader>fg :exe 'CocList -I grep --ignore-case'<CR>
+nnoremap <silent><nowait> <Leader>fs  :<C-u>CocList -I symbols<cr>
+nnoremap <silent><nowait> <Leader>fu  :<C-u>CocList outline<cr>
 
 function! s:GrepFromSelected(type)
   let saved_unnamed_register = @@
@@ -308,7 +352,7 @@ function! s:GrepFromSelected(type)
   let word = substitute(@@, '\n$', '', 'g')
   let word = escape(word, '| ')
   let @@ = saved_unnamed_register
-  execute 'CocList grep '.word
+  execute 'CocList grep ' . word
 endfunction
 
 inoremap <silent><expr> <TAB>
@@ -321,6 +365,54 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h ' . expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" coc-translator
+nmap <Leader>t <Plug>(coc-translator-p)
+vmap <Leader>t <Plug>(coc-translator-pv)
+
+" 状态栏右下角添加当前函数名
+function! AirlineInit()
+  let g:airline_section_x = airline#section#create_right(['%{GetCurrentFunction()} ']) . g:airline_section_x
+endfunction
+autocmd User AirlineAfterInit call AirlineInit()
+
+function! GetCurrentFunction() abort
+  return get(b:, 'coc_current_function', '')
+endfunction
+
+" 多光标
+" nmap <silent> <C-c> <Plug>(coc-cursors-position)
+" nmap <silent> <C-d> <Plug>(coc-cursors-word)
+xmap <silent> <C-d> <Plug>(coc-cursors-range)
+" use normal command like `<leader>xi(`
+" nmap <leader>x  <Plug>(coc-cursors-operator)
+
+" text object
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
 
 " =====NERDTree=====
 
@@ -354,6 +446,10 @@ let g:airline_theme = 'gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 " 标签页只显示文件名
 let g:airline#extensions#tabline#fnamemod = ':t'
+" 不显示vim-fugitive分支名
+let g:airline#extensions#branch#enabled = 0
+" 不显示vista
+let g:airline#extensions#vista#enabled = 0
 " 关闭状态显示空白符号计数
 let g:airline#extensions#whitespace#enabled = 0
 " 去除右上角buffer
@@ -372,7 +468,8 @@ nmap <Leader>9 <Plug>AirlineSelectTab9
 let g:airline#extensions#tabline#buffer_idx_format = {
   \ '0': '0: ', '1': '1: ', '2': '2: ', '3': '3: ', '4': '4: ',
   \ '5': '5: ', '6': '6: ', '7': '7: ', '8': '8: ', '9': '9: '
-\}
+\ }
+
 
 " =====Nerdcommenter=====
 
@@ -384,11 +481,6 @@ let g:NERDDefaultAlign = 'left'
 let g:NERDSpaceDelims = 1
 " 自动注释快捷键
 map <C-_> <plug>NERDCommenterToggle
-
-" =====RainbowParentheses=====
-
-" 开启彩虹括号
-let g:rainbow_active = 1
 
 " =====vim-expand-region=====
 
@@ -419,15 +511,26 @@ if !isdirectory(s:vim_tags)
 endif
 
 " 额外参数
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=+px', '--languages=C,C++,Go,Python']
+let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=+px', '--languages=C,C++,Go,Python,Php']
 
 " =====vim-polyglot=====
 
-" TODO: 高亮有问题
-let g:polyglot_disabled = ['javascript']
+" 需放最开头
+" let g:polyglot_disabled = []
+
+" php
+" 去除多余高亮
+let php_sql_query = 0
+let php_sql_heredoc = 0
+let php_sql_nowdoc = 0
+let php_html_in_strings = 0
+let php_html_in_heredoc = 0
+let php_html_in_nowdoc = 0
+let php_html_load = 0
+let php_ignore_phpdoc = 1
+" let g:php_syntax_extensions_enabled = []
 
 " go
-
 let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_functions = 1
@@ -436,16 +539,48 @@ let g:go_highlight_function_calls = 1
 let g:go_highlight_types = 1
 
 " javascript
-
 let g:javascript_plugin_flow = 1
+
+" =====vim-fugitive=====
+
+command! -nargs=? -complete=customlist,s:diffcomplete GitDiffFileList call s:GitDiff_NameOnly(<f-args>)
+
+function! s:GitDiff_NameOnly(...)
+  let branch = 'origin/master'
+
+  if a:0 && !empty(a:1)
+    let branch = a:1
+  endif
+
+  exe 'Git difftool --name-only ' . branch
+  exe 'copen'
+
+  execute 'nnoremap <silent> <buffer> o <C-w><C-o><CR>\|:Gvdiffsplit! ' . branch . '<CR>'
+endfunction
+
+" 命令行补全
+function! s:diffcomplete(a, l, p) abort
+  return fugitive#repo().superglob(a:a)
+endfunction
+
+" =====vista=====
+
+let g:vista#renderer#enable_icon = 0
+let g:vista_echo_cursor = 0
+let g:vista_default_executive = 'coc' 
+
+" =====vim-sneak=====
+
+map <Space> <Plug>Sneak_;
+
+" =====vim-easy-align=====
+
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
 
 " =====主题=====
 
-" 背景颜色
-set background=dark
-
-" 主题
-let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 
 highlight link Operator GruvboxRed

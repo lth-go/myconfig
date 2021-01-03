@@ -4,7 +4,7 @@
 [format]
     pretty = medium
 [core]
-    editor = vim
+    editor = nvim
     # sudo npm install -g diff-so-fancy
     pager = diff-so-fancy | less --tabs=4 -RFX
 [color]
@@ -19,13 +19,23 @@
     untracked = cyan
 [diff]
     tool = vimdiff
-[difftool "vimdiff"]
-    path = nvim
 [difftool]
     prompt = false
+    trustExitCode = true
+[difftool "vimdiff"]
+    path = nvim
+[merge]
+    tool = vimdiff
+    # conflictstyle = diff3
+[mergetool]
+    prompt = false
+    trustExitCode = true
+    keepBackup = false
+[mergetool "vimdiff"]
+    path = nvim
 [log]
     date = iso
 [push]
     default = simple
-[pull]
-    rebase = true
+# [pull]
+#     rebase = true
