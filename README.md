@@ -121,13 +121,6 @@ cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull
 ## Other
 
 ```sh
-vim ~/.config/user-dirs.dirs
-XDG_DESKTOP_DIR="$HOME/Desktop"
-XDG_DOWNLOAD_DIR="$HOME/Download"
-XDG_TEMPLATES_DIR="$HOME/Templates"
-XDG_PUBLICSHARE_DIR="$HOME/Public"
-XDG_DOCUMENTS_DIR="$HOME/Documents"
-XDG_MUSIC_DIR="$HOME/Music"
-XDG_PICTURES_DIR="$HOME/Pictures"
-XDG_VIDEOS_DIR="$HOME/Videos"
+export LANG=en_US
+xdg-user-dirs-gtk-update
 ```

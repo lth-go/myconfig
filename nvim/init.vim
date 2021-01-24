@@ -331,7 +331,8 @@ nmap <silent> gr <Plug>(coc-references)
 nmap <Leader>af  <Plug>(coc-format)
 xmap <leader>af  <Plug>(coc-format-selected)
 nmap <Leader>o :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
-nmap <Leader>r <Plug>(coc-rename)
+nmap <Leader>rn <Plug>(coc-rename)
+nmap <leader>rf <Plug>(coc-refactor)
 
 nmap <Leader>ff :CocList files<CR>
 nnoremap <silent> <Leader>fc :exe 'CocList grep ' . expand('<cword>')<CR>
