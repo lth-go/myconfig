@@ -19,7 +19,7 @@ cd ~ && git clone --depth 1 git@github.com:lth-go/myconfig.git
 
 # brew
 cd /usr/local/ && git clone git://mirrors.ustc.edu.cn/brew.git
-cd /usr/local/Homebrew/ && mkdir -p Library/Taps/homebrew/
+cd /usr/local/Homebrew/ && mkdir -p Library/Taps/homebrew/ && Library/Taps/homebrew/
 git clone git://mirrors.ustc.edu.cn/homebrew-core.git
 git clone git://mirrors.ustc.edu.cn/homebrew-cask.git
 cd ~/myconfig/mac/brew/ && sh ./install.sh

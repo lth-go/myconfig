@@ -311,7 +311,6 @@ let g:coc_global_extensions = [
   \ 'coc-xml',
   \ 'coc-html',
   \ 'coc-yaml',
-  \ 'coc-markdownlint',
   \ 'coc-sh',
   \ 'coc-sql',
   \ 'coc-python',
@@ -466,8 +465,16 @@ nmap <Leader>7 <Plug>AirlineSelectTab7
 nmap <Leader>8 <Plug>AirlineSelectTab8
 nmap <Leader>9 <Plug>AirlineSelectTab9
 let g:airline#extensions#tabline#buffer_idx_format = {
-  \ '0': '0: ', '1': '1: ', '2': '2: ', '3': '3: ', '4': '4: ',
-  \ '5': '5: ', '6': '6: ', '7': '7: ', '8': '8: ', '9': '9: '
+    \ '0': '0 ',
+    \ '1': '1 ',
+    \ '2': '2 ',
+    \ '3': '3 ',
+    \ '4': '4 ',
+    \ '5': '5 ',
+    \ '6': '6 ',
+    \ '7': '7 ',
+    \ '8': '8 ',
+    \ '9': '9 '
 \ }
 
 
@@ -577,6 +584,17 @@ map <Space> <Plug>Sneak_;
 
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
+
+" =====vim-abolish=====
+
+" MixedCase   crm
+" camelCase   crc
+" snake_case  crs
+" UPPER_CASE  cru
+" dash-case   cr-
+" dot.case    cr.
+" space case  cr<space>
+" Title Case  crt
 
 " =====主题=====
 
