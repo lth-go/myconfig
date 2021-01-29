@@ -12,6 +12,7 @@ ZSH_THEME="my"
 # 插件
 plugins=(
   git
+  gitfast
   docker docker-compose
   golang
   pip
@@ -30,6 +31,7 @@ export GOBINPATH="$HOME/go/bin"
 # export GOPROXY=https://mirrors.aliyun.com/goproxy/
 export GOPROXY=http://nexus.wpt.la/repository/wpt-go-group/
 export GO111MODULE=on
+export GOSUMDB=off
 
 # PATH
 PATH="$HOME/.local/bin:$PATH"
