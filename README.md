@@ -30,8 +30,12 @@ sudo dnf install -y docker docker-compose
 sudo dnf install -y python2 golang nodejs
 sudo dnf install -y ripgrep fd-find
 
-# sudo dnf install -y fcitx fcitx-configtool
+sudo dnf install -y fcitx5 fcitx5-chinese-addons fcitx5-configtool
 # https://github.com/fcitx/fcitx/issues/337
+# 默认输入法使用fcitx5
+# 禁用shift切换
+# 分页切换使用[], 拼音输入法选项里额外配置
+# 符号使用半角
 
 # config
 cd ~ && git clone --depth 1 https://email%40password@github.com/lth-go/myconfig.git

@@ -133,7 +133,7 @@ autocmd FileType markdown setlocal wrap
 set clipboard+=unnamedplus
 
 " 输入法正常切换
-autocmd InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
+autocmd InsertLeave * if system('fcitx5-remote') != 0 | call system('fcitx5-remote -c') | endif
 
 " 打开自动定位到最后编辑的位置
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
