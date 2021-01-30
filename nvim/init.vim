@@ -119,6 +119,9 @@ autocmd FileType javascript,json,yaml,sh setlocal tabstop=2 shiftwidth=2 softtab
 " Go
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
+" proto缩进
+autocmd FileType proto setlocal tabstop=4 shiftwidth=4 softtabstop=4
+
 " Git
 autocmd FileType git setlocal foldenable
 
@@ -127,7 +130,7 @@ autocmd FileType markdown setlocal wrap
 
 " 使用系统剪切板
 " need xsel
-set clipboard=unnamedplus
+set clipboard+=unnamedplus
 
 " 输入法正常切换
 autocmd InsertLeave * if system('fcitx-remote') != 0 | call system('fcitx-remote -c') | endif
@@ -167,6 +170,10 @@ noremap K <Nop>
 " 定义<Leader>
 let mapleader = ";"
 noremap <Space> ;
+
+" 块粘贴修正
+map <Leader>y ""y
+map <Leader>p ""p
 
 " 快速保存及退出
 nnoremap <Leader>q :q<CR>
@@ -311,9 +318,9 @@ let g:coc_global_extensions = [
   \ 'coc-xml',
   \ 'coc-html',
   \ 'coc-yaml',
-  \ 'coc-markdownlint',
   \ 'coc-sh',
   \ 'coc-sql',
+  \ 'coc-go',
   \ 'coc-python',
   \ 'coc-phpls',
   \ 'coc-tsserver',
@@ -323,16 +330,65 @@ let g:coc_global_extensions = [
   \ 'coc-translator',
 \ ]
 
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 nmap <silent> <leader>g <Plug>(coc-definition)zz
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nmap <Leader>af  <Plug>(coc-format)
-xmap <leader>af  <Plug>(coc-format-selected)
-nmap <Leader>o :call CocAction('runCommand', 'editor.action.organizeImport')<CR>
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Symbol renaming.
 nmap <Leader>rn <Plug>(coc-rename)
 nmap <leader>rf <Plug>(coc-refactor)
+
+" Formatting selected code.
+xmap <leader>af  <Plug>(coc-format-selected)
+nmap <Leader>af  <Plug>(coc-format)
+
+" text object
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of language server.
+" nmap <silent> <C-s> <Plug>(coc-range-select)
+" xmap <silent> <C-s> <Plug>(coc-range-select)
+
+command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
 nmap <Leader>ff :CocList files<CR>
 nnoremap <silent> <Leader>fc :exe 'CocList grep ' . expand('<cword>')<CR>
@@ -356,34 +412,6 @@ function! s:GrepFromSelected(type)
   execute 'CocList grep ' . word
 endfunction
 
-inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h ' . expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
 " coc-translator
 nmap <Leader>t <Plug>(coc-translator-p)
 vmap <Leader>t <Plug>(coc-translator-pv)
@@ -404,16 +432,6 @@ endfunction
 xmap <silent> <C-d> <Plug>(coc-cursors-range)
 " use normal command like `<leader>xi(`
 " nmap <leader>x  <Plug>(coc-cursors-operator)
-
-" text object
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
 
 " =====NERDTree=====
 
@@ -467,8 +485,16 @@ nmap <Leader>7 <Plug>AirlineSelectTab7
 nmap <Leader>8 <Plug>AirlineSelectTab8
 nmap <Leader>9 <Plug>AirlineSelectTab9
 let g:airline#extensions#tabline#buffer_idx_format = {
-  \ '0': '0: ', '1': '1: ', '2': '2: ', '3': '3: ', '4': '4: ',
-  \ '5': '5: ', '6': '6: ', '7': '7: ', '8': '8: ', '9': '9: '
+    \ '0': '0 ',
+    \ '1': '1 ',
+    \ '2': '2 ',
+    \ '3': '3 ',
+    \ '4': '4 ',
+    \ '5': '5 ',
+    \ '6': '6 ',
+    \ '7': '7 ',
+    \ '8': '8 ',
+    \ '9': '9 '
 \ }
 
 
@@ -578,6 +604,17 @@ map <Space> <Plug>Sneak_;
 
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
+
+" =====vim-abolish=====
+
+" MixedCase   crm
+" camelCase   crc
+" snake_case  crs
+" UPPER_CASE  cru
+" dash-case   cr-
+" dot.case    cr.
+" space case  cr<space>
+" Title Case  crt
 
 " =====主题=====
 

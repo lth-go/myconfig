@@ -12,6 +12,7 @@ ZSH_THEME="my"
 # 插件
 plugins=(
   git
+  gitfast
   docker docker-compose
   golang
   pip
@@ -31,6 +32,7 @@ export GOPATH="$HOME/go"
 export GOBINPATH="$HOME/go/bin"
 export GOPROXY=https://goproxy.io
 export GO111MODULE=on
+export GOSUMDB=off
 
 # PATH
 PATH="$HOME/.local/bin:$PATH"
@@ -74,3 +76,6 @@ alias tldr='tldr -t ocean'
 alias vim='nvim'
 alias vi='nvim'
 export MANPAGER='nvim +Man!'
+
+# git
+alias gdn='git diff --name-only origin/master'

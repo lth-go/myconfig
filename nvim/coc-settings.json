@@ -1,24 +1,16 @@
 {
   "suggest.enablePreselect": false,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  "languageserver": {
-    "golang": {
-      "command": "gopls",
-      "rootPatterns": [
-        "go.mod"
-      ],
-      "disableWorkspaceFolders": true,
-      "filetypes": [
-        "go"
-      ]
-    }
-  },
+  "languageserver": {},
   "list.insertMappings": {
     "<C-f>": "feedkeys:\\<C-f>",
     "<C-b>": "feedkeys:\\<C-b>",
     "<C-n>": "normal:j",
     "<C-p>": "normal:k",
     "<C-u>": "feedkeys:\\<C-u>"
+  },
+  "go.goplsOptions": {
+    "allowModfileModifications": true
   },
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
@@ -30,6 +22,5 @@
     "--ignore=E116,E501"
   ],
   "python.venvPath": "/work/python_venv/",
-  "markdownlint.onOpen": false,
   "intelephense.diagnostics.languageConstraints": false
 }
