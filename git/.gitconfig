@@ -37,5 +37,7 @@
     date = iso
 [push]
     default = simple
-# [pull]
-#     rebase = true
+# [http]
+#   proxy = http://192.168.0.110:7890
+# [https]
+#   proxy = http://192.168.0.110:7890

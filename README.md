@@ -128,3 +128,19 @@ cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull
 export LANG=en_US
 xdg-user-dirs-gtk-update
 ```
+
+## 字体
+
+```
+Mac
+rm -rf ~/Library/Fonts/Droid\ Sans\ Mono\ Nerd\ Font\ Complete.otf
+cp ./fonts/Droid\ Sans\ Mono\ Nerd\ Font\ Complete.otf ~/Library/Fonts
+
+
+Linux
+mkdir -p ~/.local/share/fonts
+rm -rf ~/.local/share/fonts/Droid\ Sans\ Mono\ Nerd\ Font\ Complete.otf
+cp ./fonts/Droid\ Sans\ Mono\ Nerd\ Font\ Complete.otf ~/.local/share/fonts
+
+fc-cache -vf ~/.local/share/fonts
+```

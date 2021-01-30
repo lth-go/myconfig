@@ -24,6 +24,8 @@ Plug 'terryma/vim-expand-region'
 " Plug 'ludovicchabant/vim-gutentags'
 " 高亮, 对齐
 Plug 'sheerun/vim-polyglot', { 'tag': 'v4.16.0'}
+" 图标美化,需安装字体
+Plug 'ryanoasis/vim-devicons'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
@@ -391,9 +393,10 @@ omap ac <Plug>(coc-classobj-a)
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
 nmap <Leader>ff :CocList files<CR>
-nnoremap <silent> <Leader>fc :exe 'CocList grep ' . expand('<cword>')<CR>
+nnoremap <silent> <Leader>fc :exe 'CocList -I --input=' . expand('<cword>') . ' grep'<CR>
 vnoremap <leader>fc :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
-nnoremap <silent> <Leader>fg :exe 'CocList -I grep --ignore-case'<CR>
+nnoremap <silent> <Leader>fg :exe 'CocList -I --ignore-case grep'<CR>
+nnoremap <silent> <Leader>fw :exe 'CocList -I --ignore-case lines'<CR>
 nnoremap <silent><nowait> <Leader>fs  :<C-u>CocList -I symbols<cr>
 nnoremap <silent><nowait> <Leader>fu  :<C-u>CocList outline<cr>
 
@@ -496,7 +499,11 @@ let g:airline#extensions#tabline#buffer_idx_format = {
     \ '8': '8 ',
     \ '9': '9 '
 \ }
-
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
 
 " =====Nerdcommenter=====
 
