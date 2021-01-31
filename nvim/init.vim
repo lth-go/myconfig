@@ -66,7 +66,6 @@ set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git,*.o,tags
 
 " 允许有未保存时切换缓冲区
 set hidden
-set noshowcmd
 
 " 相对行号
 set relativenumber number
