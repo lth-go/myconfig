@@ -9,6 +9,9 @@
     "<C-p>": "normal:k",
     "<C-u>": "feedkeys:\\<C-u>"
   },
+  "list.source.files.excludePatterns": ["/pkg/proto/*"],
+  "list.source.mru.excludePatterns": ["/pkg/proto/*"],
+  "list.source.grep.excludePatterns": ["/pkg/proto/*"],
   "go.goplsOptions": {
     "allowModfileModifications": true
   },

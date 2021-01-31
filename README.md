@@ -123,3 +123,11 @@ cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git pull
 cd ~/.oh-my-zsh/custom/plugins/zsh-completions && git pull
 cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull
 ```
+
+## 字体
+
+```
+Mac
+rm -rf ~/Library/Fonts/Droid\ Sans\ Mono\ Nerd\ Font\ Complete.otf
+cp ./fonts/Droid\ Sans\ Mono\ Nerd\ Font\ Complete.otf ~/Library/Fonts
+```
