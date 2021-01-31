@@ -1,40 +1,25 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 " =====插件=====
-" LSP
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" 主题配色
-Plug 'morhetz/gruvbox'
-" 文件列表
-Plug 'scrooloose/nerdtree'
-" 状态栏
-Plug 'vim-airline/vim-airline'
-" 注释
-Plug 'scrooloose/nerdcommenter'
-" 括号匹配
-Plug 'jiangmiao/auto-pairs'
-" 结对符修改
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-" 字符处理
-Plug 'tpope/vim-abolish'
-" 快速选中
-Plug 'terryma/vim-expand-region'
-" Tag跳转
-" Plug 'ludovicchabant/vim-gutentags'
-" 高亮, 对齐
-Plug 'sheerun/vim-polyglot', { 'tag': 'v4.16.0'}
-" 图标美化,需安装字体
-Plug 'ryanoasis/vim-devicons'
-" Git
-Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
-" tag
-Plug 'liuchengxu/vista.vim'
-" 快速跳转
-Plug 'justinmk/vim-sneak'
-" 文本对齐
-Plug 'junegunn/vim-easy-align'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}  " LSP
+Plug 'morhetz/gruvbox'                           " 主题配色
+Plug 'scrooloose/nerdtree'                       " 文件列表
+Plug 'vim-airline/vim-airline'                   " 状态栏
+Plug 'scrooloose/nerdcommenter'                  " 注释
+Plug 'jiangmiao/auto-pairs'                      " 括号匹配
+Plug 'tpope/vim-surround'                        " 结对符修改
+Plug 'tpope/vim-repeat'                          " 重复
+Plug 'tpope/vim-abolish'                         " 字符处理
+Plug 'terryma/vim-expand-region'                 " 快速选中
+Plug 'sheerun/vim-polyglot', { 'tag': 'v4.16.0'} " 高亮, 对齐
+Plug 'ryanoasis/vim-devicons'                    " 图标美化,需安装字体
+Plug 'tpope/vim-fugitive'                        " Git
+Plug 'junegunn/gv.vim'                           " Git
+Plug 'liuchengxu/vista.vim'                      " Tag
+Plug 'justinmk/vim-sneak'                        " 快速跳转
+Plug 'junegunn/vim-easy-align'                   " 文本对齐
+" Plug 'ludovicchabant/vim-gutentags' " Tag跳转
 
 call plug#end()
 
@@ -43,18 +28,16 @@ call plug#end()
 " 设置编码格式
 set fileencodings=ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,latin1
 
-" 覆盖文件不备份
-set nobackup
-set nowritebackup
-" 关闭交换文件
-set noswapfile
-
 set updatetime=300
 set shortmess+=c
 
-if &diff
-    set noreadonly
-endif
+" 关闭文件缓存
+set nobackup
+set nowritebackup
+set noswapfile
+
+" 允许有未保存时切换缓冲区
+set hidden
 
 " 菜单补全
 set wildmode=longest:full,full
@@ -64,39 +47,27 @@ cnoremap <expr> / pumvisible() ? "\<Down>" : "/"
 " 忽略文件
 set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git,*.o,tags
 
-" 允许有未保存时切换缓冲区
-set hidden
-set noshowcmd
-
 " 相对行号
 set relativenumber number
-" 行号切换
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | set relativenumber   | endif
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | set norelativenumber | endif
-augroup END
 
+" 禁止折叠
+set nofoldenable
 " 禁止拆行
 set nowrap
 " 高亮显示当前行
 set cursorline
-
-" 禁止折叠
-set nofoldenable
-
 " 显示tab跟空格
 set list
 set listchars=tab:>-,trail:·,nbsp:·
-
-" 指定分割的区域
-set splitbelow
-set splitright
 
 " 垂直滚动
 set scrolloff=10
 " 水平滚动
 set sidescrolloff=10
+
+" 指定分割的区域
+set splitbelow
+set splitright
 
 " 搜索时大小写不敏感
 set ignorecase
@@ -115,24 +86,32 @@ set expandtab
 " 智能缩进
 set shiftround
 
+" 使用系统剪切板
+set clipboard+=unnamedplus
+
+if &diff
+    set noreadonly
+endif
+
+" =====autocmd=====
+
+" 行号切换
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | set relativenumber   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | set norelativenumber | endif
+augroup END
+
 " yaml缩进
 autocmd FileType javascript,json,yaml,sh setlocal tabstop=2 shiftwidth=2 softtabstop=2
-
 " Go
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
-
 " proto缩进
 autocmd FileType proto setlocal tabstop=4 shiftwidth=4 softtabstop=4
-
 " Git
 autocmd FileType git setlocal foldenable
-
 " Markdown
 autocmd FileType markdown setlocal wrap
-
-" 使用系统剪切板
-" need xsel
-set clipboard+=unnamedplus
 
 " 输入法正常切换
 autocmd InsertLeave * call system('~/myconfig/mac/vim/im-select com.apple.keylayout.ABC')
@@ -162,6 +141,10 @@ endfunc
 
 " =====快捷键=====
 
+" 定义<Leader>
+let mapleader = ";"
+noremap <Space> ;
+
 " 废弃快捷键
 noremap <F1> <Nop>
 inoremap <F1> <Nop>
@@ -169,13 +152,11 @@ inoremap <F1> <Nop>
 " noremap Q <Nop>
 noremap K <Nop>
 
-" 定义<Leader>
-let mapleader = ";"
-noremap <Space> ;
-
 " 快速保存及退出
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>w :w<CR>
+" w!!用sudo保存
+cabbrev w!! w !sudo tee > /dev/null %
 
 " 切换布局快捷键
 nnoremap <C-J> <C-W><C-J>
@@ -220,9 +201,6 @@ nnoremap <silent><Backspace> :nohlsearch<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" w!!用sudo保存
-cabbrev w!! w !sudo tee > /dev/null %
-
 " 复制当前行号
 nnoremap <silent> <C-g> :let @+ = join([expand('%'),  line(".")], ':')\|:echo @+<CR>
 
@@ -233,7 +211,7 @@ xnoremap <expr> p 'pgv"'.v:register.'y'
 map <Leader>y ""y
 map <Leader>p ""p
 
-" * 搜索不移动 可视模式高亮选中 -----
+" ----- start_search 搜索不移动 可视模式高亮选中 -----
 function! s:Starsearch_CWord()
   let wordStr = expand("<cword>")
   if strlen(wordStr) == 0 | return | endif
@@ -261,7 +239,7 @@ vnoremap <silent> * :<C-u>set nohlsearch\|:call <SID>Starsearch_VWord()<CR>
 
 " ----- start_search end -----
 
-" 自动关闭buffer -----
+" ----- auto_close_buffers -----
 function! s:SortTimeStamps(lhs, rhs)
   if a:lhs[1] > a:rhs[1] | return 1 | endif
   if a:lhs[1] < a:rhs[1] | return -1 | endif
@@ -530,14 +508,14 @@ vmap V <Plug>(expand_region_shrink)
 " ctags https://github.com/universal-ctags/ctags
 
 " tags统一目录
-let s:vim_tags = expand('~/.cache/ctags')
-let g:gutentags_cache_dir = s:vim_tags
-if !isdirectory(s:vim_tags)
-    silent! call mkdir(s:vim_tags, 'p')
-endif
+" let s:vim_tags = expand('~/.cache/ctags')
+" let g:gutentags_cache_dir = s:vim_tags
+" if !isdirectory(s:vim_tags)
+"     silent! call mkdir(s:vim_tags, 'p')
+" endif
 
 " 额外参数
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=+px', '--languages=C,C++,Go,Python,Php']
+" let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=+px', '--languages=C,C++,Go,Python,Php']
 
 " =====vim-polyglot=====
 
