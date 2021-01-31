@@ -24,6 +24,8 @@ Plug 'terryma/vim-expand-region'
 " Plug 'ludovicchabant/vim-gutentags'
 " 高亮, 对齐
 Plug 'sheerun/vim-polyglot', { 'tag': 'v4.16.0'}
+" 图标美化,需安装字体
+Plug 'ryanoasis/vim-devicons'
 " Git
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
@@ -171,10 +173,6 @@ noremap K <Nop>
 let mapleader = ";"
 noremap <Space> ;
 
-" 块粘贴修正
-map <Leader>y ""y
-map <Leader>p ""p
-
 " 快速保存及退出
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>w :w<CR>
@@ -230,6 +228,10 @@ nnoremap <silent> <C-g> :let @+ = join([expand('%'),  line(".")], ':')\|:echo @+
 
 " 粘贴不覆盖
 xnoremap <expr> p 'pgv"'.v:register.'y'
+
+" 块粘贴修正
+map <Leader>y ""y
+map <Leader>p ""p
 
 " * 搜索不移动 可视模式高亮选中 -----
 function! s:Starsearch_CWord()
@@ -383,19 +385,12 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of language server.
-" nmap <silent> <C-s> <Plug>(coc-range-select)
-" xmap <silent> <C-s> <Plug>(coc-range-select)
-
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
 nmap <Leader>ff :CocList files<CR>
-nnoremap <silent> <Leader>fc :exe 'CocList grep ' . expand('<cword>')<CR>
+nnoremap <silent> <Leader>fc :exe 'CocList -I --input=' . expand('<cword>') . ' grep'<CR>
 vnoremap <leader>fc :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
-nnoremap <silent> <Leader>fg :exe 'CocList -I grep --ignore-case'<CR>
-nnoremap <silent><nowait> <Leader>fs  :<C-u>CocList -I symbols<cr>
-nnoremap <silent><nowait> <Leader>fu  :<C-u>CocList outline<cr>
+nnoremap <silent> <Leader>fg :exe 'CocList -I --ignore-case grep'<CR>
 
 function! s:GrepFromSelected(type)
   let saved_unnamed_register = @@
@@ -496,7 +491,11 @@ let g:airline#extensions#tabline#buffer_idx_format = {
     \ '8': '8 ',
     \ '9': '9 '
 \ }
-
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
 
 " =====Nerdcommenter=====
 
