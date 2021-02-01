@@ -19,6 +19,7 @@ Plug 'junegunn/gv.vim'                           " Git
 Plug 'liuchengxu/vista.vim'                      " Tag
 Plug 'justinmk/vim-sneak'                        " 快速跳转
 Plug 'junegunn/vim-easy-align'                   " 文本对齐
+Plug 'ggVGc/vim-fuzzysearch'                     " 模糊搜索
 " Plug 'ludovicchabant/vim-gutentags' " Tag跳转
 
 call plug#end()
@@ -240,6 +241,7 @@ vnoremap <silent> * :<C-u>set nohlsearch\|:call <SID>Starsearch_VWord()<CR>
 " ----- start_search end -----
 
 " ----- auto_close_buffers -----
+
 function! s:SortTimeStamps(lhs, rhs)
   if a:lhs[1] > a:rhs[1] | return 1 | endif
   if a:lhs[1] < a:rhs[1] | return -1 | endif
@@ -593,6 +595,10 @@ nmap ga <Plug>(EasyAlign)
 " dot.case    cr.
 " space case  cr<space>
 " Title Case  crt
+
+" =====vim-fuzzysearch=====
+
+nmap ? :FuzzySearch<CR>
 
 " =====主题=====
 
