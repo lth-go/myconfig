@@ -102,8 +102,8 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | set norelativenumber | endif
 augroup END
 
-" yaml缩进
-autocmd FileType javascript,json,yaml,sh setlocal tabstop=2 shiftwidth=2 softtabstop=2
+" 缩进
+autocmd FileType javascript,json,yaml,sh,vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
 " Go
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 " proto缩进
@@ -366,6 +366,7 @@ omap ac <Plug>(coc-classobj-a)
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
 nmap <Leader>ff :CocList files<CR>
+nmap <Leader>fm :CocList mru<CR>
 nnoremap <silent> <Leader>fc :exe 'CocList -I --input=' . expand('<cword>') . ' grep'<CR>
 vnoremap <leader>fc :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
 nnoremap <silent> <Leader>fg :exe 'CocList -I --ignore-case grep'<CR>

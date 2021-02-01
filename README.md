@@ -37,6 +37,7 @@ cd ~
 ln -sf ~/myconfig/zsh/.zshrc .zshrc
 cd ~/.config && ln -sf ~/myconfig/nvim nvim
 ln -sf ~/myconfig/git/.gitconfig .gitconfig
+ln -sf ~/myconfig/git/.gitignore_global .gitignore_global
 ln -sf ~/myconfig/ripgrep/.rgrc .rgrc
 cd ~/.pip && ln -sf ~/myconfig/python/pip.conf pip.conf
 
