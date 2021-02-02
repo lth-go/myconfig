@@ -42,7 +42,7 @@ cd ~ && git clone --depth 1 https://email%40password@github.com/lth-go/myconfig.
 
 # soft link
 cd ~
-ln -sf ~/myconfig/zsh/zshrc_linux .zshrc
+ln -sf ~/myconfig/zsh/zshrc .zshrc
 cd ~/.config && ln -sf ~/myconfig/nvim nvim
 ln -sf ~/myconfig/git/.gitconfig .gitconfig
 ln -sf ~/myconfig/ripgrep/.rgrc .rgrc

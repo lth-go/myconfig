@@ -34,7 +34,7 @@ brew cask install docker iterm2
 
 # soft link
 cd ~
-ln -sf ~/myconfig/zsh/zshrc_mac .zshrc
+ln -sf ~/myconfig/zsh/zshrc .zshrc
 cd ~/.config && ln -sf ~/myconfig/nvim nvim
 ln -sf ~/myconfig/git/.gitconfig .gitconfig
 ln -sf ~/myconfig/git/.gitignore_global .gitignore_global

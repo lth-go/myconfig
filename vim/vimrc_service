@@ -7,6 +7,7 @@ set nocompatible
 filetype plugin indent on
 
 " 设置编码格式
+set fileencodings=ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,latin1
 set encoding=utf-8
 set termencoding=utf-8
 
@@ -16,6 +17,8 @@ set autoread
 set nobackup
 " 关闭交换文件
 set noswapfile
+" 允许有未保存时切换缓冲区
+set hidden
 
 " =====命令行=====
 
@@ -41,19 +44,16 @@ set ruler
 " 显示当前正在输入的命令
 set showcmd
 
-" 允许有未保存时切换缓冲区
-set hidden
-
 " =====行号=====
 
 " 相对行号
 set relativenumber number
-" 当前窗口用相对行号，其他窗口绝对行号
-autocmd WinEnter * if &number | execute("setlocal number relativenumber") | endif
-autocmd WinLeave * if &number | execute("setlocal number norelativenumber") | endif
-" 插入模式下用绝对行号, 普通模式下用相对
-autocmd InsertEnter * :setlocal norelativenumber number
-autocmd InsertLeave * :setlocal relativenumber number
+" 行号切换
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | set relativenumber   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | set norelativenumber | endif
+augroup END
 
 " =====内容=====
 
@@ -114,8 +114,16 @@ set expandtab
 " 智能缩进
 set shiftround
 
-" yaml缩进
-autocmd FileType javascript,json,yaml,sh set tabstop=2 shiftwidth=2 softtabstop=2
+" 缩进
+autocmd FileType javascript,json,yaml,sh,vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
+" Go
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+" proto缩进
+autocmd FileType proto setlocal tabstop=4 shiftwidth=4 softtabstop=4
+" Git
+autocmd FileType git setlocal foldenable
+" Markdown
+autocmd FileType markdown setlocal wrap
 
 " =====其他=====
 
@@ -124,21 +132,22 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "
 
 " =====快捷键=====
 
+" 定义<Leader>
+let mapleader=";"
+noremap <Space> ;
+
 " 废弃快捷键
 noremap <F1> <Nop>
 inoremap <F1> <Nop>
-noremap q <Nop>
-noremap Q <Nop>
+" noremap q <Nop>
+" noremap Q <Nop>
 noremap K <Nop>
-
-" 定义<Leader>
-let mapleader=";"
-
-noremap <Space> ;
 
 " 快速保存及退出
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>w :w<CR>
+" w!!用sudo保存
+cabbrev w!! w !sudo tee > /dev/null %
 
 " 切换布局快捷键
 nnoremap <C-J> <C-W><C-J>
@@ -179,22 +188,29 @@ nnoremap <silent> <C-]> <C-]>zz
 
 nnoremap <silent><Backspace> :nohlsearch<CR>
 
-" * 搜索不移动 可视模式高亮选中
-function! Starsearch_CWord()
-    let wordStr = expand("<cword>")
-    if strlen(wordStr) == 0 | return | endif
-    if wordStr[0] =~ '\<'
-        let @/ = '\<' . wordStr . '\>'
-    else
-        let @/ = wordStr
-    endif
-    let savedS = @s
-    normal! "syiw
-    let @s = savedS
-    set hlsearch
+" 调整缩进后自动选中
+vnoremap < <gv
+vnoremap > >gv
+
+" 复制当前行号
+nnoremap <silent> <C-g> :let @+ = join([expand('%'),  line(".")], ':')\|:echo @+<CR>
+
+" ----- start_search 搜索不移动 可视模式高亮选中 -----
+function! s:Starsearch_CWord()
+  let wordStr = expand("<cword>")
+  if strlen(wordStr) == 0 | return | endif
+  if wordStr[0] =~ '\<'
+    let @/ = '\<' . wordStr . '\>'
+  else
+    let @/ = wordStr
+  endif
+  let savedS = @s
+  normal! "syiw
+  let @s = savedS
+  set hlsearch
 endfunction
 
-function! Starsearch_VWord()
+function! s:Starsearch_VWord()
     let savedS = @s
     normal! gv"sy
     let @/ = '\V' . substitute(escape(@s, '\'), '\n', '\\n', 'g')
@@ -202,33 +218,68 @@ function! Starsearch_VWord()
     set hlsearch
 endfunction
 
-nnoremap <silent> * :set nohlsearch\|:call Starsearch_CWord()<CR>
-vnoremap <silent> * :<C-u>set nohlsearch\|:call Starsearch_VWord()<CR>
+nnoremap <silent> * :set nohlsearch\|:call <SID>Starsearch_CWord()<CR>
+vnoremap <silent> * :<C-u>set nohlsearch\|:call <SID>Starsearch_VWord()<CR>
 
-" 调整缩进后自动选中
-vnoremap < <gv
-vnoremap > >gv
+" ----- start_search end -----
 
-" w!!用sudo保存
-cabbrev w!! w !sudo tee > /dev/null %
+" ----- auto_close_buffers -----
 
-" 关闭当前buf外的其他buf
-nnoremap <Leader>bd :%bd \| e # \| bd #<CR>
+function! s:SortTimeStamps(lhs, rhs)
+  if a:lhs[1] > a:rhs[1] | return 1 | endif
+  if a:lhs[1] < a:rhs[1] | return -1 | endif
+  return a:lhs[0] > a:rhs[0]
+endfunction
+
+" TODO: fugitive打开的buf不能自动执行
+function! s:CloseBuffer(nb_to_keep)
+  " 列出所有buffer, 过滤已修改的
+  let saved_buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && !getbufvar(v:val, "&modified")')
+
+  " 过滤当前已打开的buffer
+  let window_buffers = map(range(1, winnr('$')), 'winbufnr(v:val)')
+  let saved_buffers = filter(saved_buffers, 'index(window_buffers, v:val) == -1')
+
+  " buffer按时间排序
+  let buffer_to_time = map(copy(saved_buffers), '[(v:val), getftime(bufname(v:val))]')
+
+  " 关闭未命名buff
+  let no_name_buffer = filter(copy(buffer_to_time), 'v:val[1] <= 0 && getbufvar(v:val[0], "&buftype") == ""')
+  if len(no_name_buffer) > 0
+    exe 'bd ' . join(map(no_name_buffer, 'v:val[0]'), ' ')
+  endif
+
+  " 过滤并排序
+  call filter(buffer_to_time, 'v:val[1] > 0')
+  call sort(buffer_to_time, function('s:SortTimeStamps'))
+
+  " 关闭buffer
+  let buffers_to_strip = map(copy(buffer_to_time[:-a:nb_to_keep]), 'v:val[0]')
+  if len(buffers_to_strip) > 0 
+    exe 'bd ' . join(buffers_to_strip, ' ') 
+  endif
+endfunction
+
+command! -nargs=1 CloseOldBuffers call s:CloseBuffer(<args>)
+
+" 关闭当前buffer外的其他buffer
+nnoremap <Leader>bd :CloseOldBuffers 1<CR>
+
+augroup CloseOldBuffers
+  au!
+  au BufNew * call s:CloseBuffer(g:nb_buffers_to_keep)
+augroup END
+
+" 最大buffer数
+let g:nb_buffers_to_keep = 6
+
+" ----- auto_close_buffers end -----
 
 " =====主题=====
 
 " 高亮
 syntax enable
-
 " 背景颜色
 set background=dark
 " 主题
 colorscheme desert
-
-" =====高亮修改=====
-
-" python高亮
-autocmd Filetype python syntax keyword pythonBuiltin cls self
-
-" 关闭yaml高亮
-autocmd BufEnter *.yml syntax off
