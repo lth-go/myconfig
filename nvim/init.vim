@@ -19,6 +19,7 @@ Plug 'junegunn/gv.vim'                           " Git
 Plug 'liuchengxu/vista.vim'                      " Tag
 Plug 'justinmk/vim-sneak'                        " 快速跳转
 Plug 'junegunn/vim-easy-align'                   " 文本对齐
+Plug 'ggVGc/vim-fuzzysearch'                     " 模糊搜索
 " Plug 'ludovicchabant/vim-gutentags' " Tag跳转
 
 call plug#end()
@@ -102,8 +103,8 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | set norelativenumber | endif
 augroup END
 
-" yaml缩进
-autocmd FileType javascript,json,yaml,sh setlocal tabstop=2 shiftwidth=2 softtabstop=2
+" 缩进
+autocmd FileType javascript,json,yaml,sh,vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
 " Go
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 " proto缩进
@@ -114,7 +115,13 @@ autocmd FileType git setlocal foldenable
 autocmd FileType markdown setlocal wrap
 
 " 输入法正常切换
-autocmd InsertLeave * if system('fcitx5-remote') != 0 | call system('fcitx5-remote -c') | endif
+if has('unix')
+  if has('mac')
+    autocmd InsertLeave * call system('~/myconfig/mac/vim/im-select com.apple.keylayout.ABC')
+  else
+    autocmd InsertLeave * if system('fcitx5-remote') != 0 | call system('fcitx5-remote -c') | endif
+  endif
+endif
 
 " 打开自动定位到最后编辑的位置
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
@@ -240,6 +247,7 @@ vnoremap <silent> * :<C-u>set nohlsearch\|:call <SID>Starsearch_VWord()<CR>
 " ----- start_search end -----
 
 " ----- auto_close_buffers -----
+
 function! s:SortTimeStamps(lhs, rhs)
   if a:lhs[1] > a:rhs[1] | return 1 | endif
   if a:lhs[1] < a:rhs[1] | return -1 | endif
@@ -366,6 +374,7 @@ omap ac <Plug>(coc-classobj-a)
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
 nmap <Leader>ff :CocList files<CR>
+nmap <Leader>fm :CocList mru<CR>
 nnoremap <silent> <Leader>fc :exe 'CocList -I --input=' . expand('<cword>') . ' grep'<CR>
 vnoremap <leader>fc :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
 nnoremap <silent> <Leader>fg :exe 'CocList -I --ignore-case grep'<CR>
@@ -592,6 +601,10 @@ nmap ga <Plug>(EasyAlign)
 " dot.case    cr.
 " space case  cr<space>
 " Title Case  crt
+
+" =====vim-fuzzysearch=====
+
+nmap ? :FuzzySearch<CR>
 
 " =====主题=====
 

@@ -1,12 +1,14 @@
 [user]
-    name = li.tianhua
-    email = li.tianhua@yihe.io
+    name = 李天华
+    email = lith@weipaitang.com
 [format]
     pretty = medium
 [core]
     editor = nvim
     # sudo npm install -g diff-so-fancy
     pager = diff-so-fancy | less --tabs=4 -RFX
+    # 全局gitignore
+    excludesfile = ~/.gitignore_global
 [color]
     ui = always
 [color "branch"]
@@ -38,6 +40,6 @@
 [push]
     default = simple
 # [http]
-#   proxy = http://192.168.0.110:7890
+#   proxy = http://127.0.0.1:7890
 # [https]
-#   proxy = http://192.168.0.110:7890
+#   proxy = http://127.0.0.1:7890
