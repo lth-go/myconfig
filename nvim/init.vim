@@ -503,9 +503,9 @@ let g:expand_region_text_objects = {
   \ 'i"'  :0, 'a"'  :0,
   \ 'i''' :0, 'a''' :0,
   \ 'i`'  :0, 'a`'  :0,
+  \ 'i)'  :1, 'a)'  :1,
   \ 'i]'  :1, 'a]'  :1,
-  \ 'ib'  :1, 'ab'  :1,
-  \ 'iB'  :1, 'aB'  :1,
+  \ 'i}'  :1, 'a}'  :1,
   \ 'it'  :1, 'at'  :1,
 \ }
 " 快捷键
@@ -578,7 +578,7 @@ endfunction
 
 " =====vista=====
 
-let g:vista#renderer#enable_icon = 0
+" let g:vista#renderer#enable_icon = 0
 let g:vista_echo_cursor = 0
 let g:vista_default_executive = 'coc' 
 
