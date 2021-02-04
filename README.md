@@ -133,14 +133,14 @@ xdg-user-dirs-gtk-update
 
 ```
 Mac
-rm -rf ~/Library/Fonts/Droid\ Sans\ Mono\ Nerd\ Font\ Complete.otf
-cp ./fonts/Droid\ Sans\ Mono\ Nerd\ Font\ Complete.otf ~/Library/Fonts
+rm -rf ~/Library/Fonts/DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono.ttf
+cp ./fonts/DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono.ttf ~/Library/Fonts
 
 
 Linux
 mkdir -p ~/.local/share/fonts
-rm -rf ~/.local/share/fonts/Droid\ Sans\ Mono\ Nerd\ Font\ Complete.otf
-cp ./fonts/Droid\ Sans\ Mono\ Nerd\ Font\ Complete.otf ~/.local/share/fonts
+rm -rf ~/.local/share/fonts/DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono.ttf
+cp ./fonts/DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono.ttf ~/.local/share/fonts
 
 fc-cache -vf ~/.local/share/fonts
 ```
