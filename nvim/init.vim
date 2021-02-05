@@ -216,6 +216,7 @@ xnoremap <expr> p 'pgv"'.v:register.'y'
 
 " 块粘贴修正
 map <Leader>y ""y
+map <Leader>d ""d
 map <Leader>p ""p
 
 " ----- start_search 搜索不移动 可视模式高亮选中 -----
