@@ -377,7 +377,7 @@ nmap <Leader>ff :CocList files<CR>
 nmap <Leader>fm :CocList mru<CR>
 nnoremap <silent> <Leader>fc :exe 'CocList -I --input=' . expand('<cword>') . ' grep'<CR>
 vnoremap <leader>fc :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
-nnoremap <silent> <Leader>fg :exe 'CocList -I --ignore-case grep'<CR>
+nnoremap <silent> <Leader>fg :exe 'CocList -I grep --ignore-case'<CR>
 
 function! s:GrepFromSelected(type)
   let saved_unnamed_register = @@
