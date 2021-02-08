@@ -2,25 +2,26 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " =====插件=====
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}  " LSP
-Plug 'morhetz/gruvbox'                           " 主题配色
-Plug 'scrooloose/nerdtree'                       " 文件列表
-Plug 'vim-airline/vim-airline'                   " 状态栏
-Plug 'scrooloose/nerdcommenter'                  " 注释
-Plug 'jiangmiao/auto-pairs'                      " 括号匹配
-Plug 'tpope/vim-surround'                        " 结对符修改
-Plug 'tpope/vim-repeat'                          " 重复
-Plug 'tpope/vim-abolish'                         " 字符处理
-Plug 'terryma/vim-expand-region'                 " 快速选中
-Plug 'sheerun/vim-polyglot', { 'tag': 'v4.16.0'} " 高亮, 对齐
-Plug 'ryanoasis/vim-devicons'                    " 图标美化,需安装字体
-Plug 'tpope/vim-fugitive'                        " Git
-Plug 'junegunn/gv.vim'                           " Git
-Plug 'liuchengxu/vista.vim'                      " Tag
-Plug 'justinmk/vim-sneak'                        " 快速跳转
-Plug 'junegunn/vim-easy-align'                   " 文本对齐
-Plug 'ggVGc/vim-fuzzysearch'                     " 模糊搜索
-" Plug 'ludovicchabant/vim-gutentags' " Tag跳转
+Plug 'neoclide/coc.nvim', {'branch': 'release'}             " LSP
+Plug 'morhetz/gruvbox'                                      " 主题配色
+Plug 'sheerun/vim-polyglot'                                 " 高亮, 对齐
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " 高亮
+Plug 'scrooloose/nerdtree'                                  " 文件列表
+Plug 'vim-airline/vim-airline'                              " 状态栏
+Plug 'scrooloose/nerdcommenter'                             " 注释
+Plug 'jiangmiao/auto-pairs'                                 " 括号匹配
+Plug 'tpope/vim-surround'                                   " 结对符修改
+Plug 'tpope/vim-repeat'                                     " 重复
+Plug 'tpope/vim-abolish'                                    " 字符处理
+Plug 'terryma/vim-expand-region'                            " 快速选中
+Plug 'ryanoasis/vim-devicons'                               " 图标美化,需安装字体
+Plug 'tpope/vim-fugitive'                                   " Git
+Plug 'junegunn/gv.vim'                                      " Git
+Plug 'liuchengxu/vista.vim'                                 " Tag
+Plug 'justinmk/vim-sneak'                                   " 快速跳转
+Plug 'junegunn/vim-easy-align'                              " 文本对齐
+" Plug 'ggVGc/vim-fuzzysearch'                              " 模糊搜索
+" Plug 'ludovicchabant/vim-gutentags'                       " Tag跳转
 
 call plug#end()
 
@@ -555,6 +556,29 @@ let g:go_highlight_types = 1
 " javascript
 let g:javascript_plugin_flow = 1
 
+" =====nvim-treesitter=====
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = {
+    "bash",
+    "css",
+    "go",
+    "html",
+    "javascript",
+    "json",
+    "php",
+    "python",
+  },
+  highlight = {
+    enable = true,
+  },
+  indent = {
+    enable = true,
+  },
+}
+EOF
+
 " =====vim-fugitive=====
 
 command! -nargs=? -complete=customlist,s:diffcomplete GitDiffFileList call s:GitDiff_NameOnly(<f-args>)
@@ -605,7 +629,7 @@ nmap ga <Plug>(EasyAlign)
 
 " =====vim-fuzzysearch=====
 
-nmap ? :FuzzySearch<CR>
+" nmap ? :FuzzySearch<CR>
 
 " =====主题=====
 
