@@ -2,26 +2,23 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " =====插件=====
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}             " LSP
-Plug 'morhetz/gruvbox'                                      " 主题配色
-Plug 'sheerun/vim-polyglot'                                 " 高亮, 对齐
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " 高亮
-Plug 'scrooloose/nerdtree'                                  " 文件列表
-Plug 'vim-airline/vim-airline'                              " 状态栏
-Plug 'scrooloose/nerdcommenter'                             " 注释
-Plug 'jiangmiao/auto-pairs'                                 " 括号匹配
-Plug 'tpope/vim-surround'                                   " 结对符修改
-Plug 'tpope/vim-repeat'                                     " 重复
-Plug 'tpope/vim-abolish'                                    " 字符处理
-Plug 'terryma/vim-expand-region'                            " 快速选中
-Plug 'ryanoasis/vim-devicons'                               " 图标美化,需安装字体
-Plug 'tpope/vim-fugitive'                                   " Git
-Plug 'junegunn/gv.vim'                                      " Git
-Plug 'liuchengxu/vista.vim'                                 " Tag
-Plug 'justinmk/vim-sneak'                                   " 快速跳转
-Plug 'junegunn/vim-easy-align'                              " 文本对齐
-" Plug 'ggVGc/vim-fuzzysearch'                              " 模糊搜索
-" Plug 'ludovicchabant/vim-gutentags'                       " Tag跳转
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " LSP
+Plug 'morhetz/gruvbox'                          " 主题配色
+Plug 'sheerun/vim-polyglot'                     " 高亮, 对齐
+Plug 'scrooloose/nerdtree'                      " 文件列表
+Plug 'vim-airline/vim-airline'                  " 状态栏
+Plug 'scrooloose/nerdcommenter'                 " 注释
+Plug 'jiangmiao/auto-pairs'                     " 括号匹配
+Plug 'tpope/vim-surround'                       " 结对符修改
+Plug 'tpope/vim-repeat'                         " 重复
+Plug 'tpope/vim-abolish'                        " 字符处理
+Plug 'terryma/vim-expand-region'                " 快速选中
+Plug 'ryanoasis/vim-devicons'                   " 图标美化,需安装字体
+Plug 'tpope/vim-fugitive'                       " Git
+Plug 'junegunn/gv.vim'                          " Git
+Plug 'liuchengxu/vista.vim'                     " Tag
+Plug 'justinmk/vim-sneak'                       " 快速跳转
+Plug 'junegunn/vim-easy-align'                  " 文本对齐
 
 call plug#end()
 
@@ -97,25 +94,25 @@ endif
 
 " =====autocmd=====
 
+" 缩进
+autocmd FileType javascript,yaml,sh,vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
+" Go
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+" Json
+autocmd FileType json setlocal wrap tabstop=2 shiftwidth=2 softtabstop=2
+" Proto
+autocmd FileType proto setlocal tabstop=4 shiftwidth=4 softtabstop=4
+" Git
+autocmd FileType git setlocal foldenable
+" Markdown
+autocmd FileType markdown setlocal wrap
+
 " 行号切换
 augroup numbertoggle
   autocmd!
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | set relativenumber   | endif
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | set norelativenumber | endif
 augroup END
-
-" 缩进
-autocmd FileType javascript,json,yaml,sh,vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
-" Json
-autocmd FileType json setlocal wrap
-" Go
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
-" proto缩进
-autocmd FileType proto setlocal tabstop=4 shiftwidth=4 softtabstop=4
-" Git
-autocmd FileType git setlocal foldenable
-" Markdown
-autocmd FileType markdown setlocal wrap
 
 " 输入法正常切换
 if has('unix')
@@ -128,26 +125,6 @@ endif
 
 " 打开自动定位到最后编辑的位置
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
-
-" 自动添加头部
-autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
-function! AutoSetFileHead()
-  " Shell
-  if &filetype == 'sh'
-    call setline(1, "\#!/bin/bash")
-    call append(1, ["", "set -xeuo pipefail"])
-  endif
-
-  " Python
-  if &filetype == 'python'
-    call setline(1, "\#!/usr/bin/env python")
-    call append(1, "\# encoding: utf-8")
-  endif
-
-  normal G
-  normal o
-  normal o
-endfunc
 
 " =====快捷键=====
 
@@ -516,20 +493,6 @@ let g:expand_region_text_objects = {
 vmap v <Plug>(expand_region_expand)
 vmap V <Plug>(expand_region_shrink)
 
-" =====vim-gutentags=====
-
-" ctags https://github.com/universal-ctags/ctags
-
-" tags统一目录
-" let s:vim_tags = expand('~/.cache/ctags')
-" let g:gutentags_cache_dir = s:vim_tags
-" if !isdirectory(s:vim_tags)
-"     silent! call mkdir(s:vim_tags, 'p')
-" endif
-
-" 额外参数
-" let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q', '--c-kinds=+px', '--languages=C,C++,Go,Python,Php']
-
 " =====vim-polyglot=====
 
 " 需放最开头
@@ -557,29 +520,6 @@ let g:go_highlight_types = 1
 
 " javascript
 let g:javascript_plugin_flow = 1
-
-" =====nvim-treesitter=====
-
-" lua <<EOF
-" require'nvim-treesitter.configs'.setup {
-"   ensure_installed = {
-"     "bash",
-"     "css",
-"     "go",
-"     "html",
-"     "javascript",
-"     "json",
-"     "php",
-"     "python",
-"   },
-"   highlight = {
-"     enable = true,
-"   },
-"   indent = {
-"     enable = true,
-"   },
-" }
-" EOF
 
 " =====vim-fugitive=====
 
@@ -628,10 +568,6 @@ nmap ga <Plug>(EasyAlign)
 " dot.case    cr.
 " space case  cr<space>
 " Title Case  crt
-
-" =====vim-fuzzysearch=====
-
-" nmap ? :FuzzySearch<CR>
 
 " =====主题=====
 

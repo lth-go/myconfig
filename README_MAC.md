@@ -1,4 +1,4 @@
-# my_config
+# MyConfig
 
 ## Init
 
@@ -62,11 +62,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 # vim
 cd ~/myconfig
 cp vim/plug.vim ~/.local/share/nvim/site/autoload
-## $ vim :PlugInstall
-
-# ctags https://github.com/universal-ctags/ctags
-brew tap universal-ctags/universal-ctags
-brew install --HEAD universal-ctags
+# $ vim :PlugInstall
 
 # Python
 pip install --user virtualenv
@@ -94,7 +90,6 @@ npm config set registry https://registry.npm.taobao.org
 
 sudo npm install -g diff-so-fancy tldr
 sudo npm install -g flow-bin
-sudo npm install -g bash-language-server
 
 # PHP
 brew install composer
@@ -128,7 +123,6 @@ cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull
 ## 字体
 
 ```
-Mac
 rm -rf ~/Library/Fonts/Droid\ Sans\ Mono\ Nerd\ Font\ Complete.otf
 cp ./fonts/Droid\ Sans\ Mono\ Nerd\ Font\ Complete.otf ~/Library/Fonts
 ```

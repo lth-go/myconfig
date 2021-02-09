@@ -1,17 +1,17 @@
-# my_config
+# MyConfig
 
 ## Init
 
 ```sh
 # sudo 免密
-# sudo vim /etc/sudoers
+sudo vim /etc/sudoers
 # lth     ALL=(ALL)       NOPASSWD: ALL
 
 # disable selinux
-# sudo vim /etc/selinux/config
+sudo vim /etc/selinux/config
 
 # disable firewaa
-# sudo systemctl disable firewalld
+sudo systemctl disable firewalld
 
 # 修正目录名
 
@@ -45,6 +45,7 @@ cd ~
 ln -sf ~/myconfig/zsh/zshrc .zshrc
 cd ~/.config && ln -sf ~/myconfig/nvim nvim
 ln -sf ~/myconfig/git/.gitconfig .gitconfig
+ln -sf ~/myconfig/git/.gitignore_global .gitignore_global
 ln -sf ~/myconfig/ripgrep/.rgrc .rgrc
 cd ~/.pip && ln -sf ~/myconfig/python/pip.conf pip.conf
 
@@ -70,10 +71,7 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 cd ~/myconfig
 mkdir -p ~/.local/share/nvim/site/autoload
 cp vim/plug.vim ~/.local/share/nvim/site/autoload
-## $ vim :PlugInstall
-
-# ctags https://github.com/universal-ctags/ctags
-
+# $ vim :PlugInstall
 
 # Python
 pip install --user virtualenv
@@ -95,7 +93,6 @@ pip install --user dstat
 pip install --user jedi autopep8 flake8
 
 # Golang
-
 go get golang.org/x/tools/gopls@latest
 
 # Nodejs
@@ -106,12 +103,6 @@ sudo npm -g install flow-bin
 
 # Docker
 sudo systemctl enable docker
-
-## Bug
-# sudo dnf install -y grubby
-# grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
-# sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
-
 ```
 
 ## Update
@@ -132,12 +123,6 @@ xdg-user-dirs-gtk-update
 ## 字体
 
 ```
-Mac
-rm -rf ~/Library/Fonts/DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono.ttf
-cp ./fonts/DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono.ttf ~/Library/Fonts
-
-
-Linux
 mkdir -p ~/.local/share/fonts
 rm -rf ~/.local/share/fonts/DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono.ttf
 cp ./fonts/DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono.ttf ~/.local/share/fonts
