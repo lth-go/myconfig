@@ -5,7 +5,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}             " LSP
 Plug 'morhetz/gruvbox'                                      " 主题配色
 Plug 'sheerun/vim-polyglot'                                 " 高亮, 对齐
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " 高亮
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " 高亮
 Plug 'scrooloose/nerdtree'                                  " 文件列表
 Plug 'vim-airline/vim-airline'                              " 状态栏
 Plug 'scrooloose/nerdcommenter'                             " 注释
@@ -560,26 +560,26 @@ let g:javascript_plugin_flow = 1
 
 " =====nvim-treesitter=====
 
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = {
-    "bash",
-    "css",
-    "go",
-    "html",
-    "javascript",
-    "json",
-    "php",
-    "python",
-  },
-  highlight = {
-    enable = true,
-  },
-  indent = {
-    enable = true,
-  },
-}
-EOF
+" lua <<EOF
+" require'nvim-treesitter.configs'.setup {
+"   ensure_installed = {
+"     "bash",
+"     "css",
+"     "go",
+"     "html",
+"     "javascript",
+"     "json",
+"     "php",
+"     "python",
+"   },
+"   highlight = {
+"     enable = true,
+"   },
+"   indent = {
+"     enable = true,
+"   },
+" }
+" EOF
 
 " =====vim-fugitive=====
 
