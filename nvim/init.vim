@@ -106,6 +106,8 @@ augroup END
 
 " 缩进
 autocmd FileType javascript,json,yaml,sh,vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
+" Json
+autocmd FileType json setlocal wrap
 " Go
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 " proto缩进
