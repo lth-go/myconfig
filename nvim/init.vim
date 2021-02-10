@@ -19,6 +19,7 @@ Plug 'junegunn/gv.vim'                          " Git
 Plug 'liuchengxu/vista.vim'                     " Tag
 Plug 'justinmk/vim-sneak'                       " 快速跳转
 Plug 'junegunn/vim-easy-align'                  " 文本对齐
+Plug 'voldikss/vim-floaterm'                    " 终端
 
 call plug#end()
 
@@ -44,7 +45,11 @@ let &wildcharm = &wildchar
 cnoremap <expr> / pumvisible() ? "\<Down>" : "/"
 
 " 忽略文件
-set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git,*.o,tags
+set wildignore+=.vim,.idea,.git
+set wildignore+=*.swp,tags
+set wildignore+=*.o,*.a,*.so
+set wildignore+=*.pyc,*.pyo
+set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz
 
 " 相对行号
 set relativenumber number
@@ -58,6 +63,7 @@ set cursorline
 " 显示tab跟空格
 set list
 set listchars=tab:>-,trail:·,nbsp:·
+set signcolumn=number
 
 " 垂直滚动
 set scrolloff=10
@@ -136,14 +142,14 @@ noremap <Space> ;
 noremap <F1> <Nop>
 inoremap <F1> <Nop>
 " noremap q <Nop>
-" noremap Q <Nop>
-noremap K <Nop>
+noremap Q <Nop>
+" noremap K <Nop>
 
 " 快速保存及退出
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>w :w<CR>
 " w!!用sudo保存
-cabbrev w!! w !sudo tee > /dev/null %
+cabbrev w!! w !sudo tee % > /dev/null
 
 " 切换布局快捷键
 nnoremap <C-J> <C-W><C-J>
@@ -158,21 +164,23 @@ noremap k gk
 " 替换行首行尾快捷键
 noremap H ^
 noremap L g_
+noremap <Leader>h H
+noremap <Leader>l L
 
 " 命令行模式增强
-cnoremap <C-N> <Down>
 cnoremap <C-P> <Up>
+cnoremap <C-N> <Down>
+cnoremap <C-B> <Left>
+cnoremap <C-F> <Right>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
-cnoremap <C-F> <Right>
-cnoremap <C-B> <Left>
 cnoremap <C-D> <Del>
 
 " 插入模式增强
+inoremap <C-B> <Left>
+inoremap <C-F> <Right>
 inoremap <C-A> <Home>
 inoremap <C-E> <End>
-inoremap <C-F> <Right>
-inoremap <C-B> <Left>
 inoremap <C-D> <Del>
 
 " 搜索关键词居中
@@ -259,8 +267,8 @@ function! s:CloseBuffer(nb_to_keep)
 
   " 关闭buffer
   let buffers_to_strip = map(copy(buffer_to_time[:-a:nb_to_keep]), 'v:val[0]')
-  if len(buffers_to_strip) > 0 
-    exe 'bd ' . join(buffers_to_strip, ' ') 
+  if len(buffers_to_strip) > 0
+    exe 'bd ' . join(buffers_to_strip, ' ')
   endif
 endfunction
 
@@ -314,6 +322,11 @@ endfunction
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 nmap <silent> <leader>g <Plug>(coc-definition)zz
 nmap <silent> gd <Plug>(coc-definition)
@@ -547,7 +560,7 @@ endfunction
 
 " let g:vista#renderer#enable_icon = 0
 let g:vista_echo_cursor = 0
-let g:vista_default_executive = 'coc' 
+let g:vista_default_executive = 'coc'
 
 " =====vim-sneak=====
 
@@ -569,11 +582,20 @@ nmap ga <Plug>(EasyAlign)
 " space case  cr<space>
 " Title Case  crt
 
+" =====vim-floaterm=====
+
+let g:floaterm_keymap_toggle = '<F12>'
+
 " =====主题=====
 
 let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 
 highlight link Operator GruvboxRed
+" highlight link Whitespace Error
 
 set termguicolors
+
+" 透明度
+set pumblend=10
+set winblend=10

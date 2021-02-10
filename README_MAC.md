@@ -3,9 +3,6 @@
 ## Init
 
 ```sh
-# 关闭Mac保护
-csrutil disable
-
 # Set ssh key
 
 # Make Dir
@@ -41,9 +38,13 @@ ln -sf ~/myconfig/git/.gitignore_global .gitignore_global
 ln -sf ~/myconfig/ripgrep/.rgrc .rgrc
 cd ~/.pip && ln -sf ~/myconfig/python/pip.conf pip.conf
 
-cd /
-sudo ln -sf ~/work/ work
-sudo ln -sf ~/data/ data
+# 
+
+sudo vim /etc/synthetic.conf
+```
+work	/Users/litianhua/work
+data	/Users/litianhua/data
+```
 
 # zsh
 cd ~/myconfig/zsh/ && sh ./install.sh
