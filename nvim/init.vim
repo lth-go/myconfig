@@ -17,9 +17,12 @@ Plug 'ryanoasis/vim-devicons'                   " 图标美化,需安装字体
 Plug 'tpope/vim-fugitive'                       " Git
 Plug 'junegunn/gv.vim'                          " Git
 Plug 'liuchengxu/vista.vim'                     " Tag
-Plug 'justinmk/vim-sneak'                       " 快速跳转
+Plug 'justinmk/vim-sneak'                       " 快速移动
+Plug 'easymotion/vim-easymotion'                " 快速移动
 Plug 'junegunn/vim-easy-align'                  " 文本对齐
 Plug 'voldikss/vim-floaterm'                    " 终端
+Plug 'AndrewRadev/splitjoin.vim'                " 拆行
+Plug 'kshenoy/vim-signature'                    " 书签
 
 call plug#end()
 
@@ -206,6 +209,10 @@ xnoremap <expr> p 'pgv"'.v:register.'y'
 map <Leader>y ""y
 map <Leader>d ""d
 map <Leader>p ""p
+
+map Y y$
+
+nnoremap <Leader><Space> :vs<CR>
 
 " ----- start_search 搜索不移动 可视模式高亮选中 -----
 function! s:Starsearch_CWord()
