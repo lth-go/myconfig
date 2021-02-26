@@ -93,14 +93,15 @@ sudo npm install -g diff-so-fancy tldr
 sudo npm install -g flow-bin
 
 # PHP
+brew install php@7.3
+brew link --overwrite php@7.3
+
 brew install composer
 composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 composer global require "squizlabs/php_codesniffer=*"
 
-sudo ln -s "$(xcrun --show-sdk-path)/usr/include" /usr/include
-
-cd /usr/local/include/ && ln -s /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Security.framework/Versions/A/Headers/ Security
-cd /usr/local/include/ && ln -s /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Versions/A/Headers/ CoreFoundation
+# cd /usr/local/include/ && ln -s /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/Security.framework/Versions/A/Headers/ Security
+# cd /usr/local/include/ && ln -s /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/CoreFoundation.framework/Versions/A/Headers/ CoreFoundation
 
 sudo pecl install swoole
 

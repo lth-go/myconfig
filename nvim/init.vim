@@ -15,10 +15,10 @@ Plug 'tpope/vim-abolish'                        " 字符处理
 Plug 'terryma/vim-expand-region'                " 快速选中
 Plug 'ryanoasis/vim-devicons'                   " 图标美化,需安装字体
 Plug 'tpope/vim-fugitive'                       " Git
-Plug 'junegunn/gv.vim'                          " Git
+" Plug 'junegunn/gv.vim'                          " Git
 Plug 'liuchengxu/vista.vim'                     " Tag
 Plug 'justinmk/vim-sneak'                       " 快速移动
-Plug 'easymotion/vim-easymotion'                " 快速移动
+" Plug 'easymotion/vim-easymotion'                " 快速移动
 Plug 'junegunn/vim-easy-align'                  " 文本对齐
 Plug 'voldikss/vim-floaterm'                    " 终端
 Plug 'AndrewRadev/splitjoin.vim'                " 拆行
@@ -67,6 +67,10 @@ set cursorline
 set list
 set listchars=tab:>-,trail:·,nbsp:·
 set signcolumn=number
+
+" popup-menu透明度
+set pumblend=10
+set winblend=10
 
 " 垂直滚动
 set scrolloff=10
@@ -202,6 +206,8 @@ vnoremap > >gv
 " 复制当前行号
 nnoremap <silent> <C-g> :let @+ = join([expand('%'),  line(".")], ':')\|:echo @+<CR>
 
+map Y y$
+
 " 粘贴不覆盖
 xnoremap <expr> p 'pgv"'.v:register.'y'
 
@@ -209,8 +215,6 @@ xnoremap <expr> p 'pgv"'.v:register.'y'
 map <Leader>y ""y
 map <Leader>d ""d
 map <Leader>p ""p
-
-map Y y$
 
 nnoremap <Leader><Space> :vs<CR>
 
@@ -426,16 +430,17 @@ let NERDTreeMinimalUI = 1
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " 忽略显示
 let NERDTreeIgnore = [
-  \ 'tags',
-  \ '\.git$',
   \ '\.idea',
+  \ '\.git',
+  \ '\.swp',
+  \ 'tags',
+  \ '\.o',
+  \ '\.a',
+  \ '\.so',
   \ '\.pyc',
   \ '\.pyo',
   \ '__pycache__',
   \ '\~$',
-  \ '\.swp',
-  \ '\.o',
-  \ '\.so',
 \ ]
 " 打开文件树
 nmap <C-\> :NERDTreeToggle<CR>
@@ -444,16 +449,15 @@ nmap <C-\> :NERDTreeToggle<CR>
 
 " 设置airline主题
 let g:airline_theme = 'gruvbox'
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
 " 打开tabline功能
 let g:airline#extensions#tabline#enabled = 1
 " 标签页只显示文件名
 let g:airline#extensions#tabline#fnamemod = ':t'
-" 不显示vim-fugitive分支名
-let g:airline#extensions#branch#enabled = 0
-" 不显示vista
-let g:airline#extensions#vista#enabled = 0
-" 关闭状态显示空白符号计数
-let g:airline#extensions#whitespace#enabled = 0
 " 去除右上角buffer
 let g:airline#extensions#tabline#buffers_label = ''
 " 标签页快捷键
@@ -468,22 +472,24 @@ nmap <Leader>7 <Plug>AirlineSelectTab7
 nmap <Leader>8 <Plug>AirlineSelectTab8
 nmap <Leader>9 <Plug>AirlineSelectTab9
 let g:airline#extensions#tabline#buffer_idx_format = {
-    \ '0': '0 ',
-    \ '1': '1 ',
-    \ '2': '2 ',
-    \ '3': '3 ',
-    \ '4': '4 ',
-    \ '5': '5 ',
-    \ '6': '6 ',
-    \ '7': '7 ',
-    \ '8': '8 ',
-    \ '9': '9 '
+  \ '0': '0 ',
+  \ '1': '1 ',
+  \ '2': '2 ',
+  \ '3': '3 ',
+  \ '4': '4 ',
+  \ '5': '5 ',
+  \ '6': '6 ',
+  \ '7': '7 ',
+  \ '8': '8 ',
+  \ '9': '9 '
 \ }
-let g:airline_powerline_fonts = 1
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
+" 不显示vim-fugitive分支名
+let g:airline#extensions#branch#enabled = 0
+" 不显示vista
+let g:airline#extensions#vista#enabled = 0
+" 关闭状态显示空白符号计数
+" let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#whitespace#checks = ['indent', 'trailing', 'long', 'conflicts']
 
 " =====Nerdcommenter=====
 
@@ -602,7 +608,3 @@ highlight link Operator GruvboxRed
 " highlight link Whitespace Error
 
 set termguicolors
-
-" 透明度
-set pumblend=10
-set winblend=10
