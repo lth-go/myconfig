@@ -5,7 +5,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " LSP
 Plug 'morhetz/gruvbox'                          " 主题配色
 Plug 'sheerun/vim-polyglot'                     " 高亮, 对齐
-Plug 'scrooloose/nerdtree'                      " 文件列表
 Plug 'vim-airline/vim-airline'                  " 状态栏
 Plug 'scrooloose/nerdcommenter'                 " 注释
 Plug 'jiangmiao/auto-pairs'                     " 括号匹配
@@ -15,10 +14,8 @@ Plug 'tpope/vim-abolish'                        " 字符处理
 Plug 'terryma/vim-expand-region'                " 快速选中
 Plug 'ryanoasis/vim-devicons'                   " 图标美化,需安装字体
 Plug 'tpope/vim-fugitive'                       " Git
-" Plug 'junegunn/gv.vim'                          " Git
 Plug 'liuchengxu/vista.vim'                     " Tag
 Plug 'justinmk/vim-sneak'                       " 快速移动
-" Plug 'easymotion/vim-easymotion'                " 快速移动
 Plug 'junegunn/vim-easy-align'                  " 文本对齐
 Plug 'voldikss/vim-floaterm'                    " 终端
 Plug 'AndrewRadev/splitjoin.vim'                " 拆行
@@ -111,6 +108,8 @@ endif
 autocmd FileType javascript,yaml,sh,vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
 " Go
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+autocmd FileType go map [[ 99[{
+autocmd FileType go map ]] 99]}
 " Json
 autocmd FileType json setlocal wrap tabstop=2 shiftwidth=2 softtabstop=2
 " Proto
@@ -215,6 +214,7 @@ xnoremap <expr> p 'pgv"'.v:register.'y'
 map <Leader>y ""y
 map <Leader>d ""d
 map <Leader>p ""p
+map <Leader>P ""P
 
 nnoremap <Leader><Space> :vs<CR>
 
@@ -302,6 +302,7 @@ let g:nb_buffers_to_keep = 6
 
 let g:coc_global_extensions = [
   \ 'coc-lists',
+  \ 'coc-explorer',
   \ 'coc-json',
   \ 'coc-xml',
   \ 'coc-html',
@@ -420,30 +421,7 @@ xmap <silent> <C-d> <Plug>(coc-cursors-range)
 " use normal command like `<leader>xi(`
 " nmap <leader>x  <Plug>(coc-cursors-operator)
 
-" =====NERDTree=====
-
-" 显示隐藏文件
-let NERDTreeShowHidden = 1
-" 不显示冗余帮助信息
-let NERDTreeMinimalUI = 1
-" 退出vim时自动关闭
-autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" 忽略显示
-let NERDTreeIgnore = [
-  \ '\.idea',
-  \ '\.git',
-  \ '\.swp',
-  \ 'tags',
-  \ '\.o',
-  \ '\.a',
-  \ '\.so',
-  \ '\.pyc',
-  \ '\.pyo',
-  \ '__pycache__',
-  \ '\~$',
-\ ]
-" 打开文件树
-nmap <C-\> :NERDTreeToggle<CR>
+nnoremap <C-\> :CocCommand explorer --sources file<CR>
 
 " =====Airline=====
 
@@ -574,6 +552,7 @@ endfunction
 " let g:vista#renderer#enable_icon = 0
 let g:vista_echo_cursor = 0
 let g:vista_default_executive = 'coc'
+let g:vista_sidebar_width = '50'
 
 " =====vim-sneak=====
 

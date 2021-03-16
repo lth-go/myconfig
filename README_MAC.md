@@ -38,15 +38,13 @@ ln -sf ~/myconfig/git/.gitignore_global .gitignore_global
 ln -sf ~/myconfig/ripgrep/.rgrc .rgrc
 cd ~/.pip && ln -sf ~/myconfig/python/pip.conf pip.conf
 
-# 
-
+# /data
 sudo vim /etc/synthetic.conf
-```
 work	/Users/litianhua/work
 data	/Users/litianhua/data
-```
 
 # zsh
+
 cd ~/myconfig/zsh/ && sh ./install.sh
 
 cd ~/.oh-my-zsh/custom/themes/ && ln -sf ~/myconfig/zsh/my.zsh-theme my.zsh-theme
