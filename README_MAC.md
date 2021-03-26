@@ -16,7 +16,9 @@ cd ~ && git clone --depth 1 git@github.com:lth-go/myconfig.git
 
 # brew
 cd /usr/local/ && git clone git://mirrors.ustc.edu.cn/brew.git
-cd /usr/local/Homebrew/ && mkdir -p Library/Taps/homebrew/ && Library/Taps/homebrew/
+cd /usr/local/Homebrew/
+mkdir -p Library/Taps/homebrew/
+cd Library/Taps/homebrew/
 git clone git://mirrors.ustc.edu.cn/homebrew-core.git
 git clone git://mirrors.ustc.edu.cn/homebrew-cask.git
 cd ~/myconfig/mac/brew/ && sh ./install.sh
@@ -39,12 +41,12 @@ ln -sf ~/myconfig/ripgrep/.rgrc .rgrc
 cd ~/.pip && ln -sf ~/myconfig/python/pip.conf pip.conf
 
 # /data
-sudo vim /etc/synthetic.conf
-work	/Users/litianhua/work
-data	/Users/litianhua/data
+sudo cat >> /etc/synthetic.conf << EOF
+work	/Users/$USER/work
+data	/Users/$USER/data
+EOF
 
 # zsh
-
 cd ~/myconfig/zsh/ && sh ./install.sh
 
 cd ~/.oh-my-zsh/custom/themes/ && ln -sf ~/myconfig/zsh/my.zsh-theme my.zsh-theme

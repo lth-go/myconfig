@@ -255,7 +255,7 @@ function! s:CloseBuffer(nb_to_keep)
 
   " 关闭buffer
   let buffers_to_strip = map(copy(buffer_to_time[:-a:nb_to_keep]), 'v:val[0]')
-  if len(buffers_to_strip) > 0 
+  if len(buffers_to_strip) > 0
     exe 'bd ' . join(buffers_to_strip, ' ') 
   endif
 endfunction
