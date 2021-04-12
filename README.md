@@ -15,6 +15,9 @@ sudo systemctl disable firewalld
 
 # 修正目录名
 
+export LANG=en_US
+xdg-user-dirs-gtk-update
+
 # Make Dir
 mkdir ~/.ssh/
 mkdir ~/work/
@@ -29,6 +32,7 @@ sudo dnf install -y zsh neovim python3-neovim htop
 sudo dnf install -y docker docker-compose
 sudo dnf install -y python2 golang nodejs
 sudo dnf install -y ripgrep fd-find
+sudo dnf install -y clash
 
 sudo dnf install -y fcitx5 fcitx5-chinese-addons fcitx5-configtool
 # https://github.com/fcitx/fcitx/issues/337
@@ -36,6 +40,9 @@ sudo dnf install -y fcitx5 fcitx5-chinese-addons fcitx5-configtool
 # 禁用shift切换
 # 分页切换使用[], 拼音输入法选项里额外配置
 # 符号使用半角
+
+sudo dnf copr enable agriffis/neovim-nightly
+sudo dnf update -y neovim
 
 # config
 cd ~ && git clone --depth 1 https://email%40password@github.com/lth-go/myconfig.git
@@ -103,6 +110,25 @@ sudo npm -g install flow-bin
 
 # Docker
 sudo systemctl enable docker
+
+# clash
+sudo mkdir /etc/clash/
+sudo wget -O /etc/clash/config.yaml {xxx}
+sudo vim /usr/lib/systemd/system/clash.service
+# [Unit]
+# Description=Clash Daemon
+# 
+# [Service]
+# ExecStart=/usr/bin/clash -d /etc/clash/
+# Restart=on-failure
+# 
+# [Install]
+# WantedBy=multi-user.target
+
+sudo systemctl enable clash.service
+sudo systemctl start clash.service
+
+# http://clash.razord.top/#/proxies
 ```
 
 ## Update
@@ -111,13 +137,6 @@ sudo systemctl enable docker
 cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git pull
 cd ~/.oh-my-zsh/custom/plugins/zsh-completions && git pull
 cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull
-```
-
-## Other
-
-```sh
-export LANG=en_US
-xdg-user-dirs-gtk-update
 ```
 
 ## 字体
