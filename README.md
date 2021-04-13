@@ -28,7 +28,7 @@ mkdir ~/.pip/
 
 # dnf
 sudo dnf install -y git
-sudo dnf install -y zsh neovim python3-neovim htop
+sudo dnf install -y zsh neovim python3-neovim htop jq
 sudo dnf install -y docker docker-compose
 sudo dnf install -y python2 golang nodejs
 sudo dnf install -y ripgrep fd-find
@@ -40,6 +40,8 @@ sudo dnf install -y fcitx5 fcitx5-chinese-addons fcitx5-configtool
 # 禁用shift切换
 # 分页切换使用[], 拼音输入法选项里额外配置
 # 符号使用半角
+
+# vim /usr/share/fcitx5/punctuation/punc.mb.zh_CN
 
 sudo dnf copr enable agriffis/neovim-nightly
 sudo dnf update -y neovim
@@ -67,7 +69,6 @@ cd ~/.oh-my-zsh/custom/themes/ && ln -sf ~/myconfig/zsh/my.zsh-theme my.zsh-them
 
 cd ~/.oh-my-zsh/custom/plugins
 git clone https://github.com/zsh-users/zsh-autosuggestions.git
-git clone https://github.com/zsh-users/zsh-completions.git
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
 
 # fzf
@@ -135,7 +136,6 @@ sudo systemctl start clash.service
 
 ```sh
 cd ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions && git pull
-cd ~/.oh-my-zsh/custom/plugins/zsh-completions && git pull
 cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull
 ```
 

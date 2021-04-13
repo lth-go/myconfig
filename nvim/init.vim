@@ -404,16 +404,6 @@ endfunction
 nmap <Leader>t <Plug>(coc-translator-p)
 vmap <Leader>t <Plug>(coc-translator-pv)
 
-" 状态栏右下角添加当前函数名
-function! AirlineInit()
-  let g:airline_section_x = airline#section#create_right(['%{GetCurrentFunction()} ']) . g:airline_section_x
-endfunction
-autocmd User AirlineAfterInit call AirlineInit()
-
-function! GetCurrentFunction() abort
-  return get(b:, 'coc_current_function', '')
-endfunction
-
 " 多光标
 " nmap <silent> <C-c> <Plug>(coc-cursors-position)
 " nmap <silent> <C-d> <Plug>(coc-cursors-word)
