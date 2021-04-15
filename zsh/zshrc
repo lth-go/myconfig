@@ -29,7 +29,7 @@ source $ZSH/oh-my-zsh.sh
 # Golang
 export GOPATH="$HOME/go"
 export GOBINPATH="$HOME/go/bin"
-export GOPROXY=https://goproxy.io
+export GOPROXY=https://goproxy.io,direct
 export GO111MODULE=on
 export GOSUMDB=off
 

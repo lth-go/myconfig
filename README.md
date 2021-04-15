@@ -148,3 +148,17 @@ cp ./fonts/DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono.ttf ~/.local/share/fon
 
 fc-cache -vf ~/.local/share/fonts
 ```
+
+## Other
+
+```
+# 禁用CapsLock
+# ~/.Xmodmap
+# remove Lock = Caps_Lock
+# keycode 66 = BackSpace
+
+# git拉取失败问题
+vim ~/.ssh/config
+# Host xxx
+#     PubkeyAcceptedKeyTypes ssh-rsa
+```
