@@ -39,3 +39,5 @@
     date = iso
 [push]
     default = simple
+[pull]
+    rebase = false

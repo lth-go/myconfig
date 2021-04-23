@@ -19,7 +19,6 @@ Plug 'justinmk/vim-sneak'                       " 快速移动
 Plug 'junegunn/vim-easy-align'                  " 文本对齐
 Plug 'voldikss/vim-floaterm'                    " 终端
 Plug 'AndrewRadev/splitjoin.vim'                " 拆行
-Plug 'kshenoy/vim-signature'                    " 书签
 
 call plug#end()
 
@@ -411,7 +410,7 @@ xmap <silent> <C-d> <Plug>(coc-cursors-range)
 " use normal command like `<leader>xi(`
 " nmap <leader>x  <Plug>(coc-cursors-operator)
 
-nnoremap <C-\> :CocCommand explorer --sources file<CR>
+nnoremap <C-\> :CocCommand explorer<CR>
 
 " =====Airline=====
 
@@ -574,5 +573,6 @@ colorscheme gruvbox
 
 highlight link Operator GruvboxRed
 " highlight link Whitespace Error
+highlight link CocExplorerFileDirectory None
 
 set termguicolors

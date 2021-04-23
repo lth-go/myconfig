@@ -3,6 +3,21 @@
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "explorer.icon.enableNerdfont": true,
   "explorer.icon.enableVimDevicons": true,
+  "explorer.icon.customIcons":{
+    "icons": {},
+    "extensions": {},
+    "filenames": {},
+    "dirnames": {},
+    "patternMatches": {},
+    "dirPatternMatches": {}
+  },
+  "explorer.sources":[
+    {
+      "name": "file",
+      "expand": true
+    }
+  ],
+  "explorer.file.root.template": "[icon] [root]",
   "languageserver": {},
   "list.insertMappings": {
     "<C-f>": "feedkeys:\\<C-f>",

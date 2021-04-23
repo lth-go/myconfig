@@ -14,7 +14,6 @@ sudo vim /etc/selinux/config
 sudo systemctl disable firewalld
 
 # 修正目录名
-
 export LANG=en_US
 xdg-user-dirs-gtk-update
 
@@ -32,7 +31,7 @@ sudo dnf install -y zsh neovim python3-neovim htop jq
 sudo dnf install -y docker docker-compose
 sudo dnf install -y python2 golang nodejs
 sudo dnf install -y ripgrep fd-find
-sudo dnf install -y clash
+sudo dnf install -y clash flameshot
 
 sudo dnf install -y fcitx5 fcitx5-chinese-addons fcitx5-configtool
 # https://github.com/fcitx/fcitx/issues/337
@@ -111,6 +110,11 @@ sudo npm -g install flow-bin
 
 # Docker
 sudo systemctl enable docker
+sudo usermod -aG docker $USER
+# 重启
+# cgroups: cgroup mountpoint does not exist: unknown
+sudo mkdir /sys/fs/cgroup/systemd
+sudo mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd
 
 # clash
 sudo mkdir /etc/clash/
