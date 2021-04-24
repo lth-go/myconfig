@@ -158,8 +158,10 @@ fc-cache -vf ~/.local/share/fonts
 ```
 # 禁用CapsLock
 # ~/.Xmodmap
-# remove Lock = Caps_Lock
-# keycode 66 = BackSpace
+# clear lock
+# clear control
+# keycode 66 = Control_L
+# add control = Control_L Control_R
 
 # git拉取失败问题
 vim ~/.ssh/config
