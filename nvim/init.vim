@@ -11,6 +11,7 @@ Plug 'jiangmiao/auto-pairs'                     " 括号匹配
 Plug 'tpope/vim-surround'                       " 结对符修改
 Plug 'tpope/vim-repeat'                         " 重复
 Plug 'tpope/vim-abolish'                        " 字符处理
+" Plug 'chaoren/vim-wordmotion'                   " 字符选中
 Plug 'terryma/vim-expand-region'                " 快速选中
 Plug 'ryanoasis/vim-devicons'                   " 图标美化,需安装字体
 Plug 'tpope/vim-fugitive'                       " Git
@@ -118,6 +119,9 @@ autocmd FileType git setlocal foldenable
 " Markdown
 autocmd FileType markdown setlocal wrap
 
+" filetype
+autocmd BufNewFile,BufRead *.dockerfile setlocal filetype=dockerfile
+
 " 行号切换
 augroup numbertoggle
   autocmd!
@@ -146,8 +150,8 @@ noremap <Space> ;
 " 废弃快捷键
 noremap <F1> <Nop>
 inoremap <F1> <Nop>
-" noremap q <Nop>
 noremap Q <Nop>
+" noremap q <Nop>
 " noremap K <Nop>
 
 " 快速保存及退出
@@ -218,7 +222,7 @@ map <Leader>P ""P
 nnoremap <Leader><Space> :vs<CR>
 
 " ----- start_search 搜索不移动 可视模式高亮选中 -----
-function! s:Starsearch_CWord()
+function! s:StarSearchCWord()
   let wordStr = expand("<cword>")
   if strlen(wordStr) == 0 | return | endif
   if wordStr[0] =~ '\<'
@@ -232,7 +236,7 @@ function! s:Starsearch_CWord()
   set hlsearch
 endfunction
 
-function! s:Starsearch_VWord()
+function! s:StarSearchVWord()
     let savedS = @s
     normal! gv"sy
     let @/ = '\V' . substitute(escape(@s, '\'), '\n', '\\n', 'g')
@@ -240,8 +244,8 @@ function! s:Starsearch_VWord()
     set hlsearch
 endfunction
 
-nnoremap <silent> * :set nohlsearch\|:call <SID>Starsearch_CWord()<CR>
-vnoremap <silent> * :<C-u>set nohlsearch\|:call <SID>Starsearch_VWord()<CR>
+nnoremap <silent> * :set nohlsearch\|:call <SID>StarSearchCWord()<CR>
+vnoremap <silent> * :<C-u>set nohlsearch\|:call <SID>StarSearchVWord()<CR>
 
 " ----- start_search end -----
 
@@ -376,6 +380,12 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-d>"
+nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>"
+
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
 nmap <Leader>ff :CocList files<CR>
@@ -501,7 +511,6 @@ let php_html_in_heredoc = 0
 let php_html_in_nowdoc = 0
 let php_html_load = 0
 let php_ignore_phpdoc = 1
-" let g:php_syntax_extensions_enabled = []
 
 " go
 let g:go_highlight_extra_types = 1
@@ -516,9 +525,9 @@ let g:javascript_plugin_flow = 1
 
 " =====vim-fugitive=====
 
-command! -nargs=? -complete=customlist,s:diffcomplete GitDiffFileList call s:GitDiff_NameOnly(<f-args>)
+command! -nargs=? -complete=customlist,s:diffcomplete GitDiffFileList call s:GitDiffNameOnly(<f-args>)
 
-function! s:GitDiff_NameOnly(...)
+function! s:GitDiffNameOnly(...)
   let branch = 'origin/master'
 
   if a:0 && !empty(a:1)
@@ -551,20 +560,15 @@ map <Space> <Plug>Sneak_;
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
-" =====vim-abolish=====
-
-" MixedCase   crm
-" camelCase   crc
-" snake_case  crs
-" UPPER_CASE  cru
-" dash-case   cr-
-" dot.case    cr.
-" space case  cr<space>
-" Title Case  crt
-
 " =====vim-floaterm=====
 
+let g:floaterm_width = 0.8
+let g:floaterm_height = 0.8
 let g:floaterm_keymap_toggle = '<F12>'
+
+" =====chaoren/vim-wordmotion=====
+
+" let g:wordmotion_prefix = '<Space>'
 
 " =====主题=====
 
@@ -574,5 +578,6 @@ colorscheme gruvbox
 highlight link Operator GruvboxRed
 " highlight link Whitespace Error
 highlight link CocExplorerFileDirectory None
+highlight link CocExplorerFileDiagnosticError None
 
 set termguicolors

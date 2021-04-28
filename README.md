@@ -116,6 +116,9 @@ sudo usermod -aG docker $USER
 sudo mkdir /sys/fs/cgroup/systemd
 sudo mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd
 
+sudo dnf install -y grubby
+sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
+
 # clash
 sudo mkdir /etc/clash/
 sudo wget -O /etc/clash/config.yaml {xxx}
