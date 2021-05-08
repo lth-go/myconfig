@@ -11,7 +11,7 @@ Plug 'jiangmiao/auto-pairs'                     " 括号匹配
 Plug 'tpope/vim-surround'                       " 结对符修改
 Plug 'tpope/vim-repeat'                         " 重复
 Plug 'tpope/vim-abolish'                        " 字符处理
-" Plug 'chaoren/vim-wordmotion'                   " 字符选中
+Plug 'chaoren/vim-wordmotion'                   " 字符选中
 Plug 'terryma/vim-expand-region'                " 快速选中
 Plug 'ryanoasis/vim-devicons'                   " 图标美化,需安装字体
 Plug 'tpope/vim-fugitive'                       " Git
@@ -313,7 +313,7 @@ let g:coc_global_extensions = [
   \ 'coc-sh',
   \ 'coc-sql',
   \ 'coc-go',
-  \ 'coc-python',
+  \ 'coc-pyright',
   \ 'coc-phpls',
   \ 'coc-tsserver',
   \ 'coc-flow',
@@ -568,7 +568,15 @@ let g:floaterm_keymap_toggle = '<F12>'
 
 " =====chaoren/vim-wordmotion=====
 
-" let g:wordmotion_prefix = '<Space>'
+let g:wordmotion_mappings = {
+\ 'w': '<M-w>',
+\ 'b': '<M-b>',
+\ 'e': '<M-e>',
+\ 'ge': 'g<M-e>',
+\ 'aw': 'a<M-w>',
+\ 'iw': 'i<M-w>',
+\ '<C-R><C-W>': '<C-R><M-w>'
+\ }
 
 " =====主题=====
 
@@ -578,6 +586,7 @@ colorscheme gruvbox
 highlight link Operator GruvboxRed
 " highlight link Whitespace Error
 highlight link CocExplorerFileDirectory None
+highlight link CocExplorerFileDiagnosticWarning None
 highlight link CocExplorerFileDiagnosticError None
 
 set termguicolors

@@ -29,15 +29,6 @@
   "go.goplsOptions": {
     "allowModfileModifications": true
   },
-  "python.linting.pylintEnabled": false,
-  "python.linting.flake8Enabled": true,
-  "python.linting.enabled": true,
-  "python.linting.flake8Args": [
-    "--ignore=E116,E402,E501"
-  ],
-  "python.formatting.autopep8Args": [
-    "--ignore=E116,E501"
-  ],
   "python.venvPath": "/work/python_venv/",
   "intelephense.diagnostics.languageConstraints": false
 }

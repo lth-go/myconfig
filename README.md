@@ -29,7 +29,7 @@ mkdir ~/.pip/
 sudo dnf install -y git
 sudo dnf install -y zsh neovim python3-neovim htop jq
 sudo dnf install -y docker docker-compose
-sudo dnf install -y python2 golang nodejs
+sudo dnf install -y golang nodejs
 sudo dnf install -y ripgrep fd-find
 sudo dnf install -y clash flameshot
 
@@ -84,11 +84,7 @@ cp vim/plug.vim ~/.local/share/nvim/site/autoload
 pip install --user virtualenv
 mkdir ~/work/python_venv/
 cd /work/python_venv/
-~/.local/bin/virtualenv --python=python2 py2_venv
 ~/.local/bin/virtualenv --python=python3 py3_venv
-
-source /work/python_venv/py2_venv/bin/activate
-pip install jedi autopep8 flake8
 
 source /work/python_venv/py3_venv/bin/activate
 pip install jedi autopep8 flake8
@@ -96,7 +92,6 @@ pip install jedi autopep8 flake8
 deactivate
 pip install --user ipython
 pip install --user requests
-pip install --user dstat
 pip install --user jedi autopep8 flake8
 
 # Golang
