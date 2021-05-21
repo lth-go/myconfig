@@ -19,16 +19,17 @@
   ],
   "explorer.file.root.template": "[icon] [root]",
   "languageserver": {},
+  "go.goplsOptions": {
+    "allowModfileModifications": true
+  },
+  "python.venvPath": "/work/python_venv/",
+  "yaml.format.enable": true,
+  "intelephense.diagnostics.languageConstraints": false,
   "list.insertMappings": {
     "<C-f>": "feedkeys:\\<C-f>",
     "<C-b>": "feedkeys:\\<C-b>",
     "<C-n>": "normal:j",
     "<C-p>": "normal:k",
     "<C-u>": "feedkeys:\\<C-u>"
-  },
-  "go.goplsOptions": {
-    "allowModfileModifications": true
-  },
-  "python.venvPath": "/work/python_venv/",
-  "intelephense.diagnostics.languageConstraints": false
+  }
 }

@@ -30,6 +30,7 @@ set fileencodings=ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,latin1
 
 set updatetime=300
 set shortmess+=c
+set jumpoptions+=stack
 
 " 关闭文件缓存
 set nobackup
@@ -167,8 +168,11 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " 用于绕行
-noremap j gj
-noremap k gk
+" noremap j gj
+" noremap k gk
+" jump list
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'gj'
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'gk'
 
 " 替换行首行尾快捷键
 noremap H ^

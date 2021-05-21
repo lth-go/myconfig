@@ -2,7 +2,7 @@ import subprocess
 import sys
 
 reg = 'docker.mirrors.ustc.edu.cn'
-#  reg = 'dockerhub.azk8s.cn'
+# reg = 'dockerhub.azk8s.cn'
 
 
 def main():
@@ -13,10 +13,13 @@ def main():
     origin_image = get_image(args[1])
     proxy_image = '{}/{}'.format(reg, origin_image)
 
-    cmd = "docker pull {}".format(origin_image)
+    cmd = "docker pull {}".format(proxy_image)
     run(cmd)
 
     cmd = "docker tag {} {}".format(proxy_image, origin_image)
+    run(cmd)
+
+    cmd = "docker rmi {}".format(proxy_image)
     run(cmd)
 
 
