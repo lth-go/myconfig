@@ -1,6 +1,20 @@
 " 关闭vi兼容
 set nocompatible
 
+call plug#begin('~/.vim/plugged')
+
+Plug 'morhetz/gruvbox'
+Plug 'vim-airline/vim-airline'
+Plug 'scrooloose/nerdcommenter'
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-abolish'
+Plug 'terryma/vim-expand-region'
+Plug 'justinmk/vim-sneak'
+
+call plug#end()
+
 " =====文件=====
 
 " 文件类型检测
@@ -224,6 +238,73 @@ vnoremap <silent> * :<C-u>set nohlsearch\|:call <SID>Starsearch_VWord()<CR>
 
 " ----- start_search end -----
 
+" =====Airline=====
+
+" 设置airline主题
+let g:airline_theme = 'gruvbox'
+" 打开tabline功能
+let g:airline#extensions#tabline#enabled = 1
+" 标签页只显示文件名
+let g:airline#extensions#tabline#fnamemod = ':t'
+" 去除右上角buffer
+let g:airline#extensions#tabline#buffers_label = ''
+" 标签页快捷键
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap <Leader>1 <Plug>AirlineSelectTab1
+nmap <Leader>2 <Plug>AirlineSelectTab2
+nmap <Leader>3 <Plug>AirlineSelectTab3
+nmap <Leader>4 <Plug>AirlineSelectTab4
+nmap <Leader>5 <Plug>AirlineSelectTab5
+nmap <Leader>6 <Plug>AirlineSelectTab6
+nmap <Leader>7 <Plug>AirlineSelectTab7
+nmap <Leader>8 <Plug>AirlineSelectTab8
+nmap <Leader>9 <Plug>AirlineSelectTab9
+let g:airline#extensions#tabline#buffer_idx_format = {
+  \ '0': '0 ',
+  \ '1': '1 ',
+  \ '2': '2 ',
+  \ '3': '3 ',
+  \ '4': '4 ',
+  \ '5': '5 ',
+  \ '6': '6 ',
+  \ '7': '7 ',
+  \ '8': '8 ',
+  \ '9': '9 '
+\ }
+let g:airline#extensions#whitespace#checks = ['indent', 'trailing', 'long', 'conflicts']
+
+" =====Nerdcommenter=====
+
+" 关闭默认快捷键
+let g:NERDCreateDefaultMappings = 0
+" 注释符左对齐
+let g:NERDDefaultAlign = 'left'
+" 注释有空格
+let g:NERDSpaceDelims = 1
+" 自动注释快捷键
+map <C-_> <plug>NERDCommenterToggle
+
+" =====vim-expand-region=====
+
+" 选中区域配置, 1表示递归
+let g:expand_region_text_objects = {
+  \ 'iw'  :0,
+  \ 'i"'  :0, 'a"'  :0,
+  \ 'i''' :0, 'a''' :0,
+  \ 'i`'  :0, 'a`'  :0,
+  \ 'i)'  :1, 'a)'  :1,
+  \ 'i]'  :1, 'a]'  :1,
+  \ 'i}'  :1, 'a}'  :1,
+  \ 'it'  :1, 'at'  :1,
+\ }
+" 快捷键
+vmap v <Plug>(expand_region_expand)
+vmap V <Plug>(expand_region_shrink)
+
+" =====vim-sneak=====
+
+map <Space> <Plug>Sneak_;
+
 " =====主题=====
 
 " 高亮
@@ -231,8 +312,5 @@ syntax enable
 " 背景颜色
 set background=dark
 " 主题
-colorscheme desert
-
-# fix vim7.4
-# https://github.com/stephpy/vim-yaml
-# copy to $HOME/.vim/
+let g:gruvbox_contrast_dark = 'hard'
+colorscheme gruvbox
