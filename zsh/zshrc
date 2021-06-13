@@ -42,6 +42,9 @@ export PATH
 # zsh-syntax-highlighting
 ZSH_HIGHLIGHT_STYLES[globbing]='fg=yellow'
 
+# disable numeric argument.
+for i in {0..9}; do bindkey -r "^[$i"; done
+
 # 搜索
 bindkey '^p' up-line-or-beginning-search
 bindkey '^n' down-line-or-beginning-search
