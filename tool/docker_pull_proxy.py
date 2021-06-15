@@ -2,7 +2,6 @@ import subprocess
 import sys
 
 reg = 'docker.mirrors.ustc.edu.cn'
-# reg = 'dockerhub.azk8s.cn'
 
 
 def main():
@@ -24,7 +23,7 @@ def main():
 
 
 def get_image(origin_image):
-    # TODO: k8s.gcr.io  gcr.io quay.io
+    # TODO: k8s.gcr.io gcr.io quay.io
     library = ''
     image = ''
     tag = 'latest'

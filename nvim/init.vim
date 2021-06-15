@@ -119,6 +119,8 @@ autocmd FileType proto setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType git setlocal foldenable
 " Markdown
 autocmd FileType markdown setlocal wrap
+" Rego
+autocmd FileType rego setlocal noexpandtab
 
 " filetype
 autocmd BufNewFile,BufRead *.dockerfile setlocal filetype=dockerfile
@@ -554,6 +556,7 @@ endfunction
 let g:vista_echo_cursor = 0
 let g:vista_default_executive = 'coc'
 let g:vista_sidebar_width = '50'
+nnoremap <F2> :Vista!!<CR>
 
 " =====vim-sneak=====
 

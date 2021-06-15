@@ -11,6 +11,7 @@
     "patternMatches": {},
     "dirPatternMatches": {}
   },
+  "explorer.openAction.strategy": "sourceWindow",
   "explorer.sources":[
     {
       "name": "file",

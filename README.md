@@ -10,7 +10,7 @@ sudo vim /etc/sudoers
 # disable selinux
 sudo vim /etc/selinux/config
 
-# disable firewaa
+# disable firewalld
 sudo systemctl disable firewalld
 
 # 修正目录名
@@ -42,6 +42,7 @@ sudo dnf install -y fcitx5 fcitx5-chinese-addons fcitx5-configtool
 
 # vim /usr/share/fcitx5/punctuation/punc.mb.zh_CN
 
+# use xclip
 sudo dnf copr enable agriffis/neovim-nightly
 sudo dnf update -y neovim
 
