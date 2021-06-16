@@ -166,4 +166,8 @@ fc-cache -vf ~/.local/share/fonts
 vim ~/.ssh/config
 # Host xxx
 #     PubkeyAcceptedKeyTypes ssh-rsa
+
+# ssh nvim共享剪切板
+https://github.com/hanxi/lemonade
+https://github.com/hanxi/blog/issues/26
 ```
