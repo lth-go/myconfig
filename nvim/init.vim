@@ -170,8 +170,6 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 " 用于绕行
-" noremap j gj
-" noremap k gk
 " jump list
 nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'gj'
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'gk'
@@ -320,7 +318,6 @@ let g:coc_global_extensions = [
   \ 'coc-sql',
   \ 'coc-go',
   \ 'coc-pyright',
-  \ 'coc-phpls',
   \ 'coc-tsserver',
   \ 'coc-flow',
   \ 'coc-clangd',
@@ -422,7 +419,7 @@ vmap <Leader>t <Plug>(coc-translator-pv)
 " 多光标
 " nmap <silent> <C-c> <Plug>(coc-cursors-position)
 " nmap <silent> <C-d> <Plug>(coc-cursors-word)
-xmap <silent> <C-d> <Plug>(coc-cursors-range)
+" xmap <silent> <C-d> <Plug>(coc-cursors-range)
 " use normal command like `<leader>xi(`
 " nmap <leader>x  <Plug>(coc-cursors-operator)
 
@@ -504,20 +501,6 @@ vmap V <Plug>(expand_region_shrink)
 
 " =====vim-polyglot=====
 
-" 需放最开头
-" let g:polyglot_disabled = []
-
-" php
-" 去除多余高亮
-let php_sql_query = 0
-let php_sql_heredoc = 0
-let php_sql_nowdoc = 0
-let php_html_in_strings = 0
-let php_html_in_heredoc = 0
-let php_html_in_nowdoc = 0
-let php_html_load = 0
-let php_ignore_phpdoc = 1
-
 " go
 let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
@@ -525,9 +508,6 @@ let g:go_highlight_functions = 1
 let g:go_highlight_function_parameters = 1
 let g:go_highlight_function_calls = 1
 let g:go_highlight_types = 1
-
-" javascript
-let g:javascript_plugin_flow = 1
 
 " =====vim-fugitive=====
 
