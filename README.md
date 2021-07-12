@@ -32,6 +32,7 @@ sudo dnf install -y docker docker-compose
 sudo dnf install -y golang nodejs
 sudo dnf install -y ripgrep fd-find
 sudo dnf install -y clash flameshot
+sudo dnf install -y git-delta
 
 sudo dnf install -y fcitx5 fcitx5-chinese-addons fcitx5-configtool
 # https://github.com/fcitx/fcitx/issues/337
@@ -53,6 +54,7 @@ cd ~ && git clone --depth 1 https://email%40password@github.com/lth-go/myconfig.
 cd ~
 ln -sf ~/myconfig/zsh/zshrc .zshrc
 cd ~/.config && ln -sf ~/myconfig/nvim nvim
+cd ~
 ln -sf ~/myconfig/git/.gitconfig .gitconfig
 ln -sf ~/myconfig/git/.gitignore_global .gitignore_global
 ln -sf ~/myconfig/ripgrep/.rgrc .rgrc
@@ -165,9 +167,12 @@ fc-cache -vf ~/.local/share/fonts
 # git拉取失败问题
 vim ~/.ssh/config
 # Host xxx
-#     PubkeyAcceptedKeyTypes ssh-rsa
+#     PubkeyAcceptedKeyTypes=+ssh-rsa
 
 # ssh nvim共享剪切板
 https://github.com/hanxi/lemonade
 https://github.com/hanxi/blog/issues/26
+
+# vbox
+sudo usermod -G vboxsf -a $USER
 ```

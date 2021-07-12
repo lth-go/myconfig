@@ -21,6 +21,7 @@
     untracked = cyan
 [diff]
     tool = vimdiff
+    colorMoved = default
 [difftool]
     prompt = false
     trustExitCode = true
@@ -41,3 +42,30 @@
     default = simple
 [pull]
     rebase = false
+; [pager]
+;     diff = delta
+;     log = delta
+;     reflog = delta
+;     show = delta
+; [interactive]
+;     diffFilter = delta --color-only
+; [delta]
+;     side-by-side = true
+;     commit-decoration-style = bold box ul
+;     file-decoration-style = none
+;     file-style = omit
+;     hunk-header-decoration-style = "#022b45" box ul
+;     hunk-header-file-style = "#999999"
+;     hunk-header-line-number-style = bold "#003300"
+;     hunk-header-style = file line-number syntax
+;     line-numbers = true
+;     line-numbers-left-style = "#022b45"
+;     line-numbers-minus-style = "#80002a"
+;     line-numbers-plus-style = "#003300"
+;     line-numbers-right-style = "#022b45"
+;     line-numbers-zero-style = "#999999"
+;     minus-emph-style = syntax "#80002a"
+;     minus-style = syntax "#330011"
+;     plus-emph-style = syntax "#003300"
+;     plus-style = syntax "#001a00"
+;     syntax-theme = gruvbox-dark

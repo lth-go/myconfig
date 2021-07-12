@@ -136,6 +136,10 @@ augroup END
 if has('unix')
   if has('mac')
     autocmd InsertLeave * call system('~/myconfig/mac/vim/im-select com.apple.keylayout.ABC')
+  " elseif has_key(environ(), 'SSH_CLIENT')
+  "   if executable('lemonade')
+  "       autocmd InsertLeave * call system('lemonade im-select')
+  "   endif
   else
     autocmd InsertLeave * if system('fcitx5-remote') != 0 | call system('fcitx5-remote -c') | endif
   endif
@@ -508,6 +512,9 @@ let g:go_highlight_functions = 1
 let g:go_highlight_function_parameters = 1
 let g:go_highlight_function_calls = 1
 let g:go_highlight_types = 1
+
+" java
+let java_ignore_javadoc = 0
 
 " =====vim-fugitive=====
 
