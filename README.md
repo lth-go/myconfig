@@ -30,7 +30,7 @@ sudo dnf install -y git
 sudo dnf install -y zsh neovim python3-neovim htop jq
 sudo dnf install -y docker docker-compose
 sudo dnf install -y golang nodejs
-sudo dnf install -y ripgrep fd-find
+sudo dnf install -y ripgrep fd-find bat
 sudo dnf install -y clash flameshot
 sudo dnf install -y git-delta
 

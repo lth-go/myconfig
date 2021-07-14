@@ -21,6 +21,11 @@ Plug 'junegunn/vim-easy-align'                  " 文本对齐
 Plug 'voldikss/vim-floaterm'                    " 终端
 Plug 'AndrewRadev/splitjoin.vim'                " 拆行
 
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
 call plug#end()
 
 " =====基础配置=====
@@ -395,27 +400,6 @@ nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(
 
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 
-nmap <Leader>ff :CocList files<CR>
-nmap <Leader>fm :CocList mru<CR>
-nnoremap <silent> <Leader>fc :exe 'CocList -I --input=' . expand('<cword>') . ' grep'<CR>
-vnoremap <leader>fc :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
-nnoremap <silent> <Leader>fg :exe 'CocList -I grep --ignore-case'<CR>
-
-function! s:GrepFromSelected(type)
-  let saved_unnamed_register = @@
-  if a:type ==# 'v'
-    normal! `<v`>y
-  elseif a:type ==# 'char'
-    normal! `[v`]y
-  else
-    return
-  endif
-  let word = substitute(@@, '\n$', '', 'g')
-  let word = escape(word, '| ')
-  let @@ = saved_unnamed_register
-  execute 'CocList grep ' . word
-endfunction
-
 " coc-translator
 nmap <Leader>t <Plug>(coc-translator-p)
 vmap <Leader>t <Plug>(coc-translator-pv)
@@ -556,8 +540,8 @@ nmap ga <Plug>(EasyAlign)
 
 " =====vim-floaterm=====
 
-let g:floaterm_width = 0.8
-let g:floaterm_height = 0.8
+let g:floaterm_width = 0.9
+let g:floaterm_height = 0.9
 let g:floaterm_keymap_toggle = '<F12>'
 
 " =====chaoren/vim-wordmotion=====
@@ -571,6 +555,49 @@ let g:wordmotion_mappings = {
 \ 'iw': 'i<M-w>',
 \ '<C-R><C-W>': '<C-R><M-w>'
 \ }
+
+" =====telescope=====
+
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fm <cmd>Telescope oldfiles<cr>
+nnoremap <leader>fc <cmd>Telescope grep_string<cr>
+vnoremap <silent> <leader>fc :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
+
+function! s:GrepFromSelected(type)
+  let saved_unnamed_register = @@
+  if a:type ==# 'v'
+    normal! `<v`>y
+  elseif a:type ==# 'char'
+    normal! `[v`]y
+  else
+    return
+  endif
+  let word = substitute(@@, '\n$', '', 'g')
+  let word = escape(word, '| ')
+  let @@ = saved_unnamed_register
+  execute 'Telescope grep_string search=' . word
+endfunction
+
+lua << EOF
+local actions = require('telescope.actions')
+
+require("telescope").setup {
+  defaults = {
+    mappings = {
+      i = {
+        ["<esc>"] = actions.close
+      },
+    },
+  },
+  pickers = {
+    oldfiles = {
+      include_current_session = true,
+      cwd_only = true,
+    }
+  },
+}
+EOF
 
 " =====主题=====
 
