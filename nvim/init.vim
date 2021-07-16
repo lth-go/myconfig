@@ -7,24 +7,28 @@ Plug 'morhetz/gruvbox'                          " 主题配色
 Plug 'sheerun/vim-polyglot'                     " 高亮, 对齐
 Plug 'vim-airline/vim-airline'                  " 状态栏
 Plug 'scrooloose/nerdcommenter'                 " 注释
-Plug 'jiangmiao/auto-pairs'                     " 括号匹配
+Plug 'windwp/nvim-autopairs'
 Plug 'tpope/vim-surround'                       " 结对符修改
 Plug 'tpope/vim-repeat'                         " 重复
 Plug 'tpope/vim-abolish'                        " 字符处理
 Plug 'chaoren/vim-wordmotion'                   " 字符选中
 Plug 'terryma/vim-expand-region'                " 快速选中
-Plug 'ryanoasis/vim-devicons'                   " 图标美化,需安装字体
-Plug 'tpope/vim-fugitive'                       " Git
-Plug 'liuchengxu/vista.vim'                     " Tag
+Plug 'AndrewRadev/splitjoin.vim'                " 拆行
 Plug 'justinmk/vim-sneak'                       " 快速移动
 Plug 'junegunn/vim-easy-align'                  " 文本对齐
+Plug 'tpope/vim-fugitive'                       " Git
+Plug 'liuchengxu/vista.vim'                     " Tag
 Plug 'voldikss/vim-floaterm'                    " 终端
-Plug 'AndrewRadev/splitjoin.vim'                " 拆行
 
+Plug 'ryanoasis/vim-devicons'                   " 图标美化,需安装字体
 Plug 'kyazdani42/nvim-web-devicons'
+
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 call plug#end()
 
@@ -141,10 +145,6 @@ augroup END
 if has('unix')
   if has('mac')
     autocmd InsertLeave * call system('~/myconfig/mac/vim/im-select com.apple.keylayout.ABC')
-  " elseif has_key(environ(), 'SSH_CLIENT')
-  "   if executable('lemonade')
-  "       autocmd InsertLeave * call system('lemonade im-select')
-  "   endif
   else
     autocmd InsertLeave * if system('fcitx5-remote') != 0 | call system('fcitx5-remote -c') | endif
   endif
@@ -404,13 +404,6 @@ command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport
 nmap <Leader>t <Plug>(coc-translator-p)
 vmap <Leader>t <Plug>(coc-translator-pv)
 
-" 多光标
-" nmap <silent> <C-c> <Plug>(coc-cursors-position)
-" nmap <silent> <C-d> <Plug>(coc-cursors-word)
-" xmap <silent> <C-d> <Plug>(coc-cursors-range)
-" use normal command like `<leader>xi(`
-" nmap <leader>x  <Plug>(coc-cursors-operator)
-
 nnoremap <C-\> :CocCommand explorer<CR>
 
 " =====Airline=====
@@ -456,7 +449,6 @@ let g:airline#extensions#branch#enabled = 0
 " 不显示vista
 let g:airline#extensions#vista#enabled = 0
 " 关闭状态显示空白符号计数
-" let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#whitespace#checks = ['indent', 'trailing', 'long', 'conflicts']
 
 " =====Nerdcommenter=====
@@ -486,19 +478,6 @@ let g:expand_region_text_objects = {
 " 快捷键
 vmap v <Plug>(expand_region_expand)
 vmap V <Plug>(expand_region_shrink)
-
-" =====vim-polyglot=====
-
-" go
-let g:go_highlight_extra_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_parameters = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_types = 1
-
-" java
-let java_ignore_javadoc = 0
 
 " =====vim-fugitive=====
 
@@ -599,14 +578,29 @@ require("telescope").setup {
 }
 EOF
 
+" =====nvim-autopairs=====
+
+lua <<EOF
+require('nvim-autopairs').setup()
+EOF
+
+" =====nvim-treesitter=====
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+  },
+}
+EOF
+
 " =====主题=====
 
 let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 
 highlight link Operator GruvboxRed
-" highlight link Whitespace Error
-highlight link CocExplorerFileDirectory None
 highlight link CocExplorerFileDiagnosticWarning None
 highlight link CocExplorerFileDiagnosticError None
 
