@@ -32,7 +32,7 @@ sudo dnf install -y docker docker-compose
 sudo dnf install -y golang nodejs
 sudo dnf install -y ripgrep fd-find bat
 sudo dnf install -y clash flameshot
-sudo dnf install -y git-delta
+sudo dnf install -y gcc-c++ libstdc++-devel
 
 sudo dnf install -y fcitx5 fcitx5-chinese-addons fcitx5-configtool
 # https://github.com/fcitx/fcitx/issues/337
@@ -50,6 +50,15 @@ sudo dnf update -y neovim
 # config
 cd ~ && git clone --depth 1 https://email%40password@github.com/lth-go/myconfig.git
 
+# zsh
+cd ~/myconfig/zsh/ && sh ./install.sh
+
+cd ~/.oh-my-zsh/custom/themes/ && ln -sf ~/myconfig/zsh/my.zsh-theme my.zsh-theme
+
+cd ~/.oh-my-zsh/custom/plugins
+git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions.git
+git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git
+
 # soft link
 cd ~
 ln -sf ~/myconfig/zsh/zshrc .zshrc
@@ -64,18 +73,12 @@ cd /
 sudo ln -sf ~/work/ work
 sudo ln -sf ~/data/ data
 
-# zsh
-cd ~/myconfig/zsh/ && sh ./install.sh
-
-cd ~/.oh-my-zsh/custom/themes/ && ln -sf ~/myconfig/zsh/my.zsh-theme my.zsh-theme
-
-cd ~/.oh-my-zsh/custom/plugins
-git clone https://github.com/zsh-users/zsh-autosuggestions.git
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
-
 # fzf
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
+
+# Nodejs
+npm config set registry https://registry.npm.taobao.org
 
 # vim
 cd ~/myconfig
@@ -99,9 +102,6 @@ pip install --user jedi autopep8 flake8
 
 # Golang
 go get golang.org/x/tools/gopls@latest
-
-# Nodejs
-npm config set registry https://registry.npm.taobao.org
 
 sudo npm install -g diff-so-fancy tldr
 sudo npm -g install flow-bin
@@ -149,6 +149,7 @@ cd ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting && git pull
 ```
 mkdir -p ~/.local/share/fonts
 rm -rf ~/.local/share/fonts/DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono.ttf
+cd ~/myconfig
 cp ./fonts/DejaVu\ Sans\ Mono\ Nerd\ Font\ Complete\ Mono.ttf ~/.local/share/fonts
 
 fc-cache -vf ~/.local/share/fonts
