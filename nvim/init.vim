@@ -30,6 +30,8 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
+Plug 'akinsho/nvim-bufferline.lua'
+
 call plug#end()
 
 " =====基础配置=====
@@ -327,8 +329,6 @@ let g:coc_global_extensions = [
   \ 'coc-sql',
   \ 'coc-go',
   \ 'coc-pyright',
-  \ 'coc-tsserver',
-  \ 'coc-flow',
   \ 'coc-clangd',
   \ 'coc-vimlsp',
   \ 'coc-translator',
@@ -345,13 +345,9 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
@@ -361,7 +357,6 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
@@ -379,8 +374,8 @@ nmap <Leader>rn <Plug>(coc-rename)
 nmap <leader>rf <Plug>(coc-refactor)
 
 " Formatting selected code.
-xmap <leader>af  <Plug>(coc-format-selected)
-nmap <Leader>af  <Plug>(coc-format)
+xmap <leader>af <Plug>(coc-format-selected)
+nmap <Leader>af <Plug>(coc-format)
 
 " text object
 xmap if <Plug>(coc-funcobj-i)
@@ -404,6 +399,7 @@ command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport
 nmap <Leader>t <Plug>(coc-translator-p)
 vmap <Leader>t <Plug>(coc-translator-pv)
 
+" coc-explorer
 nnoremap <C-\> :CocCommand explorer<CR>
 
 " =====Airline=====
@@ -415,35 +411,6 @@ let g:airline_left_sep = ''
 let g:airline_left_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
-" 打开tabline功能
-let g:airline#extensions#tabline#enabled = 1
-" 标签页只显示文件名
-let g:airline#extensions#tabline#fnamemod = ':t'
-" 去除右上角buffer
-let g:airline#extensions#tabline#buffers_label = ''
-" 标签页快捷键
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-nmap <Leader>1 <Plug>AirlineSelectTab1
-nmap <Leader>2 <Plug>AirlineSelectTab2
-nmap <Leader>3 <Plug>AirlineSelectTab3
-nmap <Leader>4 <Plug>AirlineSelectTab4
-nmap <Leader>5 <Plug>AirlineSelectTab5
-nmap <Leader>6 <Plug>AirlineSelectTab6
-nmap <Leader>7 <Plug>AirlineSelectTab7
-nmap <Leader>8 <Plug>AirlineSelectTab8
-nmap <Leader>9 <Plug>AirlineSelectTab9
-let g:airline#extensions#tabline#buffer_idx_format = {
-  \ '0': '0 ',
-  \ '1': '1 ',
-  \ '2': '2 ',
-  \ '3': '3 ',
-  \ '4': '4 ',
-  \ '5': '5 ',
-  \ '6': '6 ',
-  \ '7': '7 ',
-  \ '8': '8 ',
-  \ '9': '9 '
-\ }
 " 不显示vim-fugitive分支名
 let g:airline#extensions#branch#enabled = 0
 " 不显示vista
@@ -478,28 +445,6 @@ let g:expand_region_text_objects = {
 " 快捷键
 vmap v <Plug>(expand_region_expand)
 vmap V <Plug>(expand_region_shrink)
-
-" =====vim-fugitive=====
-
-command! -nargs=? -complete=customlist,s:diffcomplete GitDiffFileList call s:GitDiffNameOnly(<f-args>)
-
-function! s:GitDiffNameOnly(...)
-  let branch = 'origin/master'
-
-  if a:0 && !empty(a:1)
-    let branch = a:1
-  endif
-
-  exe 'Git difftool --name-only ' . branch
-  exe 'copen'
-
-  execute 'nnoremap <silent> <buffer> o <C-w><C-o><CR>\|:Gvdiffsplit! ' . branch . '<CR>'
-endfunction
-
-" 命令行补全
-function! s:diffcomplete(a, l, p) abort
-  return fugitive#repo().superglob(a:a)
-endfunction
 
 " =====vista=====
 
@@ -587,11 +532,27 @@ EOF
 " =====nvim-treesitter=====
 
 lua <<EOF
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup {
   ensure_installed = "maintained",
   highlight = {
     enable = true,
   },
+}
+EOF
+
+" =====nvim-bufferline.lua=====
+
+lua << EOF
+require("bufferline").setup{
+  options = {
+    numbers = "ordinal",
+    mappings = true,
+    number_style = "",
+    offsets = {{filetype = "coc-explorer", text = "coc-explorer"}},
+    show_buffer_close_icons = false,
+    show_close_icon = false,
+    separator_style = "thin",
+  }
 }
 EOF
 
