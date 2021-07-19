@@ -2,139 +2,103 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " =====插件=====
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'} " LSP
-Plug 'morhetz/gruvbox'                          " 主题配色
-Plug 'sheerun/vim-polyglot'                     " 高亮, 对齐
-Plug 'vim-airline/vim-airline'                  " 状态栏
-Plug 'scrooloose/nerdcommenter'                 " 注释
-Plug 'windwp/nvim-autopairs'
-Plug 'tpope/vim-surround'                       " 结对符修改
-Plug 'tpope/vim-repeat'                         " 重复
-Plug 'tpope/vim-abolish'                        " 字符处理
-Plug 'chaoren/vim-wordmotion'                   " 字符选中
-Plug 'terryma/vim-expand-region'                " 快速选中
-Plug 'AndrewRadev/splitjoin.vim'                " 拆行
-Plug 'justinmk/vim-sneak'                       " 快速移动
-Plug 'junegunn/vim-easy-align'                  " 文本对齐
-Plug 'tpope/vim-fugitive'                       " Git
-Plug 'liuchengxu/vista.vim'                     " Tag
-Plug 'voldikss/vim-floaterm'                    " 终端
-
-Plug 'ryanoasis/vim-devicons'                   " 图标美化,需安装字体
-Plug 'kyazdani42/nvim-web-devicons'
-
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-
-Plug 'nvim-telescope/telescope.nvim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'morhetz/gruvbox'
+Plug 'sheerun/vim-polyglot'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/nvim-bufferline.lua'
+Plug 'vim-airline/vim-airline'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'scrooloose/nerdcommenter'
+Plug 'windwp/nvim-autopairs'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-abolish'
+Plug 'chaoren/vim-wordmotion'
+Plug 'terryma/vim-expand-region'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'justinmk/vim-sneak'
+Plug 'junegunn/vim-easy-align'
+Plug 'tpope/vim-fugitive'
+Plug 'liuchengxu/vista.vim'
+Plug 'voldikss/vim-floaterm'
 
 call plug#end()
 
 " =====基础配置=====
 
-" 设置编码格式
+set termguicolors
 set fileencodings=ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,latin1
 
 set updatetime=300
-set shortmess+=c
+set shortmess+=csI
 set jumpoptions+=stack
 
-" 关闭文件缓存
 set nobackup
 set nowritebackup
 set noswapfile
-
-" 允许有未保存时切换缓冲区
 set hidden
 
-" 菜单补全
 set wildmode=longest:full,full
 let &wildcharm = &wildchar
 cnoremap <expr> / pumvisible() ? "\<Down>" : "/"
 
-" 忽略文件
 set wildignore+=.vim,.idea,.git
 set wildignore+=*.swp,tags
 set wildignore+=*.o,*.a,*.so
 set wildignore+=*.pyc,*.pyo
 set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz
 
-" 相对行号
 set relativenumber number
 
-" 禁止折叠
 set nofoldenable
-" 禁止拆行
 set nowrap
-" 高亮显示当前行
 set cursorline
-" 显示tab跟空格
 set list
 set listchars=tab:>-,trail:·,nbsp:·
 set signcolumn=number
 
-" popup-menu透明度
 set pumblend=10
 set winblend=10
 
-" 垂直滚动
 set scrolloff=10
-" 水平滚动
 set sidescrolloff=10
 
-" 指定分割的区域
 set splitbelow
 set splitright
 
-" 搜索时大小写不敏感
 set ignorecase
 set smartcase
 
-" 智能缩进
 set cindent
-" 制表符占用空格数
 set tabstop=4
-" 自动缩进距离
 set shiftwidth=4
-" 连续空格视为制表符
 set softtabstop=4
-" 将Tab自动转化成空格
 set expandtab
-" 智能缩进
 set shiftround
 
-" 使用系统剪切板
 set clipboard+=unnamedplus
 
 if &diff
-    set noreadonly
+  set noreadonly
 endif
 
 " =====autocmd=====
 
-" 缩进
 autocmd FileType javascript,yaml,sh,vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
-" Go
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd FileType go map [[ 99[{
 autocmd FileType go map ]] 99]}
-" Json
 autocmd FileType json setlocal wrap tabstop=2 shiftwidth=2 softtabstop=2
-" Proto
 autocmd FileType proto setlocal tabstop=4 shiftwidth=4 softtabstop=4
-" Git
 autocmd FileType git setlocal foldenable
-" Markdown
 autocmd FileType markdown setlocal wrap
-" Rego
 autocmd FileType rego setlocal noexpandtab
-
-" filetype
 autocmd BufNewFile,BufRead *.dockerfile setlocal filetype=dockerfile
 
-" 行号切换
 augroup numbertoggle
   autocmd!
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | set relativenumber   | endif
@@ -155,7 +119,6 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "
 
 " =====快捷键=====
 
-" 定义<Leader>
 let mapleader = ";"
 noremap <Space> ;
 
@@ -163,8 +126,6 @@ noremap <Space> ;
 noremap <F1> <Nop>
 inoremap <F1> <Nop>
 noremap Q <Nop>
-" noremap q <Nop>
-" noremap K <Nop>
 
 " 快速保存及退出
 nnoremap <Leader>q :q<CR>
@@ -178,8 +139,6 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" 用于绕行
-" jump list
 nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'gj'
 nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'gk'
 
@@ -219,7 +178,7 @@ vnoremap < <gv
 vnoremap > >gv
 
 " 复制当前行号
-nnoremap <silent> <C-g> :let @+ = join([expand('%'),  line(".")], ':')\|:echo @+<CR>
+nnoremap <silent> <C-g> :let @+ = join([expand('%'), line(".")], ':')\|:echo @+<CR>
 
 map Y y$
 
@@ -234,7 +193,7 @@ map <Leader>P ""P
 
 nnoremap <Leader><Space> :vs<CR>
 
-" ----- star_search 搜索不移动 可视模式高亮选中 -----
+" ----- star_search -----
 
 function! s:StarSearch()
   let cword = expand("<cword>")
@@ -296,7 +255,6 @@ function _G.buf_only()
 end
 EOF
 
-" 关闭当前buffer外的其他buffer
 nnoremap <silent> <Leader>bd :call v:lua.buf_only()<CR>
 
 " ----- buf_only end -----
@@ -389,7 +347,6 @@ nnoremap <C-\> :CocCommand explorer<CR>
 
 " =====Airline=====
 
-" 设置airline主题
 let g:airline_theme = 'gruvbox'
 let g:airline_powerline_fonts = 1
 let g:airline_left_sep = ''
@@ -400,18 +357,13 @@ let g:airline_right_alt_sep = ''
 let g:airline#extensions#branch#enabled = 0
 " 不显示vista
 let g:airline#extensions#vista#enabled = 0
-" 关闭状态显示空白符号计数
 let g:airline#extensions#whitespace#checks = ['indent', 'trailing', 'long', 'conflicts']
 
 " =====Nerdcommenter=====
 
-" 关闭默认快捷键
 let g:NERDCreateDefaultMappings = 0
-" 注释符左对齐
 let g:NERDDefaultAlign = 'left'
-" 注释有空格
 let g:NERDSpaceDelims = 1
-" 自动注释快捷键
 map <C-_> <plug>NERDCommenterToggle
 
 " =====vim-expand-region=====
@@ -427,7 +379,7 @@ let g:expand_region_text_objects = {
   \ 'i}'  :1, 'a}'  :1,
   \ 'it'  :1, 'at'  :1,
 \ }
-" 快捷键
+
 vmap v <Plug>(expand_region_expand)
 vmap V <Plug>(expand_region_shrink)
 
@@ -489,9 +441,42 @@ function! s:GrepFromSelected(type)
 endfunction
 
 lua << EOF
+
+--
+-- nvim-treesitter
+--
+
+require('nvim-treesitter.configs').setup {
+  ensure_installed = "maintained",
+  highlight = {
+    enable = true,
+  },
+}
+
+--
+-- nvim-bufferline.lua
+--
+
+require('bufferline').setup{
+  options = {
+    numbers = "ordinal",
+    mappings = true,
+    number_style = "",
+    offsets = {{filetype = "coc-explorer", text = "coc-explorer"}},
+    show_buffer_close_icons = false,
+    show_close_icon = false,
+    separator_style = "thin",
+  }
+}
+
+--
+-- telescope
+--
+
+local telescope = require('telescope')
 local actions = require('telescope.actions')
 
-require("telescope").setup {
+telescope.setup {
   defaults = {
     mappings = {
       i = {
@@ -506,39 +491,13 @@ require("telescope").setup {
     }
   },
 }
-EOF
 
-" =====nvim-autopairs=====
+--
+-- nvim-autopairs
+--
 
-lua <<EOF
 require('nvim-autopairs').setup()
-EOF
 
-" =====nvim-treesitter=====
-
-lua <<EOF
-require('nvim-treesitter.configs').setup {
-  ensure_installed = "maintained",
-  highlight = {
-    enable = true,
-  },
-}
-EOF
-
-" =====nvim-bufferline.lua=====
-
-lua << EOF
-require("bufferline").setup{
-  options = {
-    numbers = "ordinal",
-    mappings = true,
-    number_style = "",
-    offsets = {{filetype = "coc-explorer", text = "coc-explorer"}},
-    show_buffer_close_icons = false,
-    show_close_icon = false,
-    separator_style = "thin",
-  }
-}
 EOF
 
 " =====主题=====
@@ -550,5 +509,3 @@ highlight link Operator GruvboxRed
 highlight link CocExplorerFileDiagnosticWarning None
 highlight link CocExplorerFileDiagnosticError None
 highlight link TelescopeSelection SignColumn
-
-set termguicolors
