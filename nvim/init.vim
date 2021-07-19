@@ -25,11 +25,9 @@ Plug 'kyazdani42/nvim-web-devicons'
 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
+
 Plug 'nvim-telescope/telescope.nvim'
-
-Plug 'kyazdani42/nvim-tree.lua'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-
 Plug 'akinsho/nvim-bufferline.lua'
 
 call plug#end()
@@ -236,85 +234,72 @@ map <Leader>P ""P
 
 nnoremap <Leader><Space> :vs<CR>
 
-" ----- start_search 搜索不移动 可视模式高亮选中 -----
-function! s:StarSearchCWord()
-  let wordStr = expand("<cword>")
-  if strlen(wordStr) == 0 | return | endif
-  if wordStr[0] =~ '\<'
-    let @/ = '\<' . wordStr . '\>'
-  else
-    let @/ = wordStr
+" ----- star_search 搜索不移动 可视模式高亮选中 -----
+
+function! s:StarSearch()
+  let cword = expand("<cword>")
+
+  if strlen(cword) == 0
+    return
   endif
+
+  if cword[0] =~ '\<'
+    let @/ = '\<' . cword . '\>'
+  else
+    let @/ = cword
+  endif
+
+  set hlsearch
+endfunction
+
+function! s:VStarSearch()
   let savedS = @s
-  normal! "syiw
+  normal! gv"sy
+  let @/ = '\V' . substitute(escape(@s, '\'), '\n', '\\n', 'g')
   let @s = savedS
   set hlsearch
 endfunction
 
-function! s:StarSearchVWord()
-    let savedS = @s
-    normal! gv"sy
-    let @/ = '\V' . substitute(escape(@s, '\'), '\n', '\\n', 'g')
-    let @s = savedS
-    set hlsearch
-endfunction
+nnoremap <silent> * :set nohlsearch\|:call <SID>StarSearch()<CR>
+vnoremap <silent> * :<C-u>set nohlsearch\|:call <SID>VStarSearch()<CR>
 
-nnoremap <silent> * :set nohlsearch\|:call <SID>StarSearchCWord()<CR>
-vnoremap <silent> * :<C-u>set nohlsearch\|:call <SID>StarSearchVWord()<CR>
+" ----- star_search end -----
 
-" ----- start_search end -----
+" ----- buf_only -----
 
-" ----- auto_close_buffers -----
+lua << EOF
+local g = vim.g
+local api = vim.api
 
-function! s:SortTimeStamps(lhs, rhs)
-  if a:lhs[1] > a:rhs[1] | return 1 | endif
-  if a:lhs[1] < a:rhs[1] | return -1 | endif
-  return a:lhs[0] > a:rhs[0]
-endfunction
+function _G.buf_only()
+  local current_buf_map = {}
 
-" TODO: fugitive打开的buf不能自动执行
-function! s:CloseBuffer(nb_to_keep)
-  " 列出所有buffer, 过滤已修改的
-  let saved_buffers = filter(range(1, bufnr('$')), 'buflisted(v:val) && !getbufvar(v:val, "&modified")')
+  for _, win in ipairs(api.nvim_list_wins()) do
+    current_buf_map[api.nvim_win_get_buf(win)] = true
+  end
 
-  " 过滤当前已打开的buffer
-  let window_buffers = map(range(1, winnr('$')), 'winbufnr(v:val)')
-  let saved_buffers = filter(saved_buffers, 'index(window_buffers, v:val) == -1')
+  for _, buf in ipairs(api.nvim_list_bufs()) do
+    if api.nvim_buf_get_option(buf, 'modified') then
+      goto continue
+    end
 
-  " buffer按时间排序
-  let buffer_to_time = map(copy(saved_buffers), '[(v:val), getftime(bufname(v:val))]')
+    if current_buf_map[buf] then
+      goto continue
+    end
 
-  " 关闭未命名buff
-  let no_name_buffer = filter(copy(buffer_to_time), 'v:val[1] <= 0 && getbufvar(v:val[0], "&buftype") == ""')
-  if len(no_name_buffer) > 0
-    exe 'bd ' . join(map(no_name_buffer, 'v:val[0]'), ' ')
-  endif
+    if api.nvim_buf_get_option(buf, 'buftype') == "" then
+      api.nvim_buf_delete(buf, {})
+    end
 
-  " 过滤并排序
-  call filter(buffer_to_time, 'v:val[1] > 0')
-  call sort(buffer_to_time, function('s:SortTimeStamps'))
-
-  " 关闭buffer
-  let buffers_to_strip = map(copy(buffer_to_time[:-a:nb_to_keep]), 'v:val[0]')
-  if len(buffers_to_strip) > 0
-    exe 'bd ' . join(buffers_to_strip, ' ')
-  endif
-endfunction
-
-command! -nargs=1 CloseOldBuffers call s:CloseBuffer(<args>)
+    ::continue::
+  end
+end
+EOF
 
 " 关闭当前buffer外的其他buffer
-nnoremap <Leader>bd :CloseOldBuffers 1<CR>
+nnoremap <silent> <Leader>bd :call v:lua.buf_only()<CR>
 
-augroup CloseOldBuffers
-  au!
-  au BufNew * call s:CloseBuffer(g:nb_buffers_to_keep)
-augroup END
-
-" 最大buffer数
-let g:nb_buffers_to_keep = 6
-
-" ----- auto_close_buffers end -----
+" ----- buf_only end -----
 
 " =====Coc=====
 
@@ -564,5 +549,6 @@ colorscheme gruvbox
 highlight link Operator GruvboxRed
 highlight link CocExplorerFileDiagnosticWarning None
 highlight link CocExplorerFileDiagnosticError None
+highlight link TelescopeSelection SignColumn
 
 set termguicolors
