@@ -36,6 +36,7 @@ set fileencodings=ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,latin1
 set updatetime=300
 set shortmess+=csI
 set jumpoptions+=stack
+set inccommand=nosplit
 
 set nobackup
 set nowritebackup
