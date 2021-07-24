@@ -140,8 +140,8 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'gj'
-nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'gk'
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 
 " 替换行首行尾快捷键
 noremap H ^
