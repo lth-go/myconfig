@@ -230,6 +230,8 @@ vnoremap <silent> * :<C-u>set nohlsearch\|:call <SID>VStarSearch()<CR>
 lua << EOF
 local g = vim.g
 local api = vim.api
+local cmd = vim.cmd
+local bo = vim.bo
 
 function _G.buf_only()
   local current_buf_map = {}
@@ -243,12 +245,20 @@ function _G.buf_only()
       goto continue
     end
 
+    if not bo[buf].buflisted then
+      goto continue
+    end
+
+    if not api.nvim_buf_is_valid(buf) then
+      goto continue
+    end
+
     if current_buf_map[buf] then
       goto continue
     end
 
     if api.nvim_buf_get_option(buf, 'buftype') == "" then
-      api.nvim_buf_delete(buf, {})
+      cmd(string.format('%s %d', 'bdelete', buf))
     end
 
     ::continue::
