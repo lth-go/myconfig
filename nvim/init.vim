@@ -147,8 +147,6 @@ nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 " 替换行首行尾快捷键
 noremap H ^
 noremap L g_
-noremap <Leader>h H
-noremap <Leader>l L
 
 " 命令行模式增强
 cnoremap <C-P> <Up>
