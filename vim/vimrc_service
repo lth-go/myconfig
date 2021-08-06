@@ -1,128 +1,66 @@
 " 关闭vi兼容
 set nocompatible
 
-" =====文件=====
+" =====基础配置=====
 
-" 文件类型检测
 filetype plugin indent on
 
-" 设置编码格式
 set fileencodings=ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,latin1
 set encoding=utf-8
 set termencoding=utf-8
-
-" 文件修改自动载入
 set autoread
-" 覆盖文件不备份
 set nobackup
-" 关闭交换文件
 set noswapfile
-" 允许有未保存时切换缓冲区
 set hidden
-
-" =====命令行=====
-
-" 菜单补全
 set completeopt-=preview
-" 历史命令容量
 set history=2000
-" 命令行智能补全
 set wildmenu
 set wildmode=longest:full,full
-" 忽略文件
 set wildignore+=*.swp,*.pyc,*.pyo,.idea,.git
-" wildmode增强
 let &wildcharm = &wildchar
 cnoremap <expr> / wildmenumode() ? "\<Down>" : "/"
 
-" =====状态栏=====
-
-" 总是显示状态栏
 set laststatus=2
-" 显示光标当前位置
 set ruler
-" 显示当前正在输入的命令
 set showcmd
 
-" =====行号=====
-
-" 相对行号
 set relativenumber number
-" 行号切换
 augroup numbertoggle
   autocmd!
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | set relativenumber   | endif
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | set norelativenumber | endif
 augroup END
 
-" =====内容=====
-
-" 禁止拆行
 set nowrap
-" 高亮显示当前行
 set cursorline
-
-" 提高画面流畅度
 set lazyredraw
 set ttyfast
-
-" 禁止折叠
 set nofoldenable
-
-" 显示tab跟空格
 set list
 set listchars=tab:>-,trail:·,nbsp:·
-
-" 指定分割的区域
 set splitbelow
 set splitright
-
-" 垂直滚动
 set scrolloff=10
-" 水平滚动
 set sidescroll=1
 set sidescrolloff=10
-
-" =====搜索=====
-
-" 高亮显示搜索结果
 set hlsearch
-" 开启实时搜索功能
 set incsearch
-" 搜索时大小写不敏感
 set ignorecase
 set smartcase
-
-" =====缩进=====
-
-" 退格键正常处理
 set backspace=2
-" 智能缩进
 set cindent
-" 自动缩进
 set autoindent
-" 制表符占用空格数
 set tabstop=4
-" 自动缩进距离
 set shiftwidth=4
-" 连续空格视为制表符
 set softtabstop=4
-" 按退格键一次删掉4个空格
 set smarttab
-" 将Tab自动转化成空格
 set expandtab
-" 智能缩进
 set shiftround
 
-" 缩进
 autocmd FileType javascript,json,yaml,sh,vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
-" Go
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
-" proto缩进
 autocmd FileType proto setlocal tabstop=4 shiftwidth=4 softtabstop=4
-" Git
 autocmd FileType git setlocal foldenable
-" Markdown
 autocmd FileType markdown setlocal wrap
 
 " =====其他=====
@@ -155,10 +93,9 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" 用于绕行
 " jump list
-nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'gj'
-nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'gk'
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
 
 " 替换行首行尾快捷键
 noremap H ^
@@ -196,31 +133,34 @@ vnoremap > >gv
 " 复制当前行号
 nnoremap <silent> <C-g> :let @+ = join([expand('%'),  line(".")], ':')\|:echo @+<CR>
 
-" ----- start_search 搜索不移动 可视模式高亮选中 -----
-function! s:Starsearch_CWord()
-  let wordStr = expand("<cword>")
-  if strlen(wordStr) == 0 | return | endif
-  if wordStr[0] =~ '\<'
-    let @/ = '\<' . wordStr . '\>'
-  else
-    let @/ = wordStr
+" ----- star_search -----
+
+function! s:StarSearch()
+  let cword = expand("<cword>")
+
+  if strlen(cword) == 0
+    return
   endif
+
+  if cword[0] =~ '\<'
+    let @/ = '\<' . cword . '\>'
+  else
+    let @/ = cword
+  endif
+
+  set hlsearch
+endfunction
+
+function! s:VStarSearch()
   let savedS = @s
-  normal! "syiw
+  normal! gv"sy
+  let @/ = '\V' . substitute(escape(@s, '\'), '\n', '\\n', 'g')
   let @s = savedS
   set hlsearch
 endfunction
 
-function! s:Starsearch_VWord()
-    let savedS = @s
-    normal! gv"sy
-    let @/ = '\V' . substitute(escape(@s, '\'), '\n', '\\n', 'g')
-    let @s = savedS
-    set hlsearch
-endfunction
-
-nnoremap <silent> * :set nohlsearch\|:call <SID>Starsearch_CWord()<CR>
-vnoremap <silent> * :<C-u>set nohlsearch\|:call <SID>Starsearch_VWord()<CR>
+nnoremap <silent> * :set nohlsearch\|:call <SID>StarSearch()<CR>
+vnoremap <silent> * :<C-u>set nohlsearch\|:call <SID>VStarSearch()<CR>
 
 " ----- start_search end -----
 
@@ -232,7 +172,3 @@ syntax enable
 set background=dark
 " 主题
 colorscheme desert
-
-# fix vim7.4
-# https://github.com/stephpy/vim-yaml
-# copy to $HOME/.vim/
