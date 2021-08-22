@@ -12,6 +12,7 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/nvim-bufferline.lua'
 Plug 'vim-airline/vim-airline'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'fannheyward/telescope-coc.nvim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'windwp/nvim-autopairs'
 Plug 'tpope/vim-surround'
@@ -305,12 +306,6 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
-nmap <silent> <leader>g <Plug>(coc-definition)zz
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
@@ -436,6 +431,12 @@ nnoremap <leader>fm <cmd>Telescope oldfiles<cr>
 nnoremap <leader>fc <cmd>Telescope grep_string<cr>
 vnoremap <silent> <leader>fc :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
 
+nmap <silent><leader>g <cmd>Telescope coc definitions<cr>
+nmap <silent>gd <cmd>Telescope coc definitions<cr>
+nmap <silent>gr <cmd>Telescope coc references<cr>
+nmap <silent>gy <cmd>Telescope coc type_definitions<cr>
+nmap <silent>gi <cmd>Telescope coc implementations<cr>
+
 function! s:GrepFromSelected(type)
   let saved_unnamed_register = @@
   if a:type ==# 'v'
@@ -450,6 +451,18 @@ function! s:GrepFromSelected(type)
   let @@ = saved_unnamed_register
   execute 'Telescope grep_string search=' . word
 endfunction
+
+" =====bufferline=====
+
+nnoremap <silent><leader>1 <Cmd>BufferLineGoToBuffer 1<CR>
+nnoremap <silent><leader>2 <Cmd>BufferLineGoToBuffer 2<CR>
+nnoremap <silent><leader>3 <Cmd>BufferLineGoToBuffer 3<CR>
+nnoremap <silent><leader>4 <Cmd>BufferLineGoToBuffer 4<CR>
+nnoremap <silent><leader>5 <Cmd>BufferLineGoToBuffer 5<CR>
+nnoremap <silent><leader>6 <Cmd>BufferLineGoToBuffer 6<CR>
+nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR>
+nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
+nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
 
 lua << EOF
 
@@ -471,12 +484,11 @@ require('nvim-treesitter.configs').setup {
 require('bufferline').setup{
   options = {
     numbers = "ordinal",
-    mappings = true,
     number_style = "",
     offsets = {{filetype = "coc-explorer", text = "coc-explorer"}},
     show_buffer_close_icons = false,
     show_close_icon = false,
-    separator_style = "thin",
+    separator_style = "slant",
   }
 }
 
@@ -499,9 +511,15 @@ telescope.setup {
     oldfiles = {
       include_current_session = true,
       cwd_only = true,
-    }
+    },
   },
 }
+
+--
+-- telescope
+--
+
+require('telescope').load_extension('coc')
 
 --
 -- nvim-autopairs
@@ -517,6 +535,5 @@ let g:gruvbox_contrast_dark = 'hard'
 colorscheme gruvbox
 
 highlight link Operator GruvboxRed
-highlight link CocExplorerFileDiagnosticWarning None
-highlight link CocExplorerFileDiagnosticError None
 highlight link TelescopeSelection SignColumn
+highlight link TelescopePreviewLine SignColumn
