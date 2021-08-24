@@ -12,7 +12,6 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/nvim-bufferline.lua'
 Plug 'vim-airline/vim-airline'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'fannheyward/telescope-coc.nvim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'windwp/nvim-autopairs'
 Plug 'tpope/vim-surround'
@@ -90,7 +89,10 @@ endif
 
 " =====autocmd=====
 
-autocmd FileType javascript,yaml,sh,vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType sh setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd FileType go map [[ 99[{
 autocmd FileType go map ]] 99]}
@@ -227,6 +229,7 @@ vnoremap <silent> * :<C-u>set nohlsearch\|:call <SID>VStarSearch()<CR>
 " ----- buf_only -----
 
 lua << EOF
+
 local g = vim.g
 local api = vim.api
 local cmd = vim.cmd
@@ -263,6 +266,7 @@ function _G.buf_only()
     ::continue::
   end
 end
+
 EOF
 
 nnoremap <silent> <Leader>bd :call v:lua.buf_only()<CR>
@@ -303,6 +307,11 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+nmap <silent> <leader>g <Plug>(coc-definition)zz
+nmap <silent> gd <Plug>(coc-definition)zz
+nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gr <Plug>(coc-references)
 
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -429,11 +438,8 @@ nnoremap <leader>fm <cmd>Telescope oldfiles<cr>
 nnoremap <leader>fc <cmd>Telescope grep_string<cr>
 vnoremap <silent> <leader>fc :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
 
-nmap <silent><leader>g <cmd>Telescope coc definitions<cr>
-nmap <silent>gd <cmd>Telescope coc definitions<cr>
-nmap <silent>gr <cmd>Telescope coc references<cr>
-nmap <silent>gy <cmd>Telescope coc type_definitions<cr>
-nmap <silent>gi <cmd>Telescope coc implementations<cr>
+nmap <silent>gr <cmd>Telescope coc references initial_mode=normal<cr>
+nmap <silent>gi <cmd>Telescope coc implementations initial_mode=normal<cr>
 
 function! s:GrepFromSelected(type)
   let saved_unnamed_register = @@
@@ -464,67 +470,7 @@ nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
 
 lua << EOF
 
---
--- nvim-treesitter
---
-
-require('nvim-treesitter.configs').setup {
-  ensure_installed = "maintained",
-  highlight = {
-    enable = true,
-  },
-}
-
---
--- nvim-bufferline.lua
---
-
-require('bufferline').setup{
-  options = {
-    numbers = "ordinal",
-    number_style = "",
-    offsets = {{filetype = "coc-explorer", text = "coc-explorer"}},
-    show_buffer_close_icons = false,
-    show_close_icon = false,
-    separator_style = "slant",
-  }
-}
-
---
--- telescope
---
-
-local telescope = require('telescope')
-local actions = require('telescope.actions')
-
-telescope.setup {
-  defaults = {
-    mappings = {
-      i = {
-        ["<esc>"] = actions.close
-      },
-    },
-    file_ignore_patterns = { "protocol/.*" },
-  },
-  pickers = {
-    oldfiles = {
-      include_current_session = true,
-      cwd_only = true,
-    },
-  },
-}
-
---
--- telescope
---
-
-require('telescope').load_extension('coc')
-
---
--- nvim-autopairs
---
-
-require('nvim-autopairs').setup()
+require("core")
 
 EOF
 
