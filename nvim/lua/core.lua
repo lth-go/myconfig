@@ -15,8 +15,9 @@ require('nvim-treesitter.configs').setup {
 
 require('bufferline').setup{
   options = {
-    numbers = "ordinal",
-    number_style = "",
+    numbers = function(opts)
+      return string.format('%s.', opts.ordinal)
+    end,
     offsets = {{filetype = "coc-explorer", text = "coc-explorer"}},
     show_buffer_close_icons = false,
     show_close_icon = false,

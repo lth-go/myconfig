@@ -2,6 +2,7 @@ local conf = require('telescope.config').values
 local finders = require('telescope.finders')
 local pickers = require('telescope.pickers')
 local utils = require('telescope.utils')
+local Path = require('plenary.path')
 local string = string
 local vim = vim
 
@@ -58,15 +59,15 @@ local gen_from_quickfix_custom = function(opts)
     local coordinates = string.format("%s:%s", entry.lnum, entry.col)
 
     local display, hl_group = utils.transform_devicons(
-        entry.filename,
-        string.format(display_string, display_filename, coordinates),
-        false
+      entry.filename,
+      string.format(display_string, display_filename, coordinates),
+      false
     )
 
     if hl_group then
-        return display, { { { 1, 3 }, hl_group } }
+      return display, { { { 1, 3 }, hl_group } }
     else
-        return display
+      return display
     end
   end
 
@@ -86,6 +87,31 @@ local gen_from_quickfix_custom = function(opts)
       text = entry.text,
     }
   end
+end
+
+local gen_from_mru = function(opts)
+  local make_display = function(entry)
+    local display, hl_group = utils.transform_devicons(
+      entry.value,
+      entry.value,
+      false
+    )
+
+    if hl_group then
+      return display, { { { 1, 3 }, hl_group } }
+    else
+      return display
+    end
+  end
+
+  return function(entry)
+    return {
+      valid = entry ~= nil,
+      value = entry,
+      ordinal = entry,
+      display = make_display,
+    }
+    end
 end
 
 local function list_or_jump(opts)
@@ -112,6 +138,38 @@ local function list_or_jump(opts)
       },
     }):find()
   end
+end
+
+local mru = function(opts)
+  if not is_ready() then
+    return
+  end
+
+  local home = vim.call('coc#util#get_data_home')
+  local data = Path:new(home .. Path.path.sep .. 'mru'):read()
+  if not data or #data == 0 then
+    return
+  end
+
+  local results = {}
+  local cwd = vim.loop.cwd() .. Path.path.sep
+  for _, val in ipairs(utils.max_split(data, '\n')) do
+    local p = Path:new(val)
+    local lowerPrefix = val:sub(1, #cwd):gsub(Path.path.sep, ''):lower()
+    local lowerCWD = cwd:gsub(Path.path.sep, ''):lower()
+    if lowerCWD == lowerPrefix and p:exists() and p:is_file() then
+      results[#results+1] = val:sub(#cwd+1)
+    end
+  end
+  pickers.new(opts, {
+    prompt_title = 'Coc MRU',
+    sorter = conf.generic_sorter(opts),
+    previewer = conf.qflist_previewer(opts),
+    finder = finders.new_table {
+      results = results,
+      entry_maker = gen_from_mru(opts),
+    },
+  }):find()
 end
 
 local implementations = function(opts)
@@ -146,6 +204,7 @@ end
 
 return require('telescope').register_extension{
   exports = {
+    mru = mru,
     references = references,
     implementations = implementations,
   },

@@ -332,6 +332,8 @@ nmap <leader>rf <Plug>(coc-refactor)
 " Formatting selected code.
 xmap <leader>af <Plug>(coc-format-selected)
 nmap <Leader>af <Plug>(coc-format)
+xmap <C-A-l> <Plug>(coc-format-selected)
+nmap <C-A-l> <Plug>(coc-format)
 
 " text object
 xmap if <Plug>(coc-funcobj-i)
@@ -350,6 +352,7 @@ nnoremap <silent><nowait><expr> <C-d> coc#float#has_scroll() ? coc#float#scroll(
 nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>"
 
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
+nnoremap <silent> <C-A-o> :silent call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 
 " coc-translator
 nmap <Leader>t <Plug>(coc-translator-p)
@@ -421,21 +424,21 @@ let g:floaterm_keymap_toggle = '<F12>'
 " =====chaoren/vim-wordmotion=====
 
 let g:wordmotion_mappings = {
-\ 'w': '<M-w>',
-\ 'b': '<M-b>',
-\ 'e': '<M-e>',
-\ 'ge': 'g<M-e>',
-\ 'aw': 'a<M-w>',
-\ 'iw': 'i<M-w>',
-\ '<C-R><C-W>': '<C-R><M-w>'
+  \ 'w': '<M-w>',
+  \ 'b': '<M-b>',
+  \ 'e': '<M-e>',
+  \ 'ge': 'g<M-e>',
+  \ 'aw': 'a<M-w>',
+  \ 'iw': 'i<M-w>',
+  \ '<C-R><C-W>': '<C-R><M-w>'
 \ }
 
 " =====telescope=====
 
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fm <cmd>Telescope oldfiles<cr>
-nnoremap <leader>fc <cmd>Telescope grep_string<cr>
+nnoremap <leader>fm <cmd>Telescope coc mru<cr>
+nnoremap <leader>fc <cmd>Telescope grep_string initial_mode=normal<cr>
 vnoremap <silent> <leader>fc :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
 
 nmap <silent>gr <cmd>Telescope coc references initial_mode=normal<cr>
