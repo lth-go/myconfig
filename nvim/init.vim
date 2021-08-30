@@ -182,8 +182,6 @@ vnoremap > >gv
 " 复制当前行号
 nnoremap <silent> <C-g> :let @+ = join([expand('%'), line(".")], ':')\|:echo @+<CR>
 
-map Y y$
-
 " 粘贴不覆盖
 xnoremap <expr> p 'pgv"'.v:register.'y'
 
