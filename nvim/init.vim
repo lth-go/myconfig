@@ -10,7 +10,7 @@ Plug 'morhetz/gruvbox'
 Plug 'sheerun/vim-polyglot'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/nvim-bufferline.lua'
-Plug 'vim-airline/vim-airline'
+Plug 'famiu/feline.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'windwp/nvim-autopairs'
@@ -359,20 +359,6 @@ vmap <Leader>t <Plug>(coc-translator-pv)
 " coc-explorer
 nnoremap <C-\> :CocCommand explorer<CR>
 
-" =====Airline=====
-
-let g:airline_theme = 'gruvbox'
-let g:airline_powerline_fonts = 1
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-" 不显示vim-fugitive分支名
-let g:airline#extensions#branch#enabled = 0
-" 不显示vista
-let g:airline#extensions#vista#enabled = 0
-let g:airline#extensions#whitespace#checks = ['indent', 'trailing', 'long', 'conflicts']
-
 " =====Nerdcommenter=====
 
 let g:NERDCreateDefaultMappings = 0
@@ -402,6 +388,7 @@ vmap V <Plug>(expand_region_shrink)
 let g:vista_echo_cursor = 0
 let g:vista_default_executive = 'coc'
 let g:vista_sidebar_width = '50'
+let g:vista_disable_statusline = 1
 nnoremap <F2> :Vista!!<CR>
 
 " =====vim-sneak=====
@@ -470,9 +457,7 @@ nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
 nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
 
 lua << EOF
-
 require("core")
-
 EOF
 
 " =====主题=====

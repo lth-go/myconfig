@@ -26,6 +26,12 @@ require('bufferline').setup{
 }
 
 --
+-- feline.nvim
+--
+
+require('plugins/configs/statusline')
+
+--
 -- telescope
 --
 
