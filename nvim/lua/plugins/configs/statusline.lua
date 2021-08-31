@@ -80,7 +80,13 @@ components.left.active[3] = {
     bg = colors.lightbg,
   },
 
-  right_sep = { str = statusline_style.right, hl = { fg = colors.lightbg, bg = colors.lightbg2 } },
+  right_sep = {
+      str = statusline_style.right,
+      hl = {
+          fg = colors.lightbg,
+          -- bg = colors.lightbg2,
+      },
+  },
 }
 
 components.left.active[4] = {
@@ -257,8 +263,7 @@ components.right.active[7] = {
 
 components.right.active[8] = {
   provider = function()
-    local result = require("feline/providers/cursor").line_percentage()
-    return " " .. result .. " "
+    return string.format(' %d/%d ', vim.fn.line('.'), vim.fn.line('$'))
   end,
 
   hl = {
