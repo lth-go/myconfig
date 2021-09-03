@@ -13,7 +13,9 @@
   "explorer.file.root.template": "[icon] [root]",
   "languageserver": {},
   "go.goplsOptions": {
-    "allowModfileModifications": true
+    "allowModfileModifications": true,
+    // "gofumpt": true,
+    "staticcheck": true
   },
   "python.venvPath": "/work/python_venv/",
   "yaml.format.enable": true,

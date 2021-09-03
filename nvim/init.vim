@@ -5,6 +5,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'honza/vim-snippets'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'morhetz/gruvbox'
 Plug 'sheerun/vim-polyglot'
@@ -287,6 +288,7 @@ let g:coc_global_extensions = [
   \ 'coc-clangd',
   \ 'coc-vimlsp',
   \ 'coc-translator',
+  \ 'coc-snippets',
 \ ]
 
 inoremap <silent><expr> <TAB>

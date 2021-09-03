@@ -84,7 +84,6 @@ components.left.active[3] = {
       str = statusline_style.right,
       hl = {
           fg = colors.lightbg,
-          -- bg = colors.lightbg2,
       },
   },
 }
@@ -161,13 +160,25 @@ components.left.active[7] = {
 
 components.mid.active[1] = {
   provider = function()
-    return vim.g['coc_status'] or ""
+    local status = vim.g['coc_status'] or ""
+    return string.sub(status, 1, 90)
   end,
 
   hl = { fg = colors.green },
 }
 
 components.right.active[1] = {
+  provider = function ()
+    local func = vim.b["coc_current_function"] or ""
+    return func .. " "
+  end,
+
+  hl = {
+    fg = colors.white,
+  },
+}
+
+components.right.active[2] = {
   provider = " " .. statusline_style.left,
 
   hl = {
@@ -199,7 +210,7 @@ local mode_colors = {
   ["!"] = { "SHELL", colors.green },
 }
 
-components.right.active[2] = {
+components.right.active[3] = {
   provider = statusline_style.left,
 
   hl = function()
@@ -210,7 +221,7 @@ components.right.active[2] = {
   end,
 }
 
-components.right.active[3] = {
+components.right.active[4] = {
   provider = statusline_style.vi_mode_icon,
 
   hl = function()
@@ -221,7 +232,7 @@ components.right.active[3] = {
   end,
 }
 
-components.right.active[4] = {
+components.right.active[5] = {
   provider = function()
     return " " .. mode_colors[vim.fn.mode()][1] .. " "
   end,
@@ -234,7 +245,7 @@ components.right.active[4] = {
   end,
 }
 
-components.right.active[5] = {
+components.right.active[6] = {
   provider = statusline_style.left,
 
   hl = {
@@ -243,7 +254,7 @@ components.right.active[5] = {
   },
 }
 
-components.right.active[6] = {
+components.right.active[7] = {
   provider = statusline_style.left,
 
   hl = {
@@ -252,7 +263,7 @@ components.right.active[6] = {
   },
 }
 
-components.right.active[7] = {
+components.right.active[8] = {
   provider = statusline_style.position_icon,
 
   hl = {
@@ -261,7 +272,7 @@ components.right.active[7] = {
   },
 }
 
-components.right.active[8] = {
+components.right.active[9] = {
   provider = function()
     return string.format(' %d/%d ', vim.fn.line('.'), vim.fn.line('$'))
   end,
