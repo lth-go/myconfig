@@ -79,7 +79,7 @@ alias gdn='git diff --name-only origin/master'
 # system
 case "$OSTYPE" in
   linux*)   source ~/myconfig/zsh/zshrc_linux ;;
-  darwin*)  source ~/myconfig/zsh/zshrc_mac ;; 
+  darwin*)  source ~/myconfig/zsh/zshrc_mac ;;
 esac
 
 # work env

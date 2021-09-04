@@ -14,6 +14,7 @@
   "languageserver": {},
   "go.goplsOptions": {
     "allowModfileModifications": true,
+    "experimentalWorkspaceModule": true,
     // "gofumpt": true,
     "staticcheck": true
   },

@@ -171,8 +171,24 @@ table.insert(components.active[1], {
 
 table.insert(components.active[2], {
   provider = function()
-    local status = vim.g['coc_status'] or ""
-    return string.sub(status, 1, 90)
+    local text = vim.g['coc_status'] or ""
+
+    if text == "" then
+      return ""
+    end
+
+    local winwidth = 91
+    local minwidth = 9
+
+    if string.len(text) > winwidth then
+      text = string.sub(text, 1, winwidth)
+    end
+
+    if vim.fn.winwidth(nr) < winwidth then
+      return string.sub(text, 1, minwidth) .. "..."
+    else
+      return text
+    end
   end,
 
   hl = {
