@@ -95,8 +95,6 @@ autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType sh setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
-autocmd FileType go map [[ 99[{
-autocmd FileType go map ]] 99]}
 autocmd FileType json setlocal wrap tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType proto setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd FileType git setlocal foldenable

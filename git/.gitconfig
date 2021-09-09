@@ -69,3 +69,5 @@
 ;     plus-emph-style = syntax "#003300"
 ;     plus-style = syntax "#001a00"
 ;     syntax-theme = gruvbox-dark
+[init]
+    defaultBranch = master
