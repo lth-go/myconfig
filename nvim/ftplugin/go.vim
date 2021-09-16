@@ -23,6 +23,9 @@ onoremap <buffer> <silent> [[ :<c-u>call go#textobj#FunctionJump('o', 'prev')<cr
 xnoremap <buffer> <silent> ]] :<c-u>call go#textobj#FunctionJump('v', 'next')<cr>
 xnoremap <buffer> <silent> [[ :<c-u>call go#textobj#FunctionJump('v', 'prev')<cr>
 
+" -- fillstruct
+command! -nargs=0 GoFillStruct call go#fillstruct#FillStruct()
+
 " restore Vi compatibility settings
 let &cpo = s:cpo_save
 unlet s:cpo_save
