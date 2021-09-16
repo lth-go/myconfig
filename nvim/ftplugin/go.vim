@@ -26,6 +26,9 @@ xnoremap <buffer> <silent> [[ :<c-u>call go#textobj#FunctionJump('v', 'prev')<cr
 " -- fillstruct
 command! -nargs=0 GoFillStruct call go#fillstruct#FillStruct()
 
+" -- test
+command! -nargs=* -bang GoTestFunc call go#test#Func(<bang>0, <f-args>)
+
 " restore Vi compatibility settings
 let &cpo = s:cpo_save
 unlet s:cpo_save
