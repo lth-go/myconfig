@@ -123,7 +123,7 @@ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "
 " =====快捷键=====
 
 let mapleader = ";"
-noremap <Space> ;
+noremap \ ;
 
 " 废弃快捷键
 noremap <F1> <Nop>
@@ -191,6 +191,9 @@ map <Leader>p ""p
 map <Leader>P ""P
 
 nnoremap <Leader><Space> :vs<CR>
+
+nnoremap <Space>gf :GoFillStruct<CR>
+nnoremap <Space>gt :GoTestFunc<CR>
 
 " ----- star_search -----
 
@@ -393,7 +396,7 @@ nnoremap <F2> :Vista!!<CR>
 
 " =====vim-sneak=====
 
-map <Space> <Plug>Sneak_;
+map \ <Plug>Sneak_;
 
 " =====vim-easy-align=====
 
