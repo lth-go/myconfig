@@ -26,6 +26,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
 Plug 'liuchengxu/vista.vim'
 Plug 'voldikss/vim-floaterm'
+Plug 'sindrets/diffview.nvim'
 
 call plug#end()
 
@@ -272,6 +273,26 @@ EOF
 nnoremap <silent> <Leader>bd :call v:lua.buf_only()<CR>
 
 " ----- buf_only end -----
+
+" ----- mkdir start -----
+
+lua << EOF
+
+local fn = vim.fn
+
+function _G.mkdir()
+  local dir = fn.expand('%:p:h')
+
+  if fn.isdirectory(dir) == 0 then
+    fn.mkdir(dir, 'p')
+  end
+end
+
+EOF
+
+autocmd BufWritePre * call v:lua.mkdir()
+
+" ----- mkdir end -----
 
 " =====Coc=====
 
