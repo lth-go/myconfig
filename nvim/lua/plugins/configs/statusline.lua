@@ -93,16 +93,6 @@ table.insert(components.active[1], {
   },
 })
 
-table.insert(components.active[1], {
-  provider = function()
-    if vim.bo.readonly then
-      return "" .. " "
-    else
-      return ""
-    end
-  end,
-})
-
 -- coc
 
 table.insert(components.active[1], {

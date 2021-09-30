@@ -26,7 +26,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
 Plug 'liuchengxu/vista.vim'
 Plug 'voldikss/vim-floaterm'
-Plug 'sindrets/diffview.nvim'
 
 call plug#end()
 
