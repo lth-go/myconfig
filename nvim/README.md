@@ -8,3 +8,9 @@
     "list.source.grep.excludePatterns": ["**/protocol/**"]
 }
 ```
+
+## motion
+
+```sh
+go get github.com/fatih/motion@latest
+```

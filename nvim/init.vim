@@ -192,7 +192,8 @@ map <Leader>P ""P
 
 nnoremap <Leader><Space> :vs<CR>
 
-nnoremap <Space>gf :GoFillStruct<CR>
+" nnoremap <Space>gf :GoFillStruct<CR>
+nnoremap <silent> <Space>gf :call CocActionAsync('codeAction', 'cursor', ['refactor.rewrite'])<CR>
 nnoremap <Space>gt :GoTestFunc<CR>
 
 " ----- star_search -----

@@ -23,9 +23,6 @@ onoremap <buffer> <silent> [[ :<c-u>call go#textobj#FunctionJump('o', 'prev')<cr
 xnoremap <buffer> <silent> ]] :<c-u>call go#textobj#FunctionJump('v', 'next')<cr>
 xnoremap <buffer> <silent> [[ :<c-u>call go#textobj#FunctionJump('v', 'prev')<cr>
 
-" -- fillstruct
-command! -nargs=0 GoFillStruct call go#fillstruct#FillStruct()
-
 " -- test
 command! -nargs=* -bang GoTestFunc call go#test#Func(<bang>0, <f-args>)
 
