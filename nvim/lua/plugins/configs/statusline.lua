@@ -310,10 +310,19 @@ require("feline").setup {
   components = components,
   force_inactive = {
     filetypes = {
-      "coc-explorer",
-      "vista",
+      '^coc%-explorer$',
+      '^vista$',
+      '^NvimTree$',
+      '^packer$',
+      '^startify$',
+      '^fugitive$',
+      '^fugitiveblame$',
+      '^qf$',
+      '^help$'
     },
-    buftypes = {},
-    bufnames = {},
+    buftypes = {
+      '^terminal$'
+    },
+    bufnames = {}
   },
 }
