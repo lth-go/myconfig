@@ -49,7 +49,7 @@ telescope.setup {
         ["<C-p>"] = actions.move_selection_previous,
       },
     },
-    file_ignore_patterns = { "rpcapi/.*" },
+    file_ignore_patterns = { "vendor/.*" },
   },
   pickers = {
     oldfiles = {
