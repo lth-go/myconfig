@@ -313,12 +313,9 @@ require("feline").setup {
       '^coc%-explorer$',
       '^vista$',
       '^NvimTree$',
-      '^packer$',
-      '^startify$',
       '^fugitive$',
       '^fugitiveblame$',
       '^qf$',
-      '^help$'
     },
     buftypes = {
       '^terminal$'

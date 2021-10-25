@@ -13,12 +13,31 @@ require('nvim-treesitter.configs').setup {
 -- nvim-bufferline.lua
 --
 
-require('bufferline').setup{
+local bufferline_utils = require("bufferline.utils")
+function bufferline_utils.is_test()
+  return true
+end
+
+local bufferline = require('bufferline')
+
+bufferline.setup{
   options = {
     numbers = function(opts)
-      return string.format('%s.', opts.ordinal)
+      local index
+      for i, buf in ipairs(bufferline._state.visible_components) do
+        if buf.id == opts.id then
+          index = i
+          break
+        end
+      end
+
+      if not index then
+        return string.format('%s.', opts.ordinal)
+      end
+
+      return string.format('%s.', index)
     end,
-    offsets = {{filetype = "coc-explorer", text = "coc-explorer"}},
+    offsets = {{ filetype = "coc-explorer", text = "coc-explorer" }},
     show_buffer_close_icons = false,
     show_close_icon = false,
     separator_style = "slant",

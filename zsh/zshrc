@@ -69,6 +69,7 @@ alias tldr='tldr -t ocean'
 alias vim='nvim'
 alias vi='nvim'
 export MANPAGER='nvim +Man!'
+export KUBE_EDITOR=nvim
 
 # git
 alias gdn='git diff --name-only origin/master'
