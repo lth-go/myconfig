@@ -494,3 +494,4 @@ highlight link TelescopeSelection SignColumn
 highlight link TelescopePreviewLine SignColumn
 highlight CocExplorerFileDirectoryExpanded guifg=#8094b4
 highlight CocExplorerFileDirectoryCollapsed guifg=#8094b4
+" highlight link VistaTag Normal
