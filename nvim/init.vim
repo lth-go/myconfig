@@ -10,7 +10,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'morhetz/gruvbox'
 Plug 'sheerun/vim-polyglot'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'akinsho/nvim-bufferline.lua'
+Plug 'akinsho/bufferline.nvim'
 Plug 'famiu/feline.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'scrooloose/nerdcommenter'
@@ -470,15 +470,15 @@ endfunction
 
 " =====bufferline=====
 
-nnoremap <silent><leader>1 <Cmd>BufferLineGoToBuffer 1<CR>
-nnoremap <silent><leader>2 <Cmd>BufferLineGoToBuffer 2<CR>
-nnoremap <silent><leader>3 <Cmd>BufferLineGoToBuffer 3<CR>
-nnoremap <silent><leader>4 <Cmd>BufferLineGoToBuffer 4<CR>
-nnoremap <silent><leader>5 <Cmd>BufferLineGoToBuffer 5<CR>
-nnoremap <silent><leader>6 <Cmd>BufferLineGoToBuffer 6<CR>
-nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR>
-nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
-nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
+nnoremap <silent><leader>1 <Cmd>BufferLineGoToBuffer 1<CR><Cmd>redrawtabline<CR><Cmd>redrawtabline<CR>
+nnoremap <silent><leader>2 <Cmd>BufferLineGoToBuffer 2<CR><Cmd>redrawtabline<CR><Cmd>redrawtabline<CR>
+nnoremap <silent><leader>3 <Cmd>BufferLineGoToBuffer 3<CR><Cmd>redrawtabline<CR><Cmd>redrawtabline<CR>
+nnoremap <silent><leader>4 <Cmd>BufferLineGoToBuffer 4<CR><Cmd>redrawtabline<CR><Cmd>redrawtabline<CR>
+nnoremap <silent><leader>5 <Cmd>BufferLineGoToBuffer 5<CR><Cmd>redrawtabline<CR><Cmd>redrawtabline<CR>
+nnoremap <silent><leader>6 <Cmd>BufferLineGoToBuffer 6<CR><Cmd>redrawtabline<CR><Cmd>redrawtabline<CR>
+nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR><Cmd>redrawtabline<CR><Cmd>redrawtabline<CR>
+nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR><Cmd>redrawtabline<CR><Cmd>redrawtabline<CR>
+nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR><Cmd>redrawtabline<CR><Cmd>redrawtabline<CR>
 
 lua << EOF
 require("core")

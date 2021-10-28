@@ -22,6 +22,7 @@ local bufferline = require('bufferline')
 
 bufferline.setup{
   options = {
+    --- TODO: bug
     numbers = function(opts)
       local index
       for i, buf in ipairs(bufferline._state.visible_components) do
@@ -32,7 +33,7 @@ bufferline.setup{
       end
 
       if not index then
-        return string.format('%s.', opts.ordinal)
+        return ""
       end
 
       return string.format('%s.', index)
@@ -40,8 +41,7 @@ bufferline.setup{
     offsets = {{ filetype = "coc-explorer", text = "" }},
     show_buffer_close_icons = false,
     show_close_icon = false,
-    separator_style = "slant",
-  }
+  },
 }
 
 --
