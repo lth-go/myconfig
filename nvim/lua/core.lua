@@ -7,6 +7,9 @@ require('nvim-treesitter.configs').setup {
   highlight = {
     enable = true,
   },
+  indent = {
+    enable = true
+  },
 }
 
 --
@@ -74,4 +77,6 @@ require('telescope').load_extension('coc')
 -- nvim-autopairs
 --
 
-require('nvim-autopairs').setup()
+require('nvim-autopairs').setup({
+  map_cr = false,
+})
