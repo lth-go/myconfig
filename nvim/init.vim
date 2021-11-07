@@ -39,6 +39,7 @@ set updatetime=300
 set shortmess+=csI
 set jumpoptions+=stack
 set inccommand=nosplit
+set completeopt-=preview
 
 set nobackup
 set nowritebackup
@@ -480,6 +481,11 @@ nnoremap <silent><leader>6 <Cmd>BufferLineGoToBuffer 6<CR>
 nnoremap <silent><leader>7 <Cmd>BufferLineGoToBuffer 7<CR>
 nnoremap <silent><leader>8 <Cmd>BufferLineGoToBuffer 8<CR>
 nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
+
+" =====copilot.vim=====
+
+imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
 
 lua << EOF
 require("core")
