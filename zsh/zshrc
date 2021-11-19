@@ -20,6 +20,9 @@ plugins=(
   extract
   ripgrep
   kubectl
+  helm
+  urltools
+  z
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
