@@ -495,7 +495,8 @@ call wilder#setup({'modes': [':', '/', '?']})
 
 call wilder#set_option('pipeline', [
   \ wilder#branch(
-  \   wilder#check({ctx, x -> empty(x)}),
+  \   {ctx, x -> empty(x) ? '' : v:false},
+  \   {ctx, x -> x ==# 'e' ? '' : v:false},
   \   wilder#substitute_pipeline({
   \     'pipeline': wilder#python_search_pipeline({
   \       'skip_cmdtype_check': 1,
