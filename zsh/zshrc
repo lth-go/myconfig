@@ -29,6 +29,8 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+autoload -U compinit; compinit
+
 # Golang
 export GOPATH="$HOME/go"
 export GOBINPATH="$HOME/go/bin"

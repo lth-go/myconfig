@@ -5,7 +5,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets'
 Plug 'github/copilot.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'morhetz/gruvbox'
@@ -496,7 +496,7 @@ call wilder#setup({'modes': [':', '/', '?']})
 call wilder#set_option('pipeline', [
   \ wilder#branch(
   \   {ctx, x -> empty(x) ? '' : v:false},
-  \   {ctx, x -> x ==# 'e' ? '' : v:false},
+  \   {ctx, x -> index(['e', 'v', 'vs'], x) >= 0 ? '' : v:false},
   \   wilder#substitute_pipeline({
   \     'pipeline': wilder#python_search_pipeline({
   \       'skip_cmdtype_check': 1,
