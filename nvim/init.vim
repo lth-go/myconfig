@@ -486,7 +486,7 @@ nnoremap <silent><leader>9 <Cmd>BufferLineGoToBuffer 9<CR>
 
 " =====copilot.vim=====
 
-imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+imap <silent><script><expr> <C-J> copilot#Accept("")
 let g:copilot_no_tab_map = v:true
 
 " =====wilder.nvim=====
