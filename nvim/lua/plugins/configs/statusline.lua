@@ -312,6 +312,7 @@ require("feline").setup {
     filetypes = {
       '^coc%-explorer$',
       '^vista$',
+      '^godebug',
       '^NvimTree$',
       '^fugitive$',
       '^fugitiveblame$',

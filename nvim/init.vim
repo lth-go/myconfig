@@ -6,6 +6,7 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'honza/vim-snippets'
+Plug 'fatih/vim-go'
 Plug 'github/copilot.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'morhetz/gruvbox'
@@ -550,6 +551,16 @@ call wilder#set_option('renderer', wilder#renderer_mux({
 \ }))
 
 cnoremap <expr> / wilder#can_accept_completion() ? wilder#accept_completion(0) : "/"
+
+" =====vim-go=====
+
+let g:go_code_completion_enabled = 0
+let g:go_doc_keywordprg_enabled = 0
+let g:go_def_mapping_enabled = 0
+let g:go_gopls_enabled = 0
+let g:go_fmt_autosave = 0
+let g:go_imports_autosave = 0
+let g:go_mod_fmt_autosave = 0
 
 lua << EOF
 require("core")
