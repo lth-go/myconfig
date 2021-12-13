@@ -78,6 +78,12 @@ telescope.setup {
       },
     },
     file_ignore_patterns = { "vendor/.*" },
+    layout_config = {
+      horizontal = {
+        prompt_position = "top",
+      },
+    },
+    sorting_strategy = 'ascending',
   },
   pickers = {
     oldfiles = {
