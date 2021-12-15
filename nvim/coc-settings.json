@@ -1,6 +1,7 @@
 {
   "suggest.enablePreselect": false,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "outline.splitCommand": "botright 50vs",
   "explorer.diagnostic.displayMax": 0,
   "explorer.git.enable": false,
   "explorer.icon.enableNerdfont": true,

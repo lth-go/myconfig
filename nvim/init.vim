@@ -5,7 +5,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'honza/vim-snippets'
 Plug 'fatih/vim-go'
 Plug 'github/copilot.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -26,7 +25,6 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
-Plug 'liuchengxu/vista.vim'
 Plug 'voldikss/vim-floaterm'
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 
@@ -196,10 +194,6 @@ map <Leader>P ""P
 
 nnoremap <Leader><Space> :vs<CR>
 
-" nnoremap <Space>gf :GoFillStruct<CR>
-nnoremap <silent> <Space>gf :call CocActionAsync('codeAction', 'cursor', ['refactor.rewrite'])<CR>
-nnoremap <Space>gt :GoTestFunc<CR>
-
 " ----- star_search -----
 
 function! s:StarSearch()
@@ -314,7 +308,6 @@ let g:coc_global_extensions = [
   \ 'coc-clangd',
   \ 'coc-vimlsp',
   \ 'coc-translator',
-  \ 'coc-snippets',
   \ 'coc-tabnine',
 \ ]
 
@@ -381,6 +374,11 @@ nnoremap <silent><nowait><expr> <C-u> coc#float#has_scroll() ? coc#float#scroll(
 command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
 nnoremap <silent> <C-A-o> :silent call CocAction('runCommand', 'editor.action.organizeImport')<CR>
 
+" outline
+nnoremap <F2> :CocOutline<CR>
+
+nnoremap <silent> <Space>gf :call CocActionAsync('codeAction', 'cursor', ['refactor.rewrite'])<CR>
+
 " coc-translator
 nmap <Leader>t <Plug>(coc-translator-p)
 vmap <Leader>t <Plug>(coc-translator-pv)
@@ -411,14 +409,6 @@ let g:expand_region_text_objects = {
 
 vmap v <Plug>(expand_region_expand)
 vmap V <Plug>(expand_region_shrink)
-
-" =====vista=====
-
-let g:vista_echo_cursor = 0
-let g:vista_default_executive = 'coc'
-let g:vista_sidebar_width = '50'
-let g:vista_disable_statusline = 1
-nnoremap <F2> :Vista!!<CR>
 
 " =====vim-sneak=====
 
@@ -577,4 +567,3 @@ highlight link TelescopeSelection SignColumn
 highlight link TelescopePreviewLine SignColumn
 highlight CocExplorerFileDirectoryExpanded guifg=#8094b4
 highlight CocExplorerFileDirectoryCollapsed guifg=#8094b4
-" highlight link VistaTag Normal
