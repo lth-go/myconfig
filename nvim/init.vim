@@ -499,6 +499,7 @@ call wilder#set_option('pipeline', [
   \   wilder#cmdline_pipeline({
   \     'fuzzy': 1,
   \     'set_pcre2_pattern': 1,
+  \     'sorter': wilder#python_difflib_sorter(),
   \   }),
   \   wilder#python_search_pipeline({
   \     'pattern': wilder#python_fuzzy_pattern({
@@ -532,6 +533,7 @@ let s:wildmenu_renderer = wilder#wildmenu_renderer({
   \    'accent': wilder#make_hl('WilderAccent', 'Pmenu', [{}, {}, {'foreground': '#f4468f'}]),
   \  },
   \ 'highlighter': s:highlighters,
+  \ 'apply_incsearch_fix': 1,
 \ })
 
 call wilder#set_option('renderer', wilder#renderer_mux({
