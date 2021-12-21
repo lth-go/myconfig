@@ -34,7 +34,7 @@ autoload -U compinit; compinit
 # Golang
 export GOPATH="$HOME/go"
 export GOBINPATH="$HOME/go/bin"
-export GOPROXY=https://goproxy.io,direct
+export GOPROXY=https://goproxy.cn,direct
 export GO111MODULE=on
 export GOSUMDB=off
 

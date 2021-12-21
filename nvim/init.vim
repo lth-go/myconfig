@@ -194,6 +194,9 @@ map <Leader>P ""P
 
 nnoremap <Leader><Space> :vs<CR>
 
+xmap <A-j> :m '>+1<CR>gv-gv
+xmap <A-k> :m '<-2<CR>gv-gv
+
 " ----- star_search -----
 
 function! s:StarSearch()
