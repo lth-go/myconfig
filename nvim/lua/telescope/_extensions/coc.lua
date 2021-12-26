@@ -6,24 +6,21 @@ local Path = require('plenary.path')
 local string = string
 local vim = vim
 
+local fn = vim.fn
+local CocAction = fn.CocAction
+
 local function is_ready(feature)
-  local is_running = vim.call('coc#client#is_running', 'coc')
-  if is_running ~= 1 then
-    return false
-  end
-  local ready = vim.call('coc#rpc#ready')
-  if ready ~= 1 then
-    return false
+  if vim.g.coc_service_initialized ~= 1 then
+    print('Coc is not ready!')
+    return
   end
 
-  local ok = true
-  if feature then
-    ok = vim.call('CocHasProvider', feature)
-    if not ok then
-      print("Coc: server does not support " .. feature)
-    end
+  if feature and not fn.CocHasProvider(feature) then
+    print('Coc: server does not support ' .. feature)
+    return
   end
-  return ok
+
+  return true
 end
 
 local locations_to_items = function(locs)
@@ -119,23 +116,28 @@ local function list_or_jump(opts)
     return
   end
 
-  local defs = vim.call('CocAction', opts.coc_action)
-  if type(defs) ~= 'table' or vim.tbl_isempty(defs) then
+  local defs = CocAction(opts.coc_action)
+  if type(defs) ~= 'table' then
     return
   end
 
-  if #defs == 1 then
+  if vim.tbl_isempty(defs) then
+    print(('No %s found'):format(opts.coc_action))
+  elseif #defs == 1 then
     vim.lsp.util.jump_to_location(defs[1])
   else
     local results = locations_to_items(defs)
+    if not results then
+      return
+    end
     pickers.new(opts, {
       prompt_title = opts.coc_title,
       previewer = conf.qflist_previewer(opts),
       sorter = conf.generic_sorter(opts),
-      finder = finders.new_table {
+      finder = finders.new_table({
         results = results,
         entry_maker = gen_from_quickfix_custom(opts),
-      },
+      }),
     }):find()
   end
 end
@@ -165,10 +167,10 @@ local mru = function(opts)
     prompt_title = 'Coc MRU',
     sorter = conf.generic_sorter(opts),
     previewer = conf.qflist_previewer(opts),
-    finder = finders.new_table {
+    finder = finders.new_table({
       results = results,
       entry_maker = gen_from_mru(opts),
-    },
+    }),
   }):find()
 end
 
@@ -184,21 +186,25 @@ local references = function(opts)
     return
   end
 
-  local refs = vim.call('CocAction', 'references')
+  local excludeDeclaration = true
+  local refs = CocAction('references', excludeDeclaration)
   if type(refs) ~= 'table' or vim.tbl_isempty(refs) then
     return
   end
 
   local results = locations_to_items(refs)
+  if not results then
+    return
+  end
 
   pickers.new(opts, {
     prompt_title = 'Coc References',
     previewer = conf.qflist_previewer(opts),
     sorter = conf.generic_sorter(opts),
-    finder    = finders.new_table {
+    finder    = finders.new_table({
       results = results,
       entry_maker = gen_from_quickfix_custom(opts),
-    },
+    }),
   }):find()
 end
 
