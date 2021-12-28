@@ -1,0 +1,5 @@
+require('plugins.configs.nvim-treesitter')
+require('plugins.configs.bufferline')
+require('plugins.configs.statusline')
+require('plugins.configs.telescope')
+require('plugins.configs.nvim-autopairs')

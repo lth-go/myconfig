@@ -96,6 +96,7 @@ autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType sh setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd FileType lua setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd FileType json setlocal wrap tabstop=2 shiftwidth=2 softtabstop=2
 autocmd FileType proto setlocal tabstop=2 shiftwidth=2 softtabstop=2
@@ -121,6 +122,8 @@ augroup END
 
 " 打开自动定位到最后编辑的位置
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
+
+autocmd BufWritePre * lua require('core.utils').auto_mkdir()
 
 " =====快捷键=====
 
@@ -228,73 +231,6 @@ vnoremap <silent> * :<C-u>set nohlsearch\|:call <SID>VStarSearch()<CR>
 
 " ----- star_search end -----
 
-" ----- buf_only -----
-
-lua << EOF
-
-local g = vim.g
-local api = vim.api
-local cmd = vim.cmd
-local bo = vim.bo
-
-function _G.buf_only()
-  local current_buf_map = {}
-
-  for _, win in ipairs(api.nvim_list_wins()) do
-    current_buf_map[api.nvim_win_get_buf(win)] = true
-  end
-
-  for _, buf in ipairs(api.nvim_list_bufs()) do
-    if api.nvim_buf_get_option(buf, 'modified') then
-      goto continue
-    end
-
-    if not bo[buf].buflisted then
-      goto continue
-    end
-
-    if not api.nvim_buf_is_valid(buf) then
-      goto continue
-    end
-
-    if current_buf_map[buf] then
-      goto continue
-    end
-
-    if api.nvim_buf_get_option(buf, 'buftype') == "" then
-      cmd(string.format('%s %d', 'bdelete', buf))
-    end
-
-    ::continue::
-  end
-end
-
-EOF
-
-nnoremap <silent> <Leader>bd :call v:lua.buf_only()<CR>
-
-" ----- buf_only end -----
-
-" ----- mkdir start -----
-
-lua << EOF
-
-local fn = vim.fn
-
-function _G.mkdir()
-  local dir = fn.expand('%:p:h')
-
-  if fn.isdirectory(dir) == 0 then
-    fn.mkdir(dir, 'p')
-  end
-end
-
-EOF
-
-autocmd BufWritePre * call v:lua.mkdir()
-
-" ----- mkdir end -----
-
 " =====Coc=====
 
 let g:coc_global_extensions = [
@@ -325,8 +261,7 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
@@ -558,9 +493,8 @@ let g:go_imports_autosave = 0
 let g:go_mod_fmt_autosave = 0
 let g:go_template_autocreate = 0
 
-lua << EOF
-require("core")
-EOF
+lua require("plugins.init")
+lua require("core.mappings").misc()
 
 " =====主题=====
 
