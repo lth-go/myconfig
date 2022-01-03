@@ -90,41 +90,6 @@ if &diff
   set noreadonly
 endif
 
-" =====autocmd=====
-
-autocmd FileType javascript setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType sh setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType lua setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
-autocmd FileType json setlocal wrap tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType proto setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd FileType git setlocal foldenable
-autocmd FileType markdown setlocal wrap
-autocmd FileType rego setlocal noexpandtab
-autocmd BufNewFile,BufRead *.dockerfile setlocal filetype=dockerfile
-
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | set relativenumber   | endif
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &number | set norelativenumber | endif
-augroup END
-
-" 输入法正常切换
-" if has('unix')
-"   if has('mac')
-"     autocmd InsertLeave * call system('~/myconfig/mac/vim/im-select com.apple.keylayout.ABC')
-"   else
-"     autocmd InsertLeave * if system('fcitx5-remote') != 0 | call system('fcitx5-remote -c') | endif
-"   endif
-" endif
-
-" 打开自动定位到最后编辑的位置
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif
-
-autocmd BufWritePre * lua require('core.utils').auto_mkdir()
-
 " =====快捷键=====
 
 let mapleader = ";"
@@ -494,6 +459,7 @@ let g:go_mod_fmt_autosave = 0
 let g:go_template_autocreate = 0
 
 lua require("plugins.init")
+lua require("core.autocmds")
 lua require("core.mappings").misc()
 
 " =====主题=====
