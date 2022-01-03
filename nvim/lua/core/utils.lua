@@ -63,7 +63,7 @@ M.buf_only = function()
   end
 
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_get_option(buf, 'modified') then
+    if vim.api.nvim_buf_get_option(buf, "modified") then
       goto continue
     end
 
@@ -79,8 +79,8 @@ M.buf_only = function()
       goto continue
     end
 
-    if vim.api.nvim_buf_get_option(buf, 'buftype') == "" then
-      vim.cmd(string.format('%s %d', 'bdelete', buf))
+    if vim.api.nvim_buf_get_option(buf, "buftype") == "" then
+      vim.cmd(string.format("%s %d", "bdelete", buf))
     end
 
     ::continue::
@@ -91,11 +91,61 @@ end
 -- mkdir start
 --
 M.auto_mkdir = function()
-  local dir = vim.fn.expand('%:p:h')
+  local dir = vim.fn.expand("%:p:h")
 
   if vim.fn.isdirectory(dir) == 0 then
-    vim.fn.mkdir(dir, 'p')
+    vim.fn.mkdir(dir, "p")
   end
+end
+
+--
+-- smart_cmd_slash
+--
+M.smart_cmd_slash = function()
+  return vim.fn.pumvisible() == 1 and [[\<Down>]] or "/"
+end
+
+--
+-- show current line
+--
+M.show_current_line = function()
+  local msg = string.format("%s:%s", vim.fn.expand("%"), vim.fn.line("."))
+  vim.fn.setreg("+", msg)
+  print(msg)
+end
+
+--
+-- start search
+--
+M.start_search = function ()
+  vim.opt.hlsearch = false
+
+  local cword = vim.fn.expand("<cword>")
+
+  if string.len(cword) == 0 then
+    return
+  end
+
+  if string.sub(cword, 1, 2) ~= "\\<" then
+    cword = "\\<" .. cword .. "\\>"
+  end
+
+  vim.fn.setreg("/", cword)
+
+  vim.opt.hlsearch = true
+end
+
+M.v_start_search = function ()
+  vim.opt.hlsearch = false
+
+  local save_reg = vim.fn.getreg("s")
+
+  vim.cmd([[normal! gv"sy]])
+
+  vim.fn.setreg("/", "\\V" .. vim.fn.substitute(vim.fn.escape(vim.fn.getreg("s"), '\\'), '\\n', '\\\\n', 'g'))
+  vim.fn.setreg("s", save_reg)
+
+  vim.opt.hlsearch = true
 end
 
 return M

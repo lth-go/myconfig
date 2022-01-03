@@ -30,113 +30,7 @@ Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 
-" =====快捷键=====
-
-let mapleader = ";"
-noremap \ ;
-
-cnoremap <expr> / pumvisible() ? "\<Down>" : "/"
-
-" 废弃快捷键
-noremap <F1> <Nop>
-inoremap <F1> <Nop>
-noremap Q <Nop>
-
-" 快速保存及退出
-nnoremap <Leader>q :q<CR>
-nnoremap <Leader>w :w<CR>
-" w!!用sudo保存
-cabbrev w!! w !sudo tee % > /dev/null
-
-" 切换布局快捷键
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-
-nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
-nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
-
-" 替换行首行尾快捷键
-noremap H ^
-noremap L g_
-
-" 命令行模式增强
-cnoremap <C-P> <Up>
-cnoremap <C-N> <Down>
-cnoremap <C-B> <Left>
-cnoremap <C-F> <Right>
-cnoremap <C-A> <Home>
-cnoremap <C-E> <End>
-cnoremap <C-D> <Del>
-
-" 插入模式增强
-inoremap <C-B> <Left>
-inoremap <C-F> <Right>
-inoremap <C-A> <Home>
-inoremap <C-E> <End>
-inoremap <C-D> <Del>
-
-" 搜索关键词居中
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap <silent> <C-o> <C-o>zz
-nnoremap <silent> <C-i> <C-i>zz
-nnoremap <silent> <C-]> <C-]>zz
-
-nnoremap <silent><Backspace> :nohlsearch<CR>
-
-" 调整缩进后自动选中
-vnoremap < <gv
-vnoremap > >gv
-
-" 复制当前行号
-nnoremap <silent> <C-g> :let @+ = join([expand('%'), line(".")], ':')\|:echo @+<CR>
-
-" 粘贴不覆盖
-xnoremap <expr> p 'pgv"'.v:register.'y'
-
-" 块粘贴修正
-map <Leader>y ""y
-map <Leader>d ""d
-map <Leader>p ""p
-map <Leader>P ""P
-
-nnoremap <Leader><Space> :vs<CR>
-
-xmap <A-j> :m '>+1<CR>gv-gv
-xmap <A-k> :m '<-2<CR>gv-gv
-
-" ----- star_search -----
-
-function! s:StarSearch()
-  let cword = expand("<cword>")
-
-  if strlen(cword) == 0
-    return
-  endif
-
-  if cword[0] =~ '\<'
-    let @/ = '\<' . cword . '\>'
-  else
-    let @/ = cword
-  endif
-
-  set hlsearch
-endfunction
-
-function! s:VStarSearch()
-  let savedS = @s
-  normal! gv"sy
-  let @/ = '\V' . substitute(escape(@s, '\'), '\n', '\\n', 'g')
-  let @s = savedS
-  set hlsearch
-endfunction
-
-nnoremap <silent> * :set nohlsearch\|:call <SID>StarSearch()<CR>
-vnoremap <silent> * :<C-u>set nohlsearch\|:call <SID>VStarSearch()<CR>
-
-" ----- star_search end -----
+lua require("core.options")
 
 " =====Coc=====
 
@@ -400,7 +294,6 @@ let g:go_imports_autosave = 0
 let g:go_mod_fmt_autosave = 0
 let g:go_template_autocreate = 0
 
-lua require("core.options")
 lua require("core.autocmds")
 lua require("core.mappings").misc()
 lua require("plugins.init")
