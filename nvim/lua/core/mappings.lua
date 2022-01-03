@@ -81,6 +81,26 @@ M.misc = function()
   map("v", "*", [[:lua require("core.utils").v_start_search()<CR>]])
 
   map("n", "<Leader>bd", ":lua require('core.utils').buf_only()<CR>", { noremap = true, silent = true })
+
+  -- TODO: move to plugin config
+  M.bufferline()
+  M.copilot()
+end
+
+M.bufferline = function()
+  map("n", "<Leader>1", "<Cmd>BufferLineGoToBuffer 1<CR>")
+  map("n", "<Leader>2", "<Cmd>BufferLineGoToBuffer 2<CR>")
+  map("n", "<Leader>3", "<Cmd>BufferLineGoToBuffer 3<CR>")
+  map("n", "<Leader>4", "<Cmd>BufferLineGoToBuffer 4<CR>")
+  map("n", "<Leader>5", "<Cmd>BufferLineGoToBuffer 5<CR>")
+  map("n", "<Leader>6", "<Cmd>BufferLineGoToBuffer 6<CR>")
+  map("n", "<Leader>7", "<Cmd>BufferLineGoToBuffer 7<CR>")
+  map("n", "<Leader>8", "<Cmd>BufferLineGoToBuffer 8<CR>")
+  map("n", "<Leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>")
+end
+
+M.copilot = function()
+  map("i",  "<C-j>", [[copilot#Accept("")]], { expr = true, script = true })
 end
 
 return M
