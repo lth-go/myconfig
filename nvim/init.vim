@@ -8,7 +8,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go'
 Plug 'github/copilot.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'morhetz/gruvbox'
+Plug 'lifepillar/vim-gruvbox8'
 Plug 'sheerun/vim-polyglot'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/bufferline.nvim'
@@ -300,10 +300,9 @@ lua require("plugins.init")
 
 " =====主题=====
 
-let g:gruvbox_contrast_dark = 'hard'
-colorscheme gruvbox
+let g:gruvbox_italics = 0
+colorscheme gruvbox8_hard
 
-highlight link Operator GruvboxRed
 highlight link TelescopeSelection SignColumn
 highlight link TelescopePreviewLine SignColumn
 highlight CocExplorerFileDirectoryExpanded guifg=#8094b4
