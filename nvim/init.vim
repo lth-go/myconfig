@@ -30,70 +30,12 @@ Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 
-" =====基础配置=====
-
-set termguicolors
-set fileencodings=ucs-bom,utf-8,gbk,gb18030,big5,euc-jp,latin1
-
-set updatetime=300
-set shortmess+=csI
-set jumpoptions+=stack
-set inccommand=nosplit
-set completeopt-=preview
-
-set nobackup
-set nowritebackup
-set noswapfile
-set hidden
-
-set wildmode=longest:full,full
-let &wildcharm = &wildchar
-cnoremap <expr> / pumvisible() ? "\<Down>" : "/"
-
-set wildignore+=.vim,.idea,.git
-set wildignore+=*.swp,tags
-set wildignore+=*.o,*.a,*.so
-set wildignore+=*.pyc,*.pyo
-set wildignore+=*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz
-
-set relativenumber number
-
-set nofoldenable
-set nowrap
-set cursorline
-set list
-set listchars=tab:>-,trail:·,nbsp:·
-set signcolumn=number
-
-set pumblend=10
-set winblend=10
-
-set scrolloff=10
-set sidescrolloff=10
-
-set splitbelow
-set splitright
-
-set ignorecase
-set smartcase
-
-set cindent
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
-set shiftround
-
-set clipboard+=unnamedplus
-
-if &diff
-  set noreadonly
-endif
-
 " =====快捷键=====
 
 let mapleader = ";"
 noremap \ ;
+
+cnoremap <expr> / pumvisible() ? "\<Down>" : "/"
 
 " 废弃快捷键
 noremap <F1> <Nop>
@@ -458,9 +400,10 @@ let g:go_imports_autosave = 0
 let g:go_mod_fmt_autosave = 0
 let g:go_template_autocreate = 0
 
-lua require("plugins.init")
+lua require("core.options")
 lua require("core.autocmds")
 lua require("core.mappings").misc()
+lua require("plugins.init")
 
 " =====主题=====
 
