@@ -31,6 +31,22 @@ return packer.startup(function()
   })
 
   use({
+    "nvim-treesitter/nvim-treesitter",
+    event = "BufRead",
+    run = ":TSUpdate",
+    config = function()
+      require("plugins.configs.nvim-treesitter")
+    end,
+  })
+
+  use({
+    "glepnir/dashboard-nvim",
+    config = function()
+      require("plugins.configs.dashboard")
+    end,
+  })
+
+  use({
     "famiu/feline.nvim",
     after = "nvim-web-devicons",
     config = function()
@@ -50,29 +66,13 @@ return packer.startup(function()
   })
 
   use({
-    "nvim-treesitter/nvim-treesitter",
-    event = "BufRead",
-    run = ":TSUpdate",
-    config = function()
-      require("plugins.configs.nvim-treesitter")
-    end,
-  })
-
-  use({
-    "nvim-telescope/telescope.nvim",
-    cmd = "Telescope",
+    "gelguy/wilder.nvim",
+    run = ":UpdateRemotePlugins",
     setup = function()
-      require("core.mappings").telescope()
+      require("core.mappings").wilder()
     end,
     config = function()
-      require("plugins.configs.telescope")
-    end,
-  })
-
-  use({
-    "windwp/nvim-autopairs",
-    config = function()
-      require("plugins.configs.nvim-autopairs")
+      require("plugins.configs.wilder")
     end,
   })
 
@@ -101,54 +101,13 @@ return packer.startup(function()
   })
 
   use({
-    "glepnir/dashboard-nvim",
+    "nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
+    setup = function()
+      require("core.mappings").telescope()
+    end,
     config = function()
-      require("plugins.configs.dashboard")
-    end,
-  })
-
-  use({
-    "scrooloose/nerdcommenter",
-    setup = function()
-      require("core.mappings").nerdcommenter()
-      require("plugins.configs.nerdcommenter")
-    end,
-  })
-
-  use("tpope/vim-surround")
-
-  use("tpope/vim-repeat")
-
-  use("tpope/vim-abolish")
-
-  use({
-    "chaoren/vim-wordmotion",
-    setup = function()
-      require("plugins.configs.vim-wordmotion")
-    end,
-  })
-
-  use({
-    "terryma/vim-expand-region",
-    setup = function()
-      require("core.mappings").vim_expand_region()
-      require("plugins.configs.vim-expand-region")
-    end,
-  })
-
-  use("AndrewRadev/splitjoin.vim")
-
-  use({
-    "justinmk/vim-sneak",
-    setup = function()
-      require("core.mappings").vim_sneak()
-    end,
-  })
-
-  use({
-    "junegunn/vim-easy-align",
-    setup = function()
-      require("core.mappings").vim_easy_align()
+      require("plugins.configs.telescope")
     end,
   })
 
@@ -162,13 +121,56 @@ return packer.startup(function()
   })
 
   use({
-    "gelguy/wilder.nvim",
-    run = ":UpdateRemotePlugins",
-    setup = function()
-      require("core.mappings").wilder()
-    end,
+    "windwp/nvim-autopairs",
     config = function()
-      require("plugins.configs.wilder")
+      require("plugins.configs.nvim-autopairs")
+    end,
+  })
+
+  use({
+    "scrooloose/nerdcommenter",
+    setup = function()
+      require("core.mappings").nerdcommenter()
+      require("plugins.configs.nerdcommenter")
+    end,
+  })
+
+  use("AndrewRadev/splitjoin.vim")
+
+  use("tpope/vim-abolish")
+  use("tpope/vim-repeat")
+  use("tpope/vim-surround")
+
+  use({
+    "junegunn/vim-easy-align",
+    setup = function()
+      require("core.mappings").vim_easy_align()
+    end,
+  })
+
+  use({
+    "terryma/vim-expand-region",
+    setup = function()
+      require("core.mappings").vim_expand_region()
+      require("plugins.configs.vim-expand-region")
+    end,
+  })
+
+  use({
+    "andymass/vim-matchup",
+  })
+
+  use({
+    "justinmk/vim-sneak",
+    setup = function()
+      require("core.mappings").vim_sneak()
+    end,
+  })
+
+  use({
+    "chaoren/vim-wordmotion",
+    setup = function()
+      require("plugins.configs.vim-wordmotion")
     end,
   })
 end)

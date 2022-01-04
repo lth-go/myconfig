@@ -110,8 +110,13 @@ M.bufferline = function()
   map("n", "<Leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>")
 end
 
-M.copilot = function()
-  map("i", "<C-j>", [[copilot#Accept("")]], { expr = true, script = true })
+M.wilder = function()
+  nvim_set_keymap(
+    "c",
+    "/",
+    [[wilder#can_accept_completion() ? wilder#accept_completion(0) : "/"]],
+    { expr = true, noremap = true }
+  )
 end
 
 M.coc_nvim = function()
@@ -193,22 +198,8 @@ M.coc_nvim = function()
   nvim_set_keymap("n", [[<C-\>]], [[<Cmd>CocCommand explorer<CR>]], {})
 end
 
-M.vim_sneak = function()
-  map("", [[\]], [[<Plug>Sneak_;]], { noremap = false })
-end
-
-M.nerdcommenter = function()
-  map("", "<C-_>", [[<Plug>NERDCommenterToggle]], { noremap = false })
-end
-
-M.vim_expand_region = function()
-  nvim_set_keymap("v", "v", "<Plug>(expand_region_expand)", {})
-  nvim_set_keymap("v", "V", "<Plug>(expand_region_shrink)", {})
-end
-
-M.vim_easy_align = function()
-  nvim_set_keymap("x", "ga", "<Plug>(EasyAlign)", {})
-  nvim_set_keymap("n", "ga", "<Plug>(EasyAlign)", {})
+M.copilot = function()
+  map("i", "<C-j>", [[copilot#Accept("")]], { expr = true, script = true })
 end
 
 M.telescope = function()
@@ -228,13 +219,22 @@ M.telescope = function()
   )
 end
 
-M.wilder = function()
-  nvim_set_keymap(
-    "c",
-    "/",
-    [[wilder#can_accept_completion() ? wilder#accept_completion(0) : "/"]],
-    { expr = true, noremap = true }
-  )
+M.nerdcommenter = function()
+  map("", "<C-_>", [[<Plug>NERDCommenterToggle]], { noremap = false })
+end
+
+M.vim_easy_align = function()
+  nvim_set_keymap("x", "ga", "<Plug>(EasyAlign)", {})
+  nvim_set_keymap("n", "ga", "<Plug>(EasyAlign)", {})
+end
+
+M.vim_expand_region = function()
+  nvim_set_keymap("v", "v", "<Plug>(expand_region_expand)", {})
+  nvim_set_keymap("v", "V", "<Plug>(expand_region_shrink)", {})
+end
+
+M.vim_sneak = function()
+  map("", [[\]], [[<Plug>Sneak_;]], { noremap = false })
 end
 
 return M
