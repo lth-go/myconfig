@@ -45,9 +45,7 @@ M.map = function(mode, keys, command, opt)
           vim.api.nvim_set_keymap(sub_mode, lhs, rhs, sub_options)
         else
           sub_mode, lhs, rhs = sub_mode or "", lhs or "", rhs or ""
-          print(
-            "Cannot set mapping [ mode = '" .. sub_mode .. "' | key = '" .. lhs .. "' | cmd = '" .. rhs .. "' ]"
-          )
+          print("Cannot set mapping [ mode = '" .. sub_mode .. "' | key = '" .. lhs .. "' | cmd = '" .. rhs .. "' ]")
         end
       end
     end
@@ -121,7 +119,7 @@ end
 --
 -- start search
 --
-M.start_search = function ()
+M.start_search = function()
   vim.opt.hlsearch = false
 
   local cword = vim.fn.expand("<cword>")
@@ -139,14 +137,14 @@ M.start_search = function ()
   vim.opt.hlsearch = true
 end
 
-M.v_start_search = function ()
+M.v_start_search = function()
   vim.opt.hlsearch = false
 
   local save_reg = vim.fn.getreg("s")
 
   vim.cmd([[normal! gv"sy]])
 
-  vim.fn.setreg("/", "\\V" .. vim.fn.substitute(vim.fn.escape(vim.fn.getreg("s"), '\\'), '\\n', '\\\\n', 'g'))
+  vim.fn.setreg("/", "\\V" .. vim.fn.substitute(vim.fn.escape(vim.fn.getreg("s"), "\\"), "\\n", "\\\\n", "g"))
   vim.fn.setreg("s", save_reg)
 
   vim.opt.hlsearch = true
@@ -156,8 +154,8 @@ end
 -- smart tab
 --
 local check_back_space = function()
-  local col = vim.fn.col('.') - 1
-  if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+  local col = vim.fn.col(".") - 1
+  if col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
     return true
   end
 
@@ -191,6 +189,41 @@ M.smart_enter = function()
     return vim.fn["coc#_select_confirm"]()
   else
     return t([[<C-g>u<CR><C-r>=coc#on_enter()<CR>]])
+  end
+end
+
+M.show_documentation = function()
+  if vim.fn.index({ "vim", "help" }, vim.opt.filetype:get()) >= 0 then
+    vim.cmd([[execute 'h ' . expand('<cword>')]])
+  elseif vim.fn["coc#rpc#ready"]() then
+    vim.cmd([[call CocActionAsync('doHover')]])
+  end
+end
+
+M.get_selected = function(type)
+  local saved_unnamed_register = vim.fn.getreg("@")
+
+  if type == "v" then
+    vim.cmd([[normal! `<v`>y]])
+  elseif type == "char" then
+    vim.cmd([[normal! `[v`]y]])
+  else
+    return
+  end
+
+  local word = vim.fn.substitute(vim.fn.getreg("@"), "\\n$", "", "g")
+  word = vim.fn.escape(word, "| ")
+
+  vim.fn.setreg("@", saved_unnamed_register)
+
+  return word
+end
+
+M.grep_from_selected = function()
+  local word = M.get_selected(vim.fn.visualmode())
+
+  if word then
+    vim.cmd([[Telescope grep_string search=]] .. word)
   end
 end
 

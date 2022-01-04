@@ -1,11 +1,11 @@
-local telescope = require('telescope')
-local actions = require('telescope.actions')
+local telescope = require("telescope")
+local actions = require("telescope.actions")
 
-telescope.setup {
+telescope.setup({
   defaults = {
     mappings = {
       i = {
-        ["<esc>"] = actions.close
+        ["<esc>"] = actions.close,
       },
       n = {
         ["<C-n>"] = actions.move_selection_next,
@@ -18,7 +18,7 @@ telescope.setup {
         prompt_position = "top",
       },
     },
-    sorting_strategy = 'ascending',
+    sorting_strategy = "ascending",
   },
   pickers = {
     oldfiles = {
@@ -26,10 +26,10 @@ telescope.setup {
       cwd_only = true,
     },
   },
-}
+})
 
 --
 -- telescope-coc.nvim
 --
 
-require('telescope').load_extension('coc')
+require("telescope").load_extension("coc")

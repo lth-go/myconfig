@@ -43,7 +43,7 @@ local components = {
     {},
     {},
   },
-  inactive = {}
+  inactive = {},
 }
 
 table.insert(components.active[1], {
@@ -57,8 +57,8 @@ table.insert(components.active[1], {
   right_sep = {
     str = statusline_style.right,
     hl = {
-     fg = colors.nord_blue,
-     bg = colors.one_bg2,
+      fg = colors.nord_blue,
+      bg = colors.one_bg2,
     },
   },
 })
@@ -145,7 +145,7 @@ table.insert(components.active[1], {
 
 table.insert(components.active[1], {
   provider = function()
-    local lnum = vim.fn.search('\\s$', 'nw')
+    local lnum = vim.fn.search("\\s$", "nw")
 
     if lnum == 0 then
       return ""
@@ -155,13 +155,13 @@ table.insert(components.active[1], {
   end,
 
   hl = {
-    fg = colors.white
+    fg = colors.white,
   },
 })
 
 table.insert(components.active[2], {
   provider = function()
-    local text = vim.g['coc_status'] or ""
+    local text = vim.g["coc_status"] or ""
 
     if text == "" then
       return ""
@@ -187,7 +187,7 @@ table.insert(components.active[2], {
 })
 
 table.insert(components.active[3], {
-  provider = function ()
+  provider = function()
     local func = vim.b["coc_current_function"] or ""
     return func .. " "
   end,
@@ -293,7 +293,7 @@ table.insert(components.active[3], {
 
 table.insert(components.active[3], {
   provider = function()
-    return string.format(' %d/%d ', vim.fn.line('.'), vim.fn.line('$'))
+    return string.format(" %d/%d ", vim.fn.line("."), vim.fn.line("$"))
   end,
 
   hl = {
@@ -302,7 +302,7 @@ table.insert(components.active[3], {
   },
 })
 
-require("feline").setup {
+require("feline").setup({
   theme = {
     bg = colors.statusline_bg,
     fg = colors.fg,
@@ -310,17 +310,17 @@ require("feline").setup {
   components = components,
   force_inactive = {
     filetypes = {
-      '^coc%-explorer$',
-      '^vista$',
-      '^godebug',
-      '^NvimTree$',
-      '^fugitive$',
-      '^fugitiveblame$',
-      '^qf$',
+      "^coc%-explorer$",
+      "^vista$",
+      "^godebug",
+      "^NvimTree$",
+      "^fugitive$",
+      "^fugitiveblame$",
+      "^qf$",
     },
     buftypes = {
-      '^terminal$'
+      "^terminal$",
     },
-    bufnames = {}
+    bufnames = {},
   },
-}
+})

@@ -1,8 +1,8 @@
-local conf = require('telescope.config').values
-local finders = require('telescope.finders')
-local pickers = require('telescope.pickers')
-local utils = require('telescope.utils')
-local Path = require('plenary.path')
+local conf = require("telescope.config").values
+local finders = require("telescope.finders")
+local pickers = require("telescope.pickers")
+local utils = require("telescope.utils")
+local Path = require("plenary.path")
 local string = string
 local vim = vim
 
@@ -11,12 +11,12 @@ local CocAction = fn.CocAction
 
 local function is_ready(feature)
   if vim.g.coc_service_initialized ~= 1 then
-    print('Coc is not ready!')
+    print("Coc is not ready!")
     return
   end
 
   if feature and not fn.CocHasProvider(feature) then
-    print('Coc: server does not support ' .. feature)
+    print("Coc: server does not support " .. feature)
     return
   end
 
@@ -35,8 +35,8 @@ local locations_to_items = function(locs)
     vim.fn.bufload(bufnr)
     local filename = vim.uri_to_fname(l.uri)
     local row = l.range.start.line
-    local line = (vim.api.nvim_buf_get_lines(bufnr, row, row + 1, false) or {""})[1]
-    items[#items+1] = {
+    local line = (vim.api.nvim_buf_get_lines(bufnr, row, row + 1, false) or { "" })[1]
+    items[#items + 1] = {
       filename = filename,
       lnum = row + 1,
       col = l.range.start.character + 1,
@@ -88,11 +88,7 @@ end
 
 local gen_from_mru = function(opts)
   local make_display = function(entry)
-    local display, hl_group = utils.transform_devicons(
-      entry.value,
-      entry.value,
-      false
-    )
+    local display, hl_group = utils.transform_devicons(entry.value, entry.value, false)
 
     if hl_group then
       return display, { { { 1, 3 }, hl_group } }
@@ -108,7 +104,7 @@ local gen_from_mru = function(opts)
       ordinal = entry,
       display = make_display,
     }
-    end
+  end
 end
 
 local function list_or_jump(opts)
@@ -117,12 +113,12 @@ local function list_or_jump(opts)
   end
 
   local defs = CocAction(opts.coc_action)
-  if type(defs) ~= 'table' then
+  if type(defs) ~= "table" then
     return
   end
 
   if vim.tbl_isempty(defs) then
-    print(('No %s found'):format(opts.coc_action))
+    print(("No %s found"):format(opts.coc_action))
   elseif #defs == 1 then
     vim.lsp.util.jump_to_location(defs[1])
   else
@@ -147,24 +143,24 @@ local mru = function(opts)
     return
   end
 
-  local home = vim.call('coc#util#get_data_home')
-  local data = Path:new(home .. Path.path.sep .. 'mru'):read()
+  local home = vim.call("coc#util#get_data_home")
+  local data = Path:new(home .. Path.path.sep .. "mru"):read()
   if not data or #data == 0 then
     return
   end
 
   local results = {}
   local cwd = vim.loop.cwd() .. Path.path.sep
-  for _, val in ipairs(utils.max_split(data, '\n')) do
+  for _, val in ipairs(utils.max_split(data, "\n")) do
     local p = Path:new(val)
-    local lowerPrefix = val:sub(1, #cwd):gsub(Path.path.sep, ''):lower()
-    local lowerCWD = cwd:gsub(Path.path.sep, ''):lower()
+    local lowerPrefix = val:sub(1, #cwd):gsub(Path.path.sep, ""):lower()
+    local lowerCWD = cwd:gsub(Path.path.sep, ""):lower()
     if lowerCWD == lowerPrefix and p:exists() and p:is_file() then
-      results[#results+1] = val:sub(#cwd+1)
+      results[#results + 1] = val:sub(#cwd + 1)
     end
   end
   pickers.new(opts, {
-    prompt_title = 'Coc MRU',
+    prompt_title = "Coc MRU",
     sorter = conf.generic_sorter(opts),
     previewer = conf.qflist_previewer(opts),
     finder = finders.new_table({
@@ -175,20 +171,20 @@ local mru = function(opts)
 end
 
 local implementations = function(opts)
-  opts.coc_provider = 'implementation'
-  opts.coc_action = 'implementations'
-  opts.coc_title = 'Coc Implementations'
+  opts.coc_provider = "implementation"
+  opts.coc_action = "implementations"
+  opts.coc_title = "Coc Implementations"
   list_or_jump(opts)
 end
 
 local references = function(opts)
-  if not is_ready('reference') then
+  if not is_ready("reference") then
     return
   end
 
   local excludeDeclaration = true
-  local refs = CocAction('references', excludeDeclaration)
-  if type(refs) ~= 'table' or vim.tbl_isempty(refs) then
+  local refs = CocAction("references", excludeDeclaration)
+  if type(refs) ~= "table" or vim.tbl_isempty(refs) then
     return
   end
 
@@ -198,20 +194,20 @@ local references = function(opts)
   end
 
   pickers.new(opts, {
-    prompt_title = 'Coc References',
+    prompt_title = "Coc References",
     previewer = conf.qflist_previewer(opts),
     sorter = conf.generic_sorter(opts),
-    finder    = finders.new_table({
+    finder = finders.new_table({
       results = results,
       entry_maker = gen_from_quickfix_custom(opts),
     }),
   }):find()
 end
 
-return require('telescope').register_extension{
+return require("telescope").register_extension({
   exports = {
     mru = mru,
     references = references,
     implementations = implementations,
   },
-}
+})
