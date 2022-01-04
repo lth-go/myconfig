@@ -26,15 +26,15 @@ call wilder#set_option('pipeline', [
   \ ),
 \ ])
 
-let s:highlighters = [
+let g:wilder_highlighters = [
   \ wilder#pcre2_highlighter(),
 \ ]
 
-let s:popupmenu_renderer = wilder#popupmenu_renderer({
+let g:wilder_popupmenu_renderer = wilder#popupmenu_renderer({
   \ 'highlights': {
   \    'accent': wilder#make_hl('WilderAccent', 'Pmenu', [{}, {}, {'foreground': '#f4468f'}]),
   \ },
-  \ 'highlighter': s:highlighters,
+  \ 'highlighter': g:wilder_highlighters,
   \ 'left': [
   \   ' ',
   \   wilder#popupmenu_devicons(),
@@ -45,17 +45,17 @@ let s:popupmenu_renderer = wilder#popupmenu_renderer({
   \ ],
 \ })
 
-let s:wildmenu_renderer = wilder#wildmenu_renderer({
+let g:wilder_wildmenu_renderer = wilder#wildmenu_renderer({
   \ 'highlights': {
   \    'accent': wilder#make_hl('WilderAccent', 'Pmenu', [{}, {}, {'foreground': '#f4468f'}]),
   \  },
-  \ 'highlighter': s:highlighters,
+  \ 'highlighter': g:wilder_highlighters,
   \ 'apply_incsearch_fix': 1,
 \ })
 
 call wilder#set_option('renderer', wilder#renderer_mux({
-  \ ':': s:popupmenu_renderer,
-  \ '/': s:wildmenu_renderer,
-  \ 'substitute': s:wildmenu_renderer,
+  \ ':': g:wilder_popupmenu_renderer,
+  \ '/': g:wilder_wildmenu_renderer,
+  \ 'substitute': g:wilder_wildmenu_renderer,
 \ }))
 ]])
