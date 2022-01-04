@@ -7,7 +7,7 @@ local M = {}
 M.misc = function()
   map("", "\\", ";")
 
-  map("c", "/", [[v:lua.require("core.utils").smart_cmd_slash()]], { expr = true, noremap = true, silent = false })
+  map("c", "/", [[v:lua.require("core.utils").smart_cmd_slash()]], { expr = true, silent = false })
 
   map("n", "<F1>", "<Nop>")
   map("i", "<F1>", "<Nop>")
@@ -80,9 +80,10 @@ M.misc = function()
   map("n", "*", [[:lua require("core.utils").start_search()<CR>]])
   map("v", "*", [[:lua require("core.utils").v_start_search()<CR>]])
 
-  map("n", "<Leader>bd", ":lua require('core.utils').buf_only()<CR>", { noremap = true, silent = true })
+  map("n", "<Leader>bd", ":lua require('core.utils').buf_only()<CR>", { silent = true })
 
   -- TODO: move to plugin config
+  M.coc_nvim()
   M.bufferline()
   M.copilot()
 end
@@ -101,6 +102,12 @@ end
 
 M.copilot = function()
   map("i",  "<C-j>", [[copilot#Accept("")]], { expr = true, script = true })
+end
+
+M.coc_nvim = function()
+  map("i", "<Tab>", [[v:lua.require("core.utils").smart_tab()]], { expr = true })
+  map("i", "<S-Tab>", [[v:lua.require("core.utils").smart_shift_tab()]], { expr = true })
+  map("i", "<CR>", [[v:lua.require("core.utils").smart_enter()]], { expr = true })
 end
 
 return M

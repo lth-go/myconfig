@@ -2,6 +2,10 @@ local M = {}
 
 local cmd = vim.cmd
 
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
 M.map = function(mode, keys, command, opt)
   local options = { noremap = true, silent = true }
   if opt then
@@ -102,7 +106,7 @@ end
 -- smart_cmd_slash
 --
 M.smart_cmd_slash = function()
-  return vim.fn.pumvisible() == 1 and [[\<Down>]] or "/"
+  return vim.fn.pumvisible() == 1 and t("<Down>") or "/"
 end
 
 --
@@ -146,6 +150,48 @@ M.v_start_search = function ()
   vim.fn.setreg("s", save_reg)
 
   vim.opt.hlsearch = true
+end
+
+--
+-- smart tab
+--
+local check_back_space = function()
+  local col = vim.fn.col('.') - 1
+  if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+    return true
+  end
+
+  return false
+end
+
+M.smart_tab = function()
+  if vim.fn.pumvisible() == 1 then
+    return t("<C-n>")
+  else
+    local col = vim.fn.col(".") - 1
+
+    if check_back_space() then
+      return t("<Tab>")
+    else
+      return vim.fn["coc#refresh"]()
+    end
+  end
+end
+
+M.smart_shift_tab = function()
+  if vim.fn.pumvisible() == 1 then
+    return t("<C-p>")
+  else
+    return t("<C-h")
+  end
+end
+
+M.smart_enter = function()
+  if vim.fn.pumvisible() == 1 then
+    return vim.fn["coc#_select_confirm"]()
+  else
+    return t([[<C-g>u<CR><C-r>=coc#on_enter()<CR>]])
+  end
 end
 
 return M
