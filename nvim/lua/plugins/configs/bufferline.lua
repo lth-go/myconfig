@@ -1,4 +1,7 @@
-local bufferline = require("bufferline")
+local present, bufferline = pcall(require, "bufferline")
+if not present then
+  return
+end
 
 local old_nvim_buffline = _G.nvim_bufferline
 

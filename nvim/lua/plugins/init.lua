@@ -35,7 +35,7 @@ return packer.startup(function()
     event = "BufRead",
     run = ":TSUpdate",
     config = function()
-      require("plugins.configs.nvim-treesitter")
+      require("plugins.configs.nvim_treesitter")
     end,
   })
 
@@ -80,15 +80,15 @@ return packer.startup(function()
     "neoclide/coc.nvim",
     branch = "release",
     setup = function()
-      require("core.mappings").coc_nvim()
-      require("plugins.configs.coc-nvim")
+      require("core.mappings").coc()
+      require("plugins.configs.coc")
     end,
   })
 
   use({
     "fatih/vim-go",
     config = function()
-      require("plugins.configs.vim-go")
+      require("plugins.configs.vim_go")
     end,
   })
 
@@ -116,14 +116,14 @@ return packer.startup(function()
   use({
     "voldikss/vim-floaterm",
     config = function()
-      require("plugins.configs.vim-floaterm")
+      require("plugins.configs.vim_floaterm")
     end,
   })
 
   use({
     "windwp/nvim-autopairs",
     config = function()
-      require("plugins.configs.nvim-autopairs")
+      require("plugins.configs.nvim_autopairs")
     end,
   })
 
@@ -152,7 +152,7 @@ return packer.startup(function()
     "terryma/vim-expand-region",
     setup = function()
       require("core.mappings").vim_expand_region()
-      require("plugins.configs.vim-expand-region")
+      require("plugins.configs.vim_expand_region")
     end,
   })
 
@@ -170,7 +170,7 @@ return packer.startup(function()
   use({
     "chaoren/vim-wordmotion",
     setup = function()
-      require("plugins.configs.vim-wordmotion")
+      require("plugins.configs.vim_wordmotion")
     end,
   })
 end)

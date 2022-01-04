@@ -136,6 +136,9 @@ M.smart_shift_tab = function()
   end
 end
 
+--
+-- smart_enter
+--
 M.smart_enter = function()
   if vim.fn.pumvisible() == 1 then
     return vim.fn["coc#_select_confirm"]()
@@ -144,6 +147,9 @@ M.smart_enter = function()
   end
 end
 
+--
+-- show_documentation
+--
 M.show_documentation = function()
   if vim.fn.index({ "vim", "help" }, vim.opt.filetype:get()) >= 0 then
     vim.cmd([[execute 'h ' . expand('<cword>')]])
@@ -152,6 +158,9 @@ M.show_documentation = function()
   end
 end
 
+--
+-- grep_from_selected
+--
 M.get_selected = function(type)
   local saved_unnamed_register = vim.fn.getreg("@")
 
