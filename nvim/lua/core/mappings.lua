@@ -8,7 +8,7 @@ local map = utils.map
 local M = {}
 
 M.misc = function()
-  map("", "\\", ";")
+  map("", [[\]], ";")
 
   map("c", "/", [[v:lua.require("core.utils").smart_cmd_slash()]], { expr = true, silent = false })
 

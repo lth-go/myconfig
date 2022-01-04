@@ -15,7 +15,20 @@ return packer.startup(function()
     event = "VimEnter",
   })
 
-  use("kyazdani42/nvim-web-devicons")
+  use({
+    "lifepillar/vim-gruvbox8",
+    after = "packer.nvim",
+    config = function()
+      require("plugins.configs.gruvbox")
+    end,
+  })
+
+  use("sheerun/vim-polyglot")
+
+  use({
+    "kyazdani42/nvim-web-devicons",
+    after = "vim-gruvbox8",
+  })
 
   use({
     "famiu/feline.nvim",
@@ -28,11 +41,11 @@ return packer.startup(function()
   use({
     "akinsho/bufferline.nvim",
     after = "nvim-web-devicons",
-    config = function()
-      require("plugins.configs.bufferline")
-    end,
     setup = function()
       require("core.mappings").bufferline()
+    end,
+    config = function()
+      require("plugins.configs.bufferline")
     end,
   })
 
@@ -48,11 +61,11 @@ return packer.startup(function()
   use({
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
-    config = function()
-      require("plugins.configs.telescope")
-    end,
     setup = function()
       require("core.mappings").telescope()
+    end,
+    config = function()
+      require("plugins.configs.telescope")
     end,
   })
 
@@ -88,13 +101,11 @@ return packer.startup(function()
   })
 
   use({
-    "lifepillar/vim-gruvbox8",
+    "glepnir/dashboard-nvim",
     config = function()
-      require("plugins.configs.gruvbox")
+      require("plugins.configs.dashboard")
     end,
   })
-
-  use("sheerun/vim-polyglot")
 
   use({
     "scrooloose/nerdcommenter",
@@ -153,11 +164,11 @@ return packer.startup(function()
   use({
     "gelguy/wilder.nvim",
     run = ":UpdateRemotePlugins",
-    config = function()
-      require("plugins.configs.wilder")
-    end,
     setup = function()
       require("core.mappings").wilder()
+    end,
+    config = function()
+      require("plugins.configs.wilder")
     end,
   })
 end)
