@@ -156,9 +156,9 @@ return packer.startup(function()
     end,
   })
 
-  use({
-    "andymass/vim-matchup",
-  })
+  -- use({
+  --   "andymass/vim-matchup",
+  -- })
 
   use({
     "justinmk/vim-sneak",
