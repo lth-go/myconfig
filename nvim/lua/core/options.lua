@@ -4,7 +4,6 @@ local g = vim.g
 g.mapleader = ";"
 
 opt.termguicolors = true
-
 opt.updatetime = 300
 opt.shortmess:append("csI")
 opt.jumpoptions:append("stack")

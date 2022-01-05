@@ -1,7 +1,5 @@
 local M = {}
 
-local cmd = vim.cmd
-
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -169,7 +167,7 @@ M.get_selected = function(type)
   elseif type == "char" then
     vim.cmd([[normal! `[v`]y]])
   else
-    return
+    return ""
   end
 
   local word = vim.fn.substitute(vim.fn.getreg("@"), "\\n$", "", "g")
@@ -183,7 +181,7 @@ end
 M.grep_from_selected = function()
   local word = M.get_selected(vim.fn.visualmode())
 
-  if word then
+  if word ~= "" then
     vim.cmd([[Telescope grep_string search=]] .. word)
   end
 end

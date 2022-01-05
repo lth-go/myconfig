@@ -17,7 +17,7 @@ M.misc = function()
   nvim_set_keymap("n", "<Leader>q", ":q<CR>", { noremap = true })
   nvim_set_keymap("n", "<Leader>w", ":w<CR>", { noremap = true })
 
-  cmd([[ cabbrev w!! w !sudo tee % > /dev/null ]])
+  cmd([[cabbrev w!! w !sudo tee % > /dev/null]])
 
   -- 切换布局快捷键
   nvim_set_keymap("n", "<C-J>", "<C-W><C-J>", { noremap = true })
@@ -25,8 +25,8 @@ M.misc = function()
   nvim_set_keymap("n", "<C-L>", "<C-W><C-L>", { noremap = true })
   nvim_set_keymap("n", "<C-H>", "<C-W><C-H>", { noremap = true })
 
-  nvim_set_keymap("n", "j", [[ (v:count > 1 ? "m'" . v:count : '') . 'j' ]], { expr = true, noremap = true })
-  nvim_set_keymap("n", "k", [[ (v:count > 1 ? "m'" . v:count : '') . 'k' ]], { expr = true, noremap = true })
+  nvim_set_keymap("n", "j", [[(v:count > 1 ? "m'" . v:count : '') . 'j']], { expr = true, noremap = true })
+  nvim_set_keymap("n", "k", [[(v:count > 1 ? "m'" . v:count : '') . 'k']], { expr = true, noremap = true })
 
   -- 替换行首行尾快捷键
   nvim_set_keymap("", "H", "^", { noremap = true })
@@ -55,33 +55,33 @@ M.misc = function()
   nvim_set_keymap("n", "<C-i>", "<C-i>zz", { noremap = true })
   nvim_set_keymap("n", "<C-]>", "<C-]>zz", { noremap = true })
 
-  nvim_set_keymap("n", "<Backspace>", ":nohlsearch<CR>", { noremap = true })
+  nvim_set_keymap("n", "<Backspace>", "<Cmd>nohlsearch<CR>", { noremap = true })
 
   -- 调整缩进后自动选中
   nvim_set_keymap("v", "<", "<gv", { noremap = true })
   nvim_set_keymap("v", ">", ">gv", { noremap = true })
 
   -- 复制当前行号
-  nvim_set_keymap("n", "<C-g>", [[:lua require("core.utils").show_current_line()<CR>]], { noremap = true })
+  nvim_set_keymap("n", "<C-g>", [[<Cmd>lua require("core.utils").show_current_line()<CR>]], { noremap = true })
 
   -- 粘贴不覆盖
-  nvim_set_keymap("x", "p", [[ 'pgv"' . v:register . 'y' ]], { expr = true, noremap = true })
+  nvim_set_keymap("x", "p", [['pgv"' . v:register . 'y']], { expr = true, noremap = true })
 
   -- 块粘贴修正
-  nvim_set_keymap("", "<Leader>y", [[ ""y ]], {})
-  nvim_set_keymap("", "<Leader>d", [[ ""d ]], {})
-  nvim_set_keymap("", "<Leader>p", [[ ""p ]], {})
-  nvim_set_keymap("", "<Leader>P", [[ ""P ]], {})
+  nvim_set_keymap("", "<Leader>y", [[""y]], {})
+  nvim_set_keymap("", "<Leader>d", [[""d]], {})
+  nvim_set_keymap("", "<Leader>p", [[""p]], {})
+  nvim_set_keymap("", "<Leader>P", [[""P]], {})
 
   nvim_set_keymap("n", "<Leader><Space>", ":vs<CR>", { noremap = true })
 
-  nvim_set_keymap("x", "<A-j>", [[ :m '>+1<CR>gv-gv ]], {})
-  nvim_set_keymap("x", "<A-k>", [[ :m '<-2<CR>gv-gv ]], {})
+  nvim_set_keymap("x", "<A-j>", [[:m '>+1<CR>gv-gv]], {})
+  nvim_set_keymap("x", "<A-k>", [[:m '<-2<CR>gv-gv]], {})
 
-  nvim_set_keymap("n", "*", [[:lua require("core.utils").start_search()<CR>]], { noremap = true, silent = true })
-  nvim_set_keymap("v", "*", [[:lua require("core.utils").v_start_search()<CR>]], { noremap = true, silent = true })
+  nvim_set_keymap("n", "*", [[<Cmd>lua require("core.utils").start_search()<CR>]], { noremap = true, silent = true })
+  nvim_set_keymap("v", "*", [[<Cmd>lua require("core.utils").v_start_search()<CR>]], { noremap = true, silent = true })
 
-  nvim_set_keymap("n", "<Leader>bd", ":lua require('core.utils').buf_only()<CR>", { noremap = true, silent = true })
+  nvim_set_keymap("n", "<Leader>bd", "<Cmd>lua require('core.utils').buf_only()<CR>", { noremap = true, silent = true })
 
   local function required_mappings()
     -- Add Packer commands because we are not loading it at startup
@@ -109,28 +109,13 @@ M.bufferline = function()
 end
 
 M.wilder = function()
-  nvim_set_keymap(
-    "c",
-    "/",
-    [[wilder#can_accept_completion() ? wilder#accept_completion(0) : "/"]],
-    { expr = true, noremap = true }
-  )
+  nvim_set_keymap("c", "/", [[wilder#can_accept_completion() ? wilder#accept_completion(0) : "/"]], { expr = true, noremap = true })
 end
 
 M.coc = function()
-  nvim_set_keymap(
-    "i",
-    "<Tab>",
-    [[v:lua.require("core.utils").smart_tab()]],
-    { expr = true, noremap = true, silent = true }
-  )
+  nvim_set_keymap("i", "<Tab>", [[v:lua.require("core.utils").smart_tab()]], { expr = true, noremap = true, silent = true })
   nvim_set_keymap("i", "<S-Tab>", [[v:lua.require("core.utils").smart_shift_tab()]], { expr = true, noremap = true })
-  nvim_set_keymap(
-    "i",
-    "<CR>",
-    [[v:lua.require("core.utils").smart_enter()]],
-    { expr = true, noremap = true, silent = true }
-  )
+  nvim_set_keymap("i", "<CR>", [[v:lua.require("core.utils").smart_enter()]], { expr = true, noremap = true, silent = true })
 
   nvim_set_keymap("n", "[g", "<Plug>(coc-diagnostic-prev)", { silent = true })
   nvim_set_keymap("n", "]g", "<Plug>(coc-diagnostic-next)", { silent = true })
@@ -139,7 +124,7 @@ M.coc = function()
   nvim_set_keymap("n", "gd", "<Plug>(coc-definition)zz", { silent = true })
   nvim_set_keymap("n", "gy", "<Plug>(coc-type-definition)", { silent = true })
 
-  nvim_set_keymap("n", "K", [[:lua require("core.utils").show_documentation()<CR>]], { noremap = true, silent = true })
+  nvim_set_keymap("n", "K", [[<Cmd>lua require("core.utils").show_documentation()<CR>]], { noremap = true, silent = true })
 
   nvim_set_keymap("n", "<Leader>rn", [[<Plug>(coc-rename)]], {})
   nvim_set_keymap("n", "<Leader>rf", [[<Plug>(coc-refactor)]], {})
@@ -158,46 +143,16 @@ M.coc = function()
   nvim_set_keymap("x", "ac", [[<Plug>(coc-classobj-a)]], {})
   nvim_set_keymap("o", "ac", [[<Plug>(coc-classobj-a)]], {})
 
-  nvim_set_keymap(
-    "n",
-    "<C-f>",
-    [[coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"]],
-    { expr = true, noremap = true, nowait = true, silent = true }
-  )
-  nvim_set_keymap(
-    "n",
-    "<C-b>",
-    [[coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"]],
-    { expr = true, noremap = true, nowait = true, silent = true }
-  )
-  nvim_set_keymap(
-    "n",
-    "<C-d>",
-    [[coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-d>"]],
-    { expr = true, noremap = true, nowait = true, silent = true }
-  )
-  nvim_set_keymap(
-    "n",
-    "<C-u>",
-    [[coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>"]],
-    { expr = true, noremap = true, nowait = true, silent = true }
-  )
+  nvim_set_keymap("n", "<C-f>", [[coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"]], { expr = true, noremap = true, nowait = true, silent = true })
+  nvim_set_keymap("n", "<C-b>", [[coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"]], { expr = true, noremap = true, nowait = true, silent = true })
+  nvim_set_keymap("n", "<C-d>", [[coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-d>"]], { expr = true, noremap = true, nowait = true, silent = true })
+  nvim_set_keymap("n", "<C-u>", [[coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>"]], { expr = true, noremap = true, nowait = true, silent = true })
 
-  nvim_set_keymap(
-    "n",
-    "<C-A-o>",
-    [[:silent call CocAction('runCommand', 'editor.action.organizeImport')<CR>]],
-    { noremap = true, silent = true }
-  )
+  nvim_set_keymap("n", "<C-A-o>", [[<Cmd>silent call CocAction('runCommand', 'editor.action.organizeImport')<CR>]], { noremap = true, silent = true })
 
-  nvim_set_keymap("n", "<F2>", [[:CocOutline<CR>]], { noremap = true })
+  nvim_set_keymap("n", "<F2>", [[<Cmd>CocOutline<CR>]], { noremap = true })
 
-  nvim_set_keymap(
-    "n",
-    "<Space>gf",
-    ":call CocActionAsync('codeAction', 'cursor', ['refactor.rewrite'])<CR>",
-    { noremap = true, silent = true }
-  )
+  nvim_set_keymap("n", "<Space>gf", "<Cmd>call CocActionAsync('codeAction', 'cursor', ['refactor.rewrite'])<CR>", { noremap = true, silent = true })
 
   nvim_set_keymap("n", "<Leader>t", [[<Plug>(coc-translator-p)]], {})
   nvim_set_keymap("v", "<Leader>t", [[<Plug>(coc-translator-pv)]], {})
@@ -219,12 +174,7 @@ M.telescope = function()
   nvim_set_keymap("n", "gr", [[<Cmd>Telescope coc references initial_mode=normal<CR>]], { silent = true })
   nvim_set_keymap("n", "gi", [[<Cmd>Telescope coc implementations initial_mode=normal<CR>]], { silent = true })
 
-  nvim_set_keymap(
-    "v",
-    "<Leader>fc",
-    [[:lua require('core.utils').grep_from_selected()<CR>]],
-    { noremap = true, silent = true }
-  )
+  nvim_set_keymap("v", "<Leader>fc", [[<Cmd>lua require('core.utils').grep_from_selected()<CR>]], { noremap = true, silent = true })
 end
 
 M.nerdcommenter = function()
