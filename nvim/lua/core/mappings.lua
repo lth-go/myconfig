@@ -81,7 +81,7 @@ M.misc = function()
   nvim_set_keymap("n", "*", [[:lua require("core.utils").start_search()<CR>]], { noremap = true, silent = true })
   nvim_set_keymap("v", "*", [[:lua require("core.utils").v_start_search()<CR>]], { noremap = true, silent = true })
 
-  nvim_set_keymap("n", "<Leader>bd", ":lua require('core.utils').buf_only()<CR>", { noremap =true, silent = true })
+  nvim_set_keymap("n", "<Leader>bd", ":lua require('core.utils').buf_only()<CR>", { noremap = true, silent = true })
 
   local function required_mappings()
     -- Add Packer commands because we are not loading it at startup
@@ -118,9 +118,19 @@ M.wilder = function()
 end
 
 M.coc = function()
-  nvim_set_keymap("i", "<Tab>", [[v:lua.require("core.utils").smart_tab()]], { expr = true, noremap = true, silent = true })
+  nvim_set_keymap(
+    "i",
+    "<Tab>",
+    [[v:lua.require("core.utils").smart_tab()]],
+    { expr = true, noremap = true, silent = true }
+  )
   nvim_set_keymap("i", "<S-Tab>", [[v:lua.require("core.utils").smart_shift_tab()]], { expr = true, noremap = true })
-  nvim_set_keymap("i", "<CR>", [[v:lua.require("core.utils").smart_enter()]], { expr = true, noremap = true, silent = true })
+  nvim_set_keymap(
+    "i",
+    "<CR>",
+    [[v:lua.require("core.utils").smart_enter()]],
+    { expr = true, noremap = true, silent = true }
+  )
 
   nvim_set_keymap("n", "[g", "<Plug>(coc-diagnostic-prev)", { silent = true })
   nvim_set_keymap("n", "]g", "<Plug>(coc-diagnostic-next)", { silent = true })
