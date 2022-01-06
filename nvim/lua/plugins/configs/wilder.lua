@@ -1,10 +1,8 @@
 vim.cmd([[
-call wilder#setup({'modes': [':', '/', '?']})
+call wilder#setup({'modes': [':', '/', '?'], 'enable_cmdline_enter': 0})
 
 call wilder#set_option('pipeline', [
   \ wilder#branch(
-  \   {ctx, x -> empty(x) ? '' : v:false},
-  \   {ctx, x -> index(['e', 'v', 'vs'], x) >= 0 ? '' : v:false},
   \   wilder#substitute_pipeline({
   \     'pipeline': wilder#python_search_pipeline({
   \       'skip_cmdtype_check': 1,
