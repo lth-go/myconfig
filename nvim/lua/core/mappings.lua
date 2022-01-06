@@ -78,8 +78,8 @@ M.misc = function()
   nvim_set_keymap("x", "<A-j>", [[:m '>+1<CR>gv-gv]], {})
   nvim_set_keymap("x", "<A-k>", [[:m '<-2<CR>gv-gv]], {})
 
-  nvim_set_keymap("n", "*", [[<Cmd>lua require("core.utils").start_search()<CR>]], { noremap = true, silent = true })
-  nvim_set_keymap("v", "*", [[<Cmd>lua require("core.utils").v_start_search()<CR>]], { noremap = true, silent = true })
+  nvim_set_keymap("n", "*", [[<Cmd>lua require("core.utils").star_search()<CR>]], { noremap = true, silent = true })
+  nvim_set_keymap("v", "*", [[<Cmd>lua require("core.utils").v_star_search()<CR>]], { noremap = true, silent = true })
 
   nvim_set_keymap("n", "<Leader>bd", "<Cmd>lua require('core.utils').buf_only()<CR>", { noremap = true, silent = true })
 

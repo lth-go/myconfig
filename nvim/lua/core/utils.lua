@@ -4,6 +4,91 @@ local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
+--- Get the region between two marks and the start and end positions for the region
+---
+--@param mark1 Name of mark starting the region
+--@param mark2 Name of mark ending the region
+--@param options Table containing the adjustment function, register type and selection mode
+--@return region region between the two marks, as returned by |vim.region|
+--@return start (row,col) tuple denoting the start of the region
+--@return finish (row,col) tuple denoting the end of the region
+M.get_marked_region = function(mark1, mark2, options)
+  local bufnr = 0
+  local adjust = options.adjust or function(pos1, pos2)
+    return pos1, pos2
+  end
+  local regtype = options.regtype or vim.fn.visualmode()
+  local selection = options.selection or (vim.o.selection ~= "exclusive")
+
+  local pos1 = vim.fn.getpos(mark1)
+  local pos2 = vim.fn.getpos(mark2)
+  pos1, pos2 = adjust(pos1, pos2)
+
+  local start = { pos1[2] - 1, pos1[3] - 1 + pos1[4] }
+  local finish = { pos2[2] - 1, pos2[3] - 1 + pos2[4] }
+
+  -- Return if start or finish are invalid
+  if start[2] < 0 or finish[1] < start[1] then
+    return
+  end
+
+  local region = vim.region(bufnr, start, finish, regtype, selection)
+  return region, start, finish
+end
+
+--- Get the current visual selection as a string
+---
+--@return selection string containing the current visual selection
+M.get_visual_selection = function()
+  local bufnr = 0
+  local visual_modes = {
+    v = true,
+    V = true,
+    -- [t'<C-v>'] = true, -- Visual block does not seem to be supported by vim.region
+  }
+
+  -- Return if not in visual mode
+  if visual_modes[vim.api.nvim_get_mode().mode] == nil then
+    return
+  end
+
+  local options = {}
+  options.adjust = function(pos1, pos2)
+    if vim.fn.visualmode() == "V" then
+      pos1[3] = 1
+      pos2[3] = 2 ^ 31 - 1
+    end
+
+    if pos1[2] > pos2[2] then
+      pos2[3], pos1[3] = pos1[3], pos2[3]
+      return pos2, pos1
+    elseif pos1[2] == pos2[2] and pos1[3] > pos2[3] then
+      return pos2, pos1
+    else
+      return pos1, pos2
+    end
+  end
+
+  local region, start, finish = M.get_marked_region("v", ".", options)
+
+  -- Compute the number of chars to get from the first line,
+  -- because vim.region returns -1 as the ending col if the
+  -- end of the line is included in the selection
+  local lines = vim.api.nvim_buf_get_lines(bufnr, start[1], finish[1] + 1, false)
+  local line1_end
+  if region[start[1]][2] - region[start[1]][1] < 0 then
+    line1_end = #lines[1] - region[start[1]][1]
+  else
+    line1_end = region[start[1]][2] - region[start[1]][1]
+  end
+
+  lines[1] = vim.fn.strpart(lines[1], region[start[1]][1], line1_end, true)
+  if start[1] ~= finish[1] then
+    lines[#lines] = vim.fn.strpart(lines[#lines], region[finish[1]][1], region[finish[1]][2] - region[finish[1]][1])
+  end
+  return table.concat(lines)
+end
+
 --
 -- buf_only
 --
@@ -40,7 +125,7 @@ M.buf_only = function()
 end
 
 --
--- mkdir start
+-- mkdir
 --
 M.auto_mkdir = function()
   local dir = vim.fn.expand("%:p:h")
@@ -67,9 +152,9 @@ M.show_current_line = function()
 end
 
 --
--- start search
+-- star search
 --
-M.start_search = function()
+M.star_search = function()
   vim.opt.hlsearch = false
 
   local cword = vim.fn.expand("<cword>")
@@ -87,17 +172,20 @@ M.start_search = function()
   vim.opt.hlsearch = true
 end
 
-M.v_start_search = function()
+M.v_star_search = function()
   vim.opt.hlsearch = false
 
-  local save_reg = vim.fn.getreg("s")
+  local word = M.get_visual_selection()
 
-  vim.cmd([[normal! gv"sy]])
+  if not word or word == "" then
+    return
+  end
 
-  vim.fn.setreg("/", "\\V" .. vim.fn.substitute(vim.fn.escape(vim.fn.getreg("s"), "\\"), "\\n", "\\\\n", "g"))
-  vim.fn.setreg("s", save_reg)
+  vim.fn.setreg("/", "\\V" .. vim.fn.substitute(vim.fn.escape(word, "\\"), "\\n", "\\\\n", "g"))
 
   vim.opt.hlsearch = true
+
+  vim.api.nvim_input("o<Esc>")
 end
 
 --
@@ -159,31 +247,14 @@ end
 --
 -- grep_from_selected
 --
-M.get_selected = function(type)
-  local saved_unnamed_register = vim.fn.getreg("@")
-
-  if type == "v" then
-    vim.cmd([[normal! `<v`>y]])
-  elseif type == "char" then
-    vim.cmd([[normal! `[v`]y]])
-  else
-    return ""
-  end
-
-  local word = vim.fn.substitute(vim.fn.getreg("@"), "\\n$", "", "g")
-  word = vim.fn.escape(word, "| ")
-
-  vim.fn.setreg("@", saved_unnamed_register)
-
-  return word
-end
-
 M.grep_from_selected = function()
-  local word = M.get_selected(vim.fn.visualmode())
+  local word = M.get_visual_selection()
 
-  if word ~= "" then
-    vim.cmd([[Telescope grep_string search=]] .. word)
+  if not word or word == "" then
+    return
   end
+
+  vim.cmd([[Telescope grep_string search=]] .. word)
 end
 
 return M
