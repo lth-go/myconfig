@@ -1,6 +1,8 @@
-vim.cmd([[
-call wilder#setup({'modes': [':', '/', '?'], 'enable_cmdline_enter': 0})
+local fn = vim.fn
 
+fn['wilder#setup']({ modes = { ':', '/', '?' }, enable_cmdline_enter = 0 })
+
+vim.cmd([[
 call wilder#set_option('pipeline', [
   \ wilder#branch(
   \   wilder#substitute_pipeline({
@@ -24,15 +26,11 @@ call wilder#set_option('pipeline', [
   \ ),
 \ ])
 
-let g:wilder_highlighters = [
-  \ wilder#pcre2_highlighter(),
-\ ]
-
 let g:wilder_popupmenu_renderer = wilder#popupmenu_renderer({
   \ 'highlights': {
   \    'accent': wilder#make_hl('WilderAccent', 'Pmenu', [{}, {}, {'foreground': '#f4468f'}]),
   \ },
-  \ 'highlighter': g:wilder_highlighters,
+  \ 'highlighter': [wilder#pcre2_highlighter()],
   \ 'left': [
   \   ' ',
   \   wilder#popupmenu_devicons(),
@@ -47,7 +45,7 @@ let g:wilder_wildmenu_renderer = wilder#wildmenu_renderer({
   \ 'highlights': {
   \    'accent': wilder#make_hl('WilderAccent', 'Pmenu', [{}, {}, {'foreground': '#f4468f'}]),
   \  },
-  \ 'highlighter': g:wilder_highlighters,
+  \ 'highlighter': [wilder#pcre2_highlighter()],
   \ 'apply_incsearch_fix': 1,
 \ })
 

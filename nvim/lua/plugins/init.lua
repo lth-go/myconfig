@@ -102,7 +102,7 @@ return packer.startup(function()
 
   use({
     "nvim-telescope/telescope.nvim",
-    cmd = "Telescope",
+    after = "packer.nvim",
     setup = function()
       require("core.mappings").telescope()
     end,
