@@ -34,16 +34,6 @@ sudo dnf install -y ripgrep fd-find bat
 sudo dnf install -y clash flameshot
 sudo dnf install -y gcc-c++ libstdc++-devel
 
-sudo dnf install -y fcitx5 fcitx5-chinese-addons fcitx5-configtool
-# https://github.com/fcitx/fcitx/issues/337
-# 默认输入法使用fcitx5
-# 禁用shift切换
-# 分页切换使用[], 拼音输入法选项里额外配置
-# 符号使用半角
-
-# vim /usr/share/fcitx5/punctuation/punc.mb.zh_CN
-
-# use xclip
 sudo dnf copr enable agriffis/neovim-nightly
 sudo dnf update -y neovim
 
@@ -78,13 +68,11 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
 # Nodejs
-npm config set registry https://registry.npm.taobao.org
+npm config set registry https://registry.npmmirror.com
 
 # vim
 cd ~/myconfig
-mkdir -p ~/.local/share/nvim/site/autoload
-cp vim/plug.vim ~/.local/share/nvim/site/autoload
-# $ vim :PlugInstall
+# $ vim :PackerSync
 
 # Python
 pip install --user virtualenv
@@ -104,7 +92,6 @@ pip install --user jedi autopep8 flake8
 go get golang.org/x/tools/gopls@latest
 
 sudo npm install -g diff-so-fancy tldr
-sudo npm -g install flow-bin
 
 # Docker
 sudo systemctl enable docker
