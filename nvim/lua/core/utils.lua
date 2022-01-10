@@ -254,7 +254,7 @@ M.grep_from_selected = function()
     return
   end
 
-  require('telescope.builtin').grep_string({ search = word })
+  require("telescope.builtin").grep_string({ search = word })
 end
 
 return M
