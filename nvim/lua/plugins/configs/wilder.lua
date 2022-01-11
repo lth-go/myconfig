@@ -10,10 +10,6 @@ wilder.setup({ modes = { ":", "/", "?" } })
 
 wilder.set_option("pipeline", {
   wilder.branch(
-    -- TODO: 仅cmd模式
-    function(_, x)
-      return string.len(x) <= 2 and "" or false
-    end,
     wilder.substitute_pipeline({
       pipeline = wilder.python_search_pipeline({
         skip_cmdtype_check = 1,
@@ -22,11 +18,20 @@ wilder.set_option("pipeline", {
         }),
       }),
     }),
-    wilder.cmdline_pipeline({
-      fuzzy = 1,
-      set_pcre2_pattern = 1,
-      sorter = wilder.python_difflib_sorter(),
-    }),
+    {
+      function(ctx, x)
+        if string.len(x) <= 2 then
+          return false
+        end
+
+        return x
+      end,
+      table.unpack(wilder.cmdline_pipeline({
+        fuzzy = 1,
+        set_pcre2_pattern = 1,
+        sorter = wilder.python_difflib_sorter(),
+      })),
+    },
     wilder.python_search_pipeline({
       pattern = wilder.python_fuzzy_pattern({
         start_at_boundary = 0,
@@ -35,37 +40,15 @@ wilder.set_option("pipeline", {
   ),
 })
 
-local hl_wilder_accent = wilder.make_hl("WilderAccent", "Keyword")
-local scale = {
-  "#f4468f",
-  "#fd4a85",
-  "#ff507a",
-  "#ff566f",
-  "#ff5e63",
-  "#ff6658",
-  "#ff704e",
-  "#ff7a45",
-  "#ff843d",
-  "#ff9036",
-  "#f89b31",
-  "#efa72f",
-  "#e6b32e",
-  "#dcbe30",
-  "#d2c934",
-  "#c8d43a",
-  "#bfde43",
-  "#b6e84e",
-  "#aff05b",
-}
+local scale = { '#e1524a','#ec6449','#f3784c','#f88e53','#fba35e' }
 local gradient = {}
 
 for i, v in ipairs(scale) do
-  table.insert(gradient, wilder.make_hl("Accent" .. i, "Keyword", { { foo = "" }, { foo = "" }, { foreground = v } }))
+  table.insert(gradient, wilder.make_hl("WilderGradient" .. i, "Pmenu", { {}, {}, { v } }))
 end
 
 local wilder_popupmenu_renderer = wilder.popupmenu_renderer({
   highlights = {
-    -- accent = hl_wilder_accent,
     gradient = gradient,
   },
   highlighter = {
@@ -79,9 +62,13 @@ local wilder_popupmenu_renderer = wilder.popupmenu_renderer({
 
 local wilder_wildmenu_renderer = wilder.wildmenu_renderer({
   highlights = {
-    accent = hl_wilder_accent,
+    gradient = gradient,
   },
-  highlighter = { wilder.pcre2_highlighter() },
+  highlighter = {
+    wilder.highlighter_with_gradient({
+      wilder.basic_highlighter(),
+    }),
+  },
   apply_incsearch_fix = 1,
 })
 
