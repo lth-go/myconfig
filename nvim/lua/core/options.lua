@@ -58,3 +58,13 @@ opt.clipboard:append("unnamedplus")
 if opt.diff:get() then
   opt.readonly = false
 end
+
+-- fix neovim paste
+vim.paste = (function(overridden)
+  return function(lines, phase)
+    ok, msg = pcall(overridden, lines, phase)
+    if not ok then
+      print(msg)
+    end
+  end
+end)(vim.paste)
