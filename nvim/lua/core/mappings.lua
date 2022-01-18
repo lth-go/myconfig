@@ -191,8 +191,10 @@ M.vim_expand_region = function()
   nvim_set_keymap("v", "V", "<Plug>(expand_region_shrink)", {})
 end
 
-M.vim_sneak = function()
-  nvim_set_keymap("", [[\]], [[<Plug>Sneak_;]], {})
+M.lightspeed = function()
+  nvim_set_keymap("n", [[\]], [[<Plug>Lightspeed_;_ft]], {})
+  nvim_set_keymap("o", [[\]], [[<Plug>Lightspeed_;_ft]], {})
+  nvim_set_keymap("x", [[\]], [[<Plug>Lightspeed_;_ft]], {})
 end
 
 return M

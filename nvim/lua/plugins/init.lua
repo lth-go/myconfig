@@ -161,9 +161,9 @@ return packer.startup(function()
   -- })
 
   use({
-    "justinmk/vim-sneak",
+    "ggandor/lightspeed.nvim",
     setup = function()
-      require("core.mappings").vim_sneak()
+      require("core.mappings").lightspeed()
     end,
   })
 
