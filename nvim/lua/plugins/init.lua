@@ -162,6 +162,7 @@ return packer.startup(function()
 
   use({
     "ggandor/lightspeed.nvim",
+    after = "vim-gruvbox8",
     setup = function()
       require("core.mappings").lightspeed()
     end,
@@ -171,6 +172,13 @@ return packer.startup(function()
     "chaoren/vim-wordmotion",
     setup = function()
       require("plugins.configs.vim_wordmotion")
+    end,
+  })
+
+  use({
+    "booperlv/nvim-gomove",
+    config = function()
+      require("plugins.configs.nvim_gomove")
     end,
   })
 end)

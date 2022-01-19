@@ -49,7 +49,16 @@ basic.vi_mode = {
   end,
 }
 
-local icon_comp = basic_components.cache_file_icon({ default = "", hl_colors = { "white", "lightbg" } })
+basic.logo = {
+  text = function()
+    return {
+      { statusline_style.main_icon, { "statusline_bg", "blue" } },
+      { statusline_style.right, { "blue", "one_bg2" } },
+    }
+  end,
+}
+
+local icon_comp = basic_components.cache_file_icon({ default = "", hl_colors = { "white", "lightbg" } })
 
 local file_info = function()
   local filename = vim.api.nvim_buf_get_name(0)
@@ -61,33 +70,182 @@ local file_info = function()
   filename = vim.fn.fnamemodify(filename, ":~:.")
 
   local extension = vim.fn.fnamemodify(filename, ":e")
-  local readonly_str, modified_str
+  local readonly_str = ""
+  local modified_str = ""
 
   if vim.bo.readonly then
     readonly_str = "🔒"
-  else
-    readonly_str = ""
   end
 
   if vim.bo.modified then
     modified_str = " ●"
-  else
-    modified_str = ""
   end
 
   return string.format(" %s%s%s ", readonly_str, filename, modified_str)
 end
 
 basic.file = {
-  hl_colors = {
-    default = { "white", "lightbg" },
-  },
   text = function(bufnr)
+    local buf = vim.api.nvim_get_current_buf()
+
+    if not vim.api.nvim_buf_get_option(buf, "buflisted") then
+      return ""
+    end
+
+    local filename = vim.api.nvim_buf_get_name(0)
+
+    if filename == "" then
+      return {}
+    end
+
     return {
       { statusline_style.right, { "one_bg2", "lightbg" } },
       icon_comp(bufnr),
-      { file_info, "default" },
+      { file_info, { "white", "lightbg" } },
       { statusline_style.right, { "lightbg", "one_bg2" } },
+    }
+  end,
+}
+
+basic.coc_diagnostic_info = {
+  text = function()
+    return {
+      {
+        function()
+          local info = vim.b["coc_diagnostic_info"] or {}
+
+          if vim.tbl_isempty(info) then
+            return ""
+          end
+
+          local cnt = info["error"] or 0
+
+          if cnt == 0 then
+            return ""
+          end
+
+          local lnum = string.format("(L%d)", info["lnums"][1])
+
+          return "  " .. cnt .. lnum
+        end,
+        { "red" },
+      },
+      {
+        function()
+          local info = vim.b["coc_diagnostic_info"] or {}
+
+          if vim.tbl_isempty(info) then
+            return ""
+          end
+
+          local cnt = info["warning"] or 0
+
+          if cnt == 0 then
+            return ""
+          end
+
+          local lnum = string.format("(L%d)", info["lnums"][2])
+
+          return "  " .. cnt .. lnum
+        end,
+        { "yellow" },
+      },
+    }
+  end,
+}
+
+basic.white_space = {
+  text = function()
+    return {
+      {
+        function()
+          if vim.api.nvim_buf_get_name(0) == "" then
+            return ""
+          end
+
+          local lnum = vim.fn.search("\\s$", "nw")
+
+          if lnum == 0 then
+            return ""
+          end
+
+          return "  " .. string.format("(L%d)", lnum)
+        end,
+        {
+          "white",
+        },
+      },
+    }
+  end,
+}
+
+basic.coc_status = {
+  text = function()
+    return {
+
+      {
+        function()
+          local text = vim.g["coc_status"] or ""
+
+          if text == "" then
+            return ""
+          end
+
+          local winwidth = 91
+          local minwidth = 9
+
+          if string.len(text) > winwidth then
+            text = string.sub(text, 1, winwidth)
+          end
+
+          if vim.fn.winwidth(nr) < winwidth then
+            return string.sub(text, 1, minwidth) .. "..."
+          else
+            return text
+          end
+        end,
+        {
+          "green",
+        },
+      },
+    }
+  end,
+}
+
+basic.coc_current_function = {
+  text = function()
+    return {
+      {
+        function()
+          local func = vim.b["coc_current_function"] or ""
+          return func .. " "
+        end,
+        {
+          "white",
+        },
+      },
+    }
+  end,
+}
+
+basic.position = {
+  text = function()
+    return {
+      { statusline_style.left_rounded, { "grey", "one_bg" } },
+      {
+        statusline_style.left_rounded,
+        { "green", "grey" },
+      },
+      {
+        statusline_style.position_icon,
+        { "black", "green" },
+      },
+      {
+        function()
+          return string.format(" %d/%d ", vim.fn.line("."), vim.fn.line("$"))
+        end,
+        { "green", "one_bg" },
+      },
     }
   end,
 }
@@ -95,118 +253,15 @@ basic.file = {
 local default = {
   filetypes = { "default" },
   active = {
-    { statusline_style.main_icon, { "statusline_bg", "blue" } },
-    { statusline_style.right, { "blue", "one_bg2" } },
+    basic.logo,
     basic.file,
-    {
-      function()
-        local info = vim.b["coc_diagnostic_info"] or {}
-
-        if vim.tbl_isempty(info) then
-          return ""
-        end
-
-        local cnt = info["error"] or 0
-
-        if cnt == 0 then
-          return ""
-        end
-
-        local lnum = string.format("(L%d)", info["lnums"][1])
-
-        return "  " .. cnt .. lnum
-      end,
-      { "red" },
-    },
-    {
-      function()
-        local info = vim.b["coc_diagnostic_info"] or {}
-
-        if vim.tbl_isempty(info) then
-          return ""
-        end
-
-        local cnt = info["warning"] or 0
-
-        if cnt == 0 then
-          return ""
-        end
-
-        local lnum = string.format("(L%d)", info["lnums"][2])
-
-        return "  " .. cnt .. lnum
-      end,
-      { "yellow" },
-    },
-    {
-      function()
-        if vim.api.nvim_buf_get_name(0) == "" then
-          return ""
-        end
-
-        local lnum = vim.fn.search("\\s$", "nw")
-
-        if lnum == 0 then
-          return ""
-        end
-
-        return "  " .. string.format("(L%d)", lnum)
-      end,
-      {
-        "white",
-      },
-    },
-    {
-      function()
-        local text = vim.g["coc_status"] or ""
-
-        if text == "" then
-          return ""
-        end
-
-        local winwidth = 91
-        local minwidth = 9
-
-        if string.len(text) > winwidth then
-          text = string.sub(text, 1, winwidth)
-        end
-
-        if vim.fn.winwidth(nr) < winwidth then
-          return string.sub(text, 1, minwidth) .. "..."
-        else
-          return text
-        end
-      end,
-      {
-        "green",
-      },
-    },
+    basic.coc_diagnostic_info,
+    basic.white_space,
+    basic.coc_status,
     basic.divider,
-    {
-      function()
-        local func = vim.b["coc_current_function"] or ""
-        return func .. " "
-      end,
-      {
-        "white",
-      },
-    },
+    basic.coc_current_function,
     basic.vi_mode,
-    { statusline_style.left_rounded, { "grey", "one_bg" } },
-    {
-      statusline_style.left_rounded,
-      { "green", "grey" },
-    },
-    {
-      statusline_style.position_icon,
-      { "black", "green" },
-    },
-    {
-      function()
-        return string.format(" %d/%d ", vim.fn.line("."), vim.fn.line("$"))
-      end,
-      { "green", "one_bg" },
-    },
+    basic.position,
   },
   inactive = {},
 }
