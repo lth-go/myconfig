@@ -166,6 +166,9 @@ return packer.startup(function()
     setup = function()
       require("core.mappings").lightspeed()
     end,
+    config = function()
+      require("plugins.configs.lightspeed")
+    end,
   })
 
   use({

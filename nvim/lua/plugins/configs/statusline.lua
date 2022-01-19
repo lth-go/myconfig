@@ -27,11 +27,11 @@ basic.vi_mode = {
     Visual = { "yellow", "one_bg", "bold" },
     Replace = { "blue_light", "one_bg", "bold" },
     Command = { "magenta", "one_bg", "bold" },
-    NormalBefore = { "red", "one_bg2" },
-    InsertBefore = { "green", "one_bg2" },
-    VisualBefore = { "yellow", "one_bg2" },
-    ReplaceBefore = { "blue_light", "one_bg2" },
-    CommandBefore = { "magenta", "one_bg2" },
+    NormalBefore = { "red", "lightbg" },
+    InsertBefore = { "green", "lightbg" },
+    VisualBefore = { "yellow", "lightbg" },
+    ReplaceBefore = { "blue_light", "lightbg" },
+    CommandBefore = { "magenta", "lightbg" },
     NormalIcon = { "statusline_bg", "red" },
     InsertIcon = { "statusline_bg", "green" },
     VisualIcon = { "statusline_bg", "yellow" },
@@ -41,7 +41,7 @@ basic.vi_mode = {
 
   text = function()
     return {
-      { " " .. statusline_style.left_rounded, { "one_bg2" } },
+      { statusline_style.left_rounded, { "lightbg", "one_bg2" } },
       { statusline_style.left_rounded, state.mode[2] .. "Before" },
       { statusline_style.vi_mode_icon, state.mode[2] .. "Icon" },
       { " " .. state.mode[1] .. " ", state.mode[2] },
@@ -347,3 +347,10 @@ wlfloatline.setup({
 })
 
 vim.opt.fillchars:append("stl:—,stlnc:—")
+
+-- TODO: 阻止vim-abolish报错
+wlfloatline.update_status = (function(overridden)
+  return function(th_id)
+    pcall(overridden, th_id)
+  end
+end)(wlfloatline.update_status)
