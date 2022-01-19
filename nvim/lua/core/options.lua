@@ -62,9 +62,15 @@ end
 -- fix neovim paste
 vim.paste = (function(overridden)
   return function(lines, phase)
+    if #lines == 0 then
+      return
+    end
+
     ok, msg = pcall(overridden, lines, phase)
     if not ok then
       print(msg)
     end
+
+    opt.paste = false
   end
 end)(vim.paste)

@@ -55,7 +55,7 @@ local file_info = function()
   local filename = vim.api.nvim_buf_get_name(0)
 
   if filename == "" then
-    filename = "unnamed"
+    return ""
   end
 
   filename = vim.fn.fnamemodify(filename, ":~:.")
