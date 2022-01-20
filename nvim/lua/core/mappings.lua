@@ -194,4 +194,11 @@ M.lightspeed = function()
   nvim_set_keymap("x", [[\]], [[<Plug>Lightspeed_;_ft]], {})
 end
 
+M.gomove = function()
+  nvim_set_keymap("x", "<A-h>", "<Plug>GoVSMLeft", {})
+  nvim_set_keymap("x", "<A-j>", "<Plug>GoVSMDown", {})
+  nvim_set_keymap("x", "<A-k>", "<Plug>GoVSMUp", {})
+  nvim_set_keymap("x", "<A-l>", "<Plug>GoVSMRight", {})
+end
+
 return M

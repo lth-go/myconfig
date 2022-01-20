@@ -1,6 +1,7 @@
 {
   "suggest.enablePreselect": false,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "diagnostic.checkCurrentLine": true,
   "outline.splitCommand": "botright 50vs",
   "outline.sortBy": "position",
   "explorer.diagnostic.displayMax": 0,
@@ -8,7 +9,7 @@
   "explorer.icon.enableNerdfont": true,
   "explorer.icon.source": "nvim-web-devicons",
   "explorer.openAction.strategy": "sourceWindow",
-  "explorer.sources":[
+  "explorer.sources": [
     {
       "name": "file",
       "expand": true
@@ -17,9 +18,9 @@
   "explorer.file.root.template": "[icon] [root]",
   "explorer.file.child.template": "[selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5]",
   "translator.engines": [
-      "bing",
-      "youdao",
-      "haici"
+    "bing",
+    "youdao",
+    "haici"
   ],
   "languageserver": {},
   "go.goplsOptions": {

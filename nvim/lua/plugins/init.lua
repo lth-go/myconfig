@@ -180,8 +180,15 @@ return packer.startup(function()
 
   use({
     "booperlv/nvim-gomove",
+    setup = function()
+      require("core.mappings").gomove()
+    end,
     config = function()
       require("plugins.configs.nvim_gomove")
     end,
+  })
+
+  use({
+    "antoinemadec/FixCursorHold.nvim",
   })
 end)
