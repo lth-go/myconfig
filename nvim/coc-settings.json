@@ -30,6 +30,10 @@
     "staticcheck": true
   },
   "python.venvPath": "/work/python_venv/",
+  "sql.formatOptions": {
+    "language": "mysql",
+    "uppercase": true
+  },
   "yaml.format.enable": true,
   "list.insertMappings": {
     "<C-f>": "feedkeys:\\<C-f>",
