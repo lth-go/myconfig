@@ -26,7 +26,7 @@ wilder.set_option("pipeline", {
 
         return x
       end,
-      table.unpack(wilder.cmdline_pipeline({
+      unpack(wilder.cmdline_pipeline({
         fuzzy = 1,
         set_pcre2_pattern = 1,
         sorter = wilder.python_difflib_sorter(),
