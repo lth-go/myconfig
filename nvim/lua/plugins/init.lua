@@ -164,6 +164,7 @@ return packer.startup(function()
     "ggandor/lightspeed.nvim",
     after = "vim-gruvbox8",
     setup = function()
+      vim.g.lightspeed_no_default_keymaps = true
       require("core.mappings").lightspeed()
     end,
     config = function()

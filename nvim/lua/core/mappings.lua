@@ -189,9 +189,10 @@ M.vim_expand_region = function()
 end
 
 M.lightspeed = function()
-  nvim_set_keymap("n", [[\]], [[<Plug>Lightspeed_;_ft]], {})
-  nvim_set_keymap("o", [[\]], [[<Plug>Lightspeed_;_ft]], {})
-  nvim_set_keymap("x", [[\]], [[<Plug>Lightspeed_;_ft]], {})
+  nvim_set_keymap("n", "S", [[<Plug>Lightspeed_S]], {})
+  nvim_set_keymap("n", "s", [[<Plug>Lightspeed_s]], {})
+  nvim_set_keymap("o", "s", [[<Plug>Lightspeed_s]], {})
+  nvim_set_keymap("x", "s", [[<Plug>Lightspeed_s]], {})
 end
 
 M.gomove = function()
