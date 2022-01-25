@@ -29,6 +29,7 @@
     // "gofumpt": true,
     "staticcheck": true
   },
+  "sumneko-lua.checkUpdate": false,
   "python.venvPath": "/work/python_venv/",
   "sql.formatOptions": {
     "language": "mysql",

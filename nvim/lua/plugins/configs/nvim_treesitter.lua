@@ -10,7 +10,7 @@ ts_config.setup({
     enable = true,
   },
   indent = {
-    enable = true,
+    enable = false,
     use_languagetree = true,
   },
 })

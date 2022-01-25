@@ -14,5 +14,6 @@ g.coc_global_extensions = {
   "coc-clangd",
   "coc-vimlsp",
   "coc-translator",
+  "coc-sumneko-lua",
   -- "coc-tabnine",
 }
