@@ -19,7 +19,7 @@ return packer.startup(function()
     "lifepillar/vim-gruvbox8",
     after = "packer.nvim",
     config = function()
-      require("plugins.configs.gruvbox")
+      require("plugins.configs.theme")
     end,
   })
 
