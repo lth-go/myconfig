@@ -1,3 +1,4 @@
+local vim = vim
 local opt = vim.opt
 local g = vim.g
 
@@ -66,7 +67,7 @@ vim.paste = (function(overridden)
       return
     end
 
-    ok, msg = pcall(overridden, lines, phase)
+    local ok, msg = pcall(overridden, lines, phase)
     if not ok then
       print(msg)
     end

@@ -1,3 +1,5 @@
+local vim = vim
+
 local M = {}
 
 local t = function(str)
@@ -204,8 +206,6 @@ M.smart_tab = function()
   if vim.fn.pumvisible() == 1 then
     return t("<C-n>")
   else
-    local col = vim.fn.col(".") - 1
-
     if check_back_space() then
       return t("<Tab>")
     else

@@ -4,7 +4,13 @@
 
 ```json
 {
-    "list.source.files.excludePatterns": ["**/protocol/**"],
-    "list.source.grep.excludePatterns": ["**/protocol/**"]
+    "list.source.files.excludePatterns": ["**/some_dir/**"],
+    "list.source.grep.excludePatterns": ["**/some_dir/**"]
 }
+```
+
+## lemonade
+
+```
+~/.config/lemonade.toml
 ```
