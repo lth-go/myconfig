@@ -41,7 +41,7 @@ export GOSUMDB=off
 # PATH
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/bin:$PATH"
-PATH="${GOROOT}/bin:${GOBINPATH}:${PATH}"
+PATH="${GOBINPATH}:${PATH}"
 export PATH
 
 # zsh-syntax-highlighting
