@@ -25,7 +25,7 @@ g.dashboard_custom_section = {
   a = { description = { "  Recents                   SPC f m" }, command = "Telescope coc mru" },
   b = { description = { "  Find File                 SPC f f" }, command = "Telescope find_files" },
   c = { description = { "  Find Word                 SPC f g" }, command = "Telescope live_grep" },
-  d = { description = { "洛 New File                  SPC d f" }, command = "DashboardNewFile" },
+  d = { description = { "  New File                  SPC d f" }, command = "DashboardNewFile" },
 }
 
 g.dashboard_custom_footer = {

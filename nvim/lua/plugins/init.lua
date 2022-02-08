@@ -111,6 +111,15 @@ return packer.startup(function()
     end,
   })
 
+  use({
+    "nvim-telescope/telescope-fzf-native.nvim",
+    after = "telescope.nvim",
+    run = "make",
+    config = function()
+      require("telescope").load_extension("fzf")
+    end,
+  })
+
   use("tpope/vim-fugitive")
 
   use({
