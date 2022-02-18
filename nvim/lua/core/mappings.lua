@@ -168,10 +168,10 @@ M.telescope = function()
   nvim_set_keymap("n", "<Leader>fm", [[<Cmd>Telescope coc mru<CR>]], { noremap = true })
   nvim_set_keymap("n", "<Leader>fc", [[<Cmd>Telescope grep_string<CR>]], { noremap = true })
 
-  nvim_set_keymap("n", "gr", [[:Telescope coc references initial_mode=normal<CR>]], { silent = true })
-  nvim_set_keymap("n", "gi", [[:Telescope coc implementations initial_mode=normal<CR>]], { silent = true })
+  nvim_set_keymap("n", "gr", [[<Cmd>Telescope coc references initial_mode=normal<CR>]], { silent = true })
+  nvim_set_keymap("n", "gi", [[<Cmd>Telescope coc implementations initial_mode=normal<CR>]], { silent = true })
 
-  nvim_set_keymap("v", "<Leader>fc", [[:lua require('core.utils').grep_from_selected()<CR>]], { noremap = true, silent = true })
+  nvim_set_keymap("v", "<Leader>fc", [[<Cmd>lua require('core.utils').grep_from_selected()<CR>]], { noremap = true, silent = true })
 end
 
 M.nerdcommenter = function()

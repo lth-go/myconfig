@@ -38,7 +38,7 @@ sudo dnf copr enable agriffis/neovim-nightly
 sudo dnf update -y neovim
 
 # config
-cd ~ && git clone --depth 1 https://email%40password@github.com/lth-go/myconfig.git
+cd ~ && git clone --depth 1 https://email:password@github.com/lth-go/myconfig.git
 
 # zsh
 cd ~/myconfig/zsh/ && sh ./install.sh
