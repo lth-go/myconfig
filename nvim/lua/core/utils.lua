@@ -254,6 +254,8 @@ M.grep_from_selected = function()
     return
   end
 
+  vim.api.nvim_input("o<Esc>")
+
   require("telescope.builtin").grep_string({ search = word })
 end
 

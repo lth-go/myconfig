@@ -110,7 +110,7 @@ sudo wget -O /etc/clash/config.yaml {xxx}
 sudo vim /usr/lib/systemd/system/clash.service
 # [Unit]
 # Description=Clash Daemon
-# 
+#
 # [Service]
 # ExecStart=/usr/bin/clash -d /etc/clash/
 # Restart=on-failure
