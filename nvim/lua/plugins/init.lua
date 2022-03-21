@@ -9,6 +9,8 @@ local use = packer.use
 return packer.startup(function()
   use("nvim-lua/popup.nvim")
   use("nvim-lua/plenary.nvim")
+  use("lewis6991/impatient.nvim")
+  use("nathom/filetype.nvim")
 
   use({
     "wbthomason/packer.nvim",
@@ -32,7 +34,7 @@ return packer.startup(function()
 
   use({
     "nvim-treesitter/nvim-treesitter",
-    event = "BufRead",
+    event = { "BufRead", "BufNewFile" },
     run = ":TSUpdate",
     config = function()
       require("plugins.configs.nvim_treesitter")
@@ -40,7 +42,7 @@ return packer.startup(function()
   })
 
   use({
-    "glepnir/dashboard-nvim",
+    "goolord/alpha-nvim",
     config = function()
       require("plugins.configs.dashboard")
     end,
@@ -196,9 +198,5 @@ return packer.startup(function()
     config = function()
       require("plugins.configs.nvim_gomove")
     end,
-  })
-
-  use({
-    "antoinemadec/FixCursorHold.nvim",
   })
 end)

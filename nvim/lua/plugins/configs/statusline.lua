@@ -288,26 +288,6 @@ local explorer = {
   },
 }
 
-local floatline_component = {
-  {
-    hl_colors = {
-      line = { "grey", "NormalBg" },
-    },
-    text = function(_, winid, width)
-      return {
-        { string.rep("—", math.floor(width - 1), ""), "line" },
-        { "—", "line" },
-      }
-    end,
-  },
-}
-
-local floatline = {
-  filetypes = { "floatline" },
-  active = floatline_component,
-  inactive = floatline_component,
-}
-
 windline.setup({
   colors_name = function(colors)
     colors.black = "#282828"
@@ -331,26 +311,5 @@ windline.setup({
     default,
     quickfix,
     explorer,
-    floatline,
   },
 })
-
-local wlfloatline = require("wlfloatline")
-
-wlfloatline.floatline_on_cmd_enter = function() end
-
-wlfloatline.setup({
-  ui = {
-    active_hl = nil,
-  },
-  skip_filetypes = {},
-})
-
-vim.opt.fillchars:append("stl:—,stlnc:—")
-
--- TODO: 阻止vim-abolish报错
-wlfloatline.update_status = (function(overridden)
-  return function(th_id)
-    pcall(overridden, th_id)
-  end
-end)(wlfloatline.update_status)

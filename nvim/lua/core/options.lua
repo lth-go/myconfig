@@ -54,6 +54,8 @@ opt.softtabstop = 4
 opt.expandtab = true
 opt.shiftround = true
 
+opt.laststatus = 3
+
 opt.clipboard:append("unnamedplus")
 
 if opt.diff:get() then
