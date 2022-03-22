@@ -63,6 +63,7 @@ default.buttons = {
     button("SPC f m", "  Recent File  ", ":Telescope coc mru<CR>"),
     button("SPC f f", "  Find File  ", ":Telescope find_files<CR>"),
     button("SPC f g", "  Find Word  ", ":Telescope live_grep<CR>"),
+    button("SPC e s", "  Settings", ":e $MYVIMRC | :cd %:p:h <CR>"),
   },
   opts = {
     spacing = 1,

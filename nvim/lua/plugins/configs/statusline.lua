@@ -1,315 +1,361 @@
-local present, windline = pcall(require, "windline")
-
+local present, feline = pcall(require, "feline")
 if not present then
-  return
+   return
 end
 
-local basic_components = require("windline.components.basic")
+local vim = vim
 
-local state = _G.WindLine.state
+local default = {}
 
-local statusline_style = {
-  left_rounded = "",
+default.colors = {
+  white = "#ebdbb2",
+  darker_black = "#232323",
+  black = "#282828", --  nvim bg
+  black2 = "#2e2e2e",
+  one_bg = "#353535",
+  one_bg2 = "#3f3f3f",
+  one_bg3 = "#444444",
+  grey = "#464646",
+  grey_fg = "#4e4e4e",
+  grey_fg2 = "#505050",
+  light_grey = "#565656",
+  red = "#fb4934",
+  baby_pink = "#cc241d",
+  pink = "#ff75a0",
+  line = "#2c2f30", -- for lines like vertsplit
+  green = "#b8bb26",
+  vibrant_green = "#a9b665",
+  nord_blue = "#83a598",
+  blue = "#458588",
+  yellow = "#d79921",
+  sun = "#fabd2f",
+  purple = "#b4bbc8",
+  dark_purple = "#d3869b",
+  teal = "#749689",
+  orange = "#e78a4e",
+  cyan = "#82b3a8",
+  statusline_bg = "#2c2c2c",
+  lightbg = "#353535",
+  lightbg2 = "#303030",
+  pmenu_bg = "#83a598",
+  folder_bg = "#83a598",
+}
+
+-- statusline style
+default.statusline_style = {
+  left = "",
   right = " ",
   main_icon = "  ",
   vi_mode_icon = " ",
   position_icon = " ",
 }
 
-local basic = {}
+-- Initialize the components table
+default.components = {
+  active = {},
+}
 
-basic.divider = { basic_components.divider, "" }
+default.main_icon = {
+  provider = default.statusline_style.main_icon,
 
-basic.vi_mode = {
-  hl_colors = {
-    Normal = { "red", "one_bg", "bold" },
-    Insert = { "green", "one_bg", "bold" },
-    Visual = { "yellow", "one_bg", "bold" },
-    Replace = { "blue_light", "one_bg", "bold" },
-    Command = { "magenta", "one_bg", "bold" },
-    NormalBefore = { "red", "lightbg" },
-    InsertBefore = { "green", "lightbg" },
-    VisualBefore = { "yellow", "lightbg" },
-    ReplaceBefore = { "blue_light", "lightbg" },
-    CommandBefore = { "magenta", "lightbg" },
-    NormalIcon = { "statusline_bg", "red" },
-    InsertIcon = { "statusline_bg", "green" },
-    VisualIcon = { "statusline_bg", "yellow" },
-    ReplaceIcon = { "statusline_bg", "blue_light" },
-    CommandIcon = { "statusline_bg", "magenta" },
+  hl = {
+    fg = default.colors.statusline_bg,
+    bg = default.colors.blue,
   },
 
-  text = function()
-    return {
-      { statusline_style.left_rounded, { "lightbg", "one_bg2" } },
-      { statusline_style.left_rounded, state.mode[2] .. "Before" },
-      { statusline_style.vi_mode_icon, state.mode[2] .. "Icon" },
-      { " " .. state.mode[1] .. " ", state.mode[2] },
-    }
-  end,
+  right_sep = {
+    str = default.statusline_style.right,
+    hl = {
+      fg = default.colors.blue,
+      bg = default.colors.lightbg,
+    },
+  },
 }
 
-basic.logo = {
-  text = function()
-    return {
-      { statusline_style.main_icon, { "statusline_bg", "blue" } },
-      { statusline_style.right, { "blue", "one_bg2" } },
-    }
+default.file_name = {
+  provider = 'file_info',
+
+  opts = {
+    type = 'relative',
+  },
+
+  enabled = function(winid)
+    return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 70
   end,
+
+  hl = {
+    fg = default.colors.white,
+    bg = default.colors.lightbg,
+  },
+
+  right_sep = {
+    str = default.statusline_style.right,
+    hl = { fg = default.colors.lightbg},
+  },
 }
 
-local icon_comp = basic_components.cache_file_icon({ default = "", hl_colors = { "white", "lightbg" } })
+default.diagnostic = {
+  error = {
+    provider = function()
+      local info = vim.b["coc_diagnostic_info"] or {}
 
-local file_info = function()
-  local filename = vim.api.nvim_buf_get_name(0)
+      if vim.tbl_isempty(info) then
+        return ""
+      end
 
-  if filename == "" then
-    return ""
-  end
+      local cnt = info["error"] or 0
 
-  filename = vim.fn.fnamemodify(filename, ":~:.")
+      if cnt == 0 then
+        return ""
+      end
 
-  local extension = vim.fn.fnamemodify(filename, ":e")
-  local readonly_str = ""
-  local modified_str = ""
+      local lnum = string.format("(L%d)", info["lnums"][1])
 
-  if vim.bo.readonly then
-    readonly_str = "🔒"
-  end
+      return cnt .. lnum
+    end,
+    hl = { fg = default.colors.red },
+    icon = "  ",
+  },
 
-  if vim.bo.modified then
-    modified_str = " ●"
-  end
+  warning = {
+    provider = function()
+      local info = vim.b["coc_diagnostic_info"] or {}
 
-  return string.format(" %s%s%s ", readonly_str, filename, modified_str)
-end
+      if vim.tbl_isempty(info) then
+        return ""
+      end
 
-basic.file = {
-  text = function(bufnr)
-    local buf = vim.api.nvim_get_current_buf()
+      local cnt = info["warning"] or 0
 
-    if not vim.api.nvim_buf_get_option(buf, "buflisted") then
+      if cnt == 0 then
+        return ""
+      end
+
+      local lnum = string.format("(L%d)", info["lnums"][2])
+
+      return cnt .. lnum
+    end,
+    hl = { fg = default.colors.yellow },
+    icon = "  ",
+  },
+
+  white_space = {
+    provider = function()
+      if vim.api.nvim_buf_get_name(0) == "" then
+        return ""
+      end
+
+      local lnum = vim.fn.search("\\s$", "nw")
+
+      if lnum == 0 then
+        return ""
+      end
+
+      return string.format("(L%d)", lnum)
+    end,
+    hl = { fg = default.colors.white },
+    icon = "  ",
+  }
+}
+
+default.lsp_progress = {
+  provider = function()
+    local text = vim.g["coc_status"] or ""
+
+    if text == "" then
       return ""
     end
 
-    local filename = vim.api.nvim_buf_get_name(0)
+    local winwidth = 90
 
-    if filename == "" then
-      return {}
+    if string.len(text) > winwidth then
+      text = string.sub(text, 1, winwidth)
     end
 
-    return {
-      { statusline_style.right, { "one_bg2", "lightbg" } },
-      icon_comp(bufnr),
-      { file_info, { "white", "lightbg" } },
-      { statusline_style.right, { "lightbg", "one_bg2" } },
-    }
+    return text
   end,
-}
-
-basic.coc_diagnostic_info = {
-  text = function()
-    return {
-      {
-        function()
-          local info = vim.b["coc_diagnostic_info"] or {}
-
-          if vim.tbl_isempty(info) then
-            return ""
-          end
-
-          local cnt = info["error"] or 0
-
-          if cnt == 0 then
-            return ""
-          end
-
-          local lnum = string.format("(L%d)", info["lnums"][1])
-
-          return "  " .. cnt .. lnum
-        end,
-        { "red" },
-      },
-      {
-        function()
-          local info = vim.b["coc_diagnostic_info"] or {}
-
-          if vim.tbl_isempty(info) then
-            return ""
-          end
-
-          local cnt = info["warning"] or 0
-
-          if cnt == 0 then
-            return ""
-          end
-
-          local lnum = string.format("(L%d)", info["lnums"][2])
-
-          return "  " .. cnt .. lnum
-        end,
-        { "yellow" },
-      },
-    }
+  enabled = function(winid)
+    return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 90
   end,
+  hl = { fg = default.colors.green },
 }
 
-basic.white_space = {
-  text = function()
-    return {
-      {
-        function()
-          if vim.api.nvim_buf_get_name(0) == "" then
-            return ""
-          end
-
-          local lnum = vim.fn.search("\\s$", "nw")
-
-          if lnum == 0 then
-            return ""
-          end
-
-          return "  " .. string.format("(L%d)", lnum)
-        end,
-        {
-          "white",
-        },
-      },
-    }
+default.coc_current_function = {
+  provider = function()
+    local func = vim.b["coc_current_function"] or ""
+    return func .. " "
   end,
+  hl = { fg = default.colors.white },
 }
 
-basic.coc_status = {
-  text = function()
-    return {
-
-      {
-        function()
-          local text = vim.g["coc_status"] or ""
-
-          if text == "" then
-            return ""
-          end
-
-          local winwidth = 91
-          local minwidth = 9
-
-          if string.len(text) > winwidth then
-            text = string.sub(text, 1, winwidth)
-          end
-
-          if vim.fn.winwidth(nr) < winwidth then
-            return string.sub(text, 1, minwidth) .. "..."
-          else
-            return text
-          end
-        end,
-        {
-          "green",
-        },
-      },
-    }
-  end,
+default.mode_colors = {
+  ["n"] = { "NORMAL", default.colors.red },
+  ["no"] = { "N-PENDING", default.colors.red },
+  ["i"] = { "INSERT", default.colors.dark_purple },
+  ["ic"] = { "INSERT", default.colors.dark_purple },
+  ["t"] = { "TERMINAL", default.colors.green },
+  ["v"] = { "VISUAL", default.colors.cyan },
+  ["V"] = { "V-LINE", default.colors.cyan },
+  [""] = { "V-BLOCK", default.colors.cyan },
+  ["R"] = { "REPLACE", default.colors.orange },
+  ["Rv"] = { "V-REPLACE", default.colors.orange },
+  ["s"] = { "SELECT", default.colors.blue },
+  ["S"] = { "S-LINE", default.colors.blue },
+  [""] = { "S-BLOCK", default.colors.blue },
+  ["c"] = { "COMMAND", default.colors.pink },
+  ["cv"] = { "COMMAND", default.colors.pink },
+  ["ce"] = { "COMMAND", default.colors.pink },
+  ["r"] = { "PROMPT", default.colors.teal },
+  ["rm"] = { "MORE", default.colors.teal },
+  ["r?"] = { "CONFIRM", default.colors.teal },
+  ["!"] = { "SHELL", default.colors.green },
 }
 
-basic.coc_current_function = {
-  text = function()
-    return {
-      {
-        function()
-          local func = vim.b["coc_current_function"] or ""
-          return func .. " "
-        end,
-        {
-          "white",
-        },
-      },
-    }
-  end,
-}
+default.chad_mode_hl = function()
+  return {
+    fg = default.mode_colors[vim.fn.mode()][2],
+    bg = default.colors.one_bg,
+  }
+end
 
-basic.position = {
-  text = function()
-    return {
-      { statusline_style.left_rounded, { "grey", "one_bg" } },
-      {
-        statusline_style.left_rounded,
-        { "green", "grey" },
-      },
-      {
-        statusline_style.position_icon,
-        { "black", "green" },
-      },
-      {
-        function()
-          return string.format(" %d/%d ", vim.fn.line("."), vim.fn.line("$"))
-        end,
-        { "green", "one_bg" },
-      },
-    }
-  end,
-}
-
-local default = {
-  filetypes = { "default" },
-  active = {
-    basic.logo,
-    basic.file,
-    basic.coc_diagnostic_info,
-    basic.white_space,
-    basic.coc_status,
-    basic.divider,
-    basic.coc_current_function,
-    basic.vi_mode,
-    basic.position,
-  },
-  inactive = {},
-}
-
-local quickfix = {
-  filetypes = { "qf" },
-  active = {
-    { "🚦 Quickfix ", { "statusline_bg", "blue" } },
-    { statusline_style.right, { "blue", "one_bg2" } },
-    { statusline_style.right, { "one_bg2", "lightbg" } },
-    { statusline_style.right, { "lightbg" } },
-    basic.divider,
+default.empty_space = {
+  provider = " " .. default.statusline_style.left,
+  hl = {
+    fg = default.colors.one_bg2,
+    bg = default.colors.statusline_bg,
   },
 }
 
-local explorer = {
-  filetypes = { "coc-explorer" },
-  active = {
-    { "  ", { "statusline_bg", "blue" } },
-    { statusline_style.right, { "blue", "one_bg2" } },
-    { statusline_style.right, { "one_bg2", "lightbg" } },
-    { statusline_style.right, { "lightbg" } },
-    basic.divider,
+-- this matches the vi mode color
+default.empty_spaceColored = {
+  provider = default.statusline_style.left,
+  hl = function()
+    return {
+       fg = default.mode_colors[vim.fn.mode()][2],
+       bg = default.colors.one_bg2,
+    }
+  end,
+}
+
+default.mode_icon = {
+  provider = default.statusline_style.vi_mode_icon,
+  hl = function()
+    return {
+       fg = default.colors.statusline_bg,
+       bg = default.mode_colors[vim.fn.mode()][2],
+    }
+  end,
+}
+
+default.empty_space2 = {
+  provider = function()
+    return " " .. default.mode_colors[vim.fn.mode()][1] .. " "
+  end,
+  hl = default.chad_mode_hl,
+}
+
+default.separator_right = {
+  provider = default.statusline_style.left,
+  enabled = function(winid)
+    return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 90
+  end,
+  hl = {
+    fg = default.colors.grey,
+    bg = default.colors.one_bg,
   },
 }
 
-windline.setup({
-  colors_name = function(colors)
-    colors.black = "#282828"
-    colors.white = "#ebdbb2"
-    colors.red = "#fb4934"
-    colors.green = "#b8bb26"
-    colors.blue = "#83a598"
-    colors.yellow = "#d79921"
-    colors.cyan = "#00cccc"
-    colors.magenta = "#c6c6c6"
-    colors.grey = "#464646"
-    colors.line = "#2c2f30"
-    colors.one_bg = "#353535"
-    colors.one_bg2 = "#3f3f3f"
-    colors.statusline_bg = "#2c2c2c"
-    colors.lightbg = "#353535"
-
-    return colors
+default.separator_right2 = {
+  provider = default.statusline_style.left,
+  enabled = function(winid)
+    return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 90
   end,
-  statuslines = {
-    default,
-    quickfix,
-    explorer,
+  hl = {
+    fg = default.colors.green,
+    bg = default.colors.grey,
   },
-})
+}
+
+default.position_icon = {
+  provider = default.statusline_style.position_icon,
+  enabled = function(winid)
+    return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 90
+  end,
+  hl = {
+    fg = default.colors.black,
+    bg = default.colors.green,
+  },
+}
+
+default.current_line = {
+  provider = function ()
+    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+
+    col = vim.str_utfindex(vim.api.nvim_get_current_line(), col) + 1
+
+    return " " .. string.format('%d/%d', row, col)
+  end,
+
+  enabled = function(winid)
+    return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 90
+  end,
+
+  hl = {
+    fg = default.colors.green,
+    bg = default.colors.one_bg,
+  },
+}
+
+local function add_table(a, b)
+  table.insert(a, b)
+end
+
+default.left = {}
+default.middle = {}
+default.right = {}
+
+-- left
+add_table(default.left, default.main_icon)
+add_table(default.left, default.file_name)
+add_table(default.left, default.diagnostic.error)
+add_table(default.left, default.diagnostic.warning)
+add_table(default.left, default.diagnostic.white_space)
+
+-- middle
+add_table(default.middle, default.lsp_progress)
+
+-- right
+add_table(default.right, default.coc_current_function)
+add_table(default.right, default.empty_space)
+add_table(default.right, default.empty_spaceColored)
+add_table(default.right, default.mode_icon)
+add_table(default.right, default.empty_space2)
+add_table(default.right, default.separator_right)
+add_table(default.right, default.separator_right2)
+add_table(default.right, default.position_icon)
+add_table(default.right, default.current_line)
+
+default.components.active[1] = default.left
+default.components.active[2] = default.middle
+default.components.active[3] = default.right
+
+feline.setup {
+  theme = {
+    bg = default.colors.statusline_bg,
+    fg = default.colors.fg,
+  },
+  components = default.components,
+  disable = {
+    filetypes = {
+      '^alpha$',
+      '^coc%-explorer$',
+      '^NvimTree$',
+      '^packer$',
+      '^startify$',
+      '^fugitive$',
+      '^fugitiveblame$',
+      '^qf$',
+      '^help$',
+    },
+  },
+}

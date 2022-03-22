@@ -49,7 +49,7 @@ return packer.startup(function()
   })
 
   use({
-    "windwp/windline.nvim",
+    "feline-nvim/feline.nvim",
     after = "nvim-web-devicons",
     config = function()
       require("plugins.configs.statusline")
