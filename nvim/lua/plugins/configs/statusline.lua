@@ -39,6 +39,7 @@ default.colors = {
   lightbg2 = "#303030",
   pmenu_bg = "#83a598",
   folder_bg = "#83a598",
+  violet = '#a9a1e1',
 }
 
 -- statusline style
@@ -188,6 +189,20 @@ default.coc_current_function = {
   hl = { fg = default.colors.white },
 }
 
+default.file_encoding = {
+  provider = 'file_encoding',
+  left_sep = ' ',
+  hl = {
+    fg = default.colors.violet,
+    style = 'bold'
+  }
+}
+
+default.file_type = {
+  left_sep = ' ',
+  provider = 'file_type'
+}
+
 default.mode_colors = {
   ["n"] = { "NORMAL", default.colors.red },
   ["no"] = { "N-PENDING", default.colors.red },
@@ -326,6 +341,8 @@ add_table(default.middle, default.lsp_progress)
 
 -- right
 add_table(default.right, default.coc_current_function)
+add_table(default.right, default.file_encoding)
+add_table(default.right, default.file_type)
 add_table(default.right, default.empty_space)
 add_table(default.right, default.empty_spaceColored)
 add_table(default.right, default.mode_icon)
