@@ -74,10 +74,11 @@ default.main_icon = {
 }
 
 default.file_name = {
-  provider = 'file_info',
-
-  opts = {
-    type = 'relative',
+  provider = {
+    name = 'file_info',
+    opts = {
+      type = 'relative',
+    },
   },
 
   enabled = function(winid)
@@ -189,18 +190,15 @@ default.coc_current_function = {
   hl = { fg = default.colors.white },
 }
 
-default.file_encoding = {
-  provider = 'file_encoding',
-  left_sep = ' ',
-  hl = {
-    fg = default.colors.violet,
-    style = 'bold'
-  }
-}
-
 default.file_type = {
+  provider = {
+    name = 'file_type',
+    opts = {
+      filetype_icon = true,
+      case = 'lowercase',
+    },
+  },
   left_sep = ' ',
-  provider = 'file_type'
 }
 
 default.mode_colors = {
@@ -304,15 +302,7 @@ default.position_icon = {
 
 default.current_line = {
   provider = function ()
-    local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-
-    col = vim.str_utfindex(vim.api.nvim_get_current_line(), col) + 1
-
-    return " " .. string.format('%d/%d', row, col)
-  end,
-
-  enabled = function(winid)
-    return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 90
+    return string.format(" %d/%d ", vim.fn.line("."), vim.fn.line("$"))
   end,
 
   hl = {
@@ -341,7 +331,6 @@ add_table(default.middle, default.lsp_progress)
 
 -- right
 add_table(default.right, default.coc_current_function)
-add_table(default.right, default.file_encoding)
 add_table(default.right, default.file_type)
 add_table(default.right, default.empty_space)
 add_table(default.right, default.empty_spaceColored)
@@ -366,9 +355,8 @@ feline.setup {
     filetypes = {
       '^alpha$',
       '^coc%-explorer$',
-      '^NvimTree$',
+      '^TelescopePrompt$',
       '^packer$',
-      '^startify$',
       '^fugitive$',
       '^fugitiveblame$',
       '^qf$',
