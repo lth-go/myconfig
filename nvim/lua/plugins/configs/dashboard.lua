@@ -1,7 +1,7 @@
 local present, alpha = pcall(require, "alpha")
 
 if not present then
-   return
+  return
 end
 
 local function button(sc, txt, keybind)

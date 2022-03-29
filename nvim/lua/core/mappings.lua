@@ -16,6 +16,7 @@ M.misc = function()
 
   nvim_set_keymap("n", "<Leader>q", ":q<CR>", { noremap = true })
   nvim_set_keymap("n", "<Leader>w", ":w<CR>", { noremap = true })
+  nvim_set_keymap("n", "<Leader>z", ":qa!<CR>", { noremap = true })
 
   cmd([[cabbrev w!! w !sudo tee % > /dev/null]])
 

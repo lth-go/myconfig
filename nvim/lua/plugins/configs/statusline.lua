@@ -1,6 +1,6 @@
 local present, feline = pcall(require, "feline")
 if not present then
-   return
+  return
 end
 
 local vim = vim
@@ -39,7 +39,7 @@ default.colors = {
   lightbg2 = "#303030",
   pmenu_bg = "#83a598",
   folder_bg = "#83a598",
-  violet = '#a9a1e1',
+  violet = "#a9a1e1",
 }
 
 -- statusline style
@@ -75,9 +75,9 @@ default.main_icon = {
 
 default.file_name = {
   provider = {
-    name = 'file_info',
+    name = "file_info",
     opts = {
-      type = 'relative',
+      type = "relative",
     },
   },
 
@@ -92,7 +92,7 @@ default.file_name = {
 
   right_sep = {
     str = default.statusline_style.right,
-    hl = { fg = default.colors.lightbg},
+    hl = { fg = default.colors.lightbg },
   },
 }
 
@@ -157,7 +157,7 @@ default.diagnostic = {
     end,
     hl = { fg = default.colors.white },
     icon = "  ",
-  }
+  },
 }
 
 default.lsp_progress = {
@@ -192,13 +192,13 @@ default.coc_current_function = {
 
 default.file_type = {
   provider = {
-    name = 'file_type',
+    name = "file_type",
     opts = {
       filetype_icon = true,
-      case = 'lowercase',
+      case = "lowercase",
     },
   },
-  left_sep = ' ',
+  left_sep = " ",
 }
 
 default.mode_colors = {
@@ -244,8 +244,8 @@ default.empty_spaceColored = {
   provider = default.statusline_style.left,
   hl = function()
     return {
-       fg = default.mode_colors[vim.fn.mode()][2],
-       bg = default.colors.one_bg2,
+      fg = default.mode_colors[vim.fn.mode()][2],
+      bg = default.colors.one_bg2,
     }
   end,
 }
@@ -254,8 +254,8 @@ default.mode_icon = {
   provider = default.statusline_style.vi_mode_icon,
   hl = function()
     return {
-       fg = default.colors.statusline_bg,
-       bg = default.mode_colors[vim.fn.mode()][2],
+      fg = default.colors.statusline_bg,
+      bg = default.mode_colors[vim.fn.mode()][2],
     }
   end,
 }
@@ -301,7 +301,7 @@ default.position_icon = {
 }
 
 default.current_line = {
-  provider = function ()
+  provider = function()
     return string.format(" %d/%d ", vim.fn.line("."), vim.fn.line("$"))
   end,
 
@@ -345,7 +345,7 @@ default.components.active[1] = default.left
 default.components.active[2] = default.middle
 default.components.active[3] = default.right
 
-feline.setup {
+feline.setup({
   theme = {
     bg = default.colors.statusline_bg,
     fg = default.colors.fg,
@@ -353,14 +353,14 @@ feline.setup {
   components = default.components,
   disable = {
     filetypes = {
-      '^alpha$',
-      '^coc%-explorer$',
-      '^TelescopePrompt$',
-      '^packer$',
-      '^fugitive$',
-      '^fugitiveblame$',
-      '^qf$',
-      '^help$',
+      "^alpha$",
+      "^coc%-explorer$",
+      "^TelescopePrompt$",
+      "^packer$",
+      "^fugitive$",
+      "^fugitiveblame$",
+      "^qf$",
+      "^help$",
     },
   },
-}
+})
