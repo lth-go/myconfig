@@ -4,6 +4,8 @@ if not present then
   return
 end
 
+local vim = vim
+
 local function button(sc, txt, keybind)
   local sc_ = sc:gsub("%s", ""):gsub("SPC", "<leader>")
 
@@ -35,23 +37,59 @@ end
 local default = {}
 
 -- https://fsymbols.com/text-art/
-default.ascii = {
+local ascii_art_moresec = {
+  '███╗░░░███╗░█████╗░██╗░░██╗███████╗',
+  '████╗░████║██╔══██╗██║░██╔╝██╔════╝',
+  '██╔████╔██║███████║█████═╝░█████╗░░',
+  '██║╚██╔╝██║██╔══██║██╔═██╗░██╔══╝░░',
+  '██║░╚═╝░██║██║░░██║██║░╚██╗███████╗',
+  '╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░╚═╝╚══════╝',
   '███╗░░░███╗░█████╗░██████╗░███████╗░██████╗███████╗░█████╗░',
   '████╗░████║██╔══██╗██╔══██╗██╔════╝██╔════╝██╔════╝██╔══██╗',
   '██╔████╔██║██║░░██║██████╔╝█████╗░░╚█████╗░█████╗░░██║░░╚═╝',
   '██║╚██╔╝██║██║░░██║██╔══██╗██╔══╝░░░╚═══██╗██╔══╝░░██║░░██╗',
   '██║░╚═╝░██║╚█████╔╝██║░░██║███████╗██████╔╝███████╗╚█████╔╝',
   '╚═╝░░░░░╚═╝░╚════╝░╚═╝░░╚═╝╚══════╝╚═════╝░╚══════╝░╚════╝░',
+  '░██████╗░██████╗░███████╗░█████╗░████████╗  ░█████╗░░██████╗░░█████╗░██╗███╗░░██╗',
+  '██╔════╝░██╔══██╗██╔════╝██╔══██╗╚══██╔══╝  ██╔══██╗██╔════╝░██╔══██╗██║████╗░██║',
+  '██║░░██╗░██████╔╝█████╗░░███████║░░░██║░░░  ███████║██║░░██╗░███████║██║██╔██╗██║',
+  '██║░░╚██╗██╔══██╗██╔══╝░░██╔══██║░░░██║░░░  ██╔══██║██║░░╚██╗██╔══██║██║██║╚████║',
+  '╚██████╔╝██║░░██║███████╗██║░░██║░░░██║░░░  ██║░░██║╚██████╔╝██║░░██║██║██║░╚███║',
+  '░╚═════╝░╚═╝░░╚═╝╚══════╝╚═╝░░╚═╝░░░╚═╝░░░  ╚═╝░░╚═╝░╚═════╝░╚═╝░░╚═╝╚═╝╚═╝░░╚══╝',
 }
 
-default.header = {
-  type = "text",
-  val = default.ascii,
-  opts = {
-    position = "center",
-    hl = "Type",
-  },
+local ascii_art_list = {
+  ascii_art_moresec,
 }
+
+local function ramdom_ascii_art()
+  return ascii_art_list[ math.random(#ascii_art_list) ]
+end
+
+default.get_color_header = function()
+  local lines = {}
+  for i, line_chars in pairs(ramdom_ascii_art()) do
+    local hi = "StartLogo" .. i
+    local line = {
+      type = "text",
+      val = line_chars,
+      opts = {
+        hl = hi,
+        shrink_margin = false,
+        position = "center",
+      },
+    }
+    table.insert(lines, line)
+  end
+
+  local output = {
+    type = "group",
+    val = lines,
+    opts = { position = "center", },
+  }
+
+  return output
+end
 
 default.buttons = {
   type = "group",
@@ -69,7 +107,7 @@ default.buttons = {
 alpha.setup({
   layout = {
     { type = "padding", val = 9 },
-    default.header,
+    default.get_color_header(),
     { type = "padding", val = 2 },
     default.buttons,
   },
