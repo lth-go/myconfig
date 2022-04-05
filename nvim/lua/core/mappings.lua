@@ -157,6 +157,7 @@ M.coc = function()
 
   -- coc-explorer
   nvim_set_keymap("n", [[<C-\>]], [[<Cmd>CocCommand explorer<CR>]], {})
+  nvim_set_keymap("n", [[<F1>]], [[<Cmd>CocCommand explorer --no-toggle --no-focus<CR>]], {})
 end
 
 M.copilot = function()
