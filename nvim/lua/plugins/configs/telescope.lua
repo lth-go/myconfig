@@ -17,7 +17,7 @@ telescope.setup({
         ["<C-p>"] = actions.move_selection_previous,
       },
     },
-    file_ignore_patterns = { "vendor/.*" },
+    file_ignore_patterns = { "vendor/.*", "tools/.*" },
     layout_config = {
       horizontal = {
         prompt_position = "top",
