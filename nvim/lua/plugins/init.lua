@@ -95,7 +95,7 @@ return packer.startup(function()
   })
 
   use({
-    "lth-go/copilot.vim",
+    "github/copilot.vim",
     setup = function()
       require("plugins.configs.copilot")
       require("core.mappings").copilot()
