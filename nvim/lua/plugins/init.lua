@@ -58,6 +58,7 @@ return packer.startup(function()
 
   use({
     "akinsho/bufferline.nvim",
+    branch = 'main',
     after = "nvim-web-devicons",
     setup = function()
       require("core.mappings").bufferline()
