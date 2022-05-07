@@ -146,15 +146,22 @@ local mru = function(opts)
   end
 
   local results = {}
+  local exists = {}
   local cwd = vim.loop.cwd() .. Path.path.sep
+
   for _, val in ipairs(utils.max_split(data, "\n")) do
     local p = Path:new(val)
     local lowerPrefix = val:sub(1, #cwd):gsub(Path.path.sep, ""):lower()
     local lowerCWD = cwd:gsub(Path.path.sep, ""):lower()
     if lowerCWD == lowerPrefix and p:exists() and p:is_file() then
-      results[#results + 1] = val:sub(#cwd + 1)
+      local v = val:sub(#cwd + 1)
+      if not exists[v] then
+        results[#results + 1] = v
+        exists[v] = true
+      end
     end
   end
+
   pickers.new(opts, {
     prompt_title = "Coc MRU",
     sorter = conf.generic_sorter(opts),
