@@ -22,7 +22,7 @@ plugins=(
   kubectl
   helm
   urltools
-  z
+  zoxide
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
