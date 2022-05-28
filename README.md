@@ -33,6 +33,7 @@ sudo dnf install -y golang nodejs
 sudo dnf install -y ripgrep fd-find bat
 sudo dnf install -y clash flameshot
 sudo dnf install -y gcc-c++ libstdc++-devel
+sudo pip install -U thefuck
 
 sudo dnf copr enable agriffis/neovim-nightly
 sudo dnf update -y neovim

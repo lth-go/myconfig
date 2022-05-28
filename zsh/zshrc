@@ -16,7 +16,7 @@ plugins=(
   docker docker-compose
   golang
   pip
-  sudo
+  # sudo
   extract
   ripgrep
   kubectl
@@ -25,6 +25,7 @@ plugins=(
   zoxide
   zsh-autosuggestions
   zsh-syntax-highlighting
+  thefuck
 )
 
 source $ZSH/oh-my-zsh.sh
