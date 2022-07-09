@@ -8,7 +8,7 @@
   "explorer.git.enable": false,
   "explorer.icon.enableNerdfont": true,
   "explorer.icon.source": "nvim-web-devicons",
-  "explorer.openAction.strategy": "sourceWindow",
+  "explorer.openAction.strategy": "previousWindow",
   "explorer.sources": [
     {
       "name": "file",
