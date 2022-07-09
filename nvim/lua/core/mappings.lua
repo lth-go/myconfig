@@ -1,11 +1,10 @@
-local utils = require("core.utils")
-
+local vim = vim
 local cmd = vim.cmd
 local nvim_set_keymap = vim.api.nvim_set_keymap
 
 local M = {}
 
-M.misc = function()
+M.general = function()
   nvim_set_keymap("", [[\]], ";", { noremap = true })
 
   nvim_set_keymap("c", "/", [[v:lua.require("core.utils").smart_cmd_slash()]], { expr = true })

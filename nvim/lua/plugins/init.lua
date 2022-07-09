@@ -60,9 +60,7 @@ return packer.startup(function()
     "akinsho/bufferline.nvim",
     branch = "main",
     after = "nvim-web-devicons",
-    setup = function()
-      require("core.mappings").bufferline()
-    end,
+    setup = function() end,
     config = function()
       require("plugins.configs.bufferline")
     end,
@@ -71,9 +69,7 @@ return packer.startup(function()
   use({
     "gelguy/wilder.nvim",
     run = ":UpdateRemotePlugins",
-    setup = function()
-      require("core.mappings").wilder()
-    end,
+    setup = function() end,
     config = function()
       require("plugins.configs.wilder")
     end,
@@ -83,7 +79,6 @@ return packer.startup(function()
     "neoclide/coc.nvim",
     branch = "release",
     setup = function()
-      require("core.mappings").coc()
       require("plugins.configs.coc")
     end,
   })
@@ -99,16 +94,13 @@ return packer.startup(function()
     "github/copilot.vim",
     setup = function()
       require("plugins.configs.copilot")
-      require("core.mappings").copilot()
     end,
   })
 
   use({
     "nvim-telescope/telescope.nvim",
     after = "packer.nvim",
-    setup = function()
-      require("core.mappings").telescope()
-    end,
+    setup = function() end,
     config = function()
       require("plugins.configs.telescope")
     end,
@@ -142,7 +134,6 @@ return packer.startup(function()
   use({
     "scrooloose/nerdcommenter",
     setup = function()
-      require("core.mappings").nerdcommenter()
       require("plugins.configs.nerdcommenter")
     end,
   })
@@ -155,15 +146,12 @@ return packer.startup(function()
 
   use({
     "junegunn/vim-easy-align",
-    setup = function()
-      require("core.mappings").vim_easy_align()
-    end,
+    setup = function() end,
   })
 
   use({
     "terryma/vim-expand-region",
     setup = function()
-      require("core.mappings").vim_expand_region()
       require("plugins.configs.vim_expand_region")
     end,
   })
@@ -177,7 +165,6 @@ return packer.startup(function()
     after = "vim-gruvbox8",
     setup = function()
       vim.g.lightspeed_no_default_keymaps = true
-      require("core.mappings").lightspeed()
     end,
     config = function()
       require("plugins.configs.lightspeed")
@@ -193,9 +180,7 @@ return packer.startup(function()
 
   use({
     "booperlv/nvim-gomove",
-    setup = function()
-      require("core.mappings").gomove()
-    end,
+    setup = function() end,
     config = function()
       require("plugins.configs.nvim_gomove")
     end,

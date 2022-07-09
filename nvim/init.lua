@@ -4,10 +4,17 @@ if present then
   impatient.enable_profile()
 end
 
+vim.defer_fn(function()
+  local mappings = require("core.mappings")
+
+  for _, section_mappings in pairs(mappings) do
+    section_mappings()
+  end
+end, 0)
+
 local core_modules = {
   "core.options",
   "core.autocmds",
-  "core.mappings",
 }
 
 for _, module in ipairs(core_modules) do
@@ -16,6 +23,3 @@ for _, module in ipairs(core_modules) do
     error("Error loading " .. module .. "\n\n" .. err)
   end
 end
-
--- non plugin mappings
-require("core.mappings").misc()
