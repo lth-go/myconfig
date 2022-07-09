@@ -38,12 +38,12 @@ local default = {}
 
 -- https://fsymbols.com/text-art/
 local ascii_art_neovim = {
-  '███╗░░██╗███████╗░█████╗░██╗░░░██╗██╗███╗░░░███╗',
-  '████╗░██║██╔════╝██╔══██╗██║░░░██║██║████╗░████║',
-  '██╔██╗██║█████╗░░██║░░██║╚██╗░██╔╝██║██╔████╔██║',
-  '██║╚████║██╔══╝░░██║░░██║░╚████╔╝░██║██║╚██╔╝██║',
-  '██║░╚███║███████╗╚█████╔╝░░╚██╔╝░░██║██║░╚═╝░██║',
-  '╚═╝░░╚══╝╚══════╝░╚════╝░░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝',
+  "███╗░░██╗███████╗░█████╗░██╗░░░██╗██╗███╗░░░███╗",
+  "████╗░██║██╔════╝██╔══██╗██║░░░██║██║████╗░████║",
+  "██╔██╗██║█████╗░░██║░░██║╚██╗░██╔╝██║██╔████╔██║",
+  "██║╚████║██╔══╝░░██║░░██║░╚████╔╝░██║██║╚██╔╝██║",
+  "██║░╚███║███████╗╚█████╔╝░░╚██╔╝░░██║██║░╚═╝░██║",
+  "╚═╝░░╚══╝╚══════╝░╚════╝░░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝",
 }
 
 local ascii_art_list = {
@@ -51,7 +51,7 @@ local ascii_art_list = {
 }
 
 local function ramdom_ascii_art()
-  return ascii_art_list[ math.random(#ascii_art_list) ]
+  return ascii_art_list[math.random(#ascii_art_list)]
 end
 
 default.get_color_header = function()
@@ -76,7 +76,7 @@ default.get_color_header = function()
   local output = {
     type = "group",
     val = lines,
-    opts = { position = "center", },
+    opts = { position = "center" },
   }
 
   return output

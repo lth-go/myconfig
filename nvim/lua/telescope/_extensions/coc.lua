@@ -122,15 +122,17 @@ local function list_or_jump(opts)
     if not results then
       return
     end
-    pickers.new(opts, {
-      prompt_title = opts.coc_title,
-      previewer = conf.qflist_previewer(opts),
-      sorter = conf.generic_sorter(opts),
-      finder = finders.new_table({
-        results = results,
-        entry_maker = gen_from_quickfix_custom(opts),
-      }),
-    }):find()
+    pickers
+      .new(opts, {
+        prompt_title = opts.coc_title,
+        previewer = conf.qflist_previewer(opts),
+        sorter = conf.generic_sorter(opts),
+        finder = finders.new_table({
+          results = results,
+          entry_maker = gen_from_quickfix_custom(opts),
+        }),
+      })
+      :find()
   end
 end
 
@@ -162,15 +164,17 @@ local mru = function(opts)
     end
   end
 
-  pickers.new(opts, {
-    prompt_title = "Coc MRU",
-    sorter = conf.generic_sorter(opts),
-    previewer = conf.qflist_previewer(opts),
-    finder = finders.new_table({
-      results = results,
-      entry_maker = gen_from_mru(opts),
-    }),
-  }):find()
+  pickers
+    .new(opts, {
+      prompt_title = "Coc MRU",
+      sorter = conf.generic_sorter(opts),
+      previewer = conf.qflist_previewer(opts),
+      finder = finders.new_table({
+        results = results,
+        entry_maker = gen_from_mru(opts),
+      }),
+    })
+    :find()
 end
 
 local implementations = function(opts)
@@ -196,15 +200,17 @@ local references = function(opts)
     return
   end
 
-  pickers.new(opts, {
-    prompt_title = "Coc References",
-    previewer = conf.qflist_previewer(opts),
-    sorter = conf.generic_sorter(opts),
-    finder = finders.new_table({
-      results = results,
-      entry_maker = gen_from_quickfix_custom(opts),
-    }),
-  }):find()
+  pickers
+    .new(opts, {
+      prompt_title = "Coc References",
+      previewer = conf.qflist_previewer(opts),
+      sorter = conf.generic_sorter(opts),
+      finder = finders.new_table({
+        results = results,
+        entry_maker = gen_from_quickfix_custom(opts),
+      }),
+    })
+    :find()
 end
 
 return require("telescope").register_extension({
