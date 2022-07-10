@@ -1,166 +1,137 @@
-local present, packer = pcall(require, "plugins.packerInit")
+vim.cmd("packadd packer.nvim")
 
-if not present then
-  return false
-end
+local plugins = {
+  { "nvim-lua/popup.nvim" },
+  { "nvim-lua/plenary.nvim" },
+  { "wbthomason/packer.nvim" },
 
-local use = packer.use
-
-return packer.startup(function()
-  use("nvim-lua/popup.nvim")
-  use("nvim-lua/plenary.nvim")
-  use("lewis6991/impatient.nvim")
-  use("nathom/filetype.nvim")
-
-  use({
-    "wbthomason/packer.nvim",
-    event = "VimEnter",
-  })
-
-  use({
+  {
     "lifepillar/vim-gruvbox8",
-    after = "packer.nvim",
     config = function()
       require("plugins.configs.theme")
     end,
-  })
+  },
 
-  use("sheerun/vim-polyglot")
+  { "sheerun/vim-polyglot" },
 
-  use({
+  {
     "kyazdani42/nvim-web-devicons",
-    after = "vim-gruvbox8",
-  })
+    module = "nvim-web-devicons",
+  },
 
-  use({
+  {
     "nvim-treesitter/nvim-treesitter",
+    module = "nvim-treesitter",
     event = { "BufRead", "BufNewFile" },
     run = ":TSUpdate",
     config = function()
       require("plugins.configs.nvim_treesitter")
     end,
-  })
+  },
 
-  use({
+  {
     "goolord/alpha-nvim",
+    after = "vim-gruvbox8",
     config = function()
       require("plugins.configs.dashboard")
     end,
-  })
+  },
 
-  use({
+  {
     "feline-nvim/feline.nvim",
     after = "nvim-web-devicons",
     config = function()
       require("plugins.configs.statusline")
     end,
-  })
+  },
 
-  use({
+  {
     "akinsho/bufferline.nvim",
     branch = "main",
     after = "nvim-web-devicons",
-    setup = function() end,
     config = function()
       require("plugins.configs.bufferline")
     end,
-  })
+  },
 
-  use({
+  {
     "gelguy/wilder.nvim",
     run = ":UpdateRemotePlugins",
-    setup = function() end,
     config = function()
       require("plugins.configs.wilder")
     end,
-  })
+  },
 
-  use({
+  {
     "neoclide/coc.nvim",
     branch = "release",
     setup = function()
       require("plugins.configs.coc")
     end,
-  })
+  },
 
-  use({
+  {
     "fatih/vim-go",
     config = function()
       require("plugins.configs.vim_go")
     end,
-  })
+  },
 
-  use({
-    "github/copilot.vim",
-    setup = function()
-      require("plugins.configs.copilot")
-    end,
-  })
+  { "github/copilot.vim" },
 
-  use({
+  {
     "nvim-telescope/telescope.nvim",
-    after = "packer.nvim",
-    setup = function() end,
+    cmd = "Telescope",
     config = function()
       require("plugins.configs.telescope")
     end,
-  })
+  },
 
-  use({
+  {
     "nvim-telescope/telescope-fzf-native.nvim",
     after = "telescope.nvim",
     run = "make",
     config = function()
       require("telescope").load_extension("fzf")
     end,
-  })
+  },
 
-  use("tpope/vim-fugitive")
-
-  use({
+  {
     "voldikss/vim-floaterm",
     config = function()
       require("plugins.configs.vim_floaterm")
     end,
-  })
+  },
 
-  use({
+  {
     "windwp/nvim-autopairs",
     config = function()
       require("plugins.configs.nvim_autopairs")
     end,
-  })
+  },
 
-  use({
+  {
     "scrooloose/nerdcommenter",
-    setup = function()
+    config = function()
       require("plugins.configs.nerdcommenter")
     end,
-  })
+  },
 
-  use("AndrewRadev/splitjoin.vim")
+  { "tpope/vim-fugitive" },
+  { "AndrewRadev/splitjoin.vim" },
+  { "tpope/vim-abolish" },
+  { "tpope/vim-repeat" },
+  { "tpope/vim-surround" },
+  { "junegunn/vim-easy-align" },
 
-  use("tpope/vim-abolish")
-  use("tpope/vim-repeat")
-  use("tpope/vim-surround")
-
-  use({
-    "junegunn/vim-easy-align",
-    setup = function() end,
-  })
-
-  use({
+  {
     "terryma/vim-expand-region",
     setup = function()
       require("plugins.configs.vim_expand_region")
     end,
-  })
+  },
 
-  -- use({
-  --   "andymass/vim-matchup",
-  -- })
-
-  use({
+  {
     "ggandor/lightspeed.nvim",
     after = "vim-gruvbox8",
     setup = function()
@@ -169,20 +140,21 @@ return packer.startup(function()
     config = function()
       require("plugins.configs.lightspeed")
     end,
-  })
+  },
 
-  use({
+  {
     "chaoren/vim-wordmotion",
     setup = function()
       require("plugins.configs.vim_wordmotion")
     end,
-  })
+  },
 
-  use({
+  {
     "booperlv/nvim-gomove",
-    setup = function() end,
     config = function()
       require("plugins.configs.nvim_gomove")
     end,
-  })
-end)
+  },
+}
+
+require("core.packer").run(plugins)

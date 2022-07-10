@@ -1,16 +1,17 @@
-local present, ts_config = pcall(require, "nvim-treesitter.configs")
+local present, treesitter = pcall(require, "nvim-treesitter.configs")
 
 if not present then
   return
 end
 
-ts_config.setup({
+treesitter.setup({
   ensure_installed = "all",
   highlight = {
     enable = true,
     disable = function(lang, bufnr)
       return vim.api.nvim_buf_line_count(bufnr) > 8192
     end,
+    use_languagetree = true,
   },
   indent = {
     enable = false,
