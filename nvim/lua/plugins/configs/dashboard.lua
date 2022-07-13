@@ -87,7 +87,7 @@ default.buttons = {
   val = {
     button("SPC f m", "  Recent File  ", ":Telescope coc mru<CR>"),
     button("SPC f f", "  Find File  ", ":Telescope find_files<CR>"),
-    button("SPC f g", "  Find Word  ", ":Telescope live_grep<CR>"),
+    button("SPC f g", "  Find Word  ", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>"),
     button("SPC e s", "  Settings", ":e $MYVIMRC | :cd %:p:h <CR>"),
   },
   opts = {

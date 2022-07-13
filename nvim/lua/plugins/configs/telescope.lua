@@ -11,6 +11,7 @@ telescope.setup({
     mappings = {
       i = {
         ["<esc>"] = actions.close,
+        ["<C-l>"] = false,
       },
       n = {
         ["<C-n>"] = actions.move_selection_next,
@@ -24,12 +25,6 @@ telescope.setup({
       },
     },
     sorting_strategy = "ascending",
-  },
-  pickers = {
-    oldfiles = {
-      include_current_session = true,
-      cwd_only = true,
-    },
   },
 })
 

@@ -76,17 +76,17 @@ local plugins = {
 
   {
     "nvim-telescope/telescope.nvim",
+    requires = {
+      {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        run = "make",
+      },
+      { "nvim-telescope/telescope-live-grep-args.nvim" },
+    },
     config = function()
       require("plugins.configs.telescope")
-    end,
-  },
-
-  {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    after = "telescope.nvim",
-    run = "make",
-    config = function()
       require("telescope").load_extension("fzf")
+      require("telescope").load_extension("live_grep_args")
     end,
   },
 
