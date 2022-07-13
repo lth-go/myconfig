@@ -1,5 +1,3 @@
-local vim = vim
-
 vim.cmd("packadd packer.nvim")
 
 local plugins = {
