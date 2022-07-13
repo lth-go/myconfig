@@ -13,15 +13,10 @@ local plugins = {
   },
 
   { "sheerun/vim-polyglot" },
-
-  {
-    "kyazdani42/nvim-web-devicons",
-    module = "nvim-web-devicons",
-  },
+  { "kyazdani42/nvim-web-devicons" },
 
   {
     "nvim-treesitter/nvim-treesitter",
-    module = "nvim-treesitter",
     event = { "BufRead", "BufNewFile" },
     run = ":TSUpdate",
     config = function()
@@ -81,7 +76,6 @@ local plugins = {
 
   {
     "nvim-telescope/telescope.nvim",
-    cmd = "Telescope",
     config = function()
       require("plugins.configs.telescope")
     end,
