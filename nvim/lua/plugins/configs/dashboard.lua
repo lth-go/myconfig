@@ -5,6 +5,39 @@ if not present then
 end
 
 local vim = vim
+local fortune = require("alpha.fortune")
+
+local header = {
+  [[                                                                   ]],
+  [[      ████ ██████           █████      ██                    ]],
+  [[     ███████████             █████                            ]],
+  [[     █████████ ███████████████████ ███   ███████████  ]],
+  [[    █████████  ███    █████████████ █████ ██████████████  ]],
+  [[   █████████ ██████████ █████████ █████ █████ ████ █████  ]],
+  [[ ███████████ ███    ███ █████████ █████ █████ ████ █████ ]],
+  [[██████  █████████████████████ ████ █████ █████ ████ ██████]],
+}
+
+-- Make the header a bit more fun with some color!
+local function colorize_header()
+  local lines = {}
+
+  for i, chars in pairs(header) do
+    local line = {
+      type = "text",
+      val = chars,
+      opts = {
+        hl = "StartLogo" .. i,
+        shrink_margin = false,
+        position = "center",
+      },
+    }
+
+    table.insert(lines, line)
+  end
+
+  return lines
+end
 
 local function button(sc, txt, keybind)
   local sc_ = sc:gsub("%s", ""):gsub("SPC", "<leader>")
@@ -36,51 +69,10 @@ end
 
 local default = {}
 
--- https://fsymbols.com/text-art/
-local ascii_art_neovim = {
-  "███╗░░██╗███████╗░█████╗░██╗░░░██╗██╗███╗░░░███╗",
-  "████╗░██║██╔════╝██╔══██╗██║░░░██║██║████╗░████║",
-  "██╔██╗██║█████╗░░██║░░██║╚██╗░██╔╝██║██╔████╔██║",
-  "██║╚████║██╔══╝░░██║░░██║░╚████╔╝░██║██║╚██╔╝██║",
-  "██║░╚███║███████╗╚█████╔╝░░╚██╔╝░░██║██║░╚═╝░██║",
-  "╚═╝░░╚══╝╚══════╝░╚════╝░░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝",
+default.header = {
+  type = "group",
+  val = colorize_header(),
 }
-
-local ascii_art_list = {
-  ascii_art_neovim,
-}
-
-local function ramdom_ascii_art()
-  return ascii_art_list[math.random(#ascii_art_list)]
-end
-
-default.get_color_header = function()
-  local lines = {}
-
-  local ascii_art = ramdom_ascii_art()
-
-  for i, line_chars in pairs(ascii_art) do
-    local hi = "StartLogo" .. i
-    local line = {
-      type = "text",
-      val = line_chars,
-      opts = {
-        hl = hi,
-        shrink_margin = false,
-        position = "center",
-      },
-    }
-    table.insert(lines, line)
-  end
-
-  local output = {
-    type = "group",
-    val = lines,
-    opts = { position = "center" },
-  }
-
-  return output
-end
 
 default.buttons = {
   type = "group",
@@ -95,12 +87,22 @@ default.buttons = {
   },
 }
 
+default.footer = {
+  type = "text",
+  val = fortune(),
+  opts = {
+    position = "center",
+    hl = "Number",
+  },
+}
+
 alpha.setup({
   layout = {
     { type = "padding", val = 9 },
-    default.get_color_header(),
+    default.header,
     { type = "padding", val = 2 },
     default.buttons,
+    default.footer,
   },
   opts = {},
 })
