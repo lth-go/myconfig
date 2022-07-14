@@ -1,15 +1,50 @@
 local vim = vim
-local cmd = vim.cmd
 local autocmd = vim.api.nvim_create_autocmd
 
-cmd([[ autocmd BufNewFile,BufRead *.dockerfile setlocal filetype=dockerfile ]])
+autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = "*.dockerfile",
+  callback = function()
+    vim.opt_local.filetype = "dockerfile"
+  end,
+})
 
-cmd([[ autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &number | set relativenumber | endif ]])
-cmd([[ autocmd BufLeave,FocusLost,InsertEnter,WinLeave * if &number | set norelativenumber | endif ]])
+autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
+  pattern = "*",
+  callback = function()
+    if vim.opt_local.number:get() then
+      vim.opt_local.relativenumber = true
+    end
+  end,
+})
 
-cmd([[ autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g'\"" | endif ]])
+autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
+  pattern = "*",
+  callback = function()
+    if vim.opt_local.number:get() then
+      vim.opt_local.relativenumber = false
+    end
+  end,
+})
 
-cmd([[ autocmd BufWritePre * lua require('core.utils').auto_mkdir() ]])
+autocmd({ "BufReadPost" }, {
+  pattern = "*",
+  callback = function()
+    local test_line_data = vim.api.nvim_buf_get_mark(0, '"')
+    local test_line = test_line_data[1]
+    local last_line = vim.api.nvim_buf_line_count(0)
+
+    if test_line > 0 and test_line <= last_line then
+      vim.api.nvim_win_set_cursor(0, test_line_data)
+    end
+  end,
+})
+
+autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function()
+    require("core.utils").auto_mkdir()
+  end,
+})
 
 -- dont list quickfix buffers
 autocmd("FileType", {

@@ -25,6 +25,7 @@ telescope.setup({
       },
     },
     sorting_strategy = "ascending",
+    path_display = { "truncate" },
   },
 })
 
