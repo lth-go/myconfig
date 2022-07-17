@@ -184,4 +184,19 @@ M.gomove = function()
   nvim_set_keymap("x", "<A-l>", "<Plug>GoVSMRight", {})
 end
 
+M.init = function()
+  vim.defer_fn(function()
+    M.general()
+    M.bufferline()
+    M.wilder()
+    M.coc()
+    M.copilot()
+    M.telescope()
+    M.nerdcommenter()
+    M.vim_easy_align()
+    M.vim_expand_region()
+    M.gomove()
+  end, 0)
+end
+
 return M
