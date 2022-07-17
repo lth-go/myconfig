@@ -146,6 +146,14 @@ local plugins = {
       require("plugins.configs.nvim_gomove")
     end,
   },
+
+  {
+    "ThePrimeagen/harpoon",
+    after = "telescope.nvim",
+    config = function ()
+      require("telescope").load_extension('harpoon')
+    end,
+  }
 }
 
 require("core.packer").run(plugins)
