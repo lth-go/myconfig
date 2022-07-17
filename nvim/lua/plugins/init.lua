@@ -126,13 +126,10 @@ local plugins = {
   },
 
   {
-    "ggandor/lightspeed.nvim",
+    "ggandor/leap.nvim",
     after = "vim-gruvbox8",
-    setup = function()
-      vim.g.lightspeed_no_default_keymaps = true
-    end,
     config = function()
-      require("plugins.configs.lightspeed")
+      require("plugins.configs.leap")
     end,
   },
 

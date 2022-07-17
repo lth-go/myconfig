@@ -177,13 +177,6 @@ M.vim_expand_region = function()
   nvim_set_keymap("v", "V", "<Plug>(expand_region_shrink)", {})
 end
 
-M.lightspeed = function()
-  nvim_set_keymap("n", "S", [[<Plug>Lightspeed_S]], {})
-  nvim_set_keymap("n", "s", [[<Plug>Lightspeed_s]], {})
-  nvim_set_keymap("o", "s", [[<Plug>Lightspeed_s]], {})
-  nvim_set_keymap("x", "s", [[<Plug>Lightspeed_s]], {})
-end
-
 M.gomove = function()
   nvim_set_keymap("x", "<A-h>", "<Plug>GoVSMLeft", {})
   nvim_set_keymap("x", "<A-j>", "<Plug>GoVSMDown", {})
