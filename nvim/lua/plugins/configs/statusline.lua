@@ -160,28 +160,6 @@ default.diagnostic = {
   },
 }
 
-default.lsp_progress = {
-  provider = function()
-    local text = vim.g["coc_status"] or ""
-
-    if text == "" then
-      return ""
-    end
-
-    local winwidth = 90
-
-    if string.len(text) > winwidth then
-      text = string.sub(text, 1, winwidth)
-    end
-
-    return text
-  end,
-  enabled = function(winid)
-    return vim.api.nvim_win_get_width(tonumber(winid) or 0) > 90
-  end,
-  hl = { fg = default.colors.green },
-}
-
 default.coc_current_function = {
   provider = function()
     local func = vim.b["coc_current_function"] or ""
@@ -325,9 +303,6 @@ add_table(default.left, default.file_name)
 add_table(default.left, default.diagnostic.error)
 add_table(default.left, default.diagnostic.warning)
 add_table(default.left, default.diagnostic.white_space)
-
--- middle
-add_table(default.middle, default.lsp_progress)
 
 -- right
 add_table(default.right, default.coc_current_function)
