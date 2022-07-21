@@ -75,9 +75,6 @@ M.general = function()
 
   nvim_set_keymap("n", "<Leader><Space>", ":vs<CR>", { noremap = true })
 
-  nvim_set_keymap("n", "*", [[<Cmd>lua require("core.utils").star_search()<CR>]], { noremap = true, silent = true })
-  nvim_set_keymap("v", "*", [[<Cmd>lua require("core.utils").v_star_search()<CR>]], { noremap = true, silent = true })
-
   nvim_set_keymap("n", "<Leader>bd", "<Cmd>lua require('core.utils').buf_only()<CR>", { noremap = true, silent = true })
 end
 
@@ -184,7 +181,7 @@ M.gomove = function()
   nvim_set_keymap("x", "<A-l>", "<Plug>GoVSMRight", {})
 end
 
-M.harpoon = function ()
+M.harpoon = function()
   nvim_set_keymap("n", "<Leader>m", [[<Cmd>lua require("harpoon.mark").add_file()<CR>]], { noremap = true })
   nvim_set_keymap("n", "fh", [[<Cmd>Telescope harpoon marks initial_mode=normal<CR>]], { silent = true })
 end
