@@ -155,20 +155,16 @@ local plugins = {
   },
 
   {
-    "ThePrimeagen/harpoon",
-    after = "telescope.nvim",
-    config = function()
-      require("telescope").load_extension("harpoon")
-    end,
-  },
-
-  {
     "haya14busa/vim-asterisk",
     config = function()
       -- vim.g["asterisk#keeppos"] = 1
       vim.api.nvim_set_keymap("", "*", [[<Plug>(asterisk-z*)]], {})
     end,
   },
+
+  {
+    "MattesGroeger/vim-bookmarks",
+  }
 }
 
 require("core.packer").run(plugins)

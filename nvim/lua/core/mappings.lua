@@ -181,11 +181,6 @@ M.gomove = function()
   nvim_set_keymap("x", "<A-l>", "<Plug>GoVSMRight", {})
 end
 
-M.harpoon = function()
-  nvim_set_keymap("n", "<Leader>m", [[<Cmd>lua require("harpoon.mark").add_file()<CR>]], { noremap = true })
-  nvim_set_keymap("n", "fh", [[<Cmd>Telescope harpoon marks initial_mode=normal<CR>]], { silent = true })
-end
-
 M.init = function()
   vim.defer_fn(function()
     M.general()
@@ -198,7 +193,6 @@ M.init = function()
     M.vim_easy_align()
     M.vim_expand_region()
     M.gomove()
-    M.harpoon()
   end, 0)
 end
 
