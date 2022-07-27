@@ -323,7 +323,6 @@ default.components.active[3] = default.right
 feline.setup({
   theme = {
     bg = default.colors.statusline_bg,
-    fg = default.colors.fg,
   },
   components = default.components,
   disable = {
