@@ -181,6 +181,15 @@ M.gomove = function()
   nvim_set_keymap("x", "<A-l>", "<Plug>GoVSMRight", {})
 end
 
+M.bookmarks = function ()
+  nvim_set_keymap("n", "mm", "<Plug>BookmarkToggle", {})
+  nvim_set_keymap("n", "mi","<Plug>BookmarkAnnotate", {})
+  nvim_set_keymap("n", "<Leader>m", [[<Cmd>Telescope vim_bookmarks all initial_mode=normal<CR>]], {})
+  nvim_set_keymap("n", "]m", "<Plug>BookmarkNext", {})
+  nvim_set_keymap("n", "[m", "<Plug>BookmarkPrev", {})
+  nvim_set_keymap("n", "mc", "<Plug>BookmarkClear", {})
+end
+
 M.init = function()
   vim.defer_fn(function()
     M.general()
@@ -193,6 +202,7 @@ M.init = function()
     M.vim_easy_align()
     M.vim_expand_region()
     M.gomove()
+    M.bookmarks()
   end, 0)
 end
 
