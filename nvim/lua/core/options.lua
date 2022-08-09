@@ -57,6 +57,7 @@ opt.shiftround = true
 opt.laststatus = 3
 
 opt.clipboard:append("unnamedplus")
+opt.mouse = ""
 
 if opt.diff:get() then
   opt.readonly = false

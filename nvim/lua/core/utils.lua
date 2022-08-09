@@ -94,23 +94,23 @@ local check_back_space = function()
 end
 
 M.smart_tab = function()
-  if vim.fn.pumvisible() == 1 then
-    return t("<C-n>")
-  else
-    if check_back_space() then
-      return t("<Tab>")
-    else
-      return vim.fn["coc#refresh"]()
-    end
+  if vim.fn['coc#pum#visible']() == 1 then
+    return vim.fn['coc#pum#next'](1)
   end
+
+  if check_back_space() then
+    return t("<Tab>")
+  end
+
+  return vim.fn["coc#refresh"]()
 end
 
 M.smart_shift_tab = function()
-  if vim.fn.pumvisible() == 1 then
-    return t("<C-p>")
-  else
-    return t("<C-h")
+  if vim.fn['coc#pum#visible']() == 1 then
+    return vim.fn['coc#pum#prev'](1)
   end
+
+  return t("<C-h")
 end
 
 --
