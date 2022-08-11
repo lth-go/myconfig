@@ -94,8 +94,8 @@ local check_back_space = function()
 end
 
 M.smart_tab = function()
-  if vim.fn['coc#pum#visible']() == 1 then
-    return vim.fn['coc#pum#next'](1)
+  if vim.fn["coc#pum#visible"]() == 1 then
+    return vim.fn["coc#pum#next"](1)
   end
 
   if check_back_space() then
@@ -106,8 +106,8 @@ M.smart_tab = function()
 end
 
 M.smart_shift_tab = function()
-  if vim.fn['coc#pum#visible']() == 1 then
-    return vim.fn['coc#pum#prev'](1)
+  if vim.fn["coc#pum#visible"]() == 1 then
+    return vim.fn["coc#pum#prev"](1)
   end
 
   return t("<C-h")
@@ -146,6 +146,22 @@ M.grep_from_selected = function()
   end
 
   require("telescope.builtin").grep_string({ search = word })
+end
+
+--
+-- bookmarks
+--
+M.open_telescope_bookmarks = function()
+  local bookmark_actions = require("telescope").extensions.vim_bookmarks.actions
+
+  require("telescope").extensions.vim_bookmarks.all({
+    initial_mode = "normal",
+    attach_mappings = function(_, map)
+      map("n", "dd", bookmark_actions.delete_selected_or_at_cursor)
+
+      return true
+    end,
+  })
 end
 
 return M

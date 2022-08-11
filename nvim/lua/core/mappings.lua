@@ -181,10 +181,10 @@ M.gomove = function()
   nvim_set_keymap("x", "<A-l>", "<Plug>GoVSMRight", {})
 end
 
-M.bookmarks = function ()
+M.bookmarks = function()
   nvim_set_keymap("n", "mm", "<Plug>BookmarkToggle", {})
-  nvim_set_keymap("n", "mi","<Plug>BookmarkAnnotate", {})
-  nvim_set_keymap("n", "<Leader>m", [[<Cmd>Telescope vim_bookmarks all initial_mode=normal<CR>]], {})
+  nvim_set_keymap("n", "mi", "<Plug>BookmarkAnnotate", {})
+  nvim_set_keymap("n", "<Leader>m", [[<Cmd>lua require('core.utils').open_telescope_bookmarks()<CR>]], {})
   nvim_set_keymap("n", "]m", "<Plug>BookmarkNext", {})
   nvim_set_keymap("n", "[m", "<Plug>BookmarkPrev", {})
   nvim_set_keymap("n", "mc", "<Plug>BookmarkClear", {})

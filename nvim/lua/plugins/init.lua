@@ -88,7 +88,7 @@ local plugins = {
       require("plugins.configs.telescope")
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("live_grep_args")
-      require('telescope').load_extension('vim_bookmarks')
+      require("telescope").load_extension("vim_bookmarks")
     end,
   },
 
@@ -169,7 +169,7 @@ local plugins = {
     setup = function()
       require("plugins.configs.bookmarks")
     end,
-  }
+  },
 }
 
 require("core.packer").run(plugins)
