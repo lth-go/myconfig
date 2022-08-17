@@ -32,8 +32,8 @@ bufferline.setup({
   },
   highlights = {
     indicator_selected = {
-      guifg = "#519aba",
-      guibg = "#1d2021",
+      fg = "#519aba",
+      bg = "#1d2021",
     },
   },
 })
