@@ -27,21 +27,25 @@ local locations_to_items = function(locs)
   local items = {}
   for _, l in ipairs(locs) do
     if l.targetUri and l.targetRange then
-      -- LocationLink
       l.uri = l.targetUri
       l.range = l.targetRange
     end
+
     local bufnr = vim.uri_to_bufnr(l.uri)
     vim.fn.bufload(bufnr)
     local filename = vim.uri_to_fname(l.uri)
     local row = l.range.start.line
     local line = (vim.api.nvim_buf_get_lines(bufnr, row, row + 1, false) or { "" })[1]
-    items[#items + 1] = {
-      filename = filename,
-      lnum = row + 1,
-      col = l.range.start.character + 1,
-      text = line,
-    }
+
+    -- TODO: 限定golang
+    if not filename:match(".*_test%.go") then
+      items[#items + 1] = {
+        filename = filename,
+        lnum = row + 1,
+        col = l.range.start.character + 1,
+        text = line
+      }
+    end
   end
 
   return items

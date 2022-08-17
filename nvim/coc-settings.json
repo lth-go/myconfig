@@ -25,6 +25,7 @@
   ],
   "languageserver": {},
   "go.goplsOptions": {
+    "memoryMode": "DegradeClosed",
     // "gofumpt": true,
     "staticcheck": true
   },
