@@ -170,6 +170,8 @@ local plugins = {
       require("plugins.configs.bookmarks")
     end,
   },
+
+  { "lewis6991/impatient.nvim" },
 }
 
 require("core.packer").run(plugins)

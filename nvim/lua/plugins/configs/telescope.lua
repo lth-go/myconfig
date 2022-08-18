@@ -8,6 +8,8 @@ local actions = require("telescope.actions")
 
 telescope.setup({
   defaults = {
+    prompt_prefix = "   ",
+    selection_caret = "  ",
     mappings = {
       i = {
         ["<esc>"] = actions.close,
@@ -23,6 +25,9 @@ telescope.setup({
       horizontal = {
         prompt_position = "top",
       },
+      width = 0.87,
+      height = 0.80,
+      preview_cutoff = 120,
     },
     sorting_strategy = "ascending",
     path_display = { "truncate" },

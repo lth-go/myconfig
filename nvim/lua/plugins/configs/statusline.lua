@@ -335,6 +335,7 @@ feline.setup({
       "^packer$",
       "^fugitive$",
       "^fugitiveblame$",
+      "^floaterm$",
       "^qf$",
       "^help$",
     },
