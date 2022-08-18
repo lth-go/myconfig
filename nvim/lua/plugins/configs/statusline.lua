@@ -54,6 +54,7 @@ default.statusline_style = {
 -- Initialize the components table
 default.components = {
   active = {},
+  inactive = {},
 }
 
 default.main_icon = {
@@ -319,13 +320,14 @@ add_table(default.right, default.current_line)
 default.components.active[1] = default.left
 default.components.active[2] = default.middle
 default.components.active[3] = default.right
+default.components.inactive[1] = { default.main_icon }
 
 feline.setup({
   theme = {
     bg = default.colors.statusline_bg,
   },
   components = default.components,
-  disable = {
+  force_inactive = {
     filetypes = {
       "^alpha$",
       "^coc%-explorer$",

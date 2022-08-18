@@ -72,7 +72,7 @@ local plugins = {
     end,
   },
 
-  { "github/copilot.vim" },
+  -- { "github/copilot.vim" },
 
   {
     "nvim-telescope/telescope.nvim",
