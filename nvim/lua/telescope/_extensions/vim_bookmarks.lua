@@ -37,9 +37,9 @@ local function get_bookmarks(files)
       for _, line in ipairs(vim.fn["bm#all_lines"](file)) do
         local bookmark = vim.fn["bm#get_bookmark_by_line"](file, line)
 
-        local text = bookmark.annotation ~= "" and "NOTE: " .. bookmark.annotation or bookmark.content
-        if text == "" then
-          text = "(empty line)"
+        local text = ""
+        if bookmark.annotation ~= "" then
+          text = bookmark.annotation
         end
 
         table.insert(bookmarks, {
