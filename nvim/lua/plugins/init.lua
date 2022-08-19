@@ -82,13 +82,11 @@ local plugins = {
         run = "make",
       },
       { "nvim-telescope/telescope-live-grep-args.nvim" },
-      { "tom-anders/telescope-vim-bookmarks.nvim" },
     },
     config = function()
       require("plugins.configs.telescope")
       require("telescope").load_extension("fzf")
       require("telescope").load_extension("live_grep_args")
-      require("telescope").load_extension("vim_bookmarks")
     end,
   },
 

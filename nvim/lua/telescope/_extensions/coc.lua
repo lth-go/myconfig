@@ -43,7 +43,7 @@ local locations_to_items = function(locs)
         filename = filename,
         lnum = row + 1,
         col = l.range.start.character + 1,
-        text = line
+        text = line,
       }
     end
   end

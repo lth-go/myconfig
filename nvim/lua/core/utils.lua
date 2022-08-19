@@ -152,15 +152,8 @@ end
 -- bookmarks
 --
 M.open_telescope_bookmarks = function()
-  local bookmark_actions = require("telescope").extensions.vim_bookmarks.actions
-
   require("telescope").extensions.vim_bookmarks.all({
     initial_mode = "normal",
-    attach_mappings = function(_, map)
-      map("n", "dd", bookmark_actions.delete_selected_or_at_cursor)
-
-      return true
-    end,
   })
 end
 
