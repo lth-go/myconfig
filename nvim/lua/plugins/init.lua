@@ -163,10 +163,7 @@ local plugins = {
   },
 
   {
-    "MattesGroeger/vim-bookmarks",
-    setup = function()
-      require("plugins.configs.bookmarks")
-    end,
+    "lth-go/vim-bookmarks",
   },
 
   { "lewis6991/impatient.nvim" },
