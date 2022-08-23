@@ -165,8 +165,6 @@ local plugins = {
   {
     "lth-go/vim-bookmarks",
   },
-
-  { "lewis6991/impatient.nvim" },
 }
 
 require("core.packer").run(plugins)
