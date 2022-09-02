@@ -113,13 +113,13 @@ local plugins = {
 
   { "tpope/vim-fugitive" },
   { "AndrewRadev/splitjoin.vim" },
-  {
-    "AndrewRadev/sideways.vim",
-    config = function()
-      vim.api.nvim_set_keymap("n", "<Leader>h", ":SidewaysLeft<CR>", { noremap = true, silent = true })
-      vim.api.nvim_set_keymap("n", "<Leader>l", ":SidewaysRight<CR>", { noremap = true, silent = true })
-    end,
-  },
+  -- {
+  --   "AndrewRadev/sideways.vim",
+  --   config = function()
+  --     vim.api.nvim_set_keymap("n", "<Leader>h", ":SidewaysLeft<CR>", { noremap = true, silent = true })
+  --     vim.api.nvim_set_keymap("n", "<Leader>l", ":SidewaysRight<CR>", { noremap = true, silent = true })
+  --   end,
+  -- },
   { "tpope/vim-abolish" },
   { "tpope/vim-repeat" },
   { "tpope/vim-surround" },

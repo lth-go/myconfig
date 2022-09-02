@@ -1,5 +1,5 @@
 {
-  "suggest.noselect": true,
+  // "suggest.noselect": true,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "diagnostic.checkCurrentLine": true,
   "outline.splitCommand": "botright 50vs",
@@ -23,6 +23,13 @@
     "youdao",
     "haici"
   ],
+  "list.insertMappings": {
+    "<C-f>": "feedkeys:\\<C-f>",
+    "<C-b>": "feedkeys:\\<C-b>",
+    "<C-n>": "normal:j",
+    "<C-p>": "normal:k",
+    "<C-u>": "feedkeys:\\<C-u>"
+  },
   "languageserver": {},
   "go.goplsOptions": {
     "memoryMode": "DegradeClosed",
@@ -36,12 +43,5 @@
     "uppercase": true
   },
   "yaml.format.enable": true,
-  "list.insertMappings": {
-    "<C-f>": "feedkeys:\\<C-f>",
-    "<C-b>": "feedkeys:\\<C-b>",
-    "<C-n>": "normal:j",
-    "<C-p>": "normal:k",
-    "<C-u>": "feedkeys:\\<C-u>"
-  },
   "Lua.telemetry.enable": true
 }

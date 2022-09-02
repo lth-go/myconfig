@@ -117,7 +117,7 @@ end
 -- smart_enter
 --
 M.smart_enter = function()
-  if vim.fn.pumvisible() == 1 then
+  if vim.fn["coc#pum#visible"]() == 1 then
     return vim.fn["coc#pum#confirm"]()
   else
     return t([[<C-g>u<CR><C-r>=coc#on_enter()<CR>]])

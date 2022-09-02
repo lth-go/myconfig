@@ -141,10 +141,6 @@ local function list_or_jump(opts)
 end
 
 local mru = function(opts)
-  if not is_ready() then
-    return
-  end
-
   local home = vim.call("coc#util#get_data_home")
   local data = Path:new(home .. Path.path.sep .. "mru"):read()
   if not data or #data == 0 then
