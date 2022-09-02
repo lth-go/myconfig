@@ -115,6 +115,7 @@ M.coc = function()
   nvim_set_keymap("n", "<Leader>af", [[<Plug>(coc-format)]], {})
   nvim_set_keymap("x", "<C-A-l>", [[<Plug>(coc-format-selected)]], {})
   nvim_set_keymap("n", "<C-A-l>", [[<Plug>(coc-format)]], {})
+  nvim_set_keymap("n", "<Leader>ac", [[<Plug>(coc-codeaction-cursor)]], {})
 
   nvim_set_keymap("x", "if", [[<Plug>(coc-funcobj-i)]], {})
   nvim_set_keymap("o", "if", [[<Plug>(coc-funcobj-i)]], {})
