@@ -17,3 +17,13 @@ cmd([[highlight StartLogo5 guifg=#21825F]])
 cmd([[highlight StartLogo6 guifg=#228E5C]])
 cmd([[highlight StartLogo7 guifg=#239B59]])
 cmd([[highlight StartLogo8 guifg=#24A755]])
+
+-- cmd([[highlight clear DiffAdd]])
+-- cmd([[highlight clear DiffChange]])
+-- cmd([[highlight clear DiffDelete]])
+-- cmd([[highlight clear DiffText]])
+
+-- cmd([[highlight DiffAdd guibg=#20303b]])
+-- cmd([[highlight DiffChange guibg=#1f2231]])
+-- cmd([[highlight DiffDelete guibg=#37222c]])
+-- cmd([[highlight DiffText guibg=#394b70]])

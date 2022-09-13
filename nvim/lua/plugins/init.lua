@@ -162,8 +162,12 @@ local plugins = {
     end,
   },
 
+  { "lth-go/vim-bookmarks" },
   {
-    "lth-go/vim-bookmarks",
+    "sindrets/diffview.nvim",
+    setup = function()
+      require("plugins.configs.diffview")
+    end,
   },
 }
 
