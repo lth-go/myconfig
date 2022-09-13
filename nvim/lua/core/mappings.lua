@@ -154,6 +154,7 @@ M.telescope = function()
   nvim_set_keymap("n", "<Leader>fg", [[<Cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>]], { noremap = true })
   nvim_set_keymap("n", "<Leader>fm", [[<Cmd>Telescope coc mru<CR>]], { noremap = true })
   nvim_set_keymap("n", "<Leader>fc", [[<Cmd>Telescope grep_string<CR>]], { noremap = true })
+  nvim_set_keymap("n", "<Leader>fb", [[<Cmd>Telescope buffers<CR>]], { noremap = true })
 
   nvim_set_keymap("n", "gr", [[<Cmd>Telescope coc references initial_mode=normal<CR>]], { silent = true })
   nvim_set_keymap("n", "gi", [[<Cmd>Telescope coc implementations initial_mode=normal<CR>]], { silent = true })

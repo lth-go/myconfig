@@ -1,5 +1,4 @@
 {
-  // "suggest.noselect": true,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "diagnostic.checkCurrentLine": true,
   "outline.splitCommand": "botright 50vs",
