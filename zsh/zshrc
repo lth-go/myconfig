@@ -78,6 +78,8 @@ alias vi='nvim'
 export MANPAGER='nvim +Man!'
 export KUBE_EDITOR=nvim
 
+alias vimyaml='vim -c "set filetype=yaml" -'
+
 # git
 alias gdn='git diff --name-only origin/master'
 

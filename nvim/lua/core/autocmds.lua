@@ -68,3 +68,10 @@ autocmd("BufUnload", {
     vim.opt.laststatus = 3
   end,
 })
+
+autocmd("StdinReadPost", {
+  pattern = "*",
+  callback = function()
+    vim.opt.modified = false
+  end,
+})
