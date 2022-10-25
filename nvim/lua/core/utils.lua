@@ -157,4 +157,15 @@ M.open_telescope_bookmarks = function()
   })
 end
 
+--
+-- coc-explorer
+--
+M.open_explorer = function()
+  if vim.fn.index({ "coc-explorer" }, vim.opt.filetype:get()) >= 0 then
+    vim.cmd([[execute "normal! \<C-W>\<C-P>"]])
+  else
+    vim.cmd([[CocCommand explorer --no-toggle]])
+  end
+end
+
 return M
