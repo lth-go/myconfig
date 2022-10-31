@@ -6,7 +6,7 @@ g.gruvbox_italics = 0
 
 cmd([[colorscheme gruvbox8_hard]])
 
-cmd([[highlight CocExplorerFileDirectoryExpanded guifg=#8094b4]])
+cmd([[highlight CocExplorerFileDirectoryExpanded  guifg=#8094b4]])
 cmd([[highlight CocExplorerFileDirectoryCollapsed guifg=#8094b4]])
 
 cmd([[highlight StartLogo1 guifg=#1C506B]])
@@ -22,7 +22,7 @@ cmd([[highlight clear DiffAdd]])
 cmd([[highlight clear DiffChange]])
 cmd([[highlight clear DiffDelete]])
 cmd([[highlight clear DiffText]])
-cmd([[highlight DiffAdd    ctermfg=234 ctermbg=114 guibg=#26332c guifg=NONE]])
+cmd([[highlight DiffAdd    ctermfg=234     ctermbg=114 guibg=#26332c guifg=NONE]])
 cmd([[highlight DiffChange cterm=underline ctermfg=180 guibg=#273842 guifg=NONE]])
-cmd([[highlight DiffDelete ctermfg=234 ctermbg=168 guibg=#572E33 guifg=#572E33]])
-cmd([[highlight DiffText   ctermfg=234 ctermbg=180 guibg=#314753 guifg=NONE]])
+cmd([[highlight DiffDelete ctermfg=234     ctermbg=168 guibg=#572E33 guifg=#572E33]])
+cmd([[highlight DiffText   ctermfg=234     ctermbg=180 guibg=#314753 guifg=NONE]])

@@ -102,8 +102,8 @@ M.coc = function()
   nvim_set_keymap("n", "[g", "<Plug>(coc-diagnostic-prev)", { silent = true })
   nvim_set_keymap("n", "]g", "<Plug>(coc-diagnostic-next)", { silent = true })
 
-  nvim_set_keymap("n", "<leader>g", "<Plug>(coc-definition)zz", { silent = true })
-  nvim_set_keymap("n", "gd", "<Plug>(coc-definition)zz", { silent = true })
+  nvim_set_keymap("n", "<leader>g", "<Plug>(coc-definition)", { silent = true })
+  nvim_set_keymap("n", "gd", "<Plug>(coc-definition)", { silent = true })
   nvim_set_keymap("n", "gy", "<Plug>(coc-type-definition)", { silent = true })
 
   nvim_set_keymap("n", "K", [[<Cmd>lua require("core.utils").show_documentation()<CR>]], { noremap = true, silent = true })

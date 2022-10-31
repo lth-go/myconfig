@@ -35,6 +35,8 @@
     // "gofumpt": true,
     "staticcheck": true
   },
+  "rust-analyzer.updates.checkOnStartup": false,
+  "rust-analyzer.checkOnSave.enable": false,
   "sumneko-lua.checkUpdate": false,
   "python.venvPath": "/work/python_venv/",
   "sql.formatOptions": {
