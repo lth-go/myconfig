@@ -8,6 +8,13 @@ autocmd({ "BufNewFile", "BufRead" }, {
   end,
 })
 
+autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = "*/.kube/config",
+  callback = function()
+    vim.opt_local.filetype = "yaml"
+  end,
+})
+
 autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
   pattern = "*",
   callback = function()
