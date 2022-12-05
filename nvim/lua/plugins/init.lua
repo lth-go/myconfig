@@ -112,7 +112,20 @@ local plugins = {
   },
 
   { "tpope/vim-fugitive" },
-  { "AndrewRadev/splitjoin.vim" },
+
+  {
+    "Wansmer/treesj",
+    requires = { "nvim-treesitter" },
+    config = function()
+      require("treesj").setup({
+        use_default_keymaps = false,
+      })
+
+      vim.api.nvim_set_keymap("n", "gJ", ":TSJJoin<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap("n", "gS", ":TSJSplit<CR>", { noremap = true, silent = true })
+    end,
+  },
+  -- { "AndrewRadev/splitjoin.vim" },
   -- {
   --   "AndrewRadev/sideways.vim",
   --   config = function()
@@ -167,6 +180,18 @@ local plugins = {
     "sindrets/diffview.nvim",
     setup = function()
       require("plugins.configs.diffview")
+    end,
+  },
+
+  {
+    "tamton-aquib/duck.nvim",
+    config = function()
+      vim.keymap.set("n", "<F7>", function()
+        require("duck").hatch()
+      end, {})
+      vim.keymap.set("n", "<F8>", function()
+        require("duck").cook()
+      end, {})
     end,
   },
 }

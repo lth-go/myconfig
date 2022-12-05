@@ -47,3 +47,5 @@
     rebase = false
 [init]
     defaultBranch = master
+[advice]
+	skippedCherryPicks = false
