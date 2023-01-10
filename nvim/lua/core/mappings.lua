@@ -144,6 +144,9 @@ M.coc = function()
   -- coc-explorer
   nvim_set_keymap("n", [[<C-\>]], [[<Cmd>lua require("core.utils").open_explorer()<CR>]], {})
   nvim_set_keymap("n", [[<F1>]], [[<Cmd>CocCommand explorer --no-toggle --no-focus<CR>]], {})
+
+  nvim_set_keymap("n", [[<Space>gtg]], [[<Cmd>CocCommand go.test.generate.function<CR>]], {})
+  nvim_set_keymap("n", [[<Space>gtr]], [[<Cmd>GoTestFunc<CR>]], {})
 end
 
 M.copilot = function()
