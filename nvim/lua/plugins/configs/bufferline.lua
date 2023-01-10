@@ -26,6 +26,9 @@ bufferline.setup({
     numbers = function(opts)
       return "Ω"
     end,
+    indicator = {
+      style = "underline",
+    },
     offsets = { { filetype = "coc-explorer", text = "" } },
     show_buffer_close_icons = false,
     show_close_icon = false,
@@ -34,6 +37,10 @@ bufferline.setup({
     indicator_selected = {
       fg = "#519aba",
       bg = "#1d2021",
+      sp = "#FF80A0",
+      bold = true,
+      underdouble = true,
+      underline = true,
     },
   },
 })
