@@ -1,6 +1,9 @@
 {
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "diagnostic.checkCurrentLine": true,
+  "diagnostic.errorSign": "",
+  "diagnostic.hintSign": "",
+  "diagnostic.infoSign": "",
   "outline.splitCommand": "botright 50vs",
   "outline.sortBy": "position",
   "explorer.diagnostic.displayMax": 0,
