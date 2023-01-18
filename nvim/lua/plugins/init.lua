@@ -194,6 +194,13 @@ local plugins = {
       end, {})
     end,
   },
+
+  {
+    "windwp/nvim-spectre",
+    config = function()
+      require("plugins.configs.nvim_spectre")
+    end,
+  },
 }
 
 require("core.packer").run(plugins)

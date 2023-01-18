@@ -63,6 +63,7 @@ M.general = function()
 
   -- 复制当前行号
   nvim_set_keymap("n", "<C-g>", [[<Cmd>lua require("core.utils").show_current_line()<CR>]], { noremap = true })
+  nvim_set_keymap("n", "<A-g>", [[<Cmd>lua require("core.utils").show_current_dir()<CR>]], { noremap = true })
 
   -- 粘贴不覆盖
   nvim_set_keymap("x", "p", [['pgv"' . v:register . 'y']], { expr = true, noremap = true })
@@ -95,7 +96,7 @@ M.wilder = function()
 end
 
 M.coc = function()
-  nvim_set_keymap("i", "<F5>", "coc#refresh()", { expr = true, noremap = true, silent = true})
+  nvim_set_keymap("i", "<C-d>", "coc#refresh()", { expr = true, noremap = true, silent = true })
   nvim_set_keymap("i", "<Tab>", [[v:lua.require("core.utils").smart_tab()]], { expr = true, noremap = true, silent = true })
   nvim_set_keymap("i", "<S-Tab>", [[v:lua.require("core.utils").smart_shift_tab()]], { expr = true, noremap = true })
   nvim_set_keymap("i", "<CR>", [[v:lua.require("core.utils").smart_enter()]], { expr = true, noremap = true, silent = true })
@@ -196,6 +197,10 @@ M.bookmarks = function()
   nvim_set_keymap("n", "mc", "<Plug>BookmarkClear", {})
 end
 
+M.spectre = function()
+  nvim_set_keymap("n", "<F3>", "<cmd>lua require('spectre').open()<CR>", { noremap = true })
+end
+
 M.init = function()
   vim.defer_fn(function()
     M.general()
@@ -209,6 +214,7 @@ M.init = function()
     M.vim_expand_region()
     M.gomove()
     M.bookmarks()
+    M.spectre()
   end, 0)
 end
 

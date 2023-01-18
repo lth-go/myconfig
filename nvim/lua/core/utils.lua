@@ -81,6 +81,12 @@ M.show_current_line = function()
   print(msg)
 end
 
+M.show_current_dir = function()
+  local msg = string.format("%s/", vim.fn.expand("%:h"))
+  vim.fn.setreg("+", msg)
+  print(msg)
+end
+
 --
 -- smart tab
 --

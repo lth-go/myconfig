@@ -26,3 +26,6 @@ cmd([[highlight DiffAdd    ctermfg=234     ctermbg=114 guibg=#26332c guifg=NONE]
 cmd([[highlight DiffChange cterm=underline ctermfg=180 guibg=#273842 guifg=NONE]])
 cmd([[highlight DiffDelete ctermfg=234     ctermbg=168 guibg=#572E33 guifg=#572E33]])
 cmd([[highlight DiffText   ctermfg=234     ctermbg=180 guibg=#314753 guifg=NONE]])
+
+cmd([[highlight SpectreSearch  cterm=reverse ctermfg=107 ctermbg=234 gui=reverse guifg=#8ec07c guibg=#1d2021]])
+cmd([[highlight SpectreReplace cterm=reverse ctermfg=203 ctermbg=234 gui=reverse guifg=#fb4934 guibg=#1d2021]])

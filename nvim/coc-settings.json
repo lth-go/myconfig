@@ -4,6 +4,7 @@
   "diagnostic.errorSign": "",
   "diagnostic.hintSign": "",
   "diagnostic.infoSign": "",
+  "diagnostic.warningSign": "",
   "outline.splitCommand": "botright 50vs",
   "outline.sortBy": "position",
   "explorer.diagnostic.displayMax": 0,
