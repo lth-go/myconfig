@@ -5,7 +5,6 @@ if not present then
 end
 
 require("spectre").setup({
-  live_update = true,
   highlight = {
     ui = "String",
     search = "SpectreSearch",

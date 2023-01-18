@@ -6,7 +6,7 @@ if not present then
   return
 end
 
-wilder.setup({ modes = { ":", "/", "?" } })
+wilder.setup({ modes = { ":", "/" } })
 
 wilder.set_option("pipeline", {
   wilder.branch(
@@ -19,28 +19,32 @@ wilder.set_option("pipeline", {
       }),
     }),
     {
+      wilder.check(function(_, x)
+        return x == ""
+      end),
+      wilder.history(),
+    },
+    wilder.cmdline_pipeline({
+      fuzzy = 1,
+      sorter = wilder.python_difflib_sorter(),
+    }),
+    {
       function(_, x)
-        if string.len(x) <= 2 then
-          return false
+        for _, p in ipairs({ [[\m]], [[\M]], [[\v]], [[\V]] }) do
+          x = (x:sub(0, #p) == p) and x:sub(#p + 1) or x
         end
 
         return x
       end,
-      unpack(wilder.cmdline_pipeline({
-        fuzzy = 1,
-        set_pcre2_pattern = 1,
-        sorter = wilder.python_difflib_sorter(),
+      unpack(wilder.python_search_pipeline({
+        pattern = wilder.python_fuzzy_pattern({
+          start_at_boundary = 0,
+        }),
       })),
-    },
-    wilder.python_search_pipeline({
-      pattern = wilder.python_fuzzy_pattern({
-        start_at_boundary = 0,
-      }),
-    })
+    }
   ),
 })
 
--- local scale = { '#e1524a','#ec6449','#f3784c','#f88e53','#fba35e' }
 local scale = {
   "#f4468f",
   "#fd4a85",
@@ -90,7 +94,6 @@ local wilder_wildmenu_renderer = wilder.wildmenu_renderer({
       wilder.basic_highlighter(),
     }),
   },
-  apply_incsearch_fix = 1,
 })
 
 wilder.set_option(
