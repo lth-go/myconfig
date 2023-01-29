@@ -198,7 +198,12 @@ M.bookmarks = function()
 end
 
 M.spectre = function()
-  nvim_set_keymap("n", "<F3>", "<cmd>lua require('spectre').open()<CR>", { noremap = true })
+  nvim_set_keymap("n", "<Leader>S", "<cmd>lua require('spectre').open()<CR>", { noremap = true })
+end
+
+M.floaterm = function ()
+  nvim_set_keymap("n", "<F12>", [[:nohlsearch |:FloatermToggle<CR>]], { noremap = true, silent = true })
+  nvim_set_keymap("t", "<F12>", [[<C-\><C-n>:FloatermToggle<CR>]], { noremap = true, silent = true })
 end
 
 M.init = function()
@@ -215,6 +220,7 @@ M.init = function()
     M.gomove()
     M.bookmarks()
     M.spectre()
+    M.floaterm()
   end, 0)
 end
 
