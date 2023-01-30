@@ -38,14 +38,22 @@ local locations_to_items = function(locs)
     local line = (vim.api.nvim_buf_get_lines(bufnr, row, row + 1, false) or { "" })[1]
 
     -- TODO: 限定golang
-    if not filename:match(".*_test%.go") then
-      items[#items + 1] = {
-        filename = filename,
-        lnum = row + 1,
-        col = l.range.start.character + 1,
-        text = line,
-      }
+    if filename:match(".*_test%.go") then
+      goto continue
     end
+
+    if filename:match(".*/mocks/.*") then
+      goto continue
+    end
+
+    items[#items + 1] = {
+      filename = filename,
+      lnum = row + 1,
+      col = l.range.start.character + 1,
+      text = line,
+    }
+
+    ::continue::
   end
 
   return items

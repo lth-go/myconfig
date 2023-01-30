@@ -8,3 +8,4 @@ g.go_fmt_autosave = 0
 g.go_imports_autosave = 0
 g.go_mod_fmt_autosave = 0
 g.go_template_autocreate = 0
+g.go_textobj_enabled = 0
