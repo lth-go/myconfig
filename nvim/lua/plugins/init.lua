@@ -183,17 +183,17 @@ local plugins = {
     end,
   },
 
-  {
-    "tamton-aquib/duck.nvim",
-    config = function()
-      vim.keymap.set("n", "<F7>", function()
-        require("duck").hatch()
-      end, {})
-      vim.keymap.set("n", "<F8>", function()
-        require("duck").cook()
-      end, {})
-    end,
-  },
+  -- {
+  --   "tamton-aquib/duck.nvim",
+  --   config = function()
+  --     vim.keymap.set("n", "<F7>", function()
+  --       require("duck").hatch()
+  --     end, {})
+  --     vim.keymap.set("n", "<F8>", function()
+  --       require("duck").cook()
+  --     end, {})
+  --   end,
+  -- },
 
   {
     "windwp/nvim-spectre",

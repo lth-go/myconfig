@@ -8,6 +8,7 @@ cmd([[colorscheme gruvbox8_hard]])
 
 cmd([[highlight CocExplorerFileDirectoryExpanded  guifg=#8094b4]])
 cmd([[highlight CocExplorerFileDirectoryCollapsed guifg=#8094b4]])
+cmd([[highlight! link QuickFixLine CursorLine]])
 
 cmd([[highlight StartLogo1 guifg=#1C506B]])
 cmd([[highlight StartLogo2 guifg=#1D5D68]])
