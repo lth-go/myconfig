@@ -5,7 +5,7 @@ local g = vim.g
 g.mapleader = ";"
 
 opt.termguicolors = true
-opt.updatetime = 300
+opt.updatetime = 250
 opt.shortmess:append("csI")
 opt.jumpoptions:append("stack")
 opt.inccommand = "nosplit"
@@ -26,6 +26,7 @@ opt.wildignore:append("*.pyc,*.pyo")
 opt.wildignore:append("*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz")
 
 opt.number = true
+opt.numberwidth = 2
 opt.relativenumber = true
 
 opt.foldenable = false
@@ -53,8 +54,10 @@ opt.shiftwidth = 4
 opt.softtabstop = 4
 opt.expandtab = true
 opt.shiftround = true
+opt.smartindent = true
 
 opt.laststatus = 3
+opt.showmode = false
 
 opt.clipboard:append("unnamedplus")
 opt.mouse = ""

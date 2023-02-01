@@ -20,6 +20,5 @@ treesitter.setup({
   },
   indent = {
     enable = false,
-    use_languagetree = true,
   },
 })
