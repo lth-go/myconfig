@@ -8,7 +8,7 @@ local plugins = {
   {
     "lifepillar/vim-gruvbox8",
     config = function()
-      require("plugins.configs.theme")
+      require("plugins.configs.highlight")
     end,
   },
 
@@ -203,4 +203,5 @@ local plugins = {
   },
 }
 
+require("core.packer").bootstrap()
 require("core.packer").run(plugins)

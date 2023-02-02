@@ -49,7 +49,11 @@ autocmd({ "BufReadPost" }, {
 autocmd("BufWritePre", {
   pattern = "*",
   callback = function()
-    require("core.utils").auto_mkdir()
+    local dir = vim.fn.expand("%:p:h")
+
+    if vim.fn.isdirectory(dir) == 0 then
+      vim.fn.mkdir(dir, "p")
+    end
   end,
 })
 

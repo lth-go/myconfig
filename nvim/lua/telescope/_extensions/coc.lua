@@ -23,7 +23,7 @@ local function is_ready(feature)
   return true
 end
 
-local locations_to_items = function(locs)
+local function locations_to_items(locs)
   local items = {}
   for _, l in ipairs(locs) do
     if l.targetUri and l.targetRange then
@@ -59,7 +59,7 @@ local locations_to_items = function(locs)
   return items
 end
 
-local gen_from_quickfix_custom = function(opts)
+local function gen_from_quickfix_custom(opts)
   opts = opts or {}
 
   local make_display = function(entry)
@@ -94,7 +94,7 @@ local gen_from_quickfix_custom = function(opts)
   end
 end
 
-local gen_from_mru = function(opts)
+local function gen_from_mru(opts)
   local make_display = function(entry)
     local display, hl_group = utils.transform_devicons(entry.value, entry.value, false)
 
