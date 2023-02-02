@@ -1,6 +1,7 @@
 local vim = vim
 local autocmd = vim.api.nvim_create_autocmd
 
+-- dockerfile 识别
 autocmd({ "BufNewFile", "BufRead" }, {
   pattern = "*.dockerfile",
   callback = function()
@@ -8,6 +9,7 @@ autocmd({ "BufNewFile", "BufRead" }, {
   end,
 })
 
+-- kubeconfig 识别
 autocmd({ "BufNewFile", "BufRead" }, {
   pattern = "*/.kube/config",
   callback = function()
@@ -15,6 +17,7 @@ autocmd({ "BufNewFile", "BufRead" }, {
   end,
 })
 
+-- 自动行号
 autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
   pattern = "*",
   callback = function()
@@ -33,6 +36,7 @@ autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
   end,
 })
 
+-- 打开文件定位到上次访问
 autocmd({ "BufReadPost" }, {
   pattern = "*",
   callback = function()
@@ -46,6 +50,7 @@ autocmd({ "BufReadPost" }, {
   end,
 })
 
+-- 自动创建目录
 autocmd("BufWritePre", {
   pattern = "*",
   callback = function()

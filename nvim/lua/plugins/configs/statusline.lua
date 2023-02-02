@@ -144,12 +144,17 @@ default.diagnostic = {
 
   white_space = {
     provider = function()
-      if vim.api.nvim_buf_get_name(0) == "" then
+      local buf_name = vim.api.nvim_buf_get_name(0)
+      if buf_name == "" then
+        return ""
+      end
+
+      local file_size = vim.api.nvim_call_function("getfsize", { buf_name })
+      if file_size > 256 * 1024 then
         return ""
       end
 
       local lnum = vim.fn.search("\\s$", "nw")
-
       if lnum == 0 then
         return ""
       end
@@ -337,7 +342,6 @@ feline.setup({
       "^fugitiveblame$",
       "^floaterm$",
       "^qf$",
-      "^help$",
     },
   },
 })

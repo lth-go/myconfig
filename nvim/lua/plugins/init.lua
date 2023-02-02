@@ -124,9 +124,11 @@ local plugins = {
       { "nvim-telescope/telescope-live-grep-args.nvim" },
     },
     config = function()
+      local telescope = require("telescope")
+
       require("plugins.configs.telescope")
-      require("telescope").load_extension("fzf")
-      require("telescope").load_extension("live_grep_args")
+      telescope.load_extension("fzf")
+      telescope.load_extension("live_grep_args")
     end,
   },
 
@@ -172,14 +174,7 @@ local plugins = {
       vim.api.nvim_set_keymap("n", "gS", ":TSJSplit<CR>", { noremap = true, silent = true })
     end,
   },
-  -- { "AndrewRadev/splitjoin.vim" },
-  -- {
-  --   "AndrewRadev/sideways.vim",
-  --   config = function()
-  --     vim.api.nvim_set_keymap("n", "<Leader>h", ":SidewaysLeft<CR>", { noremap = true, silent = true })
-  --     vim.api.nvim_set_keymap("n", "<Leader>l", ":SidewaysRight<CR>", { noremap = true, silent = true })
-  --   end,
-  -- },
+
   { "tpope/vim-abolish" },
   { "tpope/vim-repeat" },
   { "tpope/vim-surround" },
@@ -254,18 +249,6 @@ local plugins = {
       require("plugins.configs.diffview")
     end,
   },
-
-  -- {
-  --   "tamton-aquib/duck.nvim",
-  --   config = function()
-  --     vim.keymap.set("n", "<F7>", function()
-  --       require("duck").hatch()
-  --     end, {})
-  --     vim.keymap.set("n", "<F8>", function()
-  --       require("duck").cook()
-  --     end, {})
-  --   end,
-  -- },
 
   {
     "windwp/nvim-spectre",

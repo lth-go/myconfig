@@ -4,63 +4,48 @@ local g = vim.g
 
 g.mapleader = ";"
 
-opt.termguicolors = true
-opt.updatetime = 250
-opt.shortmess:append("csI")
-opt.jumpoptions:append("stack")
-opt.inccommand = "nosplit"
+opt.cindent = true
+opt.clipboard:append("unnamedplus")
 opt.completeopt:remove("preview")
-
-opt.backup = false
-opt.writebackup = false
-opt.swapfile = false
-opt.hidden = true
-
-opt.wildmode = "longest:full,full"
-opt.wildcharm = opt.wildchar:get()
-
-opt.wildignore:append(".vim,.idea,.git")
-opt.wildignore:append("*.swp,tags")
-opt.wildignore:append("*.o,*.a,*.so")
-opt.wildignore:append("*.pyc,*.pyo")
-opt.wildignore:append("*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz")
-
-opt.number = true
-opt.numberwidth = 2
-opt.relativenumber = true
-
-opt.foldenable = false
-opt.wrap = false
 opt.cursorline = true
+opt.expandtab = true
+opt.foldenable = false
+opt.ignorecase = true
+opt.jumpoptions:append("stack")
+opt.laststatus = 3
 opt.list = true
 opt.listchars = "tab:>-,trail:·,nbsp:·"
-opt.signcolumn = "number"
-
+opt.mouse = ""
+opt.number = true
+opt.numberwidth = 2
 opt.pumblend = 10
-opt.winblend = 10
-
+opt.relativenumber = true
 opt.scrolloff = 10
+opt.shiftround = true
+opt.shiftwidth = 4
+opt.shortmess:append("csI")
+opt.showmode = false
 opt.sidescrolloff = 10
-
+opt.signcolumn = "number"
+opt.smartcase = true
+opt.smartindent = true
+opt.softtabstop = 4
 opt.splitbelow = true
 opt.splitright = true
-
-opt.ignorecase = true
-opt.smartcase = true
-
-opt.cindent = true
+opt.swapfile = false
 opt.tabstop = 4
-opt.shiftwidth = 4
-opt.softtabstop = 4
-opt.expandtab = true
-opt.shiftround = true
-opt.smartindent = true
-
-opt.laststatus = 3
-opt.showmode = false
-
-opt.clipboard:append("unnamedplus")
-opt.mouse = ""
+opt.termguicolors = true
+opt.updatetime = 250
+opt.wildcharm = opt.wildchar:get()
+opt.wildignore:append("*.o,*.a,*.so")
+opt.wildignore:append("*.pyc,*.pyo")
+opt.wildignore:append("*.swp,tags")
+opt.wildignore:append("*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz")
+opt.wildignore:append(".vim,.idea,.git")
+opt.wildmode = "longest:full,full"
+opt.winblend = 10
+opt.wrap = false
+opt.writebackup = false
 
 if opt.diff:get() then
   opt.readonly = false

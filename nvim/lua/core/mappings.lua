@@ -127,6 +127,8 @@ M.general = function()
   keymap_set("n", "<Leader><Space>", ":vs<CR>", { noremap = true })
 
   keymap_set("n", "<Leader>bd", buf_only, { noremap = true, silent = true })
+
+  keymap_set("t", "<C-x>", vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), {})
 end
 
 M.bufferline = function()
