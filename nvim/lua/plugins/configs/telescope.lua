@@ -38,4 +38,4 @@ telescope.setup({
 -- telescope-coc.nvim
 --
 
-require("telescope").load_extension("coc")
+telescope.load_extension("coc")

@@ -8,7 +8,12 @@ local plugins = {
   {
     "lifepillar/vim-gruvbox8",
     config = function()
-      require("plugins.configs.highlight")
+      local vim = vim
+      local g = vim.g
+
+      g.gruvbox_italics = 0
+
+      require("plugins.configs.highlights")
     end,
   },
 
@@ -61,18 +66,53 @@ local plugins = {
     "neoclide/coc.nvim",
     branch = "release",
     setup = function()
-      require("plugins.configs.coc")
+      local g = vim.g
+
+      g.coc_global_extensions = {
+        "coc-lists",
+        "coc-explorer",
+        "coc-json",
+        "coc-xml",
+        "coc-html",
+        "coc-yaml",
+        "coc-sh",
+        "coc-sql",
+        "coc-go",
+        "coc-pyright",
+        "coc-clangd",
+        "coc-vimlsp",
+        "coc-translator",
+        "coc-sumneko-lua",
+      }
     end,
   },
 
   {
     "fatih/vim-go",
     config = function()
-      require("plugins.configs.vim_go")
+      local g = vim.g
+
+      g.go_code_completion_enabled = 0
+      g.go_doc_keywordprg_enabled = 0
+      g.go_def_mapping_enabled = 0
+      g.go_gopls_enabled = 0
+      g.go_fmt_autosave = 0
+      g.go_imports_autosave = 0
+      g.go_mod_fmt_autosave = 0
+      g.go_template_autocreate = 0
+      g.go_textobj_enabled = 0
     end,
   },
 
-  -- { "github/copilot.vim" },
+  -- {
+  --   "github/copilot.vim",
+  --   config = function()
+  --     local g = vim.g
+
+  --     g.copilot_no_tab_map = true
+  --     g.copilot_hide_during_completion = 0
+  --   end,
+  -- },
 
   {
     "nvim-telescope/telescope.nvim",
@@ -93,7 +133,10 @@ local plugins = {
   {
     "voldikss/vim-floaterm",
     config = function()
-      require("plugins.configs.vim_floaterm")
+      local g = vim.g
+
+      g.floaterm_width = 0.9
+      g.floaterm_height = 0.9
     end,
   },
 
@@ -107,7 +150,11 @@ local plugins = {
   {
     "scrooloose/nerdcommenter",
     config = function()
-      require("plugins.configs.nerdcommenter")
+      local g = vim.g
+
+      g.NERDCreateDefaultMappings = 0
+      g.NERDDefaultAlign = "left"
+      g.NERDSpaceDelims = 1
     end,
   },
 
@@ -141,7 +188,23 @@ local plugins = {
   {
     "terryma/vim-expand-region",
     setup = function()
-      require("plugins.configs.vim_expand_region")
+      local g = vim.g
+
+      -- 选中区域配置, 1表示递归
+      g.expand_region_text_objects = {
+        ["iw"] = 0,
+        ['i"'] = 1,
+        ["i'"] = 1,
+        ["i`"] = 1,
+        ["i)"] = 1,
+        ["i]"] = 1,
+        ["i}"] = 1,
+        ["it"] = 1,
+        ["a)"] = 1,
+        ["a]"] = 1,
+        ["a}"] = 1,
+        ["at"] = 1,
+      }
     end,
   },
 
@@ -156,7 +219,16 @@ local plugins = {
   {
     "chaoren/vim-wordmotion",
     setup = function()
-      require("plugins.configs.vim_wordmotion")
+      local g = vim.g
+      g.wordmotion_mappings = {
+        ["w"] = "<M-w>",
+        ["b"] = "<M-b>",
+        ["e"] = "<M-e>",
+        ["ge"] = "g<M-e>",
+        ["aw"] = "a<M-w>",
+        ["iw"] = "i<M-w>",
+        ["<C-R><C-W>"] = "<C-R><M-w>",
+      }
     end,
   },
 

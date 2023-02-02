@@ -1,12 +1,9 @@
 local vim = vim
-local cmd = vim.cmd
-local g = vim.g
-local opt = vim.opt
 local nvim_set_hl = vim.api.nvim_set_hl
 
-g.gruvbox_italics = 0
+local cmd = vim.cmd
 
-cmd([[colorscheme gruvbox8_hard]])
+cmd.colorscheme("gruvbox8_hard")
 
 nvim_set_hl(0, "CocExplorerFileDirectoryExpanded", { fg = "#8094b4" })
 nvim_set_hl(0, "CocExplorerFileDirectoryCollapsed", { fg = "#8094b4" })
