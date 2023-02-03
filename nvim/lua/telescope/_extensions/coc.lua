@@ -2,7 +2,8 @@ local conf = require("telescope.config").values
 local finders = require("telescope.finders")
 local pickers = require("telescope.pickers")
 local utils = require("telescope.utils")
-local Path = require("plenary.path")
+local path = require("plenary.path")
+local make_entry = require("telescope.make_entry")
 local string = string
 local vim = vim
 
@@ -148,21 +149,21 @@ local function list_or_jump(opts)
   end
 end
 
-local mru = function(opts)
+local function mru(opts)
   local home = vim.call("coc#util#get_data_home")
-  local data = Path:new(home .. Path.path.sep .. "mru"):read()
+  local data = path:new(home .. path.path.sep .. "mru"):read()
   if not data or #data == 0 then
     return
   end
 
   local results = {}
   local exists = {}
-  local cwd = vim.loop.cwd() .. Path.path.sep
+  local cwd = vim.loop.cwd() .. path.path.sep
 
   for _, val in ipairs(utils.max_split(data, "\n")) do
-    local p = Path:new(val)
-    local lowerPrefix = val:sub(1, #cwd):gsub(Path.path.sep, ""):lower()
-    local lowerCWD = cwd:gsub(Path.path.sep, ""):lower()
+    local p = path:new(val)
+    local lowerPrefix = val:sub(1, #cwd):gsub(path.path.sep, ""):lower()
+    local lowerCWD = cwd:gsub(path.path.sep, ""):lower()
     if lowerCWD == lowerPrefix and p:exists() and p:is_file() then
       local v = val:sub(#cwd + 1)
       if not exists[v] then
@@ -185,14 +186,14 @@ local mru = function(opts)
     :find()
 end
 
-local implementations = function(opts)
+local function implementations(opts)
   opts.coc_provider = "implementation"
   opts.coc_action = "implementations"
   opts.coc_title = "Coc Implementations"
   list_or_jump(opts)
 end
 
-local references = function(opts)
+local function references(opts)
   if not is_ready("reference") then
     return
   end
@@ -221,10 +222,47 @@ local references = function(opts)
     :find()
 end
 
+local function get_workspace_symbols_requester()
+  return function(prompt)
+    local results = {}
+    local symbols = CocAction("getWorkspaceSymbols", prompt)
+    if type(symbols) ~= "table" or vim.tbl_isempty(symbols) then
+      return results
+    end
+    for _, s in ipairs(symbols) do
+      local filename = vim.uri_to_fname(s.location.uri)
+      local kind = vim.lsp.protocol.SymbolKind[s.kind] or "Unknown"
+      results[#results + 1] = {
+        filename = filename,
+        lnum = s.location.range.start.line + 1,
+        col = s.location.range.start.character + 1,
+        kind = kind,
+        text = string.format("[%s] %s", kind, s.name),
+      }
+    end
+    return results
+  end
+end
+
+local function workspace_symbols(opts)
+  pickers
+    .new(opts, {
+      prompt_title = "Coc Workspace Symbols",
+      finder = finders.new_dynamic({
+        entry_maker = opts.entry_maker or make_entry.gen_from_lsp_symbols(opts),
+        fn = get_workspace_symbols_requester(),
+      }),
+      previewer = conf.qflist_previewer(opts),
+      sorter = conf.generic_sorter(),
+    })
+    :find()
+end
+
 return require("telescope").register_extension({
   exports = {
     mru = mru,
     references = references,
     implementations = implementations,
+    workspace_symbols = workspace_symbols,
   },
 })

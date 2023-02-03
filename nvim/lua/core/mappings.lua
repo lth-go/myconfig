@@ -280,6 +280,7 @@ M.telescope = function()
   keymap_set("n", "<Leader>fm", [[<Cmd>Telescope coc mru<CR>]], { noremap = true })
   keymap_set("n", "<Leader>fc", [[<Cmd>Telescope grep_string<CR>]], { noremap = true })
   keymap_set("n", "<Leader>fb", [[<Cmd>Telescope buffers<CR>]], { noremap = true })
+  keymap_set("n", "<Leader>fs", [[<Cmd>Telescope coc workspace_symbols<CR>]], { noremap = true })
 
   keymap_set("n", "gr", [[<Cmd>Telescope coc references initial_mode=normal<CR>]], { silent = true })
   keymap_set("n", "gi", [[<Cmd>Telescope coc implementations initial_mode=normal<CR>]], { silent = true })
