@@ -6,12 +6,14 @@ local plugins = {
   { "wbthomason/packer.nvim" },
 
   {
-    "lifepillar/vim-gruvbox8",
+    "sainnhe/gruvbox-material",
     config = function()
       local vim = vim
       local g = vim.g
 
-      g.gruvbox_italics = 0
+      g.gruvbox_material_background = "hard"
+      g.gruvbox_material_foreground = "original"
+      g.gruvbox_material_better_performance = 1
 
       require("plugins.configs.highlights")
     end,
@@ -31,7 +33,7 @@ local plugins = {
 
   {
     "goolord/alpha-nvim",
-    after = "vim-gruvbox8",
+    after = "gruvbox-material",
     config = function()
       require("plugins.configs.dashboard")
     end,
@@ -205,7 +207,7 @@ local plugins = {
 
   {
     "ggandor/leap.nvim",
-    after = "vim-gruvbox8",
+    after = "gruvbox-material",
     config = function()
       require("plugins.configs.leap")
     end,
