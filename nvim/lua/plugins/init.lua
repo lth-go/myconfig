@@ -14,6 +14,7 @@ local plugins = {
       g.gruvbox_material_background = "hard"
       g.gruvbox_material_foreground = "original"
       g.gruvbox_material_better_performance = 1
+      g.gruvbox_material_disable_italic_comment = 1
 
       require("plugins.configs.highlights")
     end,

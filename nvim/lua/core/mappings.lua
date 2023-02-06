@@ -106,6 +106,7 @@ M.general = function()
   keymap_set("n", "<C-]>", "<C-]>zz", { noremap = true })
 
   keymap_set("n", "<Backspace>", "<Cmd>nohlsearch<CR>", { noremap = true })
+  keymap_set({ "n", "i" }, "<Esc>", "<Cmd>nohlsearch<CR><Esc>", { noremap = true })
 
   -- 调整缩进后自动选中
   keymap_set("v", "<", "<gv", { noremap = true })
