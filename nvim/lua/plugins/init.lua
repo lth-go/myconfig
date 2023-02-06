@@ -256,6 +256,25 @@ local plugins = {
       require("plugins.configs.nvim_spectre")
     end,
   },
+
+  {
+    "kevinhwang91/nvim-bqf",
+    config = function()
+      require("bqf").setup({
+        -- auto_resize_height = false,
+        preview = {
+          auto_preview = false,
+        },
+      })
+    end,
+  },
+
+  {
+    "https://gitlab.com/yorickpeterse/nvim-pqf.git",
+    config = function()
+      require("pqf").setup()
+    end,
+  },
 }
 
 require("core.packer").bootstrap()
