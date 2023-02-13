@@ -330,7 +330,7 @@ M.spectre = function()
     require("spectre").open()
   end
 
-  keymap_set("n", "<Leader>S", open, { noremap = true })
+  keymap_set("n", "<Leader>sr", open, { noremap = true })
 end
 
 M.floaterm = function()
