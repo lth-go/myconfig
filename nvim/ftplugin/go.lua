@@ -7,11 +7,7 @@ opt_local.expandtab = false
 
 local function_jump = function(direction)
   return function()
-    local old_cursor = api.nvim_win_get_cursor(0)
-
-    api.nvim_win_set_cursor(0, { old_cursor[1], 0 })
     local result = vim.fn["go#textobj#FunctionLocation"](direction, 0)
-    api.nvim_win_set_cursor(0, old_cursor)
 
     if not result then
       return
