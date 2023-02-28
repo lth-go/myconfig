@@ -267,7 +267,7 @@ M.telescope = function()
   end
 
   local grep_from_selected = function()
-    local word = require("core.utils").get_visual_selection()
+    local word = require("utils").get_visual_selection()
 
     if not word or word == "" then
       return
@@ -338,6 +338,11 @@ M.floaterm = function()
   keymap_set("t", "<F12>", [[<C-\><C-n>:FloatermToggle<CR>]], { noremap = true, silent = true })
 end
 
+M.treesj = function()
+  keymap_set("n", "gJ", ":TSJJoin<CR>", { noremap = true, silent = true })
+  keymap_set("n", "gS", ":TSJSplit<CR>", { noremap = true, silent = true })
+end
+
 M.init = function()
   vim.defer_fn(function()
     M.general()
@@ -353,7 +358,8 @@ M.init = function()
     M.bookmarks()
     M.spectre()
     M.floaterm()
+    M.treesj()
   end, 0)
 end
 
-return M
+M.init()

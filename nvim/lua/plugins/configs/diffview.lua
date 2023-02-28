@@ -1,8 +1,0 @@
-local present, diffview = pcall(require, "diffview")
-if not present then
-  return
-end
-
-diffview.setup({
-  enhanced_diff_hl = true,
-})

@@ -337,7 +337,6 @@ feline.setup({
       "^alpha$",
       "^coc%-explorer$",
       "^TelescopePrompt$",
-      "^packer$",
       "^fugitive$",
       "^fugitiveblame$",
       "^floaterm$",
