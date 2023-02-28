@@ -53,34 +53,36 @@ require("lazy").setup({
       "nvim-treesitter/nvim-treesitter",
       build = ":TSUpdate",
       event = { "BufReadPost", "BufNewFile" },
-      opts = {
-        ensure_installed = "all",
-        highlight = {
-          enable = true,
-          disable = function(lang, bufnr)
-            -- 渲染有问题
-            if lang == "dockerfile" then
-              return true
-            end
+      config = function()
+        require("nvim-treesitter.configs").setup({
+          ensure_installed = "all",
+          highlight = {
+            enable = true,
+            disable = function(lang, bufnr)
+              -- 渲染有问题
+              if lang == "dockerfile" then
+                return true
+              end
 
-            if vim.api.nvim_buf_line_count(bufnr) > 8192 then
-              return true
-            end
+              if vim.api.nvim_buf_line_count(bufnr) > 8192 then
+                return true
+              end
 
-            local buf_name = vim.api.nvim_buf_get_name(bufnr)
-            local file_size = vim.api.nvim_call_function("getfsize", { buf_name })
-            if file_size > 256 * 1024 then
-              return true
-            end
+              local buf_name = vim.api.nvim_buf_get_name(bufnr)
+              local file_size = vim.api.nvim_call_function("getfsize", { buf_name })
+              if file_size > 256 * 1024 then
+                return true
+              end
 
-            return false
-          end,
-          use_languagetree = true,
-        },
-        indent = {
-          enable = false,
-        },
-      },
+              return false
+            end,
+            use_languagetree = true,
+          },
+          indent = {
+            enable = false,
+          },
+        })
+      end,
     },
 
     {
@@ -181,9 +183,11 @@ require("lazy").setup({
 
     {
       "windwp/nvim-autopairs",
-      opts = {
-        map_cr = false,
-      },
+      config = function()
+        require("nvim-autopairs").setup({
+          map_cr = false,
+        })
+      end,
     },
 
     {
@@ -202,9 +206,11 @@ require("lazy").setup({
     {
       "Wansmer/treesj",
       dependencies = { "nvim-treesitter" },
-      opts = {
-        use_default_keymaps = false,
-      },
+      config = function()
+        require("treesj").setup({
+          use_default_keymaps = false,
+        })
+      end,
     },
 
     { "tpope/vim-abolish" },
@@ -265,18 +271,20 @@ require("lazy").setup({
 
     {
       "booperlv/nvim-gomove",
-      opts = {
-        -- whether or not to map default key bindings, (true/false)
-        map_defaults = false,
-        -- whether or not to reindent lines moved vertically (true/false)
-        reindent = false,
-        -- whether or not to undojoin same direction moves (true/false)
-        undojoin = true,
-        -- whether to not to move past end column when moving blocks horizontally, (true/false)
-        move_past_end_col = false,
-        -- whether or not to ignore indent when duplicating lines horizontally, (true/false)
-        ignore_indent_lh_dup = true,
-      },
+      config = function()
+        require("gomove").setup({
+          -- whether or not to map default key bindings, (true/false)
+          map_defaults = false,
+          -- whether or not to reindent lines moved vertically (true/false)
+          reindent = false,
+          -- whether or not to undojoin same direction moves (true/false)
+          undojoin = true,
+          -- whether to not to move past end column when moving blocks horizontally, (true/false)
+          move_past_end_col = false,
+          -- whether or not to ignore indent when duplicating lines horizontally, (true/false)
+          ignore_indent_lh_dup = true,
+        })
+      end,
     },
 
     {
@@ -290,39 +298,50 @@ require("lazy").setup({
     { "lth-go/vim-bookmarks" },
     {
       "sindrets/diffview.nvim",
-      opts = {
-        enhanced_diff_hl = true,
-      },
+      config = function()
+        require("diffview").setup({
+          enhanced_diff_hl = true,
+        })
+      end,
     },
 
     {
       "windwp/nvim-spectre",
-      opts = {
-        highlight = {
-          ui = "String",
-          search = "SpectreSearch",
-          replace = "SpectreReplace",
-        },
-        mapping = {
-          ["send_to_qf"] = {
-            map = "<C-q>",
-            cmd = "<cmd>lua require('spectre.actions').send_to_qf()<CR>",
-            desc = "send all item to quickfix",
+      config = function()
+        require("spectre").setup({
+          highlight = {
+            ui = "String",
+            search = "SpectreSearch",
+            replace = "SpectreReplace",
           },
-        },
-      },
+          mapping = {
+            ["send_to_qf"] = {
+              map = "<C-q>",
+              cmd = "<cmd>lua require('spectre.actions').send_to_qf()<CR>",
+              desc = "send all item to quickfix",
+            },
+          },
+        })
+      end,
     },
 
     {
       "kevinhwang91/nvim-bqf",
-      opts = {
-        -- auto_resize_height = false,
-        preview = {
-          auto_preview = false,
-        },
-      },
+      config = function()
+        require("bqf").setup({
+          -- auto_resize_height = false,
+          preview = {
+            auto_preview = false,
+          },
+        })
+      end,
     },
 
-    { "https://gitlab.com/yorickpeterse/nvim-pqf.git" },
+    {
+      "https://gitlab.com/yorickpeterse/nvim-pqf.git",
+      config = function()
+        require("pqf").setup({})
+      end,
+    },
   },
 })
