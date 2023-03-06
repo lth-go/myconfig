@@ -38,7 +38,11 @@
   "go.goplsOptions": {
     "memoryMode": "DegradeClosed",
     // "gofumpt": true,
-    "staticcheck": true
+    "staticcheck": true,
+    "hints": {
+      "assignVariableTypes": true,
+      "constantValues": true
+    }
   },
   "rust-analyzer.updates.checkOnStartup": false,
   "rust-analyzer.checkOnSave.enable": false,
