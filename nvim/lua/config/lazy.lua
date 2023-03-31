@@ -296,14 +296,12 @@ require("lazy").setup({
     },
 
     { "lth-go/vim-bookmarks" },
-    {
-      "sindrets/diffview.nvim",
-      config = function()
-        require("diffview").setup({
-          enhanced_diff_hl = true,
-        })
-      end,
-    },
+    -- {
+    --   "sindrets/diffview.nvim",
+    --   config = function()
+    --     require("diffview").setup({})
+    --   end,
+    -- },
 
     {
       "windwp/nvim-spectre",

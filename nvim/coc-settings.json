@@ -49,7 +49,7 @@
   "sumneko-lua.checkUpdate": false,
   "python.venvPath": "/work/python_venv/",
   "sql.formatOptions": {
-    "language": "mysql",
+    "language": "postgresql",
     "uppercase": true
   },
   "yaml.format.enable": true,

@@ -6,6 +6,8 @@ CASE_SENSITIVE="true"
 # 粘贴修正
 DISABLE_MAGIC_FUNCTIONS=true
 
+DISABLE_AUTO_UPDATE=true
+
 # 主题
 ZSH_THEME="my"
 
