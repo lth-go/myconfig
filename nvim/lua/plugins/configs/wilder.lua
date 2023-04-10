@@ -83,6 +83,7 @@ local wilder_popupmenu_renderer = wilder.popupmenu_renderer({
   },
   left = { " ", wilder.popupmenu_devicons() },
   right = { " ", wilder.popupmenu_scrollbar() },
+  apply_incsearch_fix = 1,
 })
 
 local wilder_wildmenu_renderer = wilder.wildmenu_renderer({
@@ -94,6 +95,7 @@ local wilder_wildmenu_renderer = wilder.wildmenu_renderer({
       wilder.basic_highlighter(),
     }),
   },
+  apply_incsearch_fix = 1,
 })
 
 wilder.set_option(
