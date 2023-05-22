@@ -52,6 +52,10 @@ ZSH_HIGHLIGHT_STYLES[globbing]='fg=yellow'
 # disable numeric argument.
 for i in {0..9}; do bindkey -r "^[$i"; done
 
+_custom_clear_screen() { clear; date; zle redisplay; }
+zle -N _custom_clear_screen
+bindkey '^L' _custom_clear_screen
+
 ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;'
 
 # history
@@ -73,7 +77,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # rg
 export RIPGREP_CONFIG_PATH="$HOME/.rgrc"
 
-# Tldr
+# tldr
 alias tldr='tldr -t ocean'
 
 # vim
