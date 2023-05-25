@@ -68,10 +68,10 @@ local function gen_from_quickfix_custom(opts)
     local display_filename = utils.transform_path(opts, entry.filename)
     local coordinates = string.format("%s:%s", entry.lnum, entry.col)
 
-    local display, hl_group = utils.transform_devicons(entry.filename, string.format(display_string, display_filename, coordinates), false)
+    local display, hl_group, icon = utils.transform_devicons(entry.filename, string.format(display_string, display_filename, coordinates), false)
 
     if hl_group then
-      return display, { { { 1, 3 }, hl_group } }
+      return display, { { { 0, #icon }, hl_group } }
     else
       return display
     end
@@ -97,10 +97,10 @@ end
 
 local function gen_from_mru(opts)
   local make_display = function(entry)
-    local display, hl_group = utils.transform_devicons(entry.value, entry.value, false)
+    local display, hl_group, icon = utils.transform_devicons(entry.value, entry.value, false)
 
     if hl_group then
-      return display, { { { 1, 3 }, hl_group } }
+      return display, { { { 0, #icon }, hl_group } }
     else
       return display
     end
