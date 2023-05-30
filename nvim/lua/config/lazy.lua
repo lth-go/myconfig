@@ -165,6 +165,7 @@ require("lazy").setup({
           build = "make",
         },
         { "nvim-telescope/telescope-live-grep-args.nvim" },
+        { "nvim-treesitter" },
       },
       config = function()
         require("plugins.configs.telescope")
@@ -342,12 +343,12 @@ require("lazy").setup({
       end,
     },
 
-    {
-      'Exafunction/codeium.vim',
-      config = function ()
-        vim.g.codeium_no_map_tab = 1
-        vim.keymap.set('i', '<C-j>', function () return vim.fn['codeium#Accept']() end, { expr = true })
-      end,
-    }
+    -- {
+    --   'Exafunction/codeium.vim',
+    --   config = function ()
+    --     vim.g.codeium_no_map_tab = 1
+    --     vim.keymap.set('i', '<C-j>', function () return vim.fn['codeium#Accept']() end, { expr = true })
+    --   end,
+    -- }
   },
 })

@@ -71,6 +71,7 @@ local function gen_from_quickfix_custom(opts)
     local display, hl_group, icon = utils.transform_devicons(entry.filename, string.format(display_string, display_filename, coordinates), false)
 
     if hl_group then
+      icon = icon or " "
       return display, { { { 0, #icon }, hl_group } }
     else
       return display
@@ -100,6 +101,7 @@ local function gen_from_mru(opts)
     local display, hl_group, icon = utils.transform_devicons(entry.value, entry.value, false)
 
     if hl_group then
+      icon = icon or " "
       return display, { { { 0, #icon }, hl_group } }
     else
       return display
@@ -206,6 +208,10 @@ local function references(opts)
 
   local results = locations_to_items(refs)
   if not results then
+    return
+  end
+
+  if #results == 0 then
     return
   end
 
