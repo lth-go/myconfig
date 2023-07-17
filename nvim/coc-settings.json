@@ -27,13 +27,8 @@
     "youdao",
     "haici"
   ],
-  "list.insertMappings": {
-    "<C-f>": "feedkeys:\\<C-f>",
-    "<C-b>": "feedkeys:\\<C-b>",
-    "<C-n>": "normal:j",
-    "<C-p>": "normal:k",
-    "<C-u>": "feedkeys:\\<C-u>"
-  },
+  "list.nextKeymap": "<C-n>",
+  "list.previousKeymap": "<C-p>",
   "languageserver": {},
   "go.goplsOptions": {
     "memoryMode": "DegradeClosed",

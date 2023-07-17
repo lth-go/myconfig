@@ -10,8 +10,7 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require("lazy").setup({
   spec = {
-    { "nvim-lua/popup.nvim" },
-    { "nvim-lua/plenary.nvim" },
+    { "nvim-lua/plenary.nvim", lazy = true },
 
     {
       "sainnhe/gruvbox-material",
@@ -46,7 +45,6 @@ require("lazy").setup({
       end,
     },
 
-    { "sheerun/vim-polyglot" },
     { "kyazdani42/nvim-web-devicons", lazy = true },
 
     {
@@ -59,11 +57,6 @@ require("lazy").setup({
           highlight = {
             enable = true,
             disable = function(lang, bufnr)
-              -- 渲染有问题
-              if lang == "dockerfile" then
-                return true
-              end
-
               if vim.api.nvim_buf_line_count(bufnr) > 8192 then
                 return true
               end
@@ -120,6 +113,9 @@ require("lazy").setup({
       branch = "release",
       init = function()
         local g = vim.g
+
+        g.coc_snippet_next = '<C-n>'
+        g.coc_snippet_prev = '<C-p>'
 
         g.coc_global_extensions = {
           "coc-lists",
@@ -344,11 +340,48 @@ require("lazy").setup({
     },
 
     {
-      'Exafunction/codeium.vim',
-      config = function ()
+      "Exafunction/codeium.vim",
+      config = function()
         vim.g.codeium_no_map_tab = 1
-        vim.keymap.set('i', '<C-j>', function () return vim.fn['codeium#Accept']() end, { expr = true })
+        vim.keymap.set("i", "<C-j>", [[codeium#Accept()]], { expr = true, script = true, silent = true })
       end,
-    }
+    },
+
+    { "MunifTanjim/nui.nvim", lazy = true },
+    {
+      'VonHeikemen/searchbox.nvim',
+      config = function ()
+        -- fix bug
+        local search_types = require('searchbox.search-types')
+        local on_submit = search_types.match_all.on_submit
+        search_types.match_all.on_submit = function(value, opts, state)
+          if state.first_match == nil then
+            return
+          end
+
+          return on_submit(value, opts, state)
+        end
+
+        require('searchbox').setup({
+          popup = {
+            relative = 'editor',
+            position = {
+              row = '100%',
+              col = '0%',
+            },
+            size = 30,
+            border = {
+              style = 'single',
+              text = {
+                top = ' Search ',
+                top_align = 'left',
+              },
+            },
+          },
+        })
+
+        vim.keymap.set('n', '/', ':SearchBoxMatchAll clear_matches=false show_matches=true<CR>', { silent = true})
+      end
+    },
   },
 })

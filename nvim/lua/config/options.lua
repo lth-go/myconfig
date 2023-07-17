@@ -23,7 +23,7 @@ opt.relativenumber = true
 opt.scrolloff = 10
 opt.shiftround = true
 opt.shiftwidth = 4
-opt.shortmess:append("csI")
+opt.shortmess:append("csIW")
 opt.showmode = false
 opt.sidescrolloff = 10
 opt.signcolumn = "number"

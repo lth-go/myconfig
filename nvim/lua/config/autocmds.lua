@@ -51,19 +51,20 @@ autocmd({ "BufReadPost" }, {
 })
 
 -- 自动创建目录
-autocmd("BufWritePre", {
+autocmd({ "BufWritePre" }, {
   pattern = "*",
-  callback = function()
-    local dir = vim.fn.expand("%:p:h")
-
-    if vim.fn.isdirectory(dir) == 0 then
-      vim.fn.mkdir(dir, "p")
+  callback = function(event)
+    if event.match:match("^%w%w+://") then
+      return
     end
+
+    local file = vim.loop.fs_realpath(event.match) or event.match
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
   end,
 })
 
 -- dont list quickfix buffers
-autocmd("FileType", {
+autocmd({ "FileType" }, {
   pattern = "qf",
   callback = function()
     vim.opt_local.buflisted = false
@@ -71,21 +72,21 @@ autocmd("FileType", {
 })
 
 -- Disable statusline in dashboard
-autocmd("FileType", {
+autocmd({ "FileType" }, {
   pattern = "alpha",
   callback = function()
     vim.opt.laststatus = 0
   end,
 })
 
-autocmd("BufUnload", {
+autocmd({ "BufUnload" }, {
   buffer = 0,
   callback = function()
     vim.opt.laststatus = 3
   end,
 })
 
-autocmd("StdinReadPost", {
+autocmd({ "StdinReadPost" }, {
   pattern = "*",
   callback = function()
     vim.opt.modified = false

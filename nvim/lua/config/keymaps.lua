@@ -257,10 +257,6 @@ M.coc = function()
   keymap_set("n", [[<Space>gtr]], [[<Cmd>GoTestFunc<CR>]], {})
 end
 
-M.copilot = function()
-  keymap_set("i", "<C-j>", [[copilot#Accept("")]], { expr = true, script = true, silent = true })
-end
-
 M.telescope = function()
   local live_grep_args = function()
     require("telescope").extensions.live_grep_args.live_grep_args()
@@ -349,7 +345,6 @@ M.init = function()
     M.bufferline()
     M.wilder()
     M.coc()
-    -- M.copilot()
     M.telescope()
     M.nerdcommenter()
     M.vim_easy_align()
