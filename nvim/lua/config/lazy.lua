@@ -114,8 +114,8 @@ require("lazy").setup({
       init = function()
         local g = vim.g
 
-        g.coc_snippet_next = '<C-n>'
-        g.coc_snippet_prev = '<C-p>'
+        g.coc_snippet_next = "<C-n>"
+        g.coc_snippet_prev = "<C-p>"
 
         g.coc_global_extensions = {
           "coc-lists",
@@ -349,10 +349,10 @@ require("lazy").setup({
 
     { "MunifTanjim/nui.nvim", lazy = true },
     {
-      'VonHeikemen/searchbox.nvim',
-      config = function ()
+      "VonHeikemen/searchbox.nvim",
+      config = function()
         -- fix bug
-        local search_types = require('searchbox.search-types')
+        local search_types = require("searchbox.search-types")
         local on_submit = search_types.match_all.on_submit
         search_types.match_all.on_submit = function(value, opts, state)
           if state.first_match == nil then
@@ -362,26 +362,26 @@ require("lazy").setup({
           return on_submit(value, opts, state)
         end
 
-        require('searchbox').setup({
+        require("searchbox").setup({
           popup = {
-            relative = 'editor',
+            relative = "editor",
             position = {
-              row = '100%',
-              col = '0%',
+              row = "100%",
+              col = "0%",
             },
             size = 30,
             border = {
-              style = 'single',
+              style = "single",
               text = {
-                top = ' Search ',
-                top_align = 'left',
+                top = " Search ",
+                top_align = "left",
               },
             },
           },
         })
 
-        vim.keymap.set('n', '/', ':SearchBoxMatchAll clear_matches=false show_matches=true<CR>', { silent = true})
-      end
+        vim.keymap.set("n", "/", ":SearchBoxMatchAll show_matches=true<CR>", { silent = true })
+      end,
     },
   },
 })
