@@ -166,6 +166,23 @@ default.diagnostic = {
   },
 }
 
+default.noice_command = {
+  provider = function()
+    if not package.loaded["noice"] then
+        return " "
+    end
+
+    local noice = require("noice")
+
+    if not noice.api.status.command.has() then
+      return " "
+    end
+
+    return noice.api.status.command.get() .. " "
+  end,
+  hl = { fg = default.colors.red },
+}
+
 default.coc_current_function = {
   provider = function()
     local func = vim.b["coc_current_function"] or ""
@@ -311,6 +328,7 @@ add_table(default.left, default.diagnostic.warning)
 add_table(default.left, default.diagnostic.white_space)
 
 -- right
+add_table(default.right, default.noice_command)
 add_table(default.right, default.coc_current_function)
 add_table(default.right, default.file_type)
 add_table(default.right, default.empty_space)

@@ -351,10 +351,16 @@ require("lazy").setup({
     {
       "VonHeikemen/searchbox.nvim",
       config = function()
+        --
         -- fix bug
+        --
         local search_types = require("searchbox.search-types")
         local on_submit = search_types.match_all.on_submit
         search_types.match_all.on_submit = function(value, opts, state)
+          if state.total_matches == 0 then
+            return
+          end
+
           if state.first_match == nil then
             return
           end
@@ -362,26 +368,95 @@ require("lazy").setup({
           return on_submit(value, opts, state)
         end
 
+        local utils = require("searchbox.utils")
+        utils.set_title = function()
+          return ""
+        end
+
+        utils.merge = function(defaults, override)
+          local merged = vim.tbl_deep_extend("force", {}, defaults, override or {})
+
+          merged.popup.border.text = nil
+
+          return merged
+        end
+
         require("searchbox").setup({
+          defaults = {
+            prompt = " ",
+          },
           popup = {
             relative = "editor",
             position = {
               row = "100%",
               col = "0%",
             },
-            size = 30,
+            size = "100%",
             border = {
-              style = "single",
-              text = {
-                top = " Search ",
-                top_align = "left",
-              },
+              style = "none",
             },
+          },
+          hooks = {
+            on_done = function()
+              vim.opt.hlsearch = vim.opt.hlsearch
+              vim.v.searchforward = 1
+            end,
           },
         })
 
-        vim.keymap.set("n", "/", ":SearchBoxMatchAll show_matches=true<CR>", { silent = true })
+        vim.keymap.set("n", "/", ":SearchBoxMatchAll<CR>", { silent = true })
       end,
+    },
+    {
+      "folke/noice.nvim",
+      event = "VeryLazy",
+      opts = {
+        cmdline = {
+          view = "cmdline",
+          format = {
+            cmdline = { lang = "" },
+            help = false,
+          },
+        },
+        presets = {
+          bottom_search = true,
+          long_message_to_split = true,
+        },
+        routes = {
+          {
+            filter = {
+              event = "msg_show",
+              any = {
+                { find = "%d+L, %d+B" },
+                { find = "; after #%d+" },
+                { find = "; before #%d+" },
+                { find = "lines yanked" },
+                { find = "more lines" },
+                { find = "fewer lines" },
+                { find = [[\<]] },
+                { find = [[/]] },
+                { find = "E486: Pattern not found" },
+              },
+            },
+            view = "mini",
+          },
+          {
+            filter = {
+              event = "msg_show",
+              any = {
+                { find = "Already at newest change" },
+              },
+            },
+            opts = {
+              skip = true,
+            },
+          },
+        },
+      },
+      dependencies = {
+        "MunifTanjim/nui.nvim",
+        "rcarriga/nvim-notify",
+      },
     },
   },
 })

@@ -63,9 +63,9 @@ M.general = function()
   keymap_set("i", "<F1>", "<Nop>", { noremap = true })
   keymap_set("n", "Q", "<Nop>", { noremap = true })
 
-  keymap_set("n", "<Leader>q", ":q<CR>", { noremap = true })
-  keymap_set("n", "<Leader>w", ":w<CR>", { noremap = true })
-  keymap_set("n", "<Leader>z", ":qa!<CR>", { noremap = true })
+  keymap_set("n", "<Leader>q", "<cmd>q<CR><ESC>", { noremap = true })
+  keymap_set("n", "<Leader>w", "<cmd>w<CR><ESC>", { noremap = true })
+  keymap_set("n", "<Leader>z", "<cmd>qa!<CR><ESC>", { noremap = true })
 
   cmd([[cabbrev w!! w !sudo tee % > /dev/null]])
 
@@ -125,7 +125,7 @@ M.general = function()
   keymap_set("", "<Leader>p", [[""p]], {})
   keymap_set("", "<Leader>P", [[""P]], {})
 
-  keymap_set("n", "<Leader><Space>", ":vs<CR>", { noremap = true })
+  keymap_set("n", "<Leader><Space>", "<cmd>vs<CR><ESC>", { noremap = true })
 
   keymap_set("n", "<Leader>bd", buf_only, { noremap = true, silent = true })
 
