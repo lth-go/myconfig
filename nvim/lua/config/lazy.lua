@@ -348,61 +348,9 @@ require("lazy").setup({
 
     { "MunifTanjim/nui.nvim", lazy = true },
     {
-      "VonHeikemen/searchbox.nvim",
+      "lth-go/searchbox.nvim",
+      lazy = true,
       config = function()
-        --
-        -- fix bug
-        --
-        local search_types = require("searchbox.search-types")
-        local on_submit = search_types.match_all.on_submit
-        search_types.match_all.on_submit = function(value, opts, state)
-          if state.total_matches == 0 then
-            return
-          end
-
-          if state.first_match == nil then
-            return
-          end
-
-          return on_submit(value, opts, state)
-        end
-
-        local utils = require("searchbox.utils")
-        utils.set_title = function()
-          return ""
-        end
-
-        utils.merge = function(defaults, override)
-          local merged = vim.tbl_deep_extend("force", {}, defaults, override or {})
-
-          merged.popup.border.text = nil
-
-          return merged
-        end
-
-        require("searchbox").setup({
-          defaults = {
-            prompt = " ",
-          },
-          popup = {
-            relative = "editor",
-            position = {
-              row = "100%",
-              col = "0%",
-            },
-            size = "100%",
-            border = {
-              style = "none",
-            },
-          },
-          hooks = {
-            on_done = function()
-              vim.opt.hlsearch = vim.opt.hlsearch
-              vim.v.searchforward = 1
-            end,
-          },
-        })
-
         vim.keymap.set("n", "/", ":SearchBoxMatchAll<CR>", { silent = true })
       end,
     },
