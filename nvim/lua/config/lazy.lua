@@ -292,7 +292,6 @@ require("lazy").setup({
       end,
     },
 
-    { "lth-go/vim-bookmarks" },
     -- {
     --   "sindrets/diffview.nvim",
     --   config = function()

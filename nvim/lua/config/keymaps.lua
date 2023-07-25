@@ -306,21 +306,6 @@ M.gomove = function()
   keymap_set("x", "<A-l>", "<Plug>GoVSMRight", {})
 end
 
-M.bookmarks = function()
-  local open_telescope_bookmarks = function()
-    require("telescope").extensions.vim_bookmarks.all({
-      initial_mode = "normal",
-    })
-  end
-
-  keymap_set("n", "mm", "<Plug>BookmarkToggle", {})
-  keymap_set("n", "mi", "<Plug>BookmarkAnnotate", {})
-  keymap_set("n", "<Leader>m", open_telescope_bookmarks, {})
-  keymap_set("n", "]m", "<Plug>BookmarkNext", {})
-  keymap_set("n", "[m", "<Plug>BookmarkPrev", {})
-  keymap_set("n", "mc", "<Plug>BookmarkClear", {})
-end
-
 M.spectre = function()
   local open = function()
     require("spectre").open()
@@ -350,7 +335,6 @@ M.init = function()
     M.vim_easy_align()
     M.vim_expand_region()
     M.gomove()
-    M.bookmarks()
     M.spectre()
     M.floaterm()
     M.treesj()
