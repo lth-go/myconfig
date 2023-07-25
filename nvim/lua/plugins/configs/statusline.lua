@@ -169,7 +169,7 @@ default.diagnostic = {
 default.noice_command = {
   provider = function()
     if not package.loaded["noice"] then
-        return " "
+      return " "
     end
 
     local noice = require("noice")

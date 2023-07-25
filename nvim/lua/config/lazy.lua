@@ -210,6 +210,19 @@ require("lazy").setup({
       end,
     },
 
+    {
+      "Wansmer/sibling-swap.nvim",
+      dependencies = { "nvim-treesitter" },
+      config = function()
+        require('sibling-swap').setup({
+          use_default_keymaps = false,
+        })
+
+        vim.keymap.set('n', '<A-h>', require('sibling-swap').swap_with_left)
+        vim.keymap.set('n', '<A-l>', require('sibling-swap').swap_with_right)
+      end,
+    },
+
     { "tpope/vim-abolish" },
     { "tpope/vim-repeat" },
     { "tpope/vim-surround" },
@@ -301,6 +314,7 @@ require("lazy").setup({
 
     {
       "windwp/nvim-spectre",
+      lazy = true,
       config = function()
         require("spectre").setup({
           highlight = {
@@ -349,14 +363,12 @@ require("lazy").setup({
     { "MunifTanjim/nui.nvim", lazy = true },
     {
       "lth-go/searchbox.nvim",
-      lazy = true,
       config = function()
         vim.keymap.set("n", "/", ":SearchBoxMatchAll<CR>", { silent = true })
       end,
     },
     {
       "folke/noice.nvim",
-      event = "VeryLazy",
       opts = {
         cmdline = {
           view = "cmdline",
