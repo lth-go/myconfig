@@ -182,9 +182,9 @@ M.coc = function()
   local smart_enter = function()
     if vim.fn["coc#pum#visible"]() == 1 then
       return vim.fn["coc#pum#confirm"]()
-    else
-      return vim.api.nvim_replace_termcodes([[<C-g>u<CR><C-r>=coc#on_enter()<CR>]], true, true, true)
     end
+
+    return require('nvim-autopairs').autopairs_cr()
   end
 
   local show_documentation = function()
