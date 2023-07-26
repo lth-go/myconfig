@@ -164,7 +164,44 @@ require("lazy").setup({
         { "nvim-treesitter" },
       },
       config = function()
-        require("plugins.configs.telescope")
+        local telescope = require("telescope")
+        local actions = require("telescope.actions")
+
+        telescope.setup({
+          defaults = {
+            prompt_prefix = "   ",
+            selection_caret = "  ",
+            mappings = {
+              i = {
+                ["<esc>"] = actions.close,
+                ["<C-l>"] = false,
+              },
+              n = {
+                ["<C-n>"] = actions.move_selection_next,
+                ["<C-p>"] = actions.move_selection_previous,
+              },
+            },
+            file_ignore_patterns = { "vendor/.*" },
+            layout_config = {
+              horizontal = {
+                prompt_position = "top",
+              },
+              width = 0.87,
+              height = 0.80,
+              preview_cutoff = 120,
+            },
+            sorting_strategy = "ascending",
+            path_display = { "truncate" },
+          },
+        })
+
+        --
+        -- extension
+        --
+
+        telescope.load_extension("coc")
+        telescope.load_extension("fzf")
+        telescope.load_extension("live_grep_args")
       end,
     },
 
@@ -215,12 +252,12 @@ require("lazy").setup({
       "Wansmer/sibling-swap.nvim",
       dependencies = { "nvim-treesitter" },
       config = function()
-        require('sibling-swap').setup({
+        require("sibling-swap").setup({
           use_default_keymaps = false,
         })
 
-        vim.keymap.set('n', '<A-h>', require('sibling-swap').swap_with_left)
-        vim.keymap.set('n', '<A-l>', require('sibling-swap').swap_with_right)
+        vim.keymap.set("n", "<A-h>", require("sibling-swap").swap_with_left)
+        vim.keymap.set("n", "<A-l>", require("sibling-swap").swap_with_right)
       end,
     },
 

@@ -1,5 +1,5 @@
-local present, feline = pcall(require, "feline")
-if not present then
+local ok, feline = pcall(require, "feline")
+if not ok then
   return
 end
 

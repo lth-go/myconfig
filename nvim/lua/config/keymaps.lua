@@ -184,7 +184,7 @@ M.coc = function()
       return vim.fn["coc#pum#confirm"]()
     end
 
-    return require('nvim-autopairs').autopairs_cr()
+    return require("nvim-autopairs").autopairs_cr()
   end
 
   local show_documentation = function()
