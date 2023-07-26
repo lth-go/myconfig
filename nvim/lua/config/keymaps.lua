@@ -246,9 +246,6 @@ M.coc = function()
 
   keymap_set("n", "<Space>gf", "<Cmd>call CocActionAsync('codeAction', 'cursor', ['refactor.rewrite'])<CR>", { noremap = true, silent = true })
 
-  keymap_set("n", "<Leader>t", [[<Plug>(coc-translator-p)]], {})
-  keymap_set("v", "<Leader>t", [[<Plug>(coc-translator-pv)]], {})
-
   -- coc-explorer
   keymap_set("n", [[<C-\>]], open_explorer, {})
   keymap_set("n", [[<F1>]], [[<Cmd>CocCommand explorer --no-toggle --no-focus<CR>]], {})

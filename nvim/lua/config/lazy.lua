@@ -366,7 +366,6 @@ require("lazy").setup({
           "coc-pyright",
           "coc-clangd",
           "coc-vimlsp",
-          "coc-translator",
           "coc-sumneko-lua",
         }
       end,
@@ -690,6 +689,19 @@ require("lazy").setup({
         "MunifTanjim/nui.nvim",
         "rcarriga/nvim-notify",
       },
+    },
+    {
+      "lth-go/vim-translator",
+      config = function()
+        local vim = vim
+        local g = vim.g
+
+        g.translator_default_engines = { "google" }
+        g.translator_proxy_url = "http://192.168.56.1:7890"
+
+        vim.keymap.set("n", "<Leader>t", [[<Plug>TranslateW]], { silent = true })
+        vim.keymap.set("v", "<Leader>t", [[<Plug>TranslateWV]], { silent = true })
+      end,
     },
   },
 })
