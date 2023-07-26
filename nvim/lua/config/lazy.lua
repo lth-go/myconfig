@@ -80,8 +80,59 @@ require("lazy").setup({
 
     {
       "goolord/alpha-nvim",
+      event = "VimEnter",
       config = function()
-        require("plugins.configs.dashboard")
+        local dashboard = require("alpha.themes.dashboard")
+
+        local header = {
+          [[                                                                   ]],
+          [[      ████ ██████           █████      ██                    ]],
+          [[     ███████████             █████                            ]],
+          [[     █████████ ███████████████████ ███   ███████████  ]],
+          [[    █████████  ███    █████████████ █████ ██████████████  ]],
+          [[   █████████ ██████████ █████████ █████ █████ ████ █████  ]],
+          [[ ███████████ ███    ███ █████████ █████ █████ ████ █████ ]],
+          [[██████  █████████████████████ ████ █████ █████ ████ ██████]],
+        }
+
+        local function colorize_header()
+          local lines = {}
+
+          for i, chars in pairs(header) do
+            local line = {
+              type = "text",
+              val = chars,
+              opts = {
+                hl = "StartLogo" .. i,
+                shrink_margin = false,
+                position = "center",
+              },
+            }
+
+            table.insert(lines, line)
+          end
+
+          return lines
+        end
+
+        dashboard.section.header.type = "group"
+        dashboard.section.header.val = colorize_header()
+        dashboard.section.buttons.val = {
+          dashboard.button("SPC f m", "  Recent File  ", ":Telescope coc mru<CR>"),
+          dashboard.button("SPC f f", "  Find File  ", ":Telescope find_files<CR>"),
+          dashboard.button("SPC f g", "  Find Word  ", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>"),
+          dashboard.button("SPC e s", "  Settings", ":e $MYVIMRC | :cd %:p:h <CR>"),
+        }
+        for _, button in ipairs(dashboard.section.buttons.val) do
+          button.opts.hl = "Keyword"
+          button.opts.hl_shortcut = "Title"
+        end
+        dashboard.section.footer.val = require("alpha.fortune")()
+        dashboard.section.footer.opts.hl = "Number"
+        dashboard.section.footer.opts.position = "center"
+        dashboard.opts.layout[1].val = 8
+
+        require("alpha").setup(dashboard.config)
       end,
     },
 
