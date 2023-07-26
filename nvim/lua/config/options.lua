@@ -8,6 +8,7 @@ opt.cindent = true
 opt.clipboard:append("unnamedplus")
 opt.completeopt:remove("preview")
 opt.cursorline = true
+opt.diffopt:append("linematch:60")
 opt.expandtab = true
 opt.foldenable = false
 opt.ignorecase = true

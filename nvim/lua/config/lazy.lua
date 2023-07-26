@@ -137,9 +137,194 @@ require("lazy").setup({
     },
 
     {
-      "feline-nvim/feline.nvim",
-      config = function()
-        require("plugins.configs.statusline")
+      "nvim-lualine/lualine.nvim",
+      opts = function()
+        local colors = {
+          white = "#ebdbb2",
+          black = "#282828",
+          grey = "#464646",
+          darkgray = "#504945",
+          red = "#fb4934",
+          green = "#b8bb26",
+          blue = "#458588",
+          yellow = "#d79921",
+          orange = "#e78a4e",
+          cyan = "#82b3a8",
+          lightbg = "#353535",
+        }
+
+        return {
+          options = {
+            globalstatus = true,
+            disabled_filetypes = {
+              statusline = {
+                "alpha",
+                "coc-explorer",
+                "TelescopePrompt",
+                "fugitive",
+                "fugitiveblame",
+                "floaterm",
+                "qf",
+              },
+            },
+          },
+          sections = {
+            lualine_a = {
+              {
+                function()
+                  return ""
+                end,
+                separator = { right = "" },
+                color = {
+                  fg = colors.black,
+                  bg = colors.blue,
+                },
+              },
+            },
+            lualine_b = {
+              {
+                "filetype",
+                color = {
+                  bg = colors.darkgray,
+                },
+                icon_only = true,
+                separator = "",
+                padding = { left = 1, right = 0 },
+              },
+              {
+                "filename",
+                separator = { right = "" },
+                color = {
+                  bg = colors.darkgray,
+                },
+                path = 1,
+                symbols = { modified = "  ", readonly = "", unnamed = "" },
+              },
+            },
+            lualine_c = {
+              {
+                function()
+                  local info = vim.b["coc_diagnostic_info"] or {}
+
+                  if vim.tbl_isempty(info) then
+                    return ""
+                  end
+
+                  local cnt = info["error"] or 0
+
+                  if cnt == 0 then
+                    return ""
+                  end
+
+                  local lnum = string.format("(L%d)", info["lnums"][1])
+
+                  return cnt .. lnum
+                end,
+                icon = "",
+                color = { fg = colors.red },
+              },
+              {
+                function()
+                  local info = vim.b["coc_diagnostic_info"] or {}
+
+                  if vim.tbl_isempty(info) then
+                    return ""
+                  end
+
+                  local cnt = info["warning"] or 0
+
+                  if cnt == 0 then
+                    return ""
+                  end
+
+                  local lnum = string.format("(L%d)", info["lnums"][2])
+
+                  return cnt .. lnum
+                end,
+                icon = "",
+                color = { fg = colors.yellow },
+              },
+              {
+                function()
+                  local buf_name = vim.api.nvim_buf_get_name(0)
+                  if buf_name == "" then
+                    return ""
+                  end
+
+                  local file_size = vim.api.nvim_call_function("getfsize", { buf_name })
+                  if file_size > 256 * 1024 then
+                    return ""
+                  end
+
+                  local lnum = vim.fn.search("\\s$", "nw")
+                  if lnum == 0 then
+                    return ""
+                  end
+
+                  return string.format("(L%d)", lnum)
+                end,
+                icon = "",
+                color = { fg = colors.white },
+              },
+            },
+            lualine_x = {
+              {
+                function()
+                  return require("noice").api.status.command.get()
+                end,
+                cond = function()
+                  local modes = {
+                    "SELECT",
+                    "S-LINE",
+                    "VISUAL",
+                    "V-LINE",
+                    "V-BLOCK",
+                    "V-REPLACE",
+                  }
+                  local mode = require("lualine.utils.mode").get_mode()
+
+                  if not vim.tbl_contains(modes, mode) then
+                    return false
+                  end
+
+                  return package.loaded["noice"] and require("noice").api.status.command.has()
+                end,
+                separator = "",
+                color = { fg = colors.red },
+              },
+              {
+                function()
+                  return vim.b["coc_current_function"] or ""
+                end,
+                cond = function()
+                  local func = vim.b["coc_current_function"] or ""
+                  return func ~= ""
+                end,
+                separator = "",
+              },
+              { "filetype" },
+            },
+            lualine_y = {
+              {
+                "mode",
+                color = {
+                  bg = colors.darkgray,
+                },
+              },
+            },
+            lualine_z = {
+              {
+                function()
+                  return string.format(" %d/%d ", vim.fn.line("."), vim.fn.line("$"))
+                end,
+                color = {
+                  fg = colors.black,
+                  bg = colors.blue,
+                },
+              },
+            },
+          },
+        }
       end,
     },
 
