@@ -5,11 +5,16 @@
   "diagnostic.hintSign": "",
   "diagnostic.infoSign": "",
   "diagnostic.warningSign": "",
+  "languageserver": {},
+  "list.nextKeymap": "<C-n>",
+  "list.previousKeymap": "<C-p>",
   "outline.autoPreview": true,
-  // "outline.splitCommand": "botright 50vs",
   "outline.sortBy": "category",
   "explorer.diagnostic.displayMax": 0,
   "explorer.git.enable": false,
+  "explorer.file.root.template": "[icon] [root]",
+  "explorer.file.child.template": "[selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5]",
+  "explorer.filename.colored.enable": false,
   "explorer.icon.enableNerdfont": true,
   "explorer.icon.source": "nvim-web-devicons",
   "explorer.openAction.strategy": "previousWindow",
@@ -19,12 +24,6 @@
       "expand": true
     }
   ],
-  "explorer.file.root.template": "[icon] [root]",
-  "explorer.file.child.template": "[selection | clip | 1] [indent][icon | 1] [diagnosticError & 1][filename omitCenter 1][modified][readonly] [linkIcon & 1][link growRight 1 omitCenter 5]",
-  "explorer.filename.colored.enable": false,
-  "list.nextKeymap": "<C-n>",
-  "list.previousKeymap": "<C-p>",
-  "languageserver": {},
   "go.goplsOptions": {
     "memoryMode": "DegradeClosed",
     // "gofumpt": true,
@@ -34,14 +33,12 @@
       "constantValues": true
     }
   },
-  "rust-analyzer.updates.checkOnStartup": false,
-  "rust-analyzer.checkOnSave.enable": false,
-  "sumneko-lua.checkUpdate": false,
   "python.venvPath": "/work/python_venv/",
+  "rust-analyzer.updates.checkOnStartup": false,
   "sql.formatOptions": {
     "language": "postgresql",
     "uppercase": true
   },
+  "sumneko-lua.checkUpdate": false,
   "yaml.format.enable": true,
-  "Lua.telemetry.enable": true
 }

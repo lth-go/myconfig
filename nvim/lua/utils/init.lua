@@ -3,16 +3,11 @@ local vim = vim
 local M = {}
 
 M.get_visual_selection = function()
-  vim.cmd('noau normal! "vy"')
-  local text = vim.fn.getreg("v")
-  vim.fn.setreg("v", {})
-
-  text = string.gsub(text, "\n", "")
-  if #text > 0 then
-    return text
-  else
-    return ""
-  end
+  local save_a = vim.fn.getreginfo("a")
+  vim.cmd([[norm! "ay]])
+  local selection = vim.fn.getreg("a", 1)
+  vim.fn.setreg("a", save_a)
+  return selection
 end
 
 return M
