@@ -10,6 +10,8 @@
   "list.previousKeymap": "<C-p>",
   "outline.autoPreview": true,
   "outline.sortBy": "category",
+  "suggest.insertMode": "insert",
+  "suggest.selection": "recentlyUsedByPrefix",
   "explorer.diagnostic.displayMax": 0,
   "explorer.git.enable": false,
   "explorer.file.root.template": "[icon] [root]",
