@@ -57,6 +57,10 @@ require("lazy").setup({
           highlight = {
             enable = true,
             disable = function(lang, bufnr)
+              if lang == "dockerfile" then
+                return true
+              end
+
               if vim.api.nvim_buf_line_count(bufnr) > 8192 then
                 return true
               end

@@ -9,6 +9,13 @@ autocmd({ "BufNewFile", "BufRead" }, {
   end,
 })
 
+autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = "Dockerfile_*",
+  callback = function()
+    vim.opt_local.filetype = "dockerfile"
+  end,
+})
+
 -- kubeconfig 识别
 autocmd({ "BufNewFile", "BufRead" }, {
   pattern = "*/.kube/config",
