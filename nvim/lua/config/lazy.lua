@@ -150,7 +150,7 @@ require("lazy").setup({
           darkgray = "#504945",
           red = "#fb4934",
           green = "#b8bb26",
-          blue = "#458588",
+          blue = "#2b83ba",
           yellow = "#d79921",
           orange = "#e78a4e",
           cyan = "#82b3a8",
@@ -669,8 +669,6 @@ require("lazy").setup({
                 { find = "lines yanked" },
                 { find = "more lines" },
                 { find = "fewer lines" },
-                { find = [[\<]] },
-                { find = [[/]] },
                 { find = "E486: Pattern not found" },
               },
             },
@@ -680,6 +678,7 @@ require("lazy").setup({
             filter = {
               event = "msg_show",
               any = {
+                { find = [[^\<.*\>$]] },
                 { find = "Already at newest change" },
               },
             },
