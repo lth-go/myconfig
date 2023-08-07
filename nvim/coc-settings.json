@@ -29,10 +29,13 @@
   "go.goplsOptions": {
     "memoryMode": "DegradeClosed",
     // "gofumpt": true,
+    "usePlaceholders": true,
     "staticcheck": true,
     "hints": {
       "assignVariableTypes": true,
-      "constantValues": true
+      "compositeLiteralFields": true,
+      "constantValues": true,
+      "functionTypeParameters": true
     }
   },
   "python.venvPath": "/work/python_venv/",

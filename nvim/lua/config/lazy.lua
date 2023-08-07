@@ -226,6 +226,7 @@ require("lazy").setup({
                 end,
                 icon = "",
                 color = { fg = colors.red },
+                separator = "",
               },
               {
                 function()
@@ -247,6 +248,7 @@ require("lazy").setup({
                 end,
                 icon = "",
                 color = { fg = colors.yellow },
+                separator = "",
               },
               {
                 function()
@@ -269,6 +271,7 @@ require("lazy").setup({
                 end,
                 icon = "",
                 color = { fg = colors.white },
+                separator = "",
               },
             },
             lualine_x = {
