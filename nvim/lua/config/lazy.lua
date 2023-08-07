@@ -53,7 +53,42 @@ require("lazy").setup({
       event = { "BufReadPost", "BufNewFile" },
       config = function()
         require("nvim-treesitter.configs").setup({
-          ensure_installed = "all",
+          ensure_installed = {
+            "bash",
+            "c",
+            "comment",
+            "cpp",
+            "css",
+            "diff",
+            "dockerfile",
+            "go",
+            "gomod",
+            "gosum",
+            "gowork",
+            "groovy",
+            "html",
+            "java",
+            "javascript",
+            "jsdoc",
+            "json",
+            "jsonc",
+            "lua",
+            "luadoc",
+            "luap",
+            "luau",
+            "make",
+            "markdown",
+            "markdown_inline",
+            "proto",
+            "python",
+            "rust",
+            "sql",
+            "toml",
+            "tsx",
+            "vim",
+            "vimdoc",
+            "yaml",
+          },
           highlight = {
             enable = true,
             disable = function(lang, bufnr)
@@ -73,10 +108,9 @@ require("lazy").setup({
 
               return false
             end,
-            use_languagetree = true,
           },
           indent = {
-            enable = false,
+            enable = true,
           },
         })
       end,
@@ -649,48 +683,69 @@ require("lazy").setup({
     },
     {
       "folke/noice.nvim",
-      opts = {
-        cmdline = {
-          view = "cmdline",
-          format = {
-            cmdline = { lang = "" },
-            help = false,
+      config = function()
+        local Formatters = require("noice.text.format.formatters")
+
+        function Formatters.search_count(message, opts, input)
+          local content = input:content()
+
+          local v = content:match(".*(%[%d+/%d+%])$")
+          if v then
+            content = v
+          end
+
+          message:append(content)
+        end
+
+        require("noice").setup({
+          cmdline = {
+            view = "cmdline",
+            format = {
+              cmdline = { lang = "" },
+              help = false,
+            },
           },
-        },
-        presets = {
-          bottom_search = true,
-          long_message_to_split = true,
-        },
-        routes = {
-          {
-            filter = {
-              event = "msg_show",
-              any = {
-                { find = "%d+L, %d+B" },
-                { find = "; after #%d+" },
-                { find = "; before #%d+" },
-                { find = "lines yanked" },
-                { find = "more lines" },
-                { find = "fewer lines" },
-                { find = "E486: Pattern not found" },
+          presets = {
+            bottom_search = true,
+            long_message_to_split = true,
+          },
+          views = {
+            virtualtext = {
+              format = { "{search_count}" },
+            },
+          },
+          routes = {
+            {
+              filter = {
+                event = "msg_show",
+                any = {
+                  { find = "%d+L, %d+B" },
+                  { find = "; after #%d+" },
+                  { find = "; before #%d+" },
+                  { find = "lines yanked" },
+                  { find = "more lines" },
+                  { find = "fewer lines" },
+                  { find = "E486: Pattern not found" },
+                },
+              },
+              view = "mini",
+            },
+            {
+              filter = {
+                event = "msg_show",
+                any = {
+                  { find = [[^\<.*\>$]] },
+                  { find = [[^\V.*]] },
+                  { find = "Already at newest change" },
+                },
+              },
+              opts = {
+                skip = true,
               },
             },
-            view = "mini",
           },
-          {
-            filter = {
-              event = "msg_show",
-              any = {
-                { find = [[^\<.*\>$]] },
-                { find = "Already at newest change" },
-              },
-            },
-            opts = {
-              skip = true,
-            },
-          },
-        },
-      },
+        })
+      end,
       dependencies = {
         "MunifTanjim/nui.nvim",
         "rcarriga/nvim-notify",
