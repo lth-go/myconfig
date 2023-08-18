@@ -10,7 +10,11 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require("lazy").setup({
   spec = {
-    { "nvim-lua/plenary.nvim", lazy = true },
+    {
+      "nvim-lua/plenary.nvim",
+      lazy = true,
+    },
+
 
     {
       "sainnhe/gruvbox-material",
@@ -45,7 +49,10 @@ require("lazy").setup({
       end,
     },
 
-    { "kyazdani42/nvim-web-devicons", lazy = true },
+    {
+      "kyazdani42/nvim-web-devicons",
+      lazy = true,
+    },
 
     {
       "nvim-treesitter/nvim-treesitter",
@@ -407,7 +414,7 @@ require("lazy").setup({
           "coc-pyright",
           "coc-clangd",
           "coc-vimlsp",
-          "coc-sumneko-lua",
+          "coc-lua",
         }
       end,
     },
