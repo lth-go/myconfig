@@ -15,7 +15,6 @@ require("lazy").setup({
       lazy = true,
     },
 
-
     {
       "sainnhe/gruvbox-material",
       priority = 1000,
@@ -52,6 +51,24 @@ require("lazy").setup({
     {
       "kyazdani42/nvim-web-devicons",
       lazy = true,
+      config = function()
+        require("nvim-web-devicons").setup({
+          override_by_filename = {
+            ["go.mod"] = {
+              icon = "",
+              color = "#519aba",
+              cterm_color = "74",
+              name = "GoMod",
+            },
+            ["go.sum"] = {
+              icon = "",
+              color = "#519aba",
+              cterm_color = "74",
+              name = "GoSum",
+            },
+          },
+        })
+      end,
     },
 
     {
