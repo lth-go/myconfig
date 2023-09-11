@@ -146,6 +146,7 @@ local function list_or_jump(opts)
           results = results,
           entry_maker = gen_from_quickfix_custom(opts),
         }),
+        push_cursor_on_edit = true,
       })
       :find()
   end
@@ -224,6 +225,7 @@ local function references(opts)
         results = results,
         entry_maker = gen_from_quickfix_custom(opts),
       }),
+      push_cursor_on_edit = true,
     })
     :find()
 end

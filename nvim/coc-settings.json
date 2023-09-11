@@ -32,7 +32,6 @@
     "usePlaceholders": true,
     "staticcheck": true,
     "hints": {
-      "assignVariableTypes": true,
       "compositeLiteralFields": true,
       "constantValues": true,
       "functionTypeParameters": true
