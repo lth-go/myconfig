@@ -208,8 +208,8 @@ M.coc = function()
   keymap_set("i", "<S-Tab>", smart_shift_tab, { expr = true, noremap = true })
   keymap_set("i", "<CR>", smart_enter, { expr = true, noremap = true, silent = true })
 
-  keymap_set("n", "[g", "<Plug>(coc-diagnostic-prev)", { silent = true })
-  keymap_set("n", "]g", "<Plug>(coc-diagnostic-next)", { silent = true })
+  keymap_set("n", "[g", "m'<Plug>(coc-diagnostic-prev)", { silent = true })
+  keymap_set("n", "]g", "m'<Plug>(coc-diagnostic-next)", { silent = true })
 
   keymap_set("n", "<leader>g", "<Plug>(coc-definition)", { silent = true })
   keymap_set("n", "gd", "<Plug>(coc-definition)", { silent = true })

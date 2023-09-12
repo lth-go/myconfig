@@ -180,10 +180,10 @@ require("lazy").setup({
         dashboard.section.header.type = "group"
         dashboard.section.header.val = colorize_header()
         dashboard.section.buttons.val = {
-          dashboard.button("SPC f m", "  Recent File  ", ":Telescope coc mru<CR>"),
-          dashboard.button("SPC f f", "  Find File  ", ":Telescope find_files<CR>"),
-          dashboard.button("SPC f g", "  Find Word  ", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>"),
-          dashboard.button("SPC e s", "  Settings", ":e $MYVIMRC | :cd %:p:h <CR>"),
+          dashboard.button("<Leader> f m", "  Recent File  ", ":Telescope coc mru<CR>"),
+          dashboard.button("<Leader> f f", "  Find File  ", ":Telescope find_files<CR>"),
+          dashboard.button("<Leader> f g", "  Find Word  ", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>"),
+          dashboard.button("<Leader> e s", "  Settings", ":e $MYVIMRC | :cd %:p:h <CR>"),
         }
         for _, button in ipairs(dashboard.section.buttons.val) do
           button.opts.hl = "Keyword"
@@ -466,6 +466,7 @@ require("lazy").setup({
       config = function()
         local telescope = require("telescope")
         local actions = require("telescope.actions")
+        local lga_actions = require("telescope-live-grep-args.actions")
 
         telescope.setup({
           defaults = {
@@ -492,6 +493,15 @@ require("lazy").setup({
             },
             sorting_strategy = "ascending",
             path_display = { "truncate" },
+          },
+          extensions = {
+            live_grep_args = {
+              mappings = { -- extend mappings
+                i = {
+                  ["<C-k>"] = lga_actions.quote_prompt(),
+                },
+              },
+            },
           },
         })
 
@@ -596,7 +606,7 @@ require("lazy").setup({
 
         leap.set_default_keymaps()
         leap.setup({
-          highlight_unlabeled = true,
+          max_phase_one_targets = 0,
         })
       end,
     },
