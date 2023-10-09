@@ -735,7 +735,7 @@ require("lazy").setup({
           cmdline = {
             view = "cmdline",
             format = {
-              cmdline = { lang = "" },
+              cmdline = false,
               help = false,
             },
           },
