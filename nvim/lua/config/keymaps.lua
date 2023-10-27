@@ -179,12 +179,13 @@ M.coc = function()
     return vim.api.nvim_replace_termcodes("<C-h>", true, true, true)
   end
 
-  local smart_enter = function()
-    if vim.fn["coc#pum#visible"]() == 1 then
+  _G.MUtils = {}
+  MUtils.completion_confirm = function()
+    if vim.fn["coc#pum#visible"]() ~= 0 then
       return vim.fn["coc#pum#confirm"]()
+    else
+      return require('nvim-autopairs').autopairs_cr()
     end
-
-    return require("nvim-autopairs").autopairs_cr()
   end
 
   local show_documentation = function()
@@ -206,7 +207,7 @@ M.coc = function()
   keymap_set("i", "<C-d>", "coc#refresh()", { expr = true, noremap = true, silent = true })
   keymap_set("i", "<Tab>", smart_tab, { expr = true, noremap = true, silent = true })
   keymap_set("i", "<S-Tab>", smart_shift_tab, { expr = true, noremap = true })
-  keymap_set("i", "<CR>", smart_enter, { expr = true, noremap = true, silent = true })
+  nvim_set_keymap("i", "<CR>", "v:lua.MUtils.completion_confirm()", { expr = true, noremap = true })
 
   keymap_set("n", "[g", "m'<Plug>(coc-diagnostic-prev)", { silent = true })
   keymap_set("n", "]g", "m'<Plug>(coc-diagnostic-next)", { silent = true })
