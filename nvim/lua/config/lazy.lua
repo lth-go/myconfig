@@ -17,6 +17,7 @@ require("lazy").setup({
 
     {
       "sainnhe/gruvbox-material",
+      lazy = false,
       priority = 1000,
       config = function()
         local vim = vim
@@ -26,7 +27,7 @@ require("lazy").setup({
 
         g.gruvbox_material_background = "hard"
         g.gruvbox_material_foreground = "original"
-        g.gruvbox_material_better_performance = 1
+        g.gruvbox_material_better_performance = 0
         g.gruvbox_material_disable_italic_comment = 1
 
         cmd.colorscheme("gruvbox-material")
