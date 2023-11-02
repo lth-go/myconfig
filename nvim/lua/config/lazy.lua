@@ -120,6 +120,10 @@ require("lazy").setup({
               if lang == "dockerfile" then
                 return true
               end
+              -- bug
+              if lang == "sql" then
+                return true
+              end
 
               if vim.api.nvim_buf_line_count(bufnr) > 8192 then
                 return true
@@ -451,6 +455,7 @@ require("lazy").setup({
         g.go_mod_fmt_autosave = 0
         g.go_template_autocreate = 0
         g.go_textobj_enabled = 0
+        g.go_term_enabled = 1
       end,
     },
 
@@ -797,6 +802,14 @@ require("lazy").setup({
 
         vim.keymap.set("n", "<Leader>t", [[<Plug>TranslateW]], { silent = true })
         vim.keymap.set("v", "<Leader>t", [[<Plug>TranslateWV]], { silent = true })
+      end,
+    },
+
+    {
+      "echasnovski/mini.ai",
+      version = "*",
+      config = function(_, opts)
+        require("mini.ai").setup(opts)
       end,
     },
   },
