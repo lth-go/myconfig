@@ -32,10 +32,13 @@
     "usePlaceholders": true,
     "staticcheck": true,
     "hints": {
-      "compositeLiteralFields": true,
+      "compositeLiteralFields": false,
       "constantValues": true,
       "functionTypeParameters": true
     }
+  },
+  "go.disable": {
+    "snippetCompletion": true
   },
   "python.venvPath": "/work/python_venv/",
   "rust-analyzer.updates.checkOnStartup": false,
