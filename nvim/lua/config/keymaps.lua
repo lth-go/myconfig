@@ -253,6 +253,11 @@ M.coc = function()
 
   keymap_set("n", [[<Space>gtg]], [[<Cmd>CocCommand go.test.generate.function<CR>]], {})
   keymap_set("n", [[<Space>gtr]], [[<Cmd>GoTestFunc<CR>]], {})
+
+  keymap_set("x", "i<space>", [[:<c-u>normal! viW<CR>]], { noremap = true, silent = true })
+  keymap_set("o", "i<space>", [[:normal viW<CR>]], { noremap = true, silent = true })
+  keymap_set("x", "a<space>", [[:<c-u>normal! viW<CR>]], { noremap = true, silent = true })
+  keymap_set("o", "a<space>", [[:normal viW<CR>]], { noremap = true, silent = true })
 end
 
 M.telescope = function()

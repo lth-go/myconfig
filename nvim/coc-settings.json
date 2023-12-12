@@ -11,7 +11,7 @@
   "outline.autoPreview": true,
   "outline.sortBy": "category",
   "suggest.insertMode": "insert",
-  "suggest.selection": "recentlyUsedByPrefix",
+  "suggest.selection": "recentlyUsed",
   "explorer.diagnostic.displayMax": 0,
   "explorer.git.enable": false,
   "explorer.file.root.template": "[icon] [root]",
@@ -29,7 +29,7 @@
   "go.goplsOptions": {
     "memoryMode": "DegradeClosed",
     // "gofumpt": true,
-    "usePlaceholders": true,
+    "usePlaceholders": false,
     "staticcheck": true,
     "hints": {
       "compositeLiteralFields": false,
@@ -38,7 +38,7 @@
     }
   },
   "go.disable": {
-    "snippetCompletion": true
+    "snippetCompletion": false
   },
   "python.venvPath": "/work/python_venv/",
   "rust-analyzer.updates.checkOnStartup": false,

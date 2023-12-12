@@ -804,13 +804,5 @@ require("lazy").setup({
         vim.keymap.set("v", "<Leader>t", [[<Plug>TranslateWV]], { silent = true })
       end,
     },
-
-    {
-      "echasnovski/mini.ai",
-      version = "*",
-      config = function(_, opts)
-        require("mini.ai").setup(opts)
-      end,
-    },
   },
 })
