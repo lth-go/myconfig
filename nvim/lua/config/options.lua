@@ -3,6 +3,7 @@ local opt = vim.opt
 local g = vim.g
 
 g.mapleader = ";"
+g.filetype_mod = "gomod" -- 低版本兼容
 
 opt.cindent = true
 opt.clipboard:append("unnamedplus")

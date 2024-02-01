@@ -43,7 +43,7 @@
   "python.venvPath": "/work/python_venv/",
   "rust-analyzer.updates.checkOnStartup": false,
   "sql.formatOptions": {
-    "language": "postgresql",
+    "language": "mysql",
     "uppercase": true
   },
   "Lua.format.defaultConfig": {
