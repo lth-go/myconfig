@@ -716,9 +716,9 @@ require("lazy").setup({
 
     { "MunifTanjim/nui.nvim", lazy = true },
     {
-      "lth-go/searchbox.nvim",
+      "lth-go/searchx.nvim",
       config = function()
-        vim.keymap.set("n", "/", ":SearchBoxMatchAll<CR>", { silent = true })
+        vim.keymap.set("n", "/", ":Searchx<CR>", { silent = true })
       end,
     },
     {
