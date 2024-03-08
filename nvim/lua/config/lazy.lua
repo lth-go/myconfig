@@ -610,9 +610,28 @@ require("lazy").setup({
       config = function()
         local leap = require("leap")
 
-        leap.set_default_keymaps()
+        vim.keymap.set({'n'}, 's', '<Plug>(leap-forward)')
+        vim.keymap.set({'n'}, 'S', '<Plug>(leap-backward)')
+
         leap.setup({
           max_phase_one_targets = 0,
+          safe_labels = {},
+          on_beacons = function(targets, start, end_)
+            for i = start or 1, end_ or #targets do
+              local target = targets[i]
+              local beacon = target.beacon
+
+              if type(beacon) == "table" and beacon[1] ~= nil and beacon[2] ~= nil then
+                local virttexts = beacon[2]
+
+                for _, virttext in ipairs(virttexts) do
+                  virttext[1] = virttext[1]:gsub("%s+$", "")
+                end
+              else
+              end
+            end
+            return true
+          end
         })
       end,
     },

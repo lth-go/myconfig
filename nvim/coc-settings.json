@@ -12,6 +12,11 @@
   "outline.sortBy": "category",
   "suggest.insertMode": "insert",
   "suggest.selection": "recentlyUsed",
+  "workspace.ignoredFolders": [
+    "$HOME",
+    "$HOME/.cargo/**",
+    "$HOME/.rustup/**"
+  ],
   "explorer.diagnostic.displayMax": 0,
   "explorer.git.enable": false,
   "explorer.file.root.template": "[icon] [root]",
