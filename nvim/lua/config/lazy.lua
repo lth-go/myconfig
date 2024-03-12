@@ -124,6 +124,12 @@ require("lazy").setup({
               if lang == "sql" then
                 return true
               end
+              if lang == "gomod" then
+                return true
+              end
+              if lang == "gosum" then
+                return true
+              end
 
               if vim.api.nvim_buf_line_count(bufnr) > 8192 then
                 return true
