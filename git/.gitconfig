@@ -38,7 +38,7 @@
 [mergetool "vimdiff"]
     path = nvim
 [log]
-    date = iso
+    date = local
 [push]
     default = simple
 [pull]

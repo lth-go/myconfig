@@ -32,7 +32,6 @@
     }
   ],
   "go.goplsOptions": {
-    "memoryMode": "DegradeClosed",
     // "gofumpt": true,
     "usePlaceholders": false,
     "staticcheck": true,
