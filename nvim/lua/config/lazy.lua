@@ -547,16 +547,16 @@ require("lazy").setup({
       end,
     },
 
-    {
-      "scrooloose/nerdcommenter",
-      config = function()
-        local g = vim.g
-
-        g.NERDCreateDefaultMappings = 0
-        g.NERDDefaultAlign = "left"
-        g.NERDSpaceDelims = 1
-      end,
-    },
+    -- {
+    --   "scrooloose/nerdcommenter",
+    --   config = function()
+    --     local g = vim.g
+    --
+    --     g.NERDCreateDefaultMappings = 0
+    --     g.NERDDefaultAlign = "left"
+    --     g.NERDSpaceDelims = 1
+    --   end,
+    -- },
 
     { "tpope/vim-fugitive" },
 
@@ -749,9 +749,9 @@ require("lazy").setup({
     {
       "folke/noice.nvim",
       config = function()
-        local Formatters = require("noice.text.format.formatters")
+        local formatters = require("noice.text.format.formatters")
 
-        function Formatters.search_count(message, opts, input)
+        function formatters.search_count(message, opts, input)
           local content = input:content()
 
           local v = content:match(".*(%[%d+/%d+%])$")
@@ -767,6 +767,7 @@ require("lazy").setup({
             view = "cmdline",
             format = {
               cmdline = false,
+              lua = false,
               help = false,
             },
           },

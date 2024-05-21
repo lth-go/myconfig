@@ -130,6 +130,12 @@ M.general = function()
   keymap_set("n", "<Leader>bd", buf_only, { noremap = true, silent = true })
 
   keymap_set("t", "<C-x>", vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), {})
+
+  local operator_rhs = function() return require('vim._comment').operator() end
+  vim.keymap.set('x', '<C-_>', operator_rhs, { expr = true, desc = 'Toggle comment' })
+
+  local line_rhs = function() return require('vim._comment').operator() .. '_' end
+  vim.keymap.set('n', '<C-_>', line_rhs, { expr = true, desc = 'Toggle comment line' })
 end
 
 M.bufferline = function()
@@ -334,7 +340,7 @@ M.init = function()
     M.wilder()
     M.coc()
     M.telescope()
-    M.nerdcommenter()
+    -- M.nerdcommenter()
     M.vim_easy_align()
     M.vim_expand_region()
     M.gomove()
