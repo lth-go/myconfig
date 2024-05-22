@@ -272,7 +272,15 @@ M.telescope = function()
   end
 
   local grep_from_selected = function()
-    local word = require("utils").get_visual_selection()
+    local lines = vim.fn.getregion(vim.fn.getpos('.'), vim.fn.getpos('v'), { type = vim.fn.mode() })
+
+    vim.api.nvim_input("<Esc>")
+
+    if #lines ~= 1 then
+      return
+    end
+
+    local word = lines[1]
 
     if not word or word == "" then
       return
