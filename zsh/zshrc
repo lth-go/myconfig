@@ -70,6 +70,20 @@ bindkey '^n' down-line-or-beginning-search
 bindkey '^[[A' up-line-or-beginning-search
 bindkey '^[[B' down-line-or-beginning-search
 
+# proxy
+_toggle_proxy() {
+    if [[ -n "${http_proxy}" ]] || [[ -n "${http_proxy}" ]]; then
+        unset http_proxy https_proxy
+    else
+        export http_proxy=http://192.168.56.1:7890
+        export https_proxy=http://192.168.56.1:7890
+    fi
+
+    zle reset-prompt
+}
+zle -N _toggle_proxy
+bindkey '^[OP' _toggle_proxy
+
 # fzf
 export FZF_DEFAULT_COMMAND='fd --type file'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
