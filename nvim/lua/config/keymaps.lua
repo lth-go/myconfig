@@ -131,11 +131,15 @@ M.general = function()
 
   keymap_set("t", "<C-x>", vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), {})
 
-  local operator_rhs = function() return require('vim._comment').operator() end
-  vim.keymap.set('x', '<C-_>', operator_rhs, { expr = true, desc = 'Toggle comment' })
+  -- local operator_rhs = function() return require('vim._comment').operator() end
+  -- vim.keymap.set('x', '<C-_>', operator_rhs, { expr = true, desc = 'Toggle comment' })
 
-  local line_rhs = function() return require('vim._comment').operator() .. '_' end
-  vim.keymap.set('n', '<C-_>', line_rhs, { expr = true, desc = 'Toggle comment line' })
+  -- local line_rhs = function() return require('vim._comment').operator() .. '_' end
+  -- vim.keymap.set('n', '<C-_>', line_rhs, { expr = true, desc = 'Toggle comment line' })
+
+  vim.keymap.del("n", "grr")
+  vim.keymap.del("n", "grn")
+  vim.keymap.del({ "n", "x" }, "gra")
 end
 
 M.bufferline = function()
@@ -274,15 +278,15 @@ M.telescope = function()
   local grep_from_selected = function()
     local lines = vim.fn.getregion(vim.fn.getpos('.'), vim.fn.getpos('v'), { type = vim.fn.mode() })
 
-    vim.api.nvim_input("<Esc>")
-
     if #lines ~= 1 then
+      vim.api.nvim_input("<Esc>")
       return
     end
 
     local word = lines[1]
 
     if not word or word == "" then
+      vim.api.nvim_input("<Esc>")
       return
     end
 
@@ -348,7 +352,7 @@ M.init = function()
     M.wilder()
     M.coc()
     M.telescope()
-    -- M.nerdcommenter()
+    M.nerdcommenter()
     M.vim_easy_align()
     M.vim_expand_region()
     M.gomove()

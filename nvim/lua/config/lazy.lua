@@ -511,6 +511,7 @@ require("lazy").setup({
               mappings = { -- extend mappings
                 i = {
                   ["<C-k>"] = lga_actions.quote_prompt(),
+                  ["<C-j>"] = actions.to_fuzzy_refine,
                 },
               },
             },
@@ -547,16 +548,16 @@ require("lazy").setup({
       end,
     },
 
-    -- {
-    --   "scrooloose/nerdcommenter",
-    --   config = function()
-    --     local g = vim.g
-    --
-    --     g.NERDCreateDefaultMappings = 0
-    --     g.NERDDefaultAlign = "left"
-    --     g.NERDSpaceDelims = 1
-    --   end,
-    -- },
+    {
+      "scrooloose/nerdcommenter",
+      config = function()
+        local g = vim.g
+
+        g.NERDCreateDefaultMappings = 0
+        g.NERDDefaultAlign = "left"
+        g.NERDSpaceDelims = 1
+      end,
+    },
 
     { "tpope/vim-fugitive" },
 
