@@ -8,7 +8,7 @@ opt_local.expandtab = false
 local exec = function(cmd)
   local handle = io.popen(cmd)
   if handle == nil then
-    return ''
+    return ""
   end
 
   local out = handle:read("*a")
@@ -18,36 +18,41 @@ local exec = function(cmd)
 end
 
 local decl_location = function(direction, cnt)
-  local fname = vim.fn.expand('%:p')
+  local fname = vim.fn.expand("%:p")
   local tmpname
 
   if vim.bo.modified == true then
     tmpname = vim.fn.tempname()
-    vim.fn.writefile(vim.fn.getline(1, '$'), tmpname)
+    vim.fn.writefile(vim.fn.getline(1, "$"), tmpname)
     fname = tmpname
   end
 
   local cmd = {
-    'motion',
-    '-format', 'json',
-    '-file', fname,
-    '-offset', vim.fn.line2byte(vim.fn.line('.')) + (vim.fn.col('.') - 2),
-    '-shift', cnt,
-    '-mode', direction,
+    "motion",
+    "-format",
+    "json",
+    "-file",
+    fname,
+    "-offset",
+    vim.fn.line2byte(vim.fn.line(".")) + (vim.fn.col(".") - 2),
+    "-shift",
+    cnt,
+    "-mode",
+    direction,
   }
 
-  local out = exec(table.concat(cmd, ' ') .. ' 2>/dev/null')
+  local out = exec(table.concat(cmd, " ") .. " 2>/dev/null")
 
   if tmpname then
     os.remove(tmpname)
   end
 
-  if out == '' then
+  if out == "" then
     return 0
   end
 
   local result = vim.json.decode(out)
-  if type(result) ~= 'table' then
+  if type(result) ~= "table" then
     return 0
   end
 

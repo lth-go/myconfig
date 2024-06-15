@@ -120,8 +120,10 @@ require("lazy").setup({
               if lang == "dockerfile" then
                 return true
               end
-              -- bug
               if lang == "sql" then
+                return true
+              end
+              if lang == "query" then
                 return true
               end
               if lang == "gomod" then
@@ -617,8 +619,8 @@ require("lazy").setup({
       config = function()
         local leap = require("leap")
 
-        vim.keymap.set({'n'}, 's', '<Plug>(leap-forward)')
-        vim.keymap.set({'n'}, 'S', '<Plug>(leap-backward)')
+        vim.keymap.set({ "n" }, "s", "<Plug>(leap-forward)")
+        vim.keymap.set({ "n" }, "S", "<Plug>(leap-backward)")
 
         leap.setup({
           max_phase_one_targets = 0,
@@ -638,7 +640,7 @@ require("lazy").setup({
               end
             end
             return true
-          end
+          end,
         })
       end,
     },
@@ -680,8 +682,7 @@ require("lazy").setup({
     {
       "haya14busa/vim-asterisk",
       config = function()
-        -- vim.g["asterisk#keeppos"] = 1
-        vim.api.nvim_set_keymap("", "*", [[<Plug>(asterisk-z*)]], {})
+        vim.api.nvim_set_keymap("", "*", [[<Plug>(asterisk-gz*)]], {})
       end,
     },
 

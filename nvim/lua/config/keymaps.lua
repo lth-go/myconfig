@@ -194,7 +194,7 @@ M.coc = function()
     if vim.fn["coc#pum#visible"]() ~= 0 then
       return vim.fn["coc#pum#confirm"]()
     else
-      return require('nvim-autopairs').autopairs_cr()
+      return require("nvim-autopairs").autopairs_cr()
     end
   end
 
@@ -276,7 +276,7 @@ M.telescope = function()
   end
 
   local grep_from_selected = function()
-    local lines = vim.fn.getregion(vim.fn.getpos('.'), vim.fn.getpos('v'), { type = vim.fn.mode() })
+    local lines = vim.fn.getregion(vim.fn.getpos("."), vim.fn.getpos("v"), { type = vim.fn.mode() })
 
     if #lines ~= 1 then
       vim.api.nvim_input("<Esc>")
