@@ -682,7 +682,7 @@ require("lazy").setup({
     {
       "haya14busa/vim-asterisk",
       config = function()
-        vim.api.nvim_set_keymap("", "*", [[<Plug>(asterisk-gz*)]], {})
+        vim.api.nvim_set_keymap("", "*", [[<Plug>(asterisk-z*)]], {})
       end,
     },
 

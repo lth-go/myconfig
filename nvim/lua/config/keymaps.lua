@@ -131,6 +131,9 @@ M.general = function()
 
   keymap_set("t", "<C-x>", vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), {})
 
+  keymap_set("", "<C-ScrollWheelUp>", "4zh", {})
+  keymap_set("", "<C-ScrollWheelDown>", "4zl", {})
+
   -- local operator_rhs = function() return require('vim._comment').operator() end
   -- vim.keymap.set('x', '<C-_>', operator_rhs, { expr = true, desc = 'Toggle comment' })
 

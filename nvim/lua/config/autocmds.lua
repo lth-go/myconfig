@@ -97,5 +97,6 @@ autocmd({ "StdinReadPost" }, {
   pattern = "*",
   callback = function()
     vim.opt.modified = false
+    vim.opt.mouse = "a"
   end,
 })

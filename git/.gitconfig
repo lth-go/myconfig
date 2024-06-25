@@ -38,7 +38,7 @@
 [mergetool "vimdiff"]
     path = nvim
 [log]
-    date = local
+    date = format-local:%Y-%m-%d %H:%M:%S
 [push]
     default = simple
 [pull]
