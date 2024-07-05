@@ -131,6 +131,11 @@ M.general = function()
 
   keymap_set("t", "<C-x>", vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true), {})
 
+  keymap_set("x", "i<space>", [[:<c-u>normal! viW<CR>]], { noremap = true, silent = true })
+  keymap_set("o", "i<space>", [[:normal viW<CR>]], { noremap = true, silent = true })
+  keymap_set("x", "a<space>", [[:<c-u>normal! viW<CR>]], { noremap = true, silent = true })
+  keymap_set("o", "a<space>", [[:normal viW<CR>]], { noremap = true, silent = true })
+
   keymap_set("", "<C-ScrollWheelUp>", "4zh", {})
   keymap_set("", "<C-ScrollWheelDown>", "4zl", {})
 
@@ -158,7 +163,6 @@ M.bufferline = function()
 end
 
 M.wilder = function()
-  -- TODO:
   nvim_set_keymap("c", "/", [[wilder#can_accept_completion() ? wilder#accept_completion(0) : "/"]], { expr = true, noremap = true })
 end
 
@@ -266,11 +270,6 @@ M.coc = function()
 
   keymap_set("n", [[<Space>gtg]], [[<Cmd>CocCommand go.test.generate.function<CR>]], {})
   keymap_set("n", [[<Space>gtr]], [[<Cmd>GoTestFunc<CR>]], {})
-
-  keymap_set("x", "i<space>", [[:<c-u>normal! viW<CR>]], { noremap = true, silent = true })
-  keymap_set("o", "i<space>", [[:normal viW<CR>]], { noremap = true, silent = true })
-  keymap_set("x", "a<space>", [[:<c-u>normal! viW<CR>]], { noremap = true, silent = true })
-  keymap_set("o", "a<space>", [[:normal viW<CR>]], { noremap = true, silent = true })
 end
 
 M.telescope = function()
@@ -300,13 +299,12 @@ M.telescope = function()
   keymap_set("n", "<Leader>fg", live_grep_args, { noremap = true })
   keymap_set("n", "<Leader>fm", [[<Cmd>Telescope coc mru<CR>]], { noremap = true })
   keymap_set("n", "<Leader>fc", [[<Cmd>Telescope grep_string<CR>]], { noremap = true })
+  keymap_set("v", "<Leader>fc", grep_from_selected, { noremap = true, silent = true })
   keymap_set("n", "<Leader>fb", [[<Cmd>Telescope buffers<CR>]], { noremap = true })
   keymap_set("n", "<Leader>fs", [[<Cmd>Telescope coc workspace_symbols<CR>]], { noremap = true })
 
   keymap_set("n", "gr", [[<Cmd>Telescope coc references initial_mode=normal<CR>]], { silent = true })
   keymap_set("n", "gi", [[<Cmd>Telescope coc implementations initial_mode=normal<CR>]], { silent = true })
-
-  keymap_set("v", "<Leader>fc", grep_from_selected, { noremap = true, silent = true })
 end
 
 M.nerdcommenter = function()

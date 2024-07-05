@@ -35,22 +35,13 @@ require("lazy").setup({
         nvim_set_hl(0, "CocExplorerFileDirectoryExpanded", { fg = "#8094b4" })
         nvim_set_hl(0, "CocExplorerFileDirectoryCollapsed", { fg = "#8094b4" })
 
-        nvim_set_hl(0, "StartLogo1", { fg = "#1C506B" })
-        nvim_set_hl(0, "StartLogo2", { fg = "#1D5D68" })
-        nvim_set_hl(0, "StartLogo3", { fg = "#1E6965" })
-        nvim_set_hl(0, "StartLogo4", { fg = "#1F7562" })
-        nvim_set_hl(0, "StartLogo5", { fg = "#21825F" })
-        nvim_set_hl(0, "StartLogo6", { fg = "#228E5C" })
-        nvim_set_hl(0, "StartLogo7", { fg = "#239B59" })
-        nvim_set_hl(0, "StartLogo8", { fg = "#24A755" })
-
         nvim_set_hl(0, "SpectreSearch", { reverse = true, ctermfg = 107, ctermbg = 234, fg = "#8ec07c", bg = "#1d2021" })
         nvim_set_hl(0, "SpectreReplace", { reverse = true, ctermfg = 203, ctermbg = 234, fg = "#fb4934", bg = "#1d2021" })
       end,
     },
 
     {
-      "kyazdani42/nvim-web-devicons",
+      "nvim-tree/nvim-web-devicons",
       lazy = true,
       config = function()
         require("nvim-web-devicons").setup({
@@ -154,60 +145,93 @@ require("lazy").setup({
     },
 
     {
-      "goolord/alpha-nvim",
+      "nvimdev/dashboard-nvim",
       event = "VimEnter",
       config = function()
-        local dashboard = require("alpha.themes.dashboard")
-
         local header = {
-          [[                                                                   ]],
-          [[      ████ ██████           █████      ██                    ]],
-          [[     ███████████             █████                            ]],
-          [[     █████████ ███████████████████ ███   ███████████  ]],
-          [[    █████████  ███    █████████████ █████ ██████████████  ]],
-          [[   █████████ ██████████ █████████ █████ █████ ████ █████  ]],
-          [[ ███████████ ███    ███ █████████ █████ █████ ████ █████ ]],
-          [[██████  █████████████████████ ████ █████ █████ ████ ██████]],
+          [[     ⠀⠀⠀⠀⠀⠀⠀⡴⠞⠉⢉⣭⣿⣿⠿⣳⣤⠴⠖⠛⣛⣿⣿⡷⠖⣶⣤⡀⠀⠀⠀  ]],
+          [[   ⠀⠀⠀⠀⠀⠀⠀⣼⠁⢀⣶⢻⡟⠿⠋⣴⠿⢻⣧⡴⠟⠋⠿⠛⠠⠾⢛⣵⣿⠀⠀⠀⠀  ]],
+          [[   ⣼⣿⡿⢶⣄⠀⢀⡇⢀⡿⠁⠈⠀⠀⣀⣉⣀⠘⣿⠀⠀⣀⣀⠀⠀⠀⠛⡹⠋⠀⠀⠀⠀  ]],
+          [[   ⣭⣤⡈⢑⣼⣻⣿⣧⡌⠁⠀⢀⣴⠟⠋⠉⠉⠛⣿⣴⠟⠋⠙⠻⣦⡰⣞⠁⢀⣤⣦⣤⠀  ]],
+          [[   ⠀⠀⣰⢫⣾⠋⣽⠟⠑⠛⢠⡟⠁⠀⠀⠀⠀⠀⠈⢻⡄⠀⠀⠀⠘⣷⡈⠻⣍⠤⢤⣌⣀  ]],
+          [[   ⢀⡞⣡⡌⠁⠀⠀⠀⠀⢀⣿⠁⠀⠀⠀⠀⠀⠀⠀⠀⢿⡀⠀⠀⠀⠸⣇⠀⢾⣷⢤⣬⣉  ]],
+          [[   ⡞⣼⣿⣤⣄⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⣿⠀⠸⣿⣇⠈⠻  ]],
+          [[   ⢰⣿⡿⢹⠃⠀⣠⠤⠶⣼⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⡇⠀⠀⠀⠀⣿⠀⠀⣿⠛⡄⠀  ]],
+          [[   ⠈⠉⠁⠀⠀⠀⡟⡀⠀⠈⡗⠲⠶⠦⢤⣤⣤⣄⣀⣀⣸⣧⣤⣤⠤⠤⣿⣀⡀⠉⣼⡇⠀  ]],
+          [[   ⣿⣴⣴⡆⠀⠀⠻⣄⠀⠀⠡⠀⠀⠀⠈⠛⠋⠀⠀⠀⡈⠀⠻⠟⠀⢀⠋⠉⠙⢷⡿⡇⠀  ]],
+          [[   ⣻⡿⠏⠁⠀⠀⢠⡟⠀⠀⠀⠣⡀⠀⠀⠀⠀⠀⢀⣄⠀⠀⠀⠀⢀⠈⠀⢀⣀⡾⣴⠃⠀  ]],
+          [[   ⢿⠛⠀⠀⠀⠀⢸⠁⠀⠀⠀⠀⠈⠢⠄⣀⠠⠼⣁⠀⡱⠤⠤⠐⠁⠀⠀⣸⠋⢻⡟⠀⠀  ]],
+          [[   ⠈⢧⣀⣤⣶⡄⠘⣆⠀⠀⠀⠀⠀⠀⠀⢀⣤⠖⠛⠻⣄⠀⠀⠀⢀⣠⡾⠋⢀⡞⠀⠀⠀  ]],
+          [[   ⠀⠀⠻⣿⣿⡇⠀⠈⠓⢦⣤⣤⣤⡤⠞⠉⠀⠀⠀⠀⠈⠛⠒⠚⢩⡅⣠⡴⠋⠀⠀⠀⠀  ]],
+          [[   ⠀⠀⠀⠈⠻⢧⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⣻⠿⠋⠀⠀⠀⠀⠀⠀  ]],
+          [[   ⠀⠀⠀⠀⠀⠀⠉⠓⠶⣤⣄⣀⡀⠀⠀⠀⠀⠀⢀⣀⣠⡴⠖⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀  ]],
         }
 
-        local function colorize_header()
-          local lines = {}
-
-          for i, chars in pairs(header) do
-            local line = {
-              type = "text",
-              val = chars,
-              opts = {
-                hl = "StartLogo" .. i,
-                shrink_margin = false,
-                position = "center",
-              },
-            }
-
-            table.insert(lines, line)
-          end
-
-          return lines
+        for _ = 1, 8 do
+          table.insert(header, 1, "")
+        end
+        for _ = 1, 2 do
+          table.insert(header, "")
         end
 
-        dashboard.section.header.type = "group"
-        dashboard.section.header.val = colorize_header()
-        dashboard.section.buttons.val = {
-          dashboard.button("<Leader> f m", "  Recent File  ", ":Telescope coc mru<CR>"),
-          dashboard.button("<Leader> f f", "  Find File  ", ":Telescope find_files<CR>"),
-          dashboard.button("<Leader> f g", "  Find Word  ", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>"),
-          dashboard.button("<Leader> e s", "  Settings", ":e $MYVIMRC | :cd %:p:h <CR>"),
+        local center = {
+          {
+            icon = " ",
+            icon_hl = "Title",
+            desc = "Recent File",
+            desc_hl = "String",
+            key = "r",
+            key_hl = "Number",
+            key_format = " %s",
+            action = "Telescope coc mru",
+          },
+          {
+            icon = " ",
+            icon_hl = "Title",
+            desc = "Find File",
+            desc_hl = "String",
+            key = "f",
+            key_hl = "Number",
+            key_format = " %s",
+            action = "Telescope find_files",
+          },
+          {
+            icon = " ",
+            icon_hl = "Title",
+            desc = "Settings",
+            desc_hl = "String",
+            key = "c",
+            key_hl = "Number",
+            key_format = " %s",
+            action = function()
+              vim.api.nvim_input("<cmd>e $MYVIMRC | :cd %:p:h <cr>")
+            end,
+          },
+          {
+            icon = " ",
+            icon_hl = "Title",
+            desc = "Quit",
+            desc_hl = "String",
+            key = "q",
+            key_hl = "Number",
+            key_format = " %s",
+            action = function()
+              vim.api.nvim_input("<cmd>qa<cr>")
+            end,
+          },
         }
-        for _, button in ipairs(dashboard.section.buttons.val) do
-          button.opts.hl = "Keyword"
-          button.opts.hl_shortcut = "Title"
-        end
-        dashboard.section.footer.val = require("alpha.fortune")()
-        dashboard.section.footer.opts.hl = "Number"
-        dashboard.section.footer.opts.position = "center"
-        dashboard.opts.layout[1].val = 8
 
-        require("alpha").setup(dashboard.config)
+        for _, button in ipairs(center) do
+          button.desc = button.desc .. string.rep(" ", 43 - #button.desc)
+        end
+
+        require("dashboard").setup({
+          theme = "doom",
+          config = {
+            header = header,
+            center = center,
+          },
+        })
       end,
     },
 
@@ -233,7 +257,6 @@ require("lazy").setup({
             globalstatus = true,
             disabled_filetypes = {
               statusline = {
-                "alpha",
                 "coc-explorer",
                 "TelescopePrompt",
                 "fugitive",
@@ -247,7 +270,7 @@ require("lazy").setup({
             lualine_a = {
               {
                 function()
-                  return ""
+                  return ""
                 end,
                 separator = { right = "" },
                 color = {
@@ -267,13 +290,16 @@ require("lazy").setup({
                 padding = { left = 1, right = 0 },
               },
               {
+
                 "filename",
+                file_status = true,
+                path = 1,
+                symbols = { modified = "", readonly = "󰌾", unnamed = "" },
                 separator = { right = "" },
                 color = {
                   bg = colors.darkgray,
                 },
-                path = 1,
-                symbols = { modified = "  ", readonly = "", unnamed = "" },
+                padding = { left = 0, right = 1 },
               },
             },
             lualine_c = {

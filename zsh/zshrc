@@ -13,17 +13,17 @@ ZSH_THEME="my"
 
 # 插件
 plugins=(
+  docker
+  docker-compose
+  extract
   git
   gitfast
-  docker docker-compose
   golang
-  rust
-  pip
-  sudo
-  extract
-  ripgrep
-  kubectl
   helm
+  kubectl
+  ripgrep
+  rust
+  sudo
   urltools
   zoxide
   zsh-autosuggestions
@@ -103,9 +103,6 @@ export EDITOR='nvim'
 export KUBE_EDITOR=nvim
 
 alias vimyaml='vim -c "set filetype=yaml" -'
-
-# git
-alias gdn='git diff --name-only origin/master'
 
 # system
 case "$OSTYPE" in

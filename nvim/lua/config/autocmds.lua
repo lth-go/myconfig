@@ -1,14 +1,6 @@
 local vim = vim
 local autocmd = vim.api.nvim_create_autocmd
 
--- dockerfile 识别
-autocmd({ "BufNewFile", "BufRead" }, {
-  pattern = "*.dockerfile",
-  callback = function()
-    vim.opt_local.filetype = "dockerfile"
-  end,
-})
-
 autocmd({ "BufNewFile", "BufRead" }, {
   pattern = "Dockerfile_*",
   callback = function()
@@ -16,7 +8,6 @@ autocmd({ "BufNewFile", "BufRead" }, {
   end,
 })
 
--- kubeconfig 识别
 autocmd({ "BufNewFile", "BufRead" }, {
   pattern = "*/.kube/config",
   callback = function()
@@ -24,7 +15,9 @@ autocmd({ "BufNewFile", "BufRead" }, {
   end,
 })
 
+--
 -- 自动行号
+--
 autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
   pattern = "*",
   callback = function()
@@ -43,7 +36,9 @@ autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
   end,
 })
 
+--
 -- 打开文件定位到上次访问
+--
 autocmd({ "BufReadPost" }, {
   pattern = "*",
   callback = function()
@@ -57,7 +52,9 @@ autocmd({ "BufReadPost" }, {
   end,
 })
 
+--
 -- 自动创建目录
+--
 autocmd({ "BufWritePre" }, {
   pattern = "*",
   callback = function(event)
@@ -70,19 +67,10 @@ autocmd({ "BufWritePre" }, {
   end,
 })
 
--- dont list quickfix buffers
 autocmd({ "FileType" }, {
   pattern = "qf",
   callback = function()
     vim.opt_local.buflisted = false
-  end,
-})
-
--- Disable statusline in dashboard
-autocmd({ "FileType" }, {
-  pattern = "alpha",
-  callback = function()
-    vim.opt.laststatus = 0
   end,
 })
 
