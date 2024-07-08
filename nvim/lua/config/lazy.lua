@@ -167,7 +167,7 @@ require("lazy").setup({
           [[   ⠀⠀⠀⠀⠀⠀⠉⠓⠶⣤⣄⣀⡀⠀⠀⠀⠀⠀⢀⣀⣠⡴⠖⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀  ]],
         }
 
-        for _ = 1, 8 do
+        for _ = 1, 4 do
           table.insert(header, 1, "")
         end
         for _ = 1, 2 do
@@ -225,11 +225,26 @@ require("lazy").setup({
           button.desc = button.desc .. string.rep(" ", 43 - #button.desc)
         end
 
+        local exec = function(cmd)
+          local handle = io.popen(cmd)
+          if handle == nil then
+            return ""
+          end
+
+          local out = handle:read("*a")
+          handle:close()
+
+          return out
+        end
+
+        local footer = vim.split(exec("lunar 2>/dev/null"), "\n")
+
         require("dashboard").setup({
           theme = "doom",
           config = {
             header = header,
             center = center,
+            footer = footer,
           },
         })
       end,
