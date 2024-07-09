@@ -105,20 +105,16 @@ require("lazy").setup({
           highlight = {
             enable = true,
             disable = function(lang, bufnr)
-              if lang == "dockerfile" then
-                return true
-              end
-              if lang == "sql" then
-                return true
-              end
-              if lang == "query" then
-                return true
-              end
-              if lang == "gomod" then
-                return true
-              end
-              if lang == "gosum" then
-                return true
+              for _, file_type in ipairs({
+                "dockerfile",
+                "sql",
+                "query",
+                "gomod",
+                "gosum",
+              }) do
+                if lang == file_type then
+                  return true
+                end
               end
 
               if vim.api.nvim_buf_line_count(bufnr) > 8192 then
@@ -410,6 +406,21 @@ require("lazy").setup({
               },
               {
                 function()
+                  local content = require("noice").api.status.search.get() or ""
+
+                  local v = content:match(".*(%[%d+/%d+%])$")
+                  if v then
+                    content = v
+                  end
+
+                  return content
+                end,
+                cond = require("noice").api.status.search.has,
+                separator = "",
+                color = { fg = colors.orange },
+              },
+              {
+                function()
                   local icon = "󰘦 "
                   local msg = (vim.api.nvim_call_function("codeium#GetStatusString", {}) or "")
 
@@ -567,7 +578,7 @@ require("lazy").setup({
           },
           extensions = {
             live_grep_args = {
-              mappings = { -- extend mappings
+              mappings = {
                 i = {
                   ["<C-k>"] = lga_actions.quote_prompt(),
                   ["<C-j>"] = actions.to_fuzzy_refine,
@@ -696,6 +707,7 @@ require("lazy").setup({
               else
               end
             end
+
             return true
           end,
         })
@@ -722,15 +734,10 @@ require("lazy").setup({
       "booperlv/nvim-gomove",
       config = function()
         require("gomove").setup({
-          -- whether or not to map default key bindings, (true/false)
           map_defaults = false,
-          -- whether or not to reindent lines moved vertically (true/false)
           reindent = false,
-          -- whether or not to undojoin same direction moves (true/false)
           undojoin = true,
-          -- whether to not to move past end column when moving blocks horizontally, (true/false)
           move_past_end_col = false,
-          -- whether or not to ignore indent when duplicating lines horizontally, (true/false)
           ignore_indent_lh_dup = true,
         })
       end,

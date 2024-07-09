@@ -53,5 +53,8 @@
   "Lua.format.defaultConfig": {
     "max_line_length": "200"
   },
+  "Lua.diagnostics.globals": [
+    "vim",
+  ],
   "yaml.format.enable": true,
 }
