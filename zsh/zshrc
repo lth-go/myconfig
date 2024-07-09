@@ -75,8 +75,9 @@ _toggle_proxy() {
     if [[ -n "${http_proxy}" ]] || [[ -n "${http_proxy}" ]]; then
         unset http_proxy https_proxy
     else
-        export http_proxy=http://192.168.56.1:7890
-        export https_proxy=http://192.168.56.1:7890
+        export http_proxy="http://192.168.56.1:7890"
+        export https_proxy="http://192.168.56.1:7890"
+        export no_proxy="localhost,127.0.0.1"
     fi
 
     zle reset-prompt

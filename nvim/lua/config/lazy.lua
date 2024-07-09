@@ -1,5 +1,3 @@
-local vim = vim
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   -- bootstrap lazy.nvim
@@ -20,7 +18,6 @@ require("lazy").setup({
       lazy = false,
       priority = 1000,
       config = function()
-        local vim = vim
         local g = vim.g
         local cmd = vim.cmd
         local nvim_set_hl = vim.api.nvim_set_hl
@@ -413,6 +410,25 @@ require("lazy").setup({
               },
               {
                 function()
+                  local icon = "󰘦 "
+                  local msg = (vim.api.nvim_call_function("codeium#GetStatusString", {}) or "")
+
+                  msg = msg:gsub("%s+", "")
+                  if msg == "" then
+                    return ""
+                  end
+
+                  return icon .. msg
+                end,
+                cond = function()
+                  local mode = require("lualine.utils.mode").get_mode()
+
+                  return mode == "INSERT"
+                end,
+                separator = "",
+              },
+              {
+                function()
                   return vim.b["coc_current_function"] or ""
                 end,
                 cond = function()
@@ -727,13 +743,6 @@ require("lazy").setup({
       end,
     },
 
-    -- {
-    --   "sindrets/diffview.nvim",
-    --   config = function()
-    --     require("diffview").setup({})
-    --   end,
-    -- },
-
     {
       "windwp/nvim-spectre",
       lazy = true,
@@ -783,12 +792,14 @@ require("lazy").setup({
     },
 
     { "MunifTanjim/nui.nvim", lazy = true },
+
     {
       "lth-go/searchx.nvim",
       config = function()
         vim.keymap.set("n", "/", ":Searchx<CR>", { silent = true })
       end,
     },
+
     {
       "folke/noice.nvim",
       config = function()
@@ -860,10 +871,10 @@ require("lazy").setup({
         "rcarriga/nvim-notify",
       },
     },
+
     {
       "lth-go/vim-translator",
       config = function()
-        local vim = vim
         local g = vim.g
 
         g.translator_default_engines = { "google" }
