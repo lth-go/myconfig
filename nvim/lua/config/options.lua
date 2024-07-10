@@ -12,7 +12,7 @@ opt.diffopt:append("linematch:60")
 opt.expandtab = true
 opt.foldenable = false
 opt.ignorecase = true
-opt.jumpoptions:append("stack")
+opt.jumpoptions = "view"
 opt.laststatus = 3
 opt.list = true
 opt.listchars = "tab:>-,trail:·,nbsp:·"

@@ -41,13 +41,19 @@ autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
 --
 autocmd({ "BufReadPost" }, {
   pattern = "*",
-  callback = function()
-    local test_line_data = vim.api.nvim_buf_get_mark(0, '"')
-    local test_line = test_line_data[1]
-    local last_line = vim.api.nvim_buf_line_count(0)
+  callback = function(event)
+    local exclude = { "gitcommit" }
+    local buf = event.buf
 
-    if test_line > 0 and test_line <= last_line then
-      vim.api.nvim_win_set_cursor(0, test_line_data)
+    if vim.tbl_contains(exclude, vim.bo[buf].filetype) then
+      return
+    end
+
+    local mark = vim.api.nvim_buf_get_mark(buf, '"')
+    local lcount = vim.api.nvim_buf_line_count(buf)
+
+    if mark[1] > 0 and mark[1] <= lcount then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
     end
   end,
 })

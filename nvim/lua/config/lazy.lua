@@ -94,6 +94,7 @@ require("lazy").setup({
             "markdown_inline",
             "proto",
             "python",
+            "query",
             "rust",
             "sql",
             "toml",
@@ -107,10 +108,10 @@ require("lazy").setup({
             disable = function(lang, bufnr)
               for _, file_type in ipairs({
                 "dockerfile",
-                "sql",
-                "query",
                 "gomod",
                 "gosum",
+                "query",
+                "sql",
               }) do
                 if lang == file_type then
                   return true
