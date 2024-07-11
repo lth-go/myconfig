@@ -3,7 +3,7 @@ function is_proxy {
   local env_https_proxy="${https_proxy:-}"
 
   if [[ -n $env_http_proxy ]] || [[ -n $env_https_proxy ]]; then
-    echo -n "%{$fg_bold[red]%} "
+    echo -n "%{$fg_bold[red]%} "
   fi
 }
 

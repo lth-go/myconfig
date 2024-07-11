@@ -45,9 +45,10 @@ autocmd({ "BufReadPost" }, {
     local exclude = { "gitcommit" }
     local buf = event.buf
 
-    if vim.tbl_contains(exclude, vim.bo[buf].filetype) then
+    if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf]._last_loc then
       return
     end
+    vim.b[buf]._last_loc = true
 
     local mark = vim.api.nvim_buf_get_mark(buf, '"')
     local lcount = vim.api.nvim_buf_line_count(buf)
