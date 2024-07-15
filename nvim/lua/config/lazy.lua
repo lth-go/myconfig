@@ -140,7 +140,7 @@ require("lazy").setup({
 
     {
       "nvimdev/dashboard-nvim",
-      event = "VimEnter",
+      lazy = false,
       config = function()
         local header = {
           [[     ⠀⠀⠀⠀⠀⠀⠀⡴⠞⠉⢉⣭⣿⣿⠿⣳⣤⠴⠖⠛⣛⣿⣿⡷⠖⣶⣤⡀⠀⠀⠀  ]],

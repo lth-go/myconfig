@@ -45,6 +45,7 @@
     "snippetCompletion": false
   },
   "python.venvPath": "/work/python_venv/",
+  "rust-analyzer.inlayHints.parameterHints.enable": false,
   "rust-analyzer.updates.checkOnStartup": false,
   "sql.formatOptions": {
     "language": "mysql",

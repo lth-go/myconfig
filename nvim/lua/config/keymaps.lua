@@ -221,6 +221,15 @@ M.coc = function()
     end
   end
 
+  local toggle_outline = function()
+    local winid = vim.fn["coc#window#find"]('cocViewId', 'OUTLINE')
+    if winid == -1 then
+      vim.fn["CocActionAsync"]('showOutline', 1)
+    else
+      vim.fn["coc#window#close"](winid)
+    end
+  end
+
   keymap_set("i", "<C-d>", "coc#refresh()", { expr = true, noremap = true, silent = true })
   keymap_set("i", "<Tab>", smart_tab, { expr = true, noremap = true, silent = true })
   keymap_set("i", "<S-Tab>", smart_shift_tab, { expr = true, noremap = true })
@@ -260,7 +269,7 @@ M.coc = function()
 
   keymap_set("n", "<C-A-o>", [[<Cmd>silent call CocAction('runCommand', 'editor.action.organizeImport')<CR>]], { noremap = true, silent = true })
 
-  keymap_set("n", "<F2>", [[<Cmd>CocOutline<CR>]], { noremap = true })
+  keymap_set("n", "<F2>", toggle_outline, { noremap = true, nowait = true, silent = true })
 
   keymap_set("n", "<Space>gf", "<Cmd>call CocActionAsync('codeAction', 'cursor', ['refactor.rewrite'])<CR>", { noremap = true, silent = true })
 
