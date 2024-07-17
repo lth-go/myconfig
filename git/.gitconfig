@@ -5,7 +5,7 @@
     pretty = medium
 [core]
     editor = nvim
-    pager = delta --diff-so-fancy --true-color=always
+    pager = delta --diff-so-fancy
     excludesfile = ~/.gitignore_global
     quotepath = false
 [credential]
@@ -47,3 +47,8 @@
     defaultBranch = master
 [advice]
     skippedCherryPicks = false
+[delta]
+    dark = true
+    line-numbers = true
+    pager = less --RAW-CONTROL-CHARS --quit-if-one-screen --no-init
+    true-color = always
