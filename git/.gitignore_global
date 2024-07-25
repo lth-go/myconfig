@@ -1,5 +1,5 @@
 *~
 .DS_Store
-/.vim
-/.test
-/.rgignore
+.vim
+.test
+.rgignore
