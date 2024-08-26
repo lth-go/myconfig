@@ -501,19 +501,19 @@ require("lazy").setup({
         g.coc_snippet_prev = "<C-p>"
 
         g.coc_global_extensions = {
-          "coc-lists",
+          "coc-clangd",
           "coc-explorer",
-          "coc-json",
-          "coc-xml",
+          "coc-go",
           "coc-html",
-          "coc-yaml",
+          "coc-json",
+          "coc-lists",
+          "coc-lua",
+          "coc-pyright",
           "coc-sh",
           "coc-sql",
-          "coc-go",
-          "coc-pyright",
-          "coc-clangd",
           "coc-vimlsp",
-          "coc-lua",
+          "coc-xml",
+          "coc-yaml",
         }
       end,
     },
