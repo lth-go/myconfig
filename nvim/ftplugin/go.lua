@@ -29,16 +29,11 @@ local decl_location = function(direction, cnt)
 
   local cmd = {
     "motion",
-    "-format",
-    "json",
-    "-file",
-    fname,
-    "-offset",
-    vim.fn.line2byte(vim.fn.line(".")) + (vim.fn.col(".") - 2),
-    "-shift",
-    cnt,
-    "-mode",
-    direction,
+    "-format", "json",
+    "-file", fname,
+    "-offset", vim.fn.line2byte(vim.fn.line(".")) + (vim.fn.col(".") - 2),
+    "-shift", cnt,
+    "-mode", direction,
   }
 
   local out = exec(table.concat(cmd, " ") .. " 2>/dev/null")
@@ -81,6 +76,7 @@ local decl_jump = function(direction)
       return
     end
 
+    vim.cmd("normal! m'")
     api.nvim_win_set_cursor(0, { info.name_pos.line, info.name_pos.col - 1 })
   end
 end

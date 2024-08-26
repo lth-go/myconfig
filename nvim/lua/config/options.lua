@@ -45,7 +45,7 @@ opt.wildignore:append("*.swp,tags")
 opt.wildignore:append("*.zip,*.7z,*.rar,*.gz,*.tar,*.gzip,*.bz2,*.tgz,*.xz")
 opt.wildignore:append(".vim,.idea,.git")
 opt.wildmode = "longest:full,full"
-opt.winblend = 10
+-- opt.winblend = 10
 opt.wrap = false
 opt.writebackup = false
 

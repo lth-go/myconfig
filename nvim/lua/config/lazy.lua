@@ -279,7 +279,7 @@ require("lazy").setup({
             lualine_a = {
               {
                 function()
-                  return ""
+                  return ""
                 end,
                 separator = { right = "" },
                 color = {
@@ -800,6 +800,15 @@ require("lazy").setup({
     },
 
     { "MunifTanjim/nui.nvim", lazy = true },
+
+    {
+      "rcarriga/nvim-notify",
+      config = function()
+        require("notify").setup({
+          stages = "static",
+        })
+      end,
+    },
 
     {
       "lth-go/searchx.nvim",
