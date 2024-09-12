@@ -32,7 +32,6 @@
     }
   ],
   "go.goplsOptions": {
-    // "gofumpt": true,
     "usePlaceholders": false,
     "staticcheck": true,
     "hints": {

@@ -2,7 +2,7 @@ local vim = vim
 local autocmd = vim.api.nvim_create_autocmd
 
 autocmd({ "BufNewFile", "BufRead" }, {
-  pattern = "Dockerfile_*",
+  pattern = "[dD]ockerfile_*",
   callback = function()
     vim.opt_local.filetype = "dockerfile"
   end,

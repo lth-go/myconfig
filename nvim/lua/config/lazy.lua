@@ -479,7 +479,16 @@ require("lazy").setup({
       "akinsho/bufferline.nvim",
       branch = "main",
       config = function()
-        require("plugins.configs.bufferline")
+        require("bufferline").setup({
+          options = {
+            offsets = {
+              { filetype = "coc-explorer", text = "" },
+            },
+            show_buffer_close_icons = false,
+            show_close_icon = false,
+            separator_style = "slope",
+          },
+        })
       end,
     },
 
@@ -487,7 +496,37 @@ require("lazy").setup({
       "gelguy/wilder.nvim",
       build = ":UpdateRemotePlugins",
       config = function()
-        require("plugins.configs.wilder")
+        local wilder = require("wilder")
+
+        wilder.setup({
+          modes = { ":" },
+        })
+
+        wilder.set_option({
+          pipeline = {
+            wilder.branch(
+              wilder.check(function(_, x) return x == "" end),
+              wilder.cmdline_pipeline({
+                fuzzy = 1,
+                sorter = wilder.python_difflib_sorter(),
+              })
+            ),
+          },
+          renderer = wilder.renderer_mux({
+            [":"] = wilder.popupmenu_renderer({
+              highlights = {
+                accent = wilder.make_hl("WilderAccent", "Pmenu", { {}, {}, { "#f4468f" } }),
+              },
+              highlighter = {
+                wilder.highlighter_with_gradient({
+                  wilder.basic_highlighter(),
+                }),
+              },
+              left = { " ", wilder.popupmenu_devicons() },
+              right = { " ", wilder.popupmenu_scrollbar() },
+            }),
+          })
+        })
       end,
     },
 

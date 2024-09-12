@@ -139,12 +139,6 @@ M.general = function()
   keymap_set("", "<C-ScrollWheelUp>", "4zh", {})
   keymap_set("", "<C-ScrollWheelDown>", "4zl", {})
 
-  -- local operator_rhs = function() return require('vim._comment').operator() end
-  -- vim.keymap.set('x', '<C-_>', operator_rhs, { expr = true, desc = 'Toggle comment' })
-
-  -- local line_rhs = function() return require('vim._comment').operator() .. '_' end
-  -- vim.keymap.set('n', '<C-_>', line_rhs, { expr = true, desc = 'Toggle comment line' })
-
   vim.keymap.del("n", "grr")
   vim.keymap.del("n", "grn")
   vim.keymap.del({ "n", "x" }, "gra")
@@ -245,7 +239,6 @@ M.coc = function()
   keymap_set("n", "K", show_documentation, { noremap = true, silent = true })
 
   keymap_set("n", "<Leader>rn", [[<Plug>(coc-rename)]], {})
-  keymap_set("n", "<Leader>rf", [[<Plug>(coc-refactor)]], {})
 
   keymap_set("x", "<Leader>af", [[<Plug>(coc-format-selected)]], {})
   keymap_set("n", "<Leader>af", [[<Plug>(coc-format)]], {})
@@ -257,10 +250,6 @@ M.coc = function()
   keymap_set("o", "if", [[<Plug>(coc-funcobj-i)]], {})
   keymap_set("x", "af", [[<Plug>(coc-funcobj-a)]], {})
   keymap_set("o", "af", [[<Plug>(coc-funcobj-a)]], {})
-  keymap_set("x", "ic", [[<Plug>(coc-classobj-i)]], {})
-  keymap_set("o", "ic", [[<Plug>(coc-classobj-i)]], {})
-  keymap_set("x", "ac", [[<Plug>(coc-classobj-a)]], {})
-  keymap_set("o", "ac", [[<Plug>(coc-classobj-a)]], {})
 
   keymap_set("n", "<C-f>", [[coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"]], { expr = true, noremap = true, nowait = true, silent = true })
   keymap_set("n", "<C-b>", [[coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"]], { expr = true, noremap = true, nowait = true, silent = true })
