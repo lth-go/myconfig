@@ -2,7 +2,6 @@ local conf = require("telescope.config").values
 local finders = require("telescope.finders")
 local pickers = require("telescope.pickers")
 local utils = require("telescope.utils")
-local path = require("plenary.path")
 local make_entry = require("telescope.make_entry")
 local string = string
 local vim = vim
@@ -96,28 +95,6 @@ local function gen_from_quickfix_custom(opts)
   end
 end
 
-local function gen_from_mru(opts)
-  local make_display = function(entry)
-    local display, hl_group, icon = utils.transform_devicons(entry.value, entry.value, false)
-
-    if hl_group then
-      icon = icon or " "
-      return display, { { { 0, #icon }, hl_group } }
-    else
-      return display
-    end
-  end
-
-  return function(entry)
-    return {
-      valid = entry ~= nil,
-      value = entry,
-      ordinal = entry,
-      display = make_display,
-    }
-  end
-end
-
 local function list_or_jump(opts)
   if not is_ready(opts.coc_provider) then
     return
@@ -150,43 +127,6 @@ local function list_or_jump(opts)
       })
       :find()
   end
-end
-
-local function mru(opts)
-  local home = vim.call("coc#util#get_data_home")
-  local data = path:new(home .. path.path.sep .. "mru"):read()
-  if not data or #data == 0 then
-    return
-  end
-
-  local results = {}
-  local exists = {}
-  local cwd = vim.loop.cwd() .. path.path.sep
-
-  for _, val in ipairs(utils.max_split(data, "\n")) do
-    local p = path:new(val)
-    local lowerPrefix = val:sub(1, #cwd):gsub(path.path.sep, ""):lower()
-    local lowerCWD = cwd:gsub(path.path.sep, ""):lower()
-    if lowerCWD == lowerPrefix and p:exists() and p:is_file() then
-      local v = val:sub(#cwd + 1)
-      if not exists[v] then
-        results[#results + 1] = v
-        exists[v] = true
-      end
-    end
-  end
-
-  pickers
-    .new(opts, {
-      prompt_title = "Coc MRU",
-      sorter = conf.generic_sorter(opts),
-      previewer = conf.qflist_previewer(opts),
-      finder = finders.new_table({
-        results = results,
-        entry_maker = gen_from_mru(opts),
-      }),
-    })
-    :find()
 end
 
 local function implementations(opts)
@@ -268,7 +208,6 @@ end
 
 return require("telescope").register_extension({
   exports = {
-    mru = mru,
     references = references,
     implementations = implementations,
     workspace_symbols = workspace_symbols,

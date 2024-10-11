@@ -295,7 +295,7 @@ M.telescope = function()
 
   keymap_set("n", "<Leader>ff", [[<Cmd>Telescope find_files<CR>]], { noremap = true })
   keymap_set("n", "<Leader>fg", live_grep_args, { noremap = true })
-  keymap_set("n", "<Leader>fm", [[<Cmd>Telescope coc mru<CR>]], { noremap = true })
+  keymap_set("n", "<Leader>fm", [[<Cmd>Telescope custom mru<CR>]], { noremap = true })
   keymap_set("n", "<Leader>fc", [[<Cmd>Telescope grep_string<CR>]], { noremap = true })
   keymap_set("v", "<Leader>fc", grep_from_selected, { noremap = true, silent = true })
   keymap_set("n", "<Leader>fb", [[<Cmd>Telescope buffers<CR>]], { noremap = true })

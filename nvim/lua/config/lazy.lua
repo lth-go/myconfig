@@ -180,7 +180,7 @@ require("lazy").setup({
             key = "r",
             key_hl = "Number",
             key_format = " %s",
-            action = "Telescope coc mru",
+            action = "Telescope custom mru",
           },
           {
             icon = " ",
@@ -616,6 +616,7 @@ require("lazy").setup({
         -- extension
         --
 
+        telescope.load_extension("custom")
         telescope.load_extension("coc")
         telescope.load_extension("fzf")
         telescope.load_extension("live_grep_args")
@@ -831,6 +832,7 @@ require("lazy").setup({
           "proto",
           "python",
           "rust",
+          "sh",
           "sql",
           "toml",
           "yaml",
