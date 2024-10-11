@@ -56,6 +56,5 @@
   "Lua.diagnostics.globals": [
     "vim",
   ],
-  "java.enabled": false,
   "yaml.format.enable": true,
 }
