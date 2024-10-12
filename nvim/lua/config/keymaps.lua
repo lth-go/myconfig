@@ -58,7 +58,7 @@ M.general = function()
 
   keymap_set("c", "/", smart_cmd_slash, { expr = true })
 
-  keymap_set("n", "<F1>", "<Nop>", { noremap = true })
+  -- keymap_set("n", "<F1>", "<Nop>", { noremap = true })
   keymap_set("i", "<F1>", "<Nop>", { noremap = true })
   keymap_set("n", "Q", "<Nop>", { noremap = true })
 
@@ -190,14 +190,6 @@ M.coc = function()
     end
   end
 
-  local open_explorer = function()
-    if vim.fn.index({ "coc-explorer" }, vim.opt.filetype:get()) >= 0 then
-      vim.cmd([[execute "normal! \<C-W>\<C-P>"]])
-    else
-      vim.cmd([[CocCommand explorer --no-toggle]])
-    end
-  end
-
   local toggle_outline = function()
     local winid = vim.fn["coc#window#find"]("cocViewId", "OUTLINE")
     if winid == -1 then
@@ -221,26 +213,20 @@ M.coc = function()
   keymap_set("n", "K", show_documentation, { noremap = true, silent = true })
 
   keymap_set("n", "<Leader>rn", [[<Plug>(coc-rename)]], {})
+  keymap_set("n", "<Space>gf", "<Cmd>call CocActionAsync('codeAction', 'cursor', ['refactor.rewrite'])<CR>", { noremap = true, silent = true })
 
   keymap_set("x", "<Leader>af", [[<Plug>(coc-format-selected)]], {})
   keymap_set("n", "<Leader>af", [[<Plug>(coc-format)]], {})
   keymap_set("x", "<C-A-l>", [[<Plug>(coc-format-selected)]], {})
   keymap_set("n", "<C-A-l>", [[<Plug>(coc-format)]], {})
+  keymap_set("n", "<C-A-o>", [[<Cmd>silent call CocAction('runCommand', 'editor.action.organizeImport')<CR>]], { noremap = true, silent = true })
 
   keymap_set("n", "<C-f>", [[coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"]], { expr = true, noremap = true, nowait = true, silent = true })
   keymap_set("n", "<C-b>", [[coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"]], { expr = true, noremap = true, nowait = true, silent = true })
   keymap_set("n", "<C-d>", [[coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-d>"]], { expr = true, noremap = true, nowait = true, silent = true })
   keymap_set("n", "<C-u>", [[coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-u>"]], { expr = true, noremap = true, nowait = true, silent = true })
 
-  keymap_set("n", "<C-A-o>", [[<Cmd>silent call CocAction('runCommand', 'editor.action.organizeImport')<CR>]], { noremap = true, silent = true })
-
   keymap_set("n", "<F2>", toggle_outline, { noremap = true, nowait = true, silent = true })
-
-  keymap_set("n", "<Space>gf", "<Cmd>call CocActionAsync('codeAction', 'cursor', ['refactor.rewrite'])<CR>", { noremap = true, silent = true })
-
-  -- coc-explorer
-  keymap_set("n", [[<C-\>]], open_explorer, {})
-  keymap_set("n", [[<F1>]], [[<Cmd>CocCommand explorer --no-toggle --no-focus<CR>]], {})
 
   keymap_set("n", [[<Space>gtg]], [[<Cmd>CocCommand go.test.generate.function<CR>]], {})
   keymap_set("n", [[<Space>gtr]], [[<Cmd>GoTestFunc<CR>]], {})

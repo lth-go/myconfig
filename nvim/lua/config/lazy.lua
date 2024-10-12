@@ -29,9 +29,6 @@ require("lazy").setup({
 
         cmd.colorscheme("gruvbox-material")
 
-        nvim_set_hl(0, "CocExplorerFileDirectoryExpanded", { fg = "#8094b4" })
-        nvim_set_hl(0, "CocExplorerFileDirectoryCollapsed", { fg = "#8094b4" })
-
         nvim_set_hl(0, "SpectreSearch", { reverse = true, ctermfg = 107, ctermbg = 234, fg = "#8ec07c", bg = "#1d2021" })
         nvim_set_hl(0, "SpectreReplace", { reverse = true, ctermfg = 203, ctermbg = 234, fg = "#fb4934", bg = "#1d2021" })
       end,
@@ -303,7 +300,7 @@ require("lazy").setup({
             globalstatus = true,
             disabled_filetypes = {
               statusline = {
-                "coc-explorer",
+                "neo-tree",
                 "TelescopePrompt",
                 "fugitive",
                 "fugitiveblame",
@@ -500,7 +497,7 @@ require("lazy").setup({
         require("bufferline").setup({
           options = {
             offsets = {
-              { filetype = "coc-explorer", text = "" },
+              { filetype = "neo-tree", text = "" },
             },
             show_buffer_close_icons = false,
             show_close_icon = false,
@@ -573,7 +570,6 @@ require("lazy").setup({
 
         g.coc_global_extensions = {
           "coc-clangd",
-          "coc-explorer",
           "coc-go",
           "coc-html",
           "coc-json",
@@ -706,14 +702,26 @@ require("lazy").setup({
 
     {
       "numToStr/Comment.nvim",
-      opts = {
-        toggler = {
-          line = "<C-_>",
-        },
-        mappings = {
-          extra = false,
-        },
-      },
+      config = function()
+        require("Comment").setup({
+          mappings = {
+            basic = false,
+            extra = false,
+          },
+        })
+
+        local comment_toggle_linewise = function()
+          local count = vim.api.nvim_get_vvar("count")
+          if count == 0 then
+            return "<Plug>(comment_toggle_linewise_current)"
+          else
+            return "<Plug>(comment_toggle_linewise_count)"
+          end
+        end
+
+        vim.keymap.set("n", "<C-_>", comment_toggle_linewise, { expr = true, desc = "Comment toggle current line" })
+        vim.keymap.set("x", "<C-_>", "<Plug>(comment_toggle_linewise_visual)", { desc = "Comment toggle linewise (visual)" })
+      end,
     },
 
     { "tpope/vim-fugitive" },
@@ -1019,6 +1027,74 @@ require("lazy").setup({
 
         vim.keymap.set("n", "<Leader>t", [[<Plug>TranslateW]], { silent = true })
         vim.keymap.set("v", "<Leader>t", [[<Plug>TranslateWV]], { silent = true })
+      end,
+    },
+
+    {
+      "nvim-neo-tree/neo-tree.nvim",
+      branch = "v3.x",
+      config = function()
+        require("neo-tree").setup({
+          enable_diagnostics = false,
+          open_files_do_not_replace_types = { "terminal", "trouble", "qf" },
+          sources = { "filesystem", "git_status" },
+          source_selector = {
+            winbar = true,
+            content_layout = "center",
+            sources = {
+              { source = "filesystem", },
+              { source = "git_status", },
+            },
+          },
+          commands = {
+            parent_or_close = function(state)
+              local node = state.tree:get_node()
+              if node:has_children() and node:is_expanded() then
+                state.commands.toggle_node(state)
+              end
+            end,
+            child_or_open = function(state)
+              local node = state.tree:get_node()
+              if node:has_children() then
+                if not node:is_expanded() then
+                  state.commands.toggle_node(state)
+                else
+                  if node.type == "file" then
+                    state.commands.open(state)
+                  end
+                end
+              else
+                state.commands.open(state)
+              end
+            end,
+          },
+          window = {
+            mappings = {
+              ["<Space>"] = false,
+              h = "parent_or_close",
+              l = "child_or_open",
+            },
+          },
+          filesystem = {
+            mappings = {
+              ["<cr>"] = "set_root",
+            },
+            filtered_items = {
+              show_hidden_count = false,
+            }
+          },
+        })
+
+        local open_neotree = function()
+          if vim.fn.index({ "neo-tree" }, vim.opt.filetype:get()) >= 0 then
+            vim.cmd([[execute "normal! \<C-W>\<C-P>"]])
+          else
+            vim.cmd([[Neotree focus reveal reveal_force_cwd]])
+          end
+        end
+
+        vim.keymap.set("n", [[<C-\>]], open_neotree, {})
+        vim.keymap.set("n", "<F1>", "<Cmd>Neotree show reveal reveal_force_cwd<CR>", {})
       end,
     },
   },
