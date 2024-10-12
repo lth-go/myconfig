@@ -167,7 +167,7 @@ require("lazy").setup({
                 ["<A-h>"] = { query = "@parameter.inner", desc = "Swap previous argument" },
               },
             },
-          }
+          },
         })
       end,
     },
@@ -307,7 +307,7 @@ require("lazy").setup({
                 "TelescopePrompt",
                 "fugitive",
                 "fugitiveblame",
-                "floaterm",
+                "toggleterm",
                 "qf",
               },
             },
@@ -660,13 +660,26 @@ require("lazy").setup({
     },
 
     {
-      "voldikss/vim-floaterm",
-      config = function()
-        local g = vim.g
-
-        g.floaterm_width = 0.9
-        g.floaterm_height = 0.9
-      end,
+      "akinsho/toggleterm.nvim",
+      version = "*",
+      opts = {
+        open_mapping = [[<F12>]],
+        highlights = {
+          FloatBorder = {
+            link = "Comment",
+          },
+        },
+        direction = "float",
+        float_opts = {
+          width = function(_)
+            return vim.fn.float2nr(vim.o.columns * 0.9)
+          end,
+          height = function(_)
+            return vim.fn.float2nr((vim.o.lines - vim.o.cmdheight - 1) * 0.9)
+          end,
+          winblend = 0,
+        },
+      },
     },
 
     {

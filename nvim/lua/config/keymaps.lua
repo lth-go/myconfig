@@ -319,11 +319,6 @@ M.spectre = function()
   keymap_set("n", "<Leader>sr", open, { noremap = true })
 end
 
-M.floaterm = function()
-  keymap_set("n", "<F12>", [[:nohlsearch |:FloatermToggle<CR>]], { noremap = true, silent = true })
-  keymap_set("t", "<F12>", [[<C-\><C-n>:FloatermToggle<CR>]], { noremap = true, silent = true })
-end
-
 M.treesj = function()
   keymap_set("n", "gJ", ":TSJJoin<CR>", { noremap = true, silent = true })
   keymap_set("n", "gS", ":TSJSplit<CR>", { noremap = true, silent = true })
@@ -340,7 +335,6 @@ M.init = function()
     M.vim_easy_align()
     M.vim_expand_region()
     M.spectre()
-    M.floaterm()
     M.treesj()
   end, 0)
 end
