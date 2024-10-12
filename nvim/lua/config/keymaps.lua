@@ -216,9 +216,9 @@ M.coc = function()
   end
 
   local toggle_outline = function()
-    local winid = vim.fn["coc#window#find"]('cocViewId', 'OUTLINE')
+    local winid = vim.fn["coc#window#find"]("cocViewId", "OUTLINE")
     if winid == -1 then
-      vim.fn["CocActionAsync"]('showOutline', 1)
+      vim.fn["CocActionAsync"]("showOutline", 1)
     else
       vim.fn["coc#window#close"](winid)
     end
@@ -233,7 +233,6 @@ M.coc = function()
   keymap_set("n", "]g", "m'<Plug>(coc-diagnostic-next)", { silent = true })
 
   keymap_set("n", "<leader>g", "<Plug>(coc-definition)", { silent = true })
-  keymap_set("n", "gd", "<Plug>(coc-definition)", { silent = true })
   keymap_set("n", "gy", "<Plug>(coc-type-definition)", { silent = true })
 
   keymap_set("n", "K", show_documentation, { noremap = true, silent = true })
@@ -244,12 +243,6 @@ M.coc = function()
   keymap_set("n", "<Leader>af", [[<Plug>(coc-format)]], {})
   keymap_set("x", "<C-A-l>", [[<Plug>(coc-format-selected)]], {})
   keymap_set("n", "<C-A-l>", [[<Plug>(coc-format)]], {})
-  keymap_set("n", "<Leader>ac", [[<Plug>(coc-codeaction-cursor)]], {})
-
-  keymap_set("x", "if", [[<Plug>(coc-funcobj-i)]], {})
-  keymap_set("o", "if", [[<Plug>(coc-funcobj-i)]], {})
-  keymap_set("x", "af", [[<Plug>(coc-funcobj-a)]], {})
-  keymap_set("o", "af", [[<Plug>(coc-funcobj-a)]], {})
 
   keymap_set("n", "<C-f>", [[coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"]], { expr = true, noremap = true, nowait = true, silent = true })
   keymap_set("n", "<C-b>", [[coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"]], { expr = true, noremap = true, nowait = true, silent = true })
@@ -299,7 +292,6 @@ M.telescope = function()
   keymap_set("n", "<Leader>fc", [[<Cmd>Telescope grep_string<CR>]], { noremap = true })
   keymap_set("v", "<Leader>fc", grep_from_selected, { noremap = true, silent = true })
   keymap_set("n", "<Leader>fb", [[<Cmd>Telescope buffers<CR>]], { noremap = true })
-  keymap_set("n", "<Leader>fs", [[<Cmd>Telescope coc workspace_symbols<CR>]], { noremap = true })
 
   keymap_set("n", "gr", [[<Cmd>Telescope coc references initial_mode=normal<CR>]], { silent = true })
   keymap_set("n", "gi", [[<Cmd>Telescope coc implementations initial_mode=normal<CR>]], { silent = true })
@@ -317,13 +309,6 @@ end
 M.vim_expand_region = function()
   keymap_set("v", "v", "<Plug>(expand_region_expand)", {})
   keymap_set("v", "V", "<Plug>(expand_region_shrink)", {})
-end
-
-M.gomove = function()
-  keymap_set("x", "<A-h>", "<Plug>GoVSMLeft", {})
-  keymap_set("x", "<A-j>", "<Plug>GoVSMDown", {})
-  keymap_set("x", "<A-k>", "<Plug>GoVSMUp", {})
-  keymap_set("x", "<A-l>", "<Plug>GoVSMRight", {})
 end
 
 M.spectre = function()
@@ -354,7 +339,6 @@ M.init = function()
     M.nerdcommenter()
     M.vim_easy_align()
     M.vim_expand_region()
-    M.gomove()
     M.spectre()
     M.floaterm()
     M.treesj()

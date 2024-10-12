@@ -64,6 +64,7 @@ require("lazy").setup({
       "nvim-treesitter/nvim-treesitter",
       build = ":TSUpdate",
       event = { "BufReadPost", "BufNewFile" },
+      dependencies = { { "nvim-treesitter/nvim-treesitter-textobjects", lazy = true } },
       config = function()
         require("nvim-treesitter.configs").setup({
           ensure_installed = {
@@ -134,6 +135,39 @@ require("lazy").setup({
           indent = {
             enable = true,
           },
+          textobjects = {
+            select = {
+              enable = true,
+              lookahead = true,
+              keymaps = {
+                ["af"] = { query = "@function.outer", desc = "around function " },
+                ["if"] = { query = "@function.inner", desc = "inside function " },
+                ["aa"] = { query = "@parameter.outer", desc = "around argument" },
+                ["ia"] = { query = "@parameter.inner", desc = "inside argument" },
+              },
+            },
+            move = {
+              enable = true,
+              set_jumps = true,
+              goto_next_start = {
+                ["]f"] = { query = "@function.outer", desc = "Next function start" },
+                ["]a"] = { query = "@parameter.inner", desc = "Next argument start" },
+              },
+              goto_previous_start = {
+                ["[f"] = { query = "@function.outer", desc = "Previous function start" },
+                ["[a"] = { query = "@parameter.inner", desc = "Previous argument start" },
+              },
+            },
+            swap = {
+              enable = true,
+              swap_next = {
+                ["<A-l>"] = { query = "@parameter.inner", desc = "Swap next argument" },
+              },
+              swap_previous = {
+                ["<A-h>"] = { query = "@parameter.inner", desc = "Swap previous argument" },
+              },
+            },
+          }
         })
       end,
     },
@@ -489,7 +523,9 @@ require("lazy").setup({
         wilder.set_option({
           pipeline = {
             wilder.branch(
-              wilder.check(function(_, x) return x == "" end),
+              wilder.check(function(_, x)
+                return x == ""
+              end),
               wilder.cmdline_pipeline({
                 fuzzy = 1,
                 sorter = wilder.python_difflib_sorter(),
@@ -509,7 +545,7 @@ require("lazy").setup({
               left = { " ", wilder.popupmenu_devicons() },
               right = { " ", wilder.popupmenu_scrollbar() },
             }),
-          })
+          }),
         })
       end,
     },
@@ -666,19 +702,6 @@ require("lazy").setup({
       end,
     },
 
-    {
-      "Wansmer/sibling-swap.nvim",
-      dependencies = { "nvim-treesitter" },
-      config = function()
-        require("sibling-swap").setup({
-          use_default_keymaps = false,
-        })
-
-        vim.keymap.set("n", "<A-h>", require("sibling-swap").swap_with_left)
-        vim.keymap.set("n", "<A-l>", require("sibling-swap").swap_with_right)
-      end,
-    },
-
     { "tpope/vim-abolish" },
     { "tpope/vim-repeat" },
     { "tpope/vim-surround" },
@@ -752,19 +775,6 @@ require("lazy").setup({
           ["iw"] = "i<M-w>",
           ["<C-R><C-W>"] = "<C-R><M-w>",
         }
-      end,
-    },
-
-    {
-      "booperlv/nvim-gomove",
-      config = function()
-        require("gomove").setup({
-          map_defaults = false,
-          reindent = false,
-          undojoin = true,
-          move_past_end_col = false,
-          ignore_indent_lh_dup = true,
-        })
       end,
     },
 

@@ -2,7 +2,6 @@ local conf = require("telescope.config").values
 local finders = require("telescope.finders")
 local pickers = require("telescope.pickers")
 local utils = require("telescope.utils")
-local make_entry = require("telescope.make_entry")
 local string = string
 local vim = vim
 
@@ -170,46 +169,9 @@ local function references(opts)
     :find()
 end
 
-local function get_workspace_symbols_requester()
-  return function(prompt)
-    local results = {}
-    local symbols = CocAction("getWorkspaceSymbols", prompt)
-    if type(symbols) ~= "table" or vim.tbl_isempty(symbols) then
-      return results
-    end
-    for _, s in ipairs(symbols) do
-      local filename = vim.uri_to_fname(s.location.uri)
-      local kind = vim.lsp.protocol.SymbolKind[s.kind] or "Unknown"
-      results[#results + 1] = {
-        filename = filename,
-        lnum = s.location.range.start.line + 1,
-        col = s.location.range.start.character + 1,
-        kind = kind,
-        text = string.format("[%s] %s", kind, s.name),
-      }
-    end
-    return results
-  end
-end
-
-local function workspace_symbols(opts)
-  pickers
-    .new(opts, {
-      prompt_title = "Coc Workspace Symbols",
-      finder = finders.new_dynamic({
-        entry_maker = opts.entry_maker or make_entry.gen_from_lsp_symbols(opts),
-        fn = get_workspace_symbols_requester(),
-      }),
-      previewer = conf.qflist_previewer(opts),
-      sorter = conf.generic_sorter(),
-    })
-    :find()
-end
-
 return require("telescope").register_extension({
   exports = {
     references = references,
     implementations = implementations,
-    workspace_symbols = workspace_symbols,
   },
 })
