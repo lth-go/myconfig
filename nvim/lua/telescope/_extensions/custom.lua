@@ -3,7 +3,6 @@ local finders = require("telescope.finders")
 local pickers = require("telescope.pickers")
 local path = require("plenary.path")
 local make_entry = require("telescope.make_entry")
-local vim = vim
 
 ---@return boolean
 local function buf_in_cwd(bufname, cwd)

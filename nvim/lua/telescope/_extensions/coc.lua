@@ -2,8 +2,6 @@ local conf = require("telescope.config").values
 local finders = require("telescope.finders")
 local pickers = require("telescope.pickers")
 local utils = require("telescope.utils")
-local string = string
-local vim = vim
 
 local fn = vim.fn
 local CocAction = fn.CocAction

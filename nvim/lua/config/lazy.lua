@@ -507,6 +507,16 @@ require("lazy").setup({
             separator_style = "slope",
           },
         })
+
+        vim.keymap.set("n", "<Leader>1", "<Cmd>BufferLineGoToBuffer 1<CR>", { noremap = true, silent = true })
+        vim.keymap.set("n", "<Leader>2", "<Cmd>BufferLineGoToBuffer 2<CR>", { noremap = true, silent = true })
+        vim.keymap.set("n", "<Leader>3", "<Cmd>BufferLineGoToBuffer 3<CR>", { noremap = true, silent = true })
+        vim.keymap.set("n", "<Leader>4", "<Cmd>BufferLineGoToBuffer 4<CR>", { noremap = true, silent = true })
+        vim.keymap.set("n", "<Leader>5", "<Cmd>BufferLineGoToBuffer 5<CR>", { noremap = true, silent = true })
+        vim.keymap.set("n", "<Leader>6", "<Cmd>BufferLineGoToBuffer 6<CR>", { noremap = true, silent = true })
+        vim.keymap.set("n", "<Leader>7", "<Cmd>BufferLineGoToBuffer 7<CR>", { noremap = true, silent = true })
+        vim.keymap.set("n", "<Leader>8", "<Cmd>BufferLineGoToBuffer 8<CR>", { noremap = true, silent = true })
+        vim.keymap.set("n", "<Leader>9", "<Cmd>BufferLineGoToBuffer 9<CR>", { noremap = true, silent = true })
       end,
     },
 
@@ -547,6 +557,8 @@ require("lazy").setup({
             }),
           }),
         })
+
+        vim.api.nvim_set_keymap("c", "/", [[wilder#can_accept_completion() ? wilder#accept_completion(0) : "/"]], { expr = true, noremap = true })
       end,
     },
 
@@ -710,16 +722,27 @@ require("lazy").setup({
       "Wansmer/treesj",
       dependencies = { "nvim-treesitter" },
       config = function()
-        require("treesj").setup({
+        local treesj = require("treesj")
+
+        treesj.setup({
           use_default_keymaps = false,
         })
+
+        vim.keymap.set("n", "gJ", treesj.join)
+        vim.keymap.set("n", "gS", treesj.split)
       end,
     },
 
     { "tpope/vim-abolish" },
     { "tpope/vim-repeat" },
     { "tpope/vim-surround" },
-    { "junegunn/vim-easy-align" },
+    {
+      "junegunn/vim-easy-align",
+      init = function()
+        vim.keymap.set("x", "ga", "<Plug>(EasyAlign)", {})
+        vim.keymap.set("n", "ga", "<Plug>(EasyAlign)", {})
+      end,
+    },
 
     {
       "terryma/vim-expand-region",
@@ -741,6 +764,9 @@ require("lazy").setup({
           ["a}"] = 1,
           ["at"] = 1,
         }
+
+        vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", {})
+        vim.keymap.set("v", "V", "<Plug>(expand_region_shrink)", {})
       end,
     },
 
@@ -802,8 +828,11 @@ require("lazy").setup({
     {
       "windwp/nvim-spectre",
       lazy = true,
+      keys = { "<Leader>sr" },
       config = function()
-        require("spectre").setup({
+        local spectre = require("spectre")
+
+        spectre.setup({
           highlight = {
             ui = "String",
             search = "SpectreSearch",
@@ -817,6 +846,8 @@ require("lazy").setup({
             },
           },
         })
+
+        vim.keymap.set("n", "<Leader>sr", spectre.open, { noremap = true })
       end,
     },
 

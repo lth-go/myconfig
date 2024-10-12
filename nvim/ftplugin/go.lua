@@ -1,4 +1,3 @@
-local vim = vim
 local api = vim.api
 local keymap_set = vim.keymap.set
 local opt_local = vim.opt_local
