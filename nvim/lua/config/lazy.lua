@@ -693,14 +693,15 @@ require("lazy").setup({
     },
 
     {
-      "scrooloose/nerdcommenter",
-      config = function()
-        local g = vim.g
-
-        g.NERDCreateDefaultMappings = 0
-        g.NERDDefaultAlign = "left"
-        g.NERDSpaceDelims = 1
-      end,
+      "numToStr/Comment.nvim",
+      opts = {
+        toggler = {
+          line = "<C-_>",
+        },
+        mappings = {
+          extra = false,
+        },
+      },
     },
 
     { "tpope/vim-fugitive" },

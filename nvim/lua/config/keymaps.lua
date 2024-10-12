@@ -297,10 +297,6 @@ M.telescope = function()
   keymap_set("n", "gi", [[<Cmd>Telescope coc implementations initial_mode=normal<CR>]], { silent = true })
 end
 
-M.nerdcommenter = function()
-  keymap_set("", "<C-_>", [[<Plug>NERDCommenterToggle]], {})
-end
-
 M.vim_easy_align = function()
   keymap_set("x", "ga", "<Plug>(EasyAlign)", {})
   keymap_set("n", "ga", "<Plug>(EasyAlign)", {})
@@ -331,7 +327,6 @@ M.init = function()
     M.wilder()
     M.coc()
     M.telescope()
-    M.nerdcommenter()
     M.vim_easy_align()
     M.vim_expand_region()
     M.spectre()
