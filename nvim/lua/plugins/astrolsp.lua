@@ -4,14 +4,12 @@ return {
   opts = {
     features = {
       inlay_hints = true,
+      semantic_tokens = true,
     },
     config = {
       lua_ls = {
         settings = {
           Lua = {
-            format = {
-              enable = false,
-            },
             hint = {
               enable = false,
             },
@@ -19,6 +17,7 @@ return {
         },
       },
       gopls = {
+        cmd = { "gopls", "-remote=auto", "-remote.listen.timeout=10m0s" },
         settings = {
           gopls = {
             hints = {
@@ -26,6 +25,15 @@ return {
               functionTypeParameters = true,
             },
             staticcheck = true,
+          },
+        },
+      },
+      yamlls = {
+        settings = {
+          yaml = {
+            format = {
+              enable = true,
+            },
           },
         },
       },

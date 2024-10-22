@@ -65,23 +65,106 @@ return {
     local status_utils = require("astroui.status.utils")
 
     provider.ruler = function(opts)
-      opts = extend_tbl({ pad_ruler = { line = 3, char = 2 } }, opts)
-      local padding_str = ("%%%dd/%%-%dd"):format(opts.pad_ruler.line, opts.pad_ruler.char)
       return function()
         local line = vim.fn.line(".")
         local char = vim.fn.line("$")
+
+        local padding_str = " %d/%d"
         return status_utils.stylize(padding_str:format(line, char), opts)
       end
+    end
+
+    provider.showcmd = function(opts)
+      local get_visual_selection = function()
+        local row_start = vim.fn.getpos("v")[2]
+        local row_end = vim.fn.getpos(".")[2]
+        local col_start = vim.fn.virtcol("v")
+        local col_end = vim.fn.virtcol(".")
+
+        local a = { row = math.min(row_start, row_end), col = math.min(col_start, col_end) }
+        local b = { row = math.max(row_start, row_end), col = math.max(col_start, col_end) }
+
+        return a, b
+      end
+
+      opts = extend_tbl({ minwid = 0, maxwid = 7, escape = false }, opts)
+
+      return function()
+        local begin_pos, end_pos = get_visual_selection()
+
+        local mode = vim.fn.mode()
+
+        if vim.tbl_contains({ "v" }, mode) then
+          local row = end_pos.row - begin_pos.row + 1
+          local col = end_pos.col - begin_pos.col + 1
+
+          return status_utils.stylize(("%%%d.%d(%d%%)"):format(opts.minwid, opts.maxwid, row == 1 and col or row), opts)
+        end
+
+        if vim.tbl_contains({ "V" }, mode) then
+          local row = end_pos.row - begin_pos.row + 1
+
+          return status_utils.stylize(("%%%d.%d(%d%%)"):format(opts.minwid, opts.maxwid, row), opts)
+        end
+
+        if vim.tbl_contains({ "" }, mode) then
+          local row = end_pos.row - begin_pos.row + 1
+          local col = end_pos.col - begin_pos.col + 1
+
+          return status_utils.stylize(("%%%d.%d(%dx%d%%)"):format(opts.minwid, opts.maxwid, row, col), opts)
+        end
+
+        return ""
+      end
+    end
+
+    local is_visual_mode = function()
+      return vim.tbl_contains({ "v", "V", "" }, vim.fn.mode())
     end
 
     opts.winbar = nil
     opts.statusline = {
       hl = { fg = "fg", bg = "bg" },
       status.component.mode(),
-      status.component.file_info({ file_icon = { padding = { left = 0, right = 1 } }, filename = { modify = ":~:.", condition = condition.is_file }, filetype = false }),
+      status.component.file_info({
+        file_icon = {
+          padding = {
+            left = 0,
+            right = 1,
+          },
+        },
+        filename = {
+          modify = ":~:.",
+          condition = condition.is_file,
+        },
+        filetype = false,
+      }),
       status.component.diagnostics(),
       status.component.fill(),
-      status.component.cmd_info({}),
+      status.component.cmd_info({
+        search_count = {
+          condition = function()
+            if not condition.is_hlsearch() then
+              return false
+            end
+
+            local search = vim.fn.searchcount()
+            if type(search) == "table" and search.total and search.total > 0 then
+              return true
+            end
+
+            return false
+          end,
+        },
+        showcmd = {
+          condition = is_visual_mode,
+        },
+        surround = {
+          condition = function()
+            return condition.is_hlsearch() or condition.is_macro_recording() or is_visual_mode()
+          end,
+        },
+      }),
       status.component.fill(),
       status.component.nav({ percentage = false }),
       status.component.mode({ surround = { separator = "right" } }),

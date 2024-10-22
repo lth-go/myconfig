@@ -56,26 +56,61 @@ return {
     {
       "AstroNvim/astrolsp",
       opts = function(_, opts)
+        local utils = require("telescope.utils")
+
+        local gen_from_quickfix = function()
+          local make_display = function(entry)
+            local hl_group, icon
+            local display, path_style = utils.transform_path({}, entry.filename)
+            local display_string = string.format("%s:%d:%d", display, entry.lnum, entry.col)
+
+            display, hl_group, icon = utils.transform_devicons(entry.filename, display_string, false)
+
+            if hl_group then
+              local style = { { { 0, #icon + 1 }, hl_group } }
+              style = utils.merge_styles(style, path_style, #icon + 1)
+              return display, style
+            end
+
+            return display, path_style
+          end
+
+          return function(entry)
+            return {
+              value = entry,
+              ordinal = entry.filename .. " " .. entry.text,
+              display = make_display,
+              bufnr = entry.bufnr,
+              filename = entry.filename,
+              lnum = entry.lnum,
+              col = entry.col,
+              text = entry.text,
+              start = entry.start,
+              finish = entry.finish,
+            }
+          end
+        end
+
         local maps = {
           n = {
             ["<Leader>g"] = {
               function()
-                require("telescope.builtin").lsp_definitions()
+                require("telescope.builtin").lsp_definitions({ entry_maker = gen_from_quickfix() })
               end,
             },
             ["gy"] = {
               function()
-                require("telescope.builtin").lsp_type_definitions()
+                require("telescope.builtin").lsp_type_definitions({ entry_maker = gen_from_quickfix() })
               end,
             },
             ["gr"] = {
               function()
-                require("telescope.builtin").lsp_references()
+                require("telescope.builtin").lsp_references({ include_declaration = false, jump_type = "never", entry_maker = gen_from_quickfix() })
               end,
             },
             ["gi"] = {
               function()
-                require("telescope.builtin").lsp_implementations()
+                require("telescope.builtin").lsp_implementations({ entry_maker = gen_from_quickfix() })
               end,
             },
           },

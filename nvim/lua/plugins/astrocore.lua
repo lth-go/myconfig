@@ -37,7 +37,6 @@ return {
         shiftround = true,
         shiftwidth = 4,
         shortmess = vim.tbl_deep_extend("force", vim.opt.shortmess:get(), { c = true, s = true, I = true, W = true }),
-        showcmdloc = "statusline",
         showmode = false,
         sidescrolloff = 10,
         signcolumn = "number",
@@ -101,6 +100,11 @@ return {
         ["<C-ScrollWheelUp>"] = { "4zh" },
         ["<C-ScrollWheelDown>"] = { "4zl" },
 
+        ["<Leader>rn"] = {
+          function()
+            vim.lsp.buf.rename()
+          end,
+        },
         ["<C-G>"] = {
           function()
             local msg = string.format("%s:%s", vim.fn.expand("%"), vim.fn.line("."))

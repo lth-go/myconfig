@@ -23,6 +23,7 @@ return {
         vim.g.gruvbox_material_foreground = "original"
         vim.g.gruvbox_material_better_performance = 0
         vim.g.gruvbox_material_disable_italic_comment = 1
+        vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
       end,
     },
   },
@@ -73,6 +74,7 @@ return {
 
   {
     "Wansmer/treesj",
+    keys = { "gJ", "gS" },
     dependencies = { "nvim-treesitter" },
     config = function()
       local treesj = require("treesj")
@@ -100,10 +102,8 @@ return {
   {
     "terryma/vim-expand-region",
     init = function()
-      local g = vim.g
-
       -- 选中区域配置, 1表示递归
-      g.expand_region_text_objects = {
+      vim.g.expand_region_text_objects = {
         ["iw"] = 0,
         ['i"'] = 1,
         ["i'"] = 1,
@@ -178,7 +178,6 @@ return {
 
   {
     "windwp/nvim-spectre",
-    lazy = true,
     keys = { "<Leader>sr" },
     config = function()
       local spectre = require("spectre")
@@ -204,13 +203,12 @@ return {
 
   {
     "kevinhwang91/nvim-bqf",
-    config = function()
-      require("bqf").setup({
-        preview = {
-          auto_preview = false,
-        },
-      })
-    end,
+    ft = "qf",
+    opts = {
+      preview = {
+        auto_preview = false,
+      },
+    },
   },
 
   {
@@ -222,7 +220,22 @@ return {
 
   {
     "supermaven-inc/supermaven-nvim",
-    init = function()
+    ft = {
+      "bash",
+      "go",
+      "gomod",
+      "json",
+      "lua",
+      "make",
+      "proto",
+      "python",
+      "rust",
+      "sh",
+      "sql",
+      "toml",
+      "yaml",
+    },
+    config = function()
       local binary = require("supermaven-nvim.binary.binary_handler")
 
       local old_on_update = binary.on_update
@@ -250,8 +263,7 @@ return {
 
         old_on_update(self, buffer, file_name, event_type)
       end
-    end,
-    config = function()
+
       require("supermaven-nvim").setup({
         keymaps = {
           accept_suggestion = "<C-j>",
@@ -279,6 +291,7 @@ return {
 
   {
     "lth-go/vim-translator",
+    keys = "<Leader>t",
     config = function()
       local g = vim.g
 
@@ -292,11 +305,9 @@ return {
 
   {
     "rcarriga/nvim-notify",
-    config = function()
-      require("notify").setup({
-        stages = "static",
-      })
-    end,
+    opts = {
+      stages = "static",
+    },
   },
 
   {

@@ -33,6 +33,11 @@ return {
     end
 
     return require("astrocore").extend_tbl(opts, {
+      default_component_configs = {
+        name = {
+          use_git_status_colors = false,
+        },
+      },
       sources = { "filesystem", "git_status" },
       commands = {
         parent_or_close = function(state)
