@@ -44,8 +44,28 @@ return {
               current_buf_map[vim.api.nvim_win_get_buf(win)] = true
             end
 
+            local ok = function(bufnr)
+              if current_buf_map[bufnr] then
+                return false
+              end
+
+              if not vim.api.nvim_buf_is_valid(bufnr) then
+                return false
+              end
+
+              if vim.api.nvim_get_option_value("modified", { buf = bufnr }) then
+                return false
+              end
+
+              if vim.api.nvim_get_option_value("buftype", { buf = bufnr }) ~= "" then
+                return false
+              end
+
+              return true
+            end
+
             for _, bufnr in ipairs(vim.t.bufs) do
-              if not current_buf_map[bufnr] then
+              if ok(bufnr) then
                 require("astrocore.buffer").close(bufnr, false)
               end
             end

@@ -4,10 +4,7 @@ return {
     local cmp = require("cmp")
 
     local maps = {
-      ["<CR>"] = cmp.mapping.confirm({
-        behavior = cmp.ConfirmBehavior.Insert,
-        select = true,
-      }),
+      ["<CR>"] = cmp.mapping.confirm({ select = true }),
       ["<C-D>"] = cmp.mapping(cmp.mapping.complete(), { "i" }),
     }
 

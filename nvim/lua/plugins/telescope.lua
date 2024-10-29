@@ -105,7 +105,7 @@ return {
             },
             ["gr"] = {
               function()
-                require("telescope.builtin").lsp_references({ include_declaration = false, jump_type = "never", entry_maker = gen_from_quickfix() })
+                require("telescope.builtin").lsp_references({ include_declaration = false, include_current_line = true, jump_type = "never", entry_maker = gen_from_quickfix() })
               end,
             },
             ["gi"] = {
