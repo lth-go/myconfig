@@ -49,6 +49,7 @@ return {
         swapfile = false,
         tabstop = 4,
         termguicolors = true,
+        timeoutlen = 1000,
         title = false,
         undofile = false,
         updatetime = 300,
@@ -68,11 +69,18 @@ return {
         ["\\"] = false,
         ["|"] = false,
         ["<Leader>g"] = false,
-        ["<Leader>gg"] = false,
+        ["<Leader>gC"] = false,
         ["<Leader>gb"] = false,
         ["<Leader>gc"] = false,
-        ["<Leader>gC"] = false,
+        ["<Leader>gg"] = false,
         ["<Leader>gt"] = false,
+        ["<Leader>tf"] = false,
+        ["<Leader>th"] = false,
+        ["<Leader>tl"] = false,
+        ["<Leader>tn"] = false,
+        ["<Leader>tp"] = false,
+        ["<Leader>tt"] = false,
+        ["<Leader>tv"] = false,
 
         ["Q"] = { "<Nop>" },
         ["?"] = "/",
@@ -112,7 +120,7 @@ return {
             print(msg)
           end,
         },
-        ["<A-G>"] = {
+        ["<A-g>"] = {
           function()
             local msg = string.format("%s/", vim.fn.expand("%:h"))
             vim.fn.setreg("+", msg)

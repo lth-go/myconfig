@@ -64,6 +64,7 @@ return {
       window = {
         mappings = {
           ["/"] = false,
+          ["H"] = false,
         },
       },
       filesystem = {

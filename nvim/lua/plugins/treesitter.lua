@@ -66,5 +66,15 @@ return {
       end,
     },
     incremental_selection = { enable = false },
+    textobjects = {
+      move = {
+        goto_next_start = {
+          ["]]"] = "@local.name",
+        },
+        goto_previous_start = {
+          ["[["] = "@local.name",
+        },
+      },
+    },
   },
 }
