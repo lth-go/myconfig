@@ -1,3 +1,70 @@
+local exists = function(filepath)
+  local stat = vim.uv.fs_stat(filepath)
+  return stat ~= nil and stat.type ~= nil
+end
+
+local get_reveal_dir = function(reveal_file)
+  local original_dir = vim.fn.fnamemodify(reveal_file, ":h")
+
+  local dir = original_dir
+
+  for _ = 1, 5 do
+    if dir == "/" then
+      break
+    end
+
+    local gomod = dir .. "/go.mod"
+    if exists(gomod) then
+      return dir
+    end
+
+    dir = vim.fn.fnamemodify(dir, ":h")
+  end
+
+  return original_dir
+end
+
+local get_args = function(action)
+  local args = {
+    action = action,
+    reveal = true,
+    reveal_force_cwd = true,
+  }
+
+  local reveal_file = vim.fn.expand("%:p")
+  local cwd = vim.fn.getcwd()
+
+  if reveal_file == "" then
+    args.dir = cwd
+
+    return args
+  end
+
+  if string.sub(reveal_file, 1, string.len(cwd)) == cwd then
+    args.dir = cwd
+
+    return args
+  end
+
+  args.reveal_file = reveal_file
+  args.dir = get_reveal_dir(reveal_file)
+
+  return setmetatable({}, {
+    __index = args,
+    __newindex = function(_, k, v)
+      if k == "dir" then
+        return
+      end
+
+      args[k] = v
+    end,
+  })
+end
+
+local toggle_explorer = function(action)
+  require("neo-tree.command").execute(get_args(action))
+end
+
 return {
   "nvim-neo-tree/neo-tree.nvim",
   specs = {
@@ -5,13 +72,19 @@ return {
       "AstroNvim/astrocore",
       opts = function(_, opts)
         local maps = opts.mappings
-        maps.n["<F1>"] = { "<Cmd>Neotree show reveal reveal_force_cwd<CR>", desc = "Toggle Explorer" }
+        maps.n["<F1>"] = {
+          function()
+            toggle_explorer("show")
+          end,
+          desc = "Toggle Explorer",
+        }
+
         maps.n["<C-\\>"] = {
           function()
             if vim.bo.filetype == "neo-tree" then
               vim.cmd.wincmd("p")
             else
-              vim.cmd("Neotree focus reveal reveal_force_cwd")
+              toggle_explorer("focus")
             end
           end,
           desc = "Toggle Explorer Focus",

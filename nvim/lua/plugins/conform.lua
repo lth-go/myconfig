@@ -30,6 +30,7 @@ return {
         "goimports",
         "goimports-reviser",
       },
+      xml = { "xmlformatter" },
     },
     formatters = {
       ["goimports-reviser"] = {

@@ -8,7 +8,7 @@ return {
           n = {
             ["<Leader>ff"] = {
               function()
-                require("telescope.builtin").find_files()
+                require("telescope.builtin").find_files({ temp__scrolling_limit = 36, debounce = 100 })
               end,
             },
             ["<Leader>fg"] = {
@@ -137,7 +137,7 @@ return {
       mappings = {
         i = {
           ["<esc>"] = require("telescope.actions").close,
-          ["<C-J>"] = false,
+          ["<C-J>"] = require("telescope.actions").to_fuzzy_refine,
           ["<C-K>"] = false,
         },
         n = {
@@ -154,7 +154,6 @@ return {
       mappings = {
         i = {
           ["<C-K>"] = require("telescope-live-grep-args.actions").quote_prompt(),
-          ["<C-J>"] = require("telescope.actions").to_fuzzy_refine,
         },
       },
     }

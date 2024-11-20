@@ -30,8 +30,14 @@ return {
       dashboard.button("LDR n  ", get_icon("FileNew", 2, true) .. "New File  "),
     }
 
-    opts.config.layout[3].val = 3
-    opts.config.layout[5].val = 1
+    opts.config.layout = {
+      { type = "padding", val = vim.fn.max({ 2, vim.fn.floor(vim.fn.winheight(0) * 0.1) }) },
+      opts.section.header,
+      { type = "padding", val = 3 },
+      opts.section.buttons,
+      { type = "padding", val = 1 },
+      opts.section.footer,
+    }
 
     return opts
   end,

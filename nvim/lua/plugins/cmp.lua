@@ -1,10 +1,13 @@
 return {
   "hrsh7th/nvim-cmp",
+  dependencies = { "hrsh7th/cmp-nvim-lsp-signature-help", lazy = true },
   opts = function(_, opts)
     local cmp = require("cmp")
 
+    table.insert(opts.sources, { name = "nvim_lsp_signature_help" })
+
     local maps = {
-      ["<CR>"] = cmp.mapping.confirm({ select = true }),
+      ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = true }), { "i" }),
       ["<C-D>"] = cmp.mapping(cmp.mapping.complete(), { "i" }),
     }
 

@@ -3,6 +3,15 @@ return {
   keys = { "<F12>" },
   opts = {
     open_mapping = [[<F12>]],
+    on_open = function(term)
+      local dir = vim.loop.cwd()
+      if term.dir == dir then
+        return
+      end
+
+      term:send(string.format("cd %s", dir), false)
+      term.dir = dir
+    end,
     highlights = {
       NormalFloat = { link = "Normal" },
       FloatBorder = { link = "Comment" },

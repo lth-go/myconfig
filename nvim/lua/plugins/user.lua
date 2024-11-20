@@ -70,7 +70,6 @@ return {
     end,
   },
 
-  { "tpope/vim-fugitive" },
 
   {
     "Wansmer/treesj",
@@ -89,6 +88,7 @@ return {
   },
 
   { "tpope/vim-abolish" },
+  { "tpope/vim-fugitive" },
   { "tpope/vim-repeat" },
   { "tpope/vim-surround" },
   {
@@ -219,79 +219,16 @@ return {
   },
 
   {
-    "supermaven-inc/supermaven-nvim",
-    ft = {
-      "bash",
-      "go",
-      "gomod",
-      "json",
-      "lua",
-      "make",
-      "proto",
-      "python",
-      "rust",
-      "sh",
-      "sql",
-      "toml",
-      "yaml",
-    },
-    config = function()
-      local binary = require("supermaven-nvim.binary.binary_handler")
-
-      local old_on_update = binary.on_update
-
-      local include_filetypes = {
-        "bash",
-        "go",
-        "gomod",
-        "json",
-        "lua",
-        "make",
-        "proto",
-        "python",
-        "rust",
-        "sh",
-        "sql",
-        "toml",
-        "yaml",
-      }
-
-      binary.on_update = function(self, buffer, file_name, event_type)
-        if not vim.tbl_contains(include_filetypes, vim.bo.filetype) then
-          return
-        end
-
-        old_on_update(self, buffer, file_name, event_type)
-      end
-
-      require("supermaven-nvim").setup({
-        keymaps = {
-          accept_suggestion = "<C-j>",
-          clear_suggestion = "<C-]>",
-          accept_word = "<A-j>",
-        },
-        ignore_filetypes = {},
-        color = {
-          suggestion_color = "#928374",
-          cterm = 245,
-        },
-        log_level = "error",
-        disable_inline_completion = false,
-        disable_keymaps = false,
-      })
-    end,
-  },
-
-  {
     "lth-go/searchx.nvim",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    keys = { "/" },
     config = function()
-      vim.keymap.set("n", "/", ":Searchx<CR>", { silent = true })
+      vim.keymap.set("n", "/", require("searchx.command").search_raw, { silent = true })
     end,
   },
 
   {
     "lth-go/vim-translator",
-    keys = "<Leader>t",
     config = function()
       local g = vim.g
 
@@ -307,73 +244,6 @@ return {
     "rcarriga/nvim-notify",
     opts = {
       stages = "static",
-    },
-  },
-
-  {
-    "folke/noice.nvim",
-    init = function()
-      local formatters = require("noice.text.format.formatters")
-
-      function formatters.search_count(message, opts, input)
-        local content = input:content()
-
-        local v = content:match(".*(%[%d+/%d+%])$")
-        if v then
-          content = v
-        end
-
-        message:append(content)
-      end
-    end,
-    opts = {
-      cmdline = {
-        view = "cmdline",
-        format = {
-          cmdline = false,
-          lua = false,
-          help = false,
-        },
-      },
-      presets = {
-        bottom_search = true,
-        long_message_to_split = true,
-      },
-      views = {
-        virtualtext = {
-          format = { "{search_count}" },
-        },
-      },
-      routes = {
-        {
-          filter = {
-            event = "msg_show",
-            any = {
-              { find = "%d+L, %d+B" },
-              { find = "; after #%d+" },
-              { find = "; before #%d+" },
-              { find = "lines yanked" },
-              { find = "more lines" },
-              { find = "fewer lines" },
-              { find = "E486: Pattern not found" },
-            },
-          },
-          view = "mini",
-        },
-        {
-          filter = {
-            event = "msg_show",
-            any = {
-              { find = [[^\<.*\>$]] },
-              { find = [[^\V.*]] },
-              { find = "Already at newest change" },
-            },
-          },
-          opts = {
-            skip = true,
-          },
-        },
-      },
     },
   },
 }
