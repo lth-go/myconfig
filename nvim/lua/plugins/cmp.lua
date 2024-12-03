@@ -1,6 +1,6 @@
 return {
   "hrsh7th/nvim-cmp",
-  dependencies = { "hrsh7th/cmp-nvim-lsp-signature-help", lazy = true },
+  dependencies = { "hrsh7th/cmp-nvim-lsp-signature-help" },
   opts = function(_, opts)
     local cmp = require("cmp")
 

@@ -1,30 +1,22 @@
 return {
-  "numToStr/Comment.nvim",
+  "preservim/nerdcommenter",
   specs = {
     {
       "AstroNvim/astrocore",
       opts = function(_, opts)
-        local maps = opts.mappings
-
-        maps.n["<C-_>"] = {
-          function()
-            local motion = (vim.v.count == 0 and "current" or "count_repeat")
-            return require("Comment.api").call("toggle.linewise." .. motion, "g@$")()
-          end,
-          expr = true,
-          silent = true,
-          desc = "Toggle comment line",
-        }
-        maps.x["<C-_>"] = {
-          "<Esc><Cmd>lua require('Comment.api').locked('toggle.linewise')(vim.fn.visualmode())<CR>",
-          desc = "Toggle comment",
-        }
+        opts.mappings = require("astrocore").extend_tbl(opts.mappings, {
+          [""] = {
+            ["<C-_>"] = [[<Plug>NERDCommenterToggle]],
+          },
+        })
 
         return opts
       end,
     },
   },
-  opts = {
-    ignore = "^$",
-  },
+  init = function()
+    vim.g.NERDCreateDefaultMappings = 0
+    vim.g.NERDDefaultAlign = "left"
+    vim.g.NERDSpaceDelims = 1
+  end,
 }

@@ -1,5 +1,32 @@
 return {
   "folke/noice.nvim",
+  specs = {
+    "AstroNvim/astrocore",
+    opts = function(_, opts)
+      opts.mappings = require("astrocore").extend_tbl(opts.mappings, {
+        n = {
+          ["<C-d>"] = {
+            function()
+              if not require("noice.lsp").scroll(4) then
+                return "<c-d>"
+              end
+            end,
+            silent = true,
+            expr = true,
+          },
+          ["<C-u>"] = {
+            function()
+              if not require("noice.lsp").scroll(-4) then
+                return "<c-u>"
+              end
+            end,
+            silent = true,
+            expr = true,
+          },
+        },
+      })
+    end,
+  },
   init = function()
     local formatters = require("noice.text.format.formatters")
 
@@ -21,6 +48,20 @@ return {
         cmdline = false,
         lua = false,
         help = false,
+      },
+    },
+    commands = {
+      history = {
+        filter = {
+          any = {
+            { event = "notify" },
+            { error = true },
+            { warning = true },
+            { event = "msg_show", kind = { "echo" } },
+            { event = "msg_show", kind = { "echomsg" } },
+            { event = "lsp", kind = "message" },
+          },
+        },
       },
     },
     lsp = {

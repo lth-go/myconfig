@@ -1,63 +1,25 @@
 local load = function(opts)
-  local resession = require("resession")
   local files = require("resession.files")
+  local resession = require("resession")
   local util = require("resession.util")
 
-  local load_settings = function(dir)
-    local filename = dir .. "/.vim/settings.json"
-
-    local data = files.load_json_file(filename)
-    if data == nil then
-      return nil
-    end
-
-    if data.session == nil then
-      return data
-    end
-
-    if vim.tbl_isempty(data.session.projects) then
-      return data
-    end
-
-    for _, project in ipairs(data.session.projects) do
-      if project.path == nil then
-        project.path = project.name
-      end
-
-      if string.sub(project.path, 1, 1) ~= "/" then
-        local path = vim.fn.fnamemodify(dir .. "/" .. project.path, ":p")
-        path = string.sub(path, 1, #path - 1)
-
-        project.path = path
-      end
-    end
-
-    return data
-  end
-
-  local get_settings = function()
-    local dir = vim.fn.getcwd()
-
-    for _ = 1, 3 do
-      if dir == "/" then
-        break
-      end
-
-      local data = load_settings(dir)
-      if data then
-        return data
-      end
-
-      dir = vim.fn.fnamemodify(dir, ":h")
-    end
-
-    return nil
-  end
-
-  local settings = get_settings()
+  local settings = require("pkg.settings").load()
   if settings == nil or settings.session == nil or vim.tbl_isempty(settings.session.projects) then
     vim.notify("No saved sessions", vim.log.levels.WARN)
     return
+  end
+
+  for _, project in ipairs(settings.session.projects) do
+    if project.path == nil then
+      project.path = project.name
+    end
+
+    if not files.is_subpath("/", project.path) then
+      local path = vim.fn.fnamemodify(files.join(settings.__meta__.dir, project.path), ":p")
+      path = string.sub(path, 1, #path - 1)
+
+      project.path = path
+    end
   end
 
   local select_opts = {

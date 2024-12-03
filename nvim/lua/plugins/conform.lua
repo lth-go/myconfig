@@ -1,6 +1,6 @@
 return {
   "stevearc/conform.nvim",
-  dependencies = {
+  specs = {
     "AstroNvim/astrocore",
     opts = function(_, opts)
       opts.mappings = require("astrocore").extend_tbl(opts.mappings, {
@@ -34,7 +34,21 @@ return {
     },
     formatters = {
       ["goimports-reviser"] = {
-        prepend_args = { "-imports-order", "std,project,company,general", "-project-name", "None", "-company-prefixes", "sc_,common" },
+        prepend_args = function(_, _)
+          local settings = require("pkg.settings").load()
+          if settings == nil or settings.go == nil or settings.go.goimports_reviser == nil then
+            return nil
+          end
+
+          return {
+            "-imports-order",
+            "std,project,company,general",
+            "-project-name",
+            "None",
+            "-company-prefixes",
+            table.concat(settings.go.goimports_reviser.company_prefixes, ","),
+          }
+        end,
       },
     },
   },

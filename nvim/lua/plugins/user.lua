@@ -1,75 +1,24 @@
 ---@type LazySpec
 return {
-  { "JoosepAlviste/nvim-ts-context-commentstring", enabled = false },
-  { "NMAC427/guess-indent.nvim", enabled = false },
-  { "NvChad/nvim-colorizer.lua", enabled = false },
-  { "RRethy/vim-illuminate", enabled = false },
-  { "folke/todo-comments.nvim", enabled = false },
-  { "folke/which-key.nvim", enabled = false },
-  { "kevinhwang91/nvim-ufo", enabled = false },
-  { "lewis6991/gitsigns.nvim", enabled = false },
-  { "lukas-reineke/indent-blankline.nvim", enabled = false },
-  { "max397574/better-escape.nvim", enabled = false },
-  { "mrjones2014/smart-splits.nvim", enabled = false },
-  { "s1n7ax/nvim-window-picker", enabled = false },
-  { "windwp/nvim-ts-autotag", enabled = false },
+  { "tpope/vim-abolish" },
+  { "tpope/vim-fugitive" },
+  { "tpope/vim-repeat" },
+  { "tpope/vim-surround" },
 
   {
-    "sainnhe/gruvbox-material",
-    dependencies = {
-      "AstroNvim/astroui",
-      opts = function()
-        vim.g.gruvbox_material_background = "hard"
-        vim.g.gruvbox_material_foreground = "original"
-        vim.g.gruvbox_material_better_performance = 0
-        vim.g.gruvbox_material_disable_italic_comment = 1
-        vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
-      end,
-    },
-  },
-
-  {
-    "gelguy/wilder.nvim",
-    build = ":UpdateRemotePlugins",
+    "haya14busa/vim-asterisk",
     config = function()
-      local wilder = require("wilder")
-
-      wilder.setup({
-        modes = { ":" },
-      })
-
-      wilder.set_option({
-        pipeline = {
-          wilder.branch(
-            wilder.check(function(_, x)
-              return x == ""
-            end),
-            wilder.cmdline_pipeline({
-              fuzzy = 1,
-              sorter = wilder.python_difflib_sorter(),
-            })
-          ),
-        },
-        renderer = wilder.renderer_mux({
-          [":"] = wilder.popupmenu_renderer({
-            highlights = {
-              accent = wilder.make_hl("WilderAccent", "Pmenu", { {}, {}, { "#f4468f" } }),
-            },
-            highlighter = {
-              wilder.highlighter_with_gradient({
-                wilder.basic_highlighter(),
-              }),
-            },
-            left = { " ", wilder.popupmenu_devicons() },
-            right = { " ", wilder.popupmenu_scrollbar() },
-          }),
-        }),
-      })
-
-      vim.api.nvim_set_keymap("c", "/", [[wilder#can_accept_completion() ? wilder#accept_completion(0) : "/"]], { expr = true, noremap = true })
+      vim.keymap.set("", "*", [[<Plug>(asterisk-z*)]], {})
     end,
   },
 
+  {
+    "junegunn/vim-easy-align",
+    init = function()
+      vim.keymap.set("x", "ga", "<Plug>(EasyAlign)", {})
+      vim.keymap.set("n", "ga", "<Plug>(EasyAlign)", {})
+    end,
+  },
 
   {
     "Wansmer/treesj",
@@ -87,70 +36,35 @@ return {
     end,
   },
 
-  { "tpope/vim-abolish" },
-  { "tpope/vim-fugitive" },
-  { "tpope/vim-repeat" },
-  { "tpope/vim-surround" },
-  {
-    "junegunn/vim-easy-align",
-    init = function()
-      vim.keymap.set("x", "ga", "<Plug>(EasyAlign)", {})
-      vim.keymap.set("n", "ga", "<Plug>(EasyAlign)", {})
-    end,
-  },
-
   {
     "terryma/vim-expand-region",
+    dependencies = { "nvim-treesitter" },
     init = function()
-      -- 选中区域配置, 1表示递归
       vim.g.expand_region_text_objects = {
         ["iw"] = 0,
-        ['i"'] = 1,
-        ["i'"] = 1,
-        ["i`"] = 1,
+        ["iW"] = 0,
+        ['i"'] = 0,
+        ["i'"] = 0,
+        ["i`"] = 0,
         ["i)"] = 1,
-        ["i]"] = 1,
-        ["i}"] = 1,
-        ["it"] = 1,
         ["a)"] = 1,
+        ["i]"] = 1,
         ["a]"] = 1,
+        ["i}"] = 1,
         ["a}"] = 1,
-        ["at"] = 1,
+        ["in"] = 1,
       }
 
       vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", {})
       vim.keymap.set("v", "V", "<Plug>(expand_region_shrink)", {})
-    end,
-  },
 
-  {
-    "ggandor/leap.nvim",
-    config = function()
-      local leap = require("leap")
+      vim.keymap.set("x", "in", function()
+        local incremental_selection = require("nvim-treesitter.incremental_selection")
 
-      vim.keymap.set({ "n" }, "s", "<Plug>(leap-forward)")
-      vim.keymap.set({ "n" }, "S", "<Plug>(leap-backward)")
-
-      leap.setup({
-        max_phase_one_targets = 0,
-        safe_labels = {},
-        on_beacons = function(targets, start, end_)
-          for i = start or 1, end_ or #targets do
-            local target = targets[i]
-            local beacon = target.beacon
-
-            if type(beacon) == "table" and beacon[1] ~= nil and beacon[2] ~= nil then
-              local virttexts = beacon[2]
-
-              for _, virttext in ipairs(virttexts) do
-                virttext[1] = virttext[1]:gsub("%s+$", "")
-              end
-            end
-          end
-
-          return true
-        end,
-      })
+        for _ = 1, vim.v.count1 do
+          incremental_selection.node_incremental()
+        end
+      end, { silent = true })
     end,
   },
 
@@ -161,43 +75,9 @@ return {
         ["w"] = "<M-w>",
         ["b"] = "<M-b>",
         ["e"] = "<M-e>",
-        ["ge"] = "g<M-e>",
         ["aw"] = "a<M-w>",
         ["iw"] = "i<M-w>",
-        ["<C-R><C-W>"] = "<C-R><M-w>",
       }
-    end,
-  },
-
-  {
-    "haya14busa/vim-asterisk",
-    config = function()
-      vim.api.nvim_set_keymap("", "*", [[<Plug>(asterisk-z*)]], {})
-    end,
-  },
-
-  {
-    "windwp/nvim-spectre",
-    keys = { "<Leader>sr" },
-    config = function()
-      local spectre = require("spectre")
-
-      spectre.setup({
-        highlight = {
-          ui = "String",
-          search = "SpectreSearch",
-          replace = "SpectreReplace",
-        },
-        mapping = {
-          ["send_to_qf"] = {
-            map = "<C-q>",
-            cmd = "<cmd>lua require('spectre.actions').send_to_qf()<CR>",
-            desc = "send all item to quickfix",
-          },
-        },
-      })
-
-      vim.keymap.set("n", "<Leader>sr", spectre.open, { noremap = true })
     end,
   },
 
@@ -230,20 +110,11 @@ return {
   {
     "lth-go/vim-translator",
     config = function()
-      local g = vim.g
-
-      g.translator_default_engines = { "google" }
-      g.translator_proxy_url = "http://192.168.56.1:7890"
+      vim.g.translator_default_engines = { "google" }
+      vim.g.translator_proxy_url = "http://192.168.56.1:7890"
 
       vim.keymap.set("n", "<Leader>t", [[<Plug>TranslateW]], { silent = true })
       vim.keymap.set("v", "<Leader>t", [[<Plug>TranslateWV]], { silent = true })
     end,
-  },
-
-  {
-    "rcarriga/nvim-notify",
-    opts = {
-      stages = "static",
-    },
   },
 }

@@ -1,9 +1,6 @@
-local exists = function(filepath)
-  local stat = vim.uv.fs_stat(filepath)
-  return stat ~= nil and stat.type ~= nil
-end
-
 local get_reveal_dir = function(reveal_file)
+  local file = require("pkg.utils.file")
+
   local original_dir = vim.fn.fnamemodify(reveal_file, ":h")
 
   local dir = original_dir
@@ -13,8 +10,8 @@ local get_reveal_dir = function(reveal_file)
       break
     end
 
-    local gomod = dir .. "/go.mod"
-    if exists(gomod) then
+    local gomod = file.join(dir, "go.mod")
+    if file.exists(gomod) then
       return dir
     end
 
@@ -25,6 +22,8 @@ local get_reveal_dir = function(reveal_file)
 end
 
 local get_args = function(action)
+  local file = require("pkg.utils.file")
+
   local args = {
     action = action,
     reveal = true,
@@ -40,14 +39,12 @@ local get_args = function(action)
     return args
   end
 
-  if string.sub(reveal_file, 1, string.len(cwd)) == cwd then
+  if file.is_subpath(cwd, reveal_file) then
     args.dir = cwd
-
-    return args
+  else
+    args.reveal_file = reveal_file
+    args.dir = get_reveal_dir(reveal_file)
   end
-
-  args.reveal_file = reveal_file
-  args.dir = get_reveal_dir(reveal_file)
 
   return setmetatable({}, {
     __index = args,
