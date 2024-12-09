@@ -2,6 +2,7 @@ local load = function(opts)
   local files = require("resession.files")
   local resession = require("resession")
   local util = require("resession.util")
+  local strings = require("pkg.utils.strings")
 
   local settings = require("pkg.settings").load()
   if settings == nil or settings.session == nil or vim.tbl_isempty(settings.session.projects) then
@@ -14,7 +15,7 @@ local load = function(opts)
       project.path = project.name
     end
 
-    if not files.is_subpath("/", project.path) then
+    if not strings.has_prefix(project.path, "/") then
       local path = vim.fn.fnamemodify(files.join(settings.__meta__.dir, project.path), ":p")
       path = string.sub(path, 1, #path - 1)
 

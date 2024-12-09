@@ -3,9 +3,7 @@ local filename = ".vim/settings.json"
 local load_try = function(dir)
   local file = require("pkg.utils.file")
 
-  local filePath = file.join(dir, filename)
-
-  local data = file.load_json_file(filePath)
+  local data = file.load_json_file(file.join(dir, filename))
   if data == nil then
     return nil
   end

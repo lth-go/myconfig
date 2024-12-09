@@ -32,19 +32,7 @@ return {
     return opts
   end,
   config = function(_, opts)
-    local exec = function(cmd)
-      local handle = io.popen(cmd)
-      if handle == nil then
-        return ""
-      end
-
-      local out = handle:read("*a")
-      handle:close()
-
-      return out
-    end
-
-    opts.section.footer.val = vim.split(exec("lunar 2>/dev/null"), "\n")
+    opts.section.footer.val = vim.split(require("pkg.utils.os").exec("lunar 2>/dev/null"), "\n")
 
     require("alpha").setup(opts.config)
   end,

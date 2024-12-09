@@ -42,7 +42,6 @@ return {
     init = function()
       vim.g.expand_region_text_objects = {
         ["iw"] = 0,
-        ["iW"] = 0,
         ['i"'] = 0,
         ["i'"] = 0,
         ["i`"] = 0,

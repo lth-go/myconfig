@@ -205,6 +205,25 @@ return {
             vim.opt.mouse = "a"
           end,
         },
+        {
+          event = "BufReadPost",
+          callback = function(args)
+            if not vim.api.nvim_buf_is_valid(args.buf) then
+              return
+            end
+
+            if vim.api.nvim_get_option_value("buftype", { buf = args.buf }) ~= "" then
+              return
+            end
+
+            local current_file = vim.api.nvim_buf_get_name(args.buf)
+            if current_file == "" then
+              return
+            end
+
+            require("pkg.utils.mru").add(current_file)
+          end,
+        },
       },
     },
     on_keys = {

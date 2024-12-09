@@ -1,5 +1,6 @@
 return {
   "folke/noice.nvim",
+  dependencies = { "MunifTanjim/nui.nvim" },
   specs = {
     "AstroNvim/astrocore",
     opts = function(_, opts)

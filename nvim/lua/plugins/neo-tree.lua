@@ -22,7 +22,7 @@ local get_reveal_dir = function(reveal_file)
 end
 
 local get_args = function(action)
-  local file = require("pkg.utils.file")
+  local strings = require("pkg.utils.strings")
 
   local args = {
     action = action,
@@ -39,7 +39,7 @@ local get_args = function(action)
     return args
   end
 
-  if file.is_subpath(cwd, reveal_file) then
+  if strings.has_prefix(reveal_file, cwd) then
     args.dir = cwd
   else
     args.reveal_file = reveal_file
@@ -130,11 +130,18 @@ return {
             state.commands.open(state)
           end
         end,
+        find_in_dir = function(state)
+          local node = state.tree:get_node()
+          local path = node.type == "file" and node:get_parent_id() or node:get_id()
+
+          require("telescope.builtin").live_grep({ cwd = path })
+        end,
       },
       window = {
         mappings = {
           ["/"] = false,
           ["H"] = false,
+          ["F"] = "find_in_dir",
         },
       },
       filesystem = {

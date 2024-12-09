@@ -2,9 +2,14 @@ return {
   "hrsh7th/nvim-cmp",
   dependencies = { "hrsh7th/cmp-nvim-lsp-signature-help" },
   opts = function(_, opts)
+    require("pkg/cmp-json")
+
     local cmp = require("cmp")
 
-    table.insert(opts.sources, { name = "nvim_lsp_signature_help" })
+    vim.list_extend(opts.sources, {
+      { name = "nvim_lsp_signature_help", priority = 1500 },
+      { name = "cmp-json", priority = 2000 },
+    })
 
     local maps = {
       ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = true }), { "i" }),

@@ -40,13 +40,15 @@ return {
     highlight = {
       enable = true,
       disable = function(lang, bufnr)
-        for _, file_type in ipairs({
+        local file_types = {
           "dockerfile",
           "gomod",
           "gosum",
           "query",
           "sql",
-        }) do
+        }
+
+        for _, file_type in ipairs(file_types) do
           if lang == file_type then
             return true
           end
