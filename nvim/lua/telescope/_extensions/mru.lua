@@ -10,7 +10,7 @@ local strings = require("pkg.utils.strings")
 local mru = function(opts)
   local current_buffer = vim.api.nvim_get_current_buf()
   local current_file = vim.api.nvim_buf_get_name(current_buffer)
-  local cwd = vim.loop.cwd() or opts.cwd
+  local cwd = (vim.loop.cwd() or opts.cwd) .. "/"
   local limit = opts.limit or 20
 
   local files = require("pkg.utils.mru").load()

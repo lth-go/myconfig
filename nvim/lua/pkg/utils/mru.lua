@@ -51,7 +51,7 @@ mru.add = function(line)
 end
 
 mru.sync = function(lines)
-  file.write_file(mru.file, table.concat(lines, "\n"))
+  file.write_file(mru.file, table.concat(lines, "\n") .. "\n")
 end
 
 return {

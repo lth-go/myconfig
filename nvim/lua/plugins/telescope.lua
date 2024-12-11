@@ -1,23 +1,6 @@
-local transform_path = function(opts, filename)
-  local strings = require("pkg.utils.strings")
-  local utils = require("telescope.utils")
-
-  local settings = require("pkg.settings").load()
-  if settings ~= nil and settings.telescope ~= nil and settings.telescope.path_replace ~= nil then
-    for _, item in ipairs(settings.telescope.path_replace) do
-      if strings.has_prefix(filename, item.prefix) then
-        filename = string.gsub(filename, item.prefix, item.replace)
-        break
-      end
-    end
-  end
-
-  return utils.transform_path(opts, filename)
-end
+local strings = require("pkg.utils.strings")
 
 local parse_prompt = function(prompt_parts)
-  local strings = require("pkg.utils.strings")
-
   if prompt_parts == nil or #prompt_parts == 0 then
     return nil
   end
@@ -106,17 +89,25 @@ return {
           n = {
             ["<Leader>ff"] = {
               function()
-                require("telescope.builtin").find_files({ temp__scrolling_limit = 36, debounce = 100 })
+                require("telescope.builtin").find_files({
+                  temp__scrolling_limit = 36,
+                  debounce = 100,
+                })
               end,
             },
             ["<Leader>fg"] = {
               function()
-                require("telescope").extensions.live_grep_args.live_grep_args({ only_sort_text = true, debounce = 200 })
+                require("telescope").extensions.live_grep_args.live_grep_args({
+                  only_sort_text = true,
+                  debounce = 200,
+                })
               end,
             },
             ["<Leader>fc"] = {
               function()
-                require("telescope.builtin").grep_string()
+                require("telescope.builtin").grep_string({
+                  only_sort_text = true,
+                })
               end,
             },
             ["<Leader>fm"] = {
@@ -154,61 +145,64 @@ return {
     {
       "AstroNvim/astrolsp",
       opts = function(_, opts)
-        local utils = require("telescope.utils")
+        local path_display = function(_, filename)
+          local utils = require("telescope.utils")
 
-        local gen_from_quickfix = function()
-          local make_display = function(entry)
-            local hl_group, icon
-            local display, path_style = transform_path({}, entry.filename)
-            local display_string = string.format("%s:%d:%d", display, entry.lnum, entry.col)
-
-            display, hl_group, icon = utils.transform_devicons(entry.filename, display_string, false)
-
-            if hl_group then
-              local style = { { { 0, #icon + 1 }, hl_group } }
-              style = utils.merge_styles(style, path_style, #icon + 1)
-              return display, style
+          local settings = require("pkg.settings").load()
+          if settings ~= nil and settings.telescope ~= nil and settings.telescope.path_replace ~= nil then
+            for _, item in ipairs(settings.telescope.path_replace) do
+              if strings.has_prefix(filename, item.prefix) then
+                filename = string.gsub(filename, item.prefix, item.replace)
+                break
+              end
             end
-
-            return display, path_style
           end
 
-          return function(entry)
-            return {
-              value = entry,
-              ordinal = entry.filename .. " " .. entry.text,
-              display = make_display,
-              bufnr = entry.bufnr,
-              filename = entry.filename,
-              lnum = entry.lnum,
-              col = entry.col,
-              text = entry.text,
-              start = entry.start,
-              finish = entry.finish,
-            }
+          filename = utils.transform_path({}, filename)
+
+          local display, hl_group, icon = utils.transform_devicons(filename, filename, false)
+          if hl_group then
+            return display, { { { 0, #icon + 1 }, hl_group } }
           end
+
+          return display, {}
         end
 
         local maps = {
           n = {
             ["<Leader>g"] = {
               function()
-                require("telescope.builtin").lsp_definitions({ entry_maker = gen_from_quickfix() })
+                require("telescope.builtin").lsp_definitions({
+                  path_display = path_display,
+                  show_line = false,
+                })
               end,
             },
             ["gy"] = {
               function()
-                require("telescope.builtin").lsp_type_definitions({ entry_maker = gen_from_quickfix() })
+                require("telescope.builtin").lsp_type_definitions({
+                  path_display = path_display,
+                  show_line = false,
+                })
               end,
             },
             ["gr"] = {
               function()
-                require("telescope.builtin").lsp_references({ include_declaration = false, include_current_line = true, jump_type = "never", entry_maker = gen_from_quickfix() })
+                require("telescope.builtin").lsp_references({
+                  include_declaration = false,
+                  include_current_line = true,
+                  jump_type = "never",
+                  path_display = path_display,
+                  show_line = false,
+                })
               end,
             },
             ["gi"] = {
               function()
-                require("telescope.builtin").lsp_implementations({ entry_maker = gen_from_quickfix() })
+                require("telescope.builtin").lsp_implementations({
+                  path_display = path_display,
+                  show_line = false,
+                })
               end,
             },
           },

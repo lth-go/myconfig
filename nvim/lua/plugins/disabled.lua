@@ -10,6 +10,7 @@ return {
   { "lewis6991/gitsigns.nvim", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
   { "max397574/better-escape.nvim", enabled = false },
+  { "mfussenegger/nvim-dap", enabled = false },
   { "mrjones2014/smart-splits.nvim", enabled = false },
   { "numToStr/Comment.nvim", enabled = false },
   { "s1n7ax/nvim-window-picker", enabled = false },

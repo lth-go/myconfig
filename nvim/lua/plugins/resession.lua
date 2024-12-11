@@ -1,3 +1,11 @@
+local save = function()
+  local buf_utils = require("astrocore.buffer")
+
+  if buf_utils.is_valid_session() then
+    require("resession").save(vim.fn.getcwd(), { dir = "dirsession", notify = false })
+  end
+end
+
 local load = function(opts)
   local files = require("resession.files")
   local resession = require("resession")
@@ -38,6 +46,8 @@ local load = function(opts)
       local data = files.load_json_file(filename)
       if not data then
         vim.notify(string.format("Could not find session %s", selected.path), vim.log.levels.WARN)
+
+        save()
 
         vim.api.nvim_set_current_dir(selected.path)
 

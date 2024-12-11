@@ -216,6 +216,10 @@ return {
               return
             end
 
+            if vim.api.nvim_get_option_value("bufhidden", { buf = args.buf }) ~= "" then
+              return
+            end
+
             local current_file = vim.api.nvim_buf_get_name(args.buf)
             if current_file == "" then
               return
