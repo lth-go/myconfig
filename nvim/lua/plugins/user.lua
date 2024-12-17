@@ -91,8 +91,12 @@ return {
   },
 
   {
-    "yorickpeterse/nvim-pqf",
-    opts = {},
+    "lth-go/nvim-pqf",
+    opts = {
+      path_display = function(filename)
+        return require("pkg.settings").path_display(filename)
+      end,
+    },
   },
 
   {

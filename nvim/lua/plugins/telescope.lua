@@ -98,8 +98,19 @@ return {
             ["<Leader>fg"] = {
               function()
                 require("telescope").extensions.live_grep_args.live_grep_args({
+                  temp__scrolling_limit = 36,
                   only_sort_text = true,
                   debounce = 200,
+                  vimgrep_arguments = {
+                    "rg",
+                    "--color=never",
+                    "--no-heading",
+                    "--with-filename",
+                    "--line-number",
+                    "--column",
+                    "--smart-case",
+                    "--sort=path",
+                  },
                 })
               end,
             },
@@ -148,16 +159,7 @@ return {
         local path_display = function(_, filename)
           local utils = require("telescope.utils")
 
-          local settings = require("pkg.settings").load()
-          if settings ~= nil and settings.telescope ~= nil and settings.telescope.path_replace ~= nil then
-            for _, item in ipairs(settings.telescope.path_replace) do
-              if strings.has_prefix(filename, item.prefix) then
-                filename = string.gsub(filename, item.prefix, item.replace)
-                break
-              end
-            end
-          end
-
+          filename = require("pkg.settings").path_display(filename)
           filename = utils.transform_path({}, filename)
 
           local display, hl_group, icon = utils.transform_devicons(filename, filename, false)

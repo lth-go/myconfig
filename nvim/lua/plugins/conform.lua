@@ -31,6 +31,7 @@ return {
         "goimports-reviser",
       },
       xml = { "xmlformatter" },
+      sql = { "sql_formatter" },
     },
     formatters = {
       ["goimports-reviser"] = {

@@ -4,6 +4,8 @@ return {
   opts = {
     open_mapping = [[<F12>]],
     on_open = function(term)
+      vim.cmd("nohlsearch")
+
       local dir = vim.loop.cwd()
       if term.dir == dir then
         return

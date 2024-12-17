@@ -1,9 +1,11 @@
-local filename = ".vim/settings.json"
+local strings = require("pkg.utils.strings")
+
+local _filename = ".vim/settings.json"
 
 local load_try = function(dir)
   local file = require("pkg.utils.file")
 
-  local data = file.load_json_file(file.join(dir, filename))
+  local data = file.load_json_file(file.join(dir, _filename))
   if data == nil then
     return nil
   end
@@ -48,6 +50,26 @@ M.load = function()
   M.is_loaded = true
 
   return M.settings
+end
+
+--
+--
+--
+
+M.path_display = function(filename)
+  local settings = M.load()
+
+  if settings == nil or settings.telescope == nil or settings.telescope.path_replace == nil then
+    return filename
+  end
+
+  for _, item in ipairs(settings.telescope.path_replace) do
+    if strings.has_prefix(filename, item.prefix) then
+      return string.gsub(filename, item.prefix, item.replace)
+    end
+  end
+
+  return filename
 end
 
 return M

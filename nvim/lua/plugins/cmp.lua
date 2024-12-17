@@ -1,6 +1,5 @@
 return {
   "hrsh7th/nvim-cmp",
-  dependencies = { "hrsh7th/cmp-nvim-lsp-signature-help" },
   opts = function(_, opts)
     local cmp = require("cmp")
     local compare = require("cmp.config.compare")
@@ -8,7 +7,6 @@ return {
     require("pkg/cmp-json")
 
     vim.list_extend(opts.sources, {
-      { name = "nvim_lsp_signature_help", priority = 1500 },
       { name = "cmp-json", priority = 750 },
     })
 
