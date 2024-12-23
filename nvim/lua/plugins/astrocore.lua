@@ -168,6 +168,13 @@ return {
         ["<C-X>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true) },
       },
     },
+    commands = {
+      SudoWrite = {
+        function()
+          vim.cmd("w !sudo tee % > /dev/null")
+        end,
+      },
+    },
     autocmds = {
       highlightyank = false,
       custom = {
@@ -180,7 +187,6 @@ return {
         {
           event = { "BufEnter", "FocusGained", "InsertLeave", "WinEnter" },
           desc = "auto relativenumber on",
-          pattern = "*",
           callback = function()
             if vim.opt_local.number:get() then
               vim.opt_local.relativenumber = true
@@ -190,7 +196,6 @@ return {
         {
           event = { "BufLeave", "FocusLost", "InsertEnter", "WinLeave" },
           desc = "auto relativenumber off",
-          pattern = "*",
           callback = function()
             if vim.opt_local.number:get() then
               vim.opt_local.relativenumber = false
@@ -199,14 +204,13 @@ return {
         },
         {
           event = "StdinReadPost",
-          pattern = "*",
           callback = function()
             vim.opt.modified = false
             vim.opt.mouse = "a"
           end,
         },
         {
-          event = "BufReadPost",
+          event = "BufEnter",
           callback = function(args)
             if not vim.api.nvim_buf_is_valid(args.buf) then
               return
@@ -225,7 +229,7 @@ return {
               return
             end
 
-            require("pkg.utils.mru").add(current_file)
+            require("mru").add(current_file)
           end,
         },
       },

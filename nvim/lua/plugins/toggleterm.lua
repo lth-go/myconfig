@@ -6,7 +6,7 @@ return {
     on_open = function(term)
       vim.cmd("nohlsearch")
 
-      local dir = vim.loop.cwd()
+      local dir = vim.uv.cwd()
       if term.dir == dir then
         return
       end

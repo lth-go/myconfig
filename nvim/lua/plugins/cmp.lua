@@ -4,7 +4,7 @@ return {
     local cmp = require("cmp")
     local compare = require("cmp.config.compare")
 
-    require("pkg/cmp-json")
+    require("pkg.cmp-json")
 
     vim.list_extend(opts.sources, {
       { name = "cmp-json", priority = 750 },

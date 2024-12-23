@@ -12,7 +12,7 @@ end
 ---@param params cmp.SourceCompletionApiParams
 ---@param callback fun(response: lsp.CompletionResponse|nil)
 function source:complete(params, callback)
-  local settings = require("pkg/settings").load()
+  local settings = require("pkg.settings").load()
 
   if settings == nil or settings.cmp == nil or settings.cmp[vim.bo.filetype] == nil then
     callback({})

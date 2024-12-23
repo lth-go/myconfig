@@ -1,6 +1,6 @@
 local M = {}
 
-local uv = vim.uv or vim.loop
+local uv = vim.uv
 
 M.stat = function(filepath)
   local stat = uv.fs_stat(filepath)
@@ -50,13 +50,6 @@ end
 M.write_file = function(filename, contents)
   M.mkdir(vim.fn.fnamemodify(filename, ":h"))
   local fd = assert(uv.fs_open(filename, "w", 420)) -- 0644
-  uv.fs_write(fd, contents)
-  uv.fs_close(fd)
-end
-
-M.write_file_append = function(filename, contents)
-  M.mkdir(vim.fn.fnamemodify(filename, ":h"))
-  local fd = assert(uv.fs_open(filename, "a", 420)) -- 0644
   uv.fs_write(fd, contents)
   uv.fs_close(fd)
 end

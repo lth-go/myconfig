@@ -20,6 +20,10 @@ return {
         cmd = { "gopls", "-remote=auto", "-remote.listen.timeout=10m0s" },
         settings = {
           gopls = {
+            directoryFilters = {
+              "-**/node_modules",
+              "-**/lo",
+            },
             analyses = {
               QF1003 = false,
               S1008 = false,

@@ -41,13 +41,13 @@ local load = function(opts)
 
   local on_choice = function(selected)
     if selected then
+      save()
+
       local filename = util.get_session_file(selected.path, opts.dir)
 
       local data = files.load_json_file(filename)
       if not data then
         vim.notify(string.format("Could not find session %s", selected.path), vim.log.levels.WARN)
-
-        save()
 
         vim.api.nvim_set_current_dir(selected.path)
 

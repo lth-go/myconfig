@@ -27,7 +27,6 @@ return {
       lua = { "stylua" },
       go = {
         "gofumpt",
-        "goimports",
         "goimports-reviser",
       },
       xml = { "xmlformatter" },

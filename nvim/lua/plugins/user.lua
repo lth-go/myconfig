@@ -118,4 +118,9 @@ return {
       vim.keymap.set("v", "<Leader>t", [[<Plug>TranslateWV]], { silent = true })
     end,
   },
+
+  {
+    "lth-go/mru.nvim",
+    opts = {},
+  },
 }
