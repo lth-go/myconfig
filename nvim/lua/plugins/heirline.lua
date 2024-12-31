@@ -168,7 +168,10 @@ return {
               return false
             end
 
-            local search = vim.fn.searchcount()
+            local ok, search =  pcall(vim.fn.searchcount)
+            if not ok then
+              return false
+            end
             if type(search) == "table" and search.total and search.total > 0 then
               return true
             end

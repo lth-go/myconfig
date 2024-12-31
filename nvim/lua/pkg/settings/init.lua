@@ -1,5 +1,3 @@
-local strings = require("pkg.utils.strings")
-
 local _filename = ".vim/settings.json"
 
 local load_try = function(dir)
@@ -64,7 +62,7 @@ M.path_display = function(filename)
   end
 
   for _, item in ipairs(settings.telescope.path_replace) do
-    if strings.has_prefix(filename, item.prefix) then
+    if vim.startswith(filename, item.prefix) then
       return string.gsub(filename, item.prefix, item.replace)
     end
   end

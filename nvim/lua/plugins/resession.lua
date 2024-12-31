@@ -1,21 +1,7 @@
-local save = function()
-  local buf_utils = require("astrocore.buffer")
-
-  if buf_utils.is_valid_session() then
-    require("resession").save(vim.fn.getcwd(), { dir = "dirsession", notify = false })
-  end
-end
-
-local load = function(opts)
-  local files = require("resession.files")
-  local resession = require("resession")
-  local util = require("resession.util")
-  local strings = require("pkg.utils.strings")
-
+local get_projects = function()
   local settings = require("pkg.settings").load()
   if settings == nil or settings.session == nil or vim.tbl_isempty(settings.session.projects) then
-    vim.notify("No saved sessions", vim.log.levels.WARN)
-    return
+    return nil
   end
 
   for _, project in ipairs(settings.session.projects) do
@@ -23,12 +9,47 @@ local load = function(opts)
       project.path = project.name
     end
 
-    if not strings.has_prefix(project.path, "/") then
-      local path = vim.fn.fnamemodify(files.join(settings.__meta__.dir, project.path), ":p")
+    if not vim.startswith(project.path, "/") then
+      local path = vim.fn.fnamemodify(vim.fs.joinpath(settings.__meta__.dir, project.path), ":p")
       path = string.sub(path, 1, #path - 1)
 
       project.path = path
     end
+  end
+
+  return settings.session.projects
+end
+
+local save = function()
+  local buf_utils = require("astrocore.buffer")
+
+  if not buf_utils.is_valid_session() then
+    return
+  end
+
+  local cwd = vim.fn.getcwd()
+  local projects = get_projects()
+  if projects == nil then
+    return
+  end
+
+  for _, project in ipairs(projects) do
+    if vim.startswith(project.path, cwd) then
+      require("resession").save(project.path, { dir = "dirsession", notify = false })
+      return
+    end
+  end
+end
+
+local load = function(opts)
+  local files = require("resession.files")
+  local resession = require("resession")
+  local util = require("resession.util")
+
+  local projects = get_projects()
+  if projects == nil then
+    vim.notify("No saved sessions", vim.log.levels.WARN)
+    return
   end
 
   local select_opts = {
@@ -59,7 +80,7 @@ local load = function(opts)
     end
   end
 
-  vim.ui.select(settings.session.projects, select_opts, on_choice)
+  vim.ui.select(projects, select_opts, on_choice)
 end
 
 return {
@@ -81,6 +102,14 @@ return {
             load({ dir = "dirsession" })
           end,
           desc = "Load a dirsession",
+        }
+
+        opts.autocmds.resession_auto_save = {
+          {
+            event = "VimLeavePre",
+            desc = "Save session on close",
+            callback = save,
+          },
         }
       end,
     },

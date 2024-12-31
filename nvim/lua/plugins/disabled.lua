@@ -15,4 +15,65 @@ return {
   { "numToStr/Comment.nvim", enabled = false },
   { "s1n7ax/nvim-window-picker", enabled = false },
   { "windwp/nvim-ts-autotag", enabled = false },
+
+  {
+    "AstroNvim/astrocore",
+    opts = {
+      options = {
+        opt = {
+          foldcolumn = "0",
+          timeoutlen = 1000,
+          title = false,
+          undofile = false,
+        },
+      },
+      mappings = {
+        n = {
+          ["\\"] = false,
+          ["|"] = false,
+          ["<Leader>g"] = false,
+          ["<Leader>gC"] = false,
+          ["<Leader>gb"] = false,
+          ["<Leader>gc"] = false,
+          ["<Leader>gg"] = false,
+          ["<Leader>gt"] = false,
+          ["<Leader>tf"] = false,
+          ["<Leader>th"] = false,
+          ["<Leader>tl"] = false,
+          ["<Leader>tn"] = false,
+          ["<Leader>tp"] = false,
+          ["<Leader>tt"] = false,
+          ["<Leader>tv"] = false,
+        },
+      },
+      autocmds = {
+        highlightyank = false,
+      },
+      on_keys = {
+        auto_hlsearch = false,
+      },
+    },
+  },
+
+  {
+    "AstroNvim/astrolsp",
+    opts = {
+      formatting = {
+        format_on_save = {
+          enabled = false,
+        },
+      },
+      autocmds = {
+        lsp_auto_signature_help = false,
+        lsp_auto_format = false,
+      },
+    },
+  },
+
+  {
+    "windwp/nvim-autopairs",
+    opts = {
+      check_ts = false,
+    },
+  },
 }

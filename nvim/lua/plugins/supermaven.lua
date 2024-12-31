@@ -1,40 +1,28 @@
+local file_types = {
+  "bash",
+  "go",
+  "gomod",
+  "json",
+  "lua",
+  "make",
+  "proto",
+  "python",
+  "rust",
+  "sh",
+  "sql",
+  "toml",
+  "yaml",
+}
+
 return {
   "supermaven-inc/supermaven-nvim",
-  ft = {
-    "bash",
-    "go",
-    "gomod",
-    "json",
-    "lua",
-    "make",
-    "proto",
-    "python",
-    "rust",
-    "sh",
-    "sql",
-    "toml",
-    "yaml",
-  },
+  ft = file_types,
   config = function()
     local binary = require("supermaven-nvim.binary.binary_handler")
 
     local old_on_update = binary.on_update
 
-    local include_filetypes = {
-      "bash",
-      "go",
-      "gomod",
-      "json",
-      "lua",
-      "make",
-      "proto",
-      "python",
-      "rust",
-      "sh",
-      "sql",
-      "toml",
-      "yaml",
-    }
+    local include_filetypes = file_types
 
     binary.on_update = function(self, buffer, file_name, event_type)
       if not vim.tbl_contains(include_filetypes, vim.bo.filetype) then

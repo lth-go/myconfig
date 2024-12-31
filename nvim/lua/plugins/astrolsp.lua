@@ -46,14 +46,5 @@ return {
         },
       },
     },
-    formatting = {
-      format_on_save = {
-        enabled = false,
-      },
-    },
-    autocmds = {
-      lsp_auto_signature_help = false,
-      lsp_auto_format = false,
-    },
   },
 }

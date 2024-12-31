@@ -1,5 +1,3 @@
-local strings = require("pkg.utils.strings")
-
 local parse_prompt = function(prompt_parts)
   if prompt_parts == nil or #prompt_parts == 0 then
     return nil
@@ -29,7 +27,7 @@ local parse_prompt = function(prompt_parts)
       table.insert(result, "-g")
       table.insert(result, args.dir .. "*")
 
-      if not strings.has_suffix(args.dir, "/") then
+      if not vim.endswith(args.dir, "/") then
         table.insert(result, "-g")
         table.insert(result, args.dir .. "*/**")
       else
@@ -51,7 +49,7 @@ local parse_prompt = function(prompt_parts)
       break
     end
 
-    if strings.has_prefix(part, "-") then
+    if vim.startswith(part, "-") then
       if not vim.tbl_contains(valid_flags, part) then
         break
       end

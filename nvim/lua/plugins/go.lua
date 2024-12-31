@@ -20,21 +20,6 @@ return {
     "ray-x/guihua.lua",
     run = "cd lua/fzy && make",
   },
-  specs = {
-    "AstroNvim/astrocore",
-    opts = function(_, opts)
-      opts.mappings = require("astrocore").extend_tbl(opts.mappings, {
-        n = {
-          ["<C-A-O>"] = {
-            function()
-              vim.cmd.GoImports()
-            end,
-          },
-        },
-      })
-    end,
-  },
-  event = { "CmdlineEnter" },
   ft = { "go", "gomod" },
   config = function()
     require("go").setup({
@@ -53,7 +38,15 @@ return {
     })
 
     --
+    -- keymap
     --
+
+    vim.keymap.set("n", "<C-A-O>", function()
+      vim.cmd.GoImports()
+    end, {})
+
+    --
+    -- fix
     --
 
     vim.treesitter.query.set("go", "injections", "")

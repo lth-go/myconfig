@@ -2,8 +2,15 @@
 return {
   { "tpope/vim-abolish" },
   { "tpope/vim-fugitive" },
-  { "tpope/vim-repeat" },
-  { "tpope/vim-surround" },
+
+  {
+    "kylechui/nvim-surround",
+    version = "*",
+    event = "VeryLazy",
+    config = function()
+      require("nvim-surround").setup({})
+    end,
+  },
 
   {
     "haya14busa/vim-asterisk",
@@ -122,5 +129,22 @@ return {
   {
     "lth-go/mru.nvim",
     opts = {},
+  },
+
+  {
+    "kndndrj/nvim-dbee",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+    },
+    config = function()
+      require("dbee").setup({
+        result = {
+          mappings = {
+            { key = ">", mode = "", action = "page_next" },
+            { key = "<", mode = "", action = "page_prev" },
+          },
+        },
+      })
+    end,
   },
 }

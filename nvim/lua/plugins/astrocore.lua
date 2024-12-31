@@ -21,7 +21,6 @@ return {
         cursorline = true,
         diffopt = vim.list_extend(vim.opt.diffopt:get(), { "algorithm:histogram", "linematch:60" }),
         expandtab = true,
-        foldcolumn = "0",
         foldenable = false,
         ignorecase = true,
         jumpoptions = "view",
@@ -49,9 +48,6 @@ return {
         swapfile = false,
         tabstop = 4,
         termguicolors = true,
-        timeoutlen = 1000,
-        title = false,
-        undofile = false,
         updatetime = 300,
         wildcharm = vim.opt.wildchar:get(),
         wildmode = "longest:full,full",
@@ -66,26 +62,10 @@ return {
         ["L"] = { "g_" },
       },
       n = {
-        ["\\"] = false,
-        ["|"] = false,
-        ["<Leader>g"] = false,
-        ["<Leader>gC"] = false,
-        ["<Leader>gb"] = false,
-        ["<Leader>gc"] = false,
-        ["<Leader>gg"] = false,
-        ["<Leader>gt"] = false,
-        ["<Leader>tf"] = false,
-        ["<Leader>th"] = false,
-        ["<Leader>tl"] = false,
-        ["<Leader>tn"] = false,
-        ["<Leader>tp"] = false,
-        ["<Leader>tt"] = false,
-        ["<Leader>tv"] = false,
-
         ["Q"] = { "<Nop>" },
         ["?"] = "/",
         ["<Leader>q"] = { "<Cmd>q<CR>" },
-        ["<Leader>w"] = { "<Cmd>w<CR>" },
+        ["<Leader>w"] = { "<Cmd>wa<CR>" },
         ["<Leader>z"] = { "<Cmd>qa!<CR>" },
         ["<C-J>"] = { "<C-W><C-J>" },
         ["<C-K>"] = { "<C-W><C-K>" },
@@ -107,7 +87,6 @@ return {
         ["<Leader><Space>"] = { "<Cmd>vs<CR>" },
         ["<C-ScrollWheelUp>"] = { "4zh" },
         ["<C-ScrollWheelDown>"] = { "4zl" },
-
         ["<Leader>rn"] = {
           function()
             vim.lsp.buf.rename()
@@ -116,13 +95,6 @@ return {
         ["<C-G>"] = {
           function()
             local msg = string.format("%s:%s", vim.fn.expand("%"), vim.fn.line("."))
-            vim.fn.setreg("+", msg)
-            print(msg)
-          end,
-        },
-        ["<A-g>"] = {
-          function()
-            local msg = string.format("%s/", vim.fn.expand("%:h"))
             vim.fn.setreg("+", msg)
             print(msg)
           end,
@@ -156,7 +128,6 @@ return {
         ["<C-A>"] = { "<Home>" },
         ["<C-E>"] = { "<End>" },
         ["<C-D>"] = { "<Del>" },
-
         ["/"] = {
           function()
             local key = vim.api.nvim_replace_termcodes("<Down>", true, true, true)
@@ -171,12 +142,11 @@ return {
     commands = {
       SudoWrite = {
         function()
-          vim.cmd("w !sudo tee % > /dev/null")
+          vim.cmd([[w !sudo tee % > /dev/null]])
         end,
       },
     },
     autocmds = {
-      highlightyank = false,
       custom = {
         {
           event = "CursorHold",
@@ -209,33 +179,7 @@ return {
             vim.opt.mouse = "a"
           end,
         },
-        {
-          event = "BufEnter",
-          callback = function(args)
-            if not vim.api.nvim_buf_is_valid(args.buf) then
-              return
-            end
-
-            if vim.api.nvim_get_option_value("buftype", { buf = args.buf }) ~= "" then
-              return
-            end
-
-            if vim.api.nvim_get_option_value("bufhidden", { buf = args.buf }) ~= "" then
-              return
-            end
-
-            local current_file = vim.api.nvim_buf_get_name(args.buf)
-            if current_file == "" then
-              return
-            end
-
-            require("mru").add(current_file)
-          end,
-        },
       },
-    },
-    on_keys = {
-      auto_hlsearch = false,
     },
   },
 }

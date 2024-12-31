@@ -60,7 +60,7 @@ return {
 
         local buf_name = vim.api.nvim_buf_get_name(bufnr)
         local file_size = vim.api.nvim_call_function("getfsize", { buf_name })
-        if file_size > 256 * 1024 then
+        if file_size > 1024 * 256 then
           return true
         end
 
@@ -77,6 +77,13 @@ return {
       },
     },
     textobjects = {
+      select = {
+        enable = true,
+        keymaps = {
+          ["as"] = { query = "@statement.outer" },
+          ["is"] = { query = "@statement.outer" },
+        },
+      },
       move = {
         goto_next_start = {
           ["]]"] = "@local.name",

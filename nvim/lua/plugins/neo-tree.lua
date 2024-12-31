@@ -22,8 +22,6 @@ local get_reveal_dir = function(reveal_file)
 end
 
 local get_args = function(action)
-  local strings = require("pkg.utils.strings")
-
   local args = {
     action = action,
     reveal = true,
@@ -39,7 +37,7 @@ local get_args = function(action)
     return args
   end
 
-  if strings.has_prefix(reveal_file, cwd) then
+  if vim.startswith(reveal_file, cwd) then
     args.dir = cwd
   else
     args.reveal_file = reveal_file
