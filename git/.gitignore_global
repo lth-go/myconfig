@@ -4,3 +4,4 @@
 .test
 .vim
 bin/
+vendor

@@ -62,8 +62,9 @@ M.path_display = function(filename)
   end
 
   for _, item in ipairs(settings.telescope.path_replace) do
-    if vim.startswith(filename, item.prefix) then
-      return string.gsub(filename, item.prefix, item.replace)
+    local s, count = string.gsub(filename, item.prefix, item.replace)
+    if count > 0 then
+      return s
     end
   end
 

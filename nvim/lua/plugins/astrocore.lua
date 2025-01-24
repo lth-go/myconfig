@@ -77,7 +77,6 @@ return {
         ["N"] = { "Nzz" },
         ["<C-O>"] = { "<C-O>zz" },
         ["<C-I>"] = { "<C-I>zz" },
-        ["<C-]>"] = { "<C-]>zz" },
         ["<Backspace>"] = { "<Cmd>nohlsearch<CR>" },
         ["<Esc>"] = { "<Cmd>nohlsearch<CR><Esc>" },
         ["<Leader>y"] = { [[""y]] },
