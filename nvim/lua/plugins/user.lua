@@ -130,21 +130,4 @@ return {
     "lth-go/mru.nvim",
     opts = {},
   },
-
-  {
-    "kndndrj/nvim-dbee",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-    },
-    config = function()
-      require("dbee").setup({
-        result = {
-          mappings = {
-            { key = ">", mode = "", action = "page_next" },
-            { key = "<", mode = "", action = "page_prev" },
-          },
-        },
-      })
-    end,
-  },
 }

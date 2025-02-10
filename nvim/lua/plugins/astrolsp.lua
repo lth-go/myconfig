@@ -10,6 +10,9 @@ return {
       lua_ls = {
         settings = {
           Lua = {
+            workspace = {
+              checkThirdParty = false,
+            },
             hint = {
               enable = false,
             },
@@ -27,6 +30,7 @@ return {
             analyses = {
               QF1003 = false,
               S1008 = false,
+              S1039 = false,
             },
             hints = {
               constantValues = true,

@@ -6,6 +6,7 @@ return {
   { "RRethy/vim-illuminate", enabled = false },
   { "folke/todo-comments.nvim", enabled = false },
   { "folke/which-key.nvim", enabled = false },
+  { "goolord/alpha-nvim", enabled = false },
   { "kevinhwang91/nvim-ufo", enabled = false },
   { "lewis6991/gitsigns.nvim", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
@@ -13,6 +14,7 @@ return {
   { "mfussenegger/nvim-dap", enabled = false },
   { "mrjones2014/smart-splits.nvim", enabled = false },
   { "numToStr/Comment.nvim", enabled = false },
+  { "rcarriga/nvim-notify", enabled = false },
   { "s1n7ax/nvim-window-picker", enabled = false },
   { "windwp/nvim-ts-autotag", enabled = false },
 
@@ -67,13 +69,6 @@ return {
         lsp_auto_signature_help = false,
         lsp_auto_format = false,
       },
-    },
-  },
-
-  {
-    "windwp/nvim-autopairs",
-    opts = {
-      check_ts = false,
     },
   },
 }

@@ -36,11 +36,4 @@ return {
       }
     end,
   },
-
-  {
-    "rcarriga/nvim-notify",
-    opts = {
-      stages = "static",
-    },
-  },
 }
