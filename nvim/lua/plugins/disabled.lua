@@ -14,8 +14,10 @@ return {
   { "mfussenegger/nvim-dap", enabled = false },
   { "mrjones2014/smart-splits.nvim", enabled = false },
   { "numToStr/Comment.nvim", enabled = false },
+  { "nvim-telescope/telescope.nvim", enabled = false },
   { "rcarriga/nvim-notify", enabled = false },
   { "s1n7ax/nvim-window-picker", enabled = false },
+  { "stevearc/dressing.nvim", enabled = false },
   { "windwp/nvim-ts-autotag", enabled = false },
 
   {

@@ -4,12 +4,6 @@ return {
     local cmp = require("cmp")
     local compare = require("cmp.config.compare")
 
-    require("pkg.cmp-json")
-
-    vim.list_extend(opts.sources, {
-      { name = "cmp-json", priority = 750 },
-    })
-
     opts.mapping = require("astrocore").extend_tbl(opts.mapping, {
       ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = true }), { "i" }),
       ["<C-D>"] = cmp.mapping(function(fallback)

@@ -72,7 +72,7 @@ local load = function(opts)
 
         vim.api.nvim_set_current_dir(selected.path)
 
-        require("telescope.builtin").find_files({})
+        require("snacks").picker.files({})
         return
       end
 

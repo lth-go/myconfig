@@ -128,6 +128,51 @@ return {
 
   {
     "lth-go/mru.nvim",
+    keys = {
+      {
+        "<Leader>fm",
+        function()
+          require("snacks").picker.pick("MRU", {
+            limit = 20,
+            format = "file",
+            finder = function(opts, ctx)
+              local current_file = vim.fs.normalize(vim.api.nvim_buf_get_name(0), { _fast = true })
+              local cwd = vim.uv.cwd() .. "/"
+              local limit = 20
+
+              local files = require("mru").load()
+
+              files = vim.tbl_filter(function(file)
+                return vim.startswith(file, cwd)
+              end, files)
+
+              local results = {}
+              local seen = {}
+
+              for _, file in ipairs(files) do
+                if not seen[file] and file ~= current_file then
+                  local file_stat = vim.uv.fs_stat(file)
+                  if file_stat and file_stat.type == "file" then
+                    table.insert(results, file)
+                    seen[file] = true
+
+                    if #results >= limit then
+                      break
+                    end
+                  end
+                end
+              end
+
+              return function(cb)
+                for _, file in ipairs(results) do
+                  cb({ file = file, text = file })
+                end
+              end
+            end,
+          })
+        end,
+      },
+    },
     opts = {},
   },
 }

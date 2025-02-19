@@ -3,34 +3,27 @@ return {
   specs = {
     "AstroNvim/astrocore",
     opts = function(_, opts)
-      opts.mappings = require("astrocore").extend_tbl(opts.mappings, {
-        n = {
-          ["<C-A-L>"] = {
-            function()
-              vim.cmd.Format()
-            end,
-          },
-        },
-        x = {
-          ["<C-A-L>"] = {
-            function()
-              vim.cmd.Format()
-            end,
-          },
-        },
-      })
+      local maps = opts.mappings
+
+      for _, mode in ipairs({ "n", "x" }) do
+        maps[mode]["<C-A-L>"] = {
+          function()
+            vim.cmd.Format()
+          end,
+        }
+      end
     end,
   },
   opts = {
     format_on_save = false,
     formatters_by_ft = {
-      lua = { "stylua" },
       go = {
         "gofumpt",
         "goimports-reviser",
       },
-      xml = { "xmlformatter" },
+      lua = { "stylua" },
       sql = { "sql_formatter" },
+      xml = { "xmlformatter" },
     },
     formatters = {
       ["goimports-reviser"] = {

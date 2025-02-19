@@ -55,6 +55,10 @@ end
 --
 
 M.path_display = function(filename)
+  if not filename then
+    return filename
+  end
+
   local settings = M.load()
 
   if settings == nil or settings.telescope == nil or settings.telescope.path_replace == nil then
