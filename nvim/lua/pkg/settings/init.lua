@@ -1,3 +1,36 @@
+local S = {}
+
+function S:new(data, meta)
+  local o = {}
+  setmetatable(o, self)
+  self.__index = self
+
+  o.data = data or {}
+  o.meta = meta or {}
+
+  return o
+end
+
+function S:get(key)
+  local keys = vim.split(key, ".", { plain = true })
+
+  local value = self.data
+
+  for _, k in ipairs(keys) do
+    value = value[k]
+
+    if value == nil then
+      break
+    end
+  end
+
+  return value
+end
+
+--
+--
+--
+
 local _filename = ".vim/settings.json"
 
 local load_try = function(dir)
@@ -7,10 +40,6 @@ local load_try = function(dir)
   if data == nil then
     return nil
   end
-
-  data.__meta__ = {
-    dir = dir,
-  }
 
   return data
 end
@@ -25,17 +54,23 @@ local load_recursive = function()
 
     local data = load_try(dir)
     if data then
-      return data
+      local meta = { dir = dir }
+
+      return S:new(data, meta)
     end
 
     dir = vim.fn.fnamemodify(dir, ":h")
   end
 
-  return nil
+  return S:new()
 end
 
+--
+--
+--
+
 local M = {
-  settings = nil,
+  settings = S:new(),
   is_loaded = false,
 }
 
@@ -44,7 +79,7 @@ M.load = function()
     return M.settings
   end
 
-  M.settings = load_recursive() or {}
+  M.settings = load_recursive()
   M.is_loaded = true
 
   return M.settings
@@ -61,11 +96,12 @@ M.path_display = function(filename)
 
   local settings = M.load()
 
-  if settings == nil or settings.telescope == nil or settings.telescope.path_replace == nil then
+  local path_replace = settings:get("telescope.path_replace")
+  if path_replace == nil then
     return filename
   end
 
-  for _, item in ipairs(settings.telescope.path_replace) do
+  for _, item in ipairs(path_replace) do
     local s, count = string.gsub(filename, item.prefix, item.replace)
     if count > 0 then
       return s

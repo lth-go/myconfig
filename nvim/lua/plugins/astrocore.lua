@@ -64,9 +64,6 @@ return {
       n = {
         ["Q"] = { "<Nop>" },
         ["?"] = "/",
-        ["<Leader>q"] = { "<Cmd>q<CR>" },
-        ["<Leader>w"] = { "<Cmd>wa<CR>" },
-        ["<Leader>z"] = { "<Cmd>qa!<CR>" },
         ["<C-J>"] = { "<C-W><C-J>" },
         ["<C-K>"] = { "<C-W><C-K>" },
         ["<C-H>"] = { "<C-W><C-H>" },
@@ -79,9 +76,12 @@ return {
         ["<C-I>"] = { "<C-I>zz" },
         ["<Backspace>"] = { "<Cmd>nohlsearch<CR>" },
         ["<Esc>"] = { "<Cmd>nohlsearch<CR><Esc>" },
-        ["<Leader><Space>"] = { "<Cmd>vs<CR>" },
         ["<C-ScrollWheelUp>"] = { "4zh" },
         ["<C-ScrollWheelDown>"] = { "4zl" },
+        ["<Leader>q"] = { "<Cmd>q<CR>" },
+        ["<Leader>w"] = { "<Cmd>wa<CR>" },
+        ["<Leader>z"] = { "<Cmd>qa!<CR>" },
+        ["<Leader><Space>"] = { "<Cmd>vs<CR>" },
         ["<Leader>rn"] = {
           function()
             vim.lsp.buf.rename()

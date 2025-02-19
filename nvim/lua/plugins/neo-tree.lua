@@ -60,6 +60,20 @@ local toggle_explorer = function(action)
   require("neo-tree.command").execute(get_args(action))
 end
 
+local hijack = function()
+  local neotree_components = require("neo-tree.sources.filesystem.components")
+  local old_name = neotree_components.name
+
+  neotree_components.name = function(config, node, state)
+    local entry = old_name(config, node, state)
+    if node:get_depth() == 1 and node.type == "directory" then
+      entry["text"] = vim.fn.fnamemodify(node.path, ":t")
+    end
+
+    return entry
+  end
+end
+
 return {
   "nvim-neo-tree/neo-tree.nvim",
   specs = {
@@ -67,6 +81,7 @@ return {
       "AstroNvim/astrocore",
       opts = function(_, opts)
         local maps = opts.mappings
+
         maps.n["<F1>"] = {
           function()
             toggle_explorer("show")
@@ -88,19 +103,10 @@ return {
     },
   },
   opts = function(_, opts)
-    local neotree_components = require("neo-tree.sources.filesystem.components")
-    local old_name = neotree_components.name
-
-    neotree_components.name = function(config, node, state)
-      local entry = old_name(config, node, state)
-      if node:get_depth() == 1 and node.type == "directory" then
-        entry["text"] = vim.fn.fnamemodify(node.path, ":t")
-      end
-
-      return entry
-    end
+    hijack()
 
     return require("astrocore").extend_tbl(opts, {
+      enable_git_status = false,
       default_component_configs = {
         name = {
           use_git_status_colors = false,

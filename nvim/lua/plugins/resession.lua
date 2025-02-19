@@ -1,23 +1,25 @@
 local get_projects = function()
   local settings = require("pkg.settings").load()
-  if settings == nil or settings.session == nil or vim.tbl_isempty(settings.session.projects) then
+
+  local projects = settings:get("session.projects")
+  if projects == nil or vim.tbl_isempty(projects) then
     return nil
   end
 
-  for _, project in ipairs(settings.session.projects) do
+  for _, project in ipairs(projects) do
     if project.path == nil then
       project.path = project.name
     end
 
     if not vim.startswith(project.path, "/") then
-      local path = vim.fn.fnamemodify(vim.fs.joinpath(settings.__meta__.dir, project.path), ":p")
+      local path = vim.fn.fnamemodify(vim.fs.joinpath(settings.meta.dir, project.path), ":p")
       path = string.sub(path, 1, #path - 1)
 
       project.path = path
     end
   end
 
-  return settings.session.projects
+  return projects
 end
 
 local save = function()

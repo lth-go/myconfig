@@ -1,46 +1,49 @@
+local hijack = function()
+  local formatters = require("noice.text.format.formatters")
+
+  function formatters.search_count(message, _, input)
+    local content = input:content()
+
+    local v = content:match(".*(%[%d+/%d+%])$")
+    if v then
+      content = v
+    end
+
+    message:append(content)
+  end
+end
+
 return {
   "folke/noice.nvim",
   dependencies = { "MunifTanjim/nui.nvim" },
   specs = {
     "AstroNvim/astrocore",
     opts = function(_, opts)
-      opts.mappings = require("astrocore").extend_tbl(opts.mappings, {
-        n = {
-          ["<C-d>"] = {
-            function()
-              if not require("noice.lsp").scroll(4) then
-                return "<c-d>"
-              end
-            end,
-            silent = true,
-            expr = true,
-          },
-          ["<C-u>"] = {
-            function()
-              if not require("noice.lsp").scroll(-4) then
-                return "<c-u>"
-              end
-            end,
-            silent = true,
-            expr = true,
-          },
-        },
-      })
+      local maps = opts.mappings
+
+      maps.n["<C-d>"] = {
+        function()
+          if not require("noice.lsp").scroll(4) then
+            return "<c-d>"
+          end
+        end,
+        silent = true,
+        expr = true,
+      }
+
+      maps.n["<C-u>"] = {
+        function()
+          if not require("noice.lsp").scroll(-4) then
+            return "<c-u>"
+          end
+        end,
+        silent = true,
+        expr = true,
+      }
     end,
   },
   init = function()
-    local formatters = require("noice.text.format.formatters")
-
-    function formatters.search_count(message, _, input)
-      local content = input:content()
-
-      local v = content:match(".*(%[%d+/%d+%])$")
-      if v then
-        content = v
-      end
-
-      message:append(content)
-    end
+    hijack()
   end,
   opts = {
     cmdline = {

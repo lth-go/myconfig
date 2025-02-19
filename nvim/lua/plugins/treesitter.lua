@@ -42,10 +42,6 @@ return {
       disable = function(lang, bufnr)
         local file_types = {
           "dockerfile",
-          "gomod",
-          "gosum",
-          "query",
-          "sql",
         }
 
         for _, file_type in ipairs(file_types) do

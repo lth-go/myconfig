@@ -26,16 +26,31 @@ return {
           }
         end
 
-        local format = function(item, picker)
-          item.file = require("pkg.settings").path_display(item.file)
+        maps.n["<leader>fb"] = {
+          function()
+            require("snacks").picker.buffers()
+          end,
+        }
+
+        local lsp_format = function(item, picker)
           item.line = nil
-          return require("snacks").picker.format.file(item, picker)
+          if item.pos and item.pos[2] > 0 then
+            item.pos[2] = 0
+          end
+
+          item._path = require("pkg.settings").path_display(item.file)
+
+          local result = require("snacks").picker.format.file(item, picker)
+
+          item._path = item.file
+
+          return result
         end
 
         maps.n["<Leader>g"] = {
           function()
             require("snacks").picker.lsp_definitions({
-              format = format,
+              format = lsp_format,
             })
           end,
         }
@@ -43,7 +58,7 @@ return {
         maps.n["gy"] = {
           function()
             require("snacks").picker.lsp_type_definitions({
-              format = format,
+              format = lsp_format,
             })
           end,
         }
@@ -54,7 +69,7 @@ return {
               include_declaration = false,
               include_current = true,
               auto_confirm = false,
-              format = format,
+              format = lsp_format,
             })
           end,
         }
@@ -62,7 +77,7 @@ return {
         maps.n["gi"] = {
           function()
             require("snacks").picker.lsp_implementations({
-              format = format,
+              format = lsp_format,
             })
           end,
         }

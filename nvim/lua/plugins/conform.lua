@@ -29,7 +29,9 @@ return {
       ["goimports-reviser"] = {
         prepend_args = function(_, _)
           local settings = require("pkg.settings").load()
-          if settings == nil or settings.go == nil or settings.go.goimports_reviser == nil then
+
+          local goimports_reviser = settings:get("go.goimports_reviser")
+          if goimports_reviser == nil then
             return nil
           end
 
@@ -39,7 +41,7 @@ return {
             "-project-name",
             "None",
             "-company-prefixes",
-            table.concat(settings.go.goimports_reviser.company_prefixes, ","),
+            table.concat(goimports_reviser.company_prefixes, ","),
           }
         end,
       },

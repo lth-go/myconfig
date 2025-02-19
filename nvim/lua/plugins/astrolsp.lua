@@ -7,18 +7,6 @@ return {
       semantic_tokens = true,
     },
     config = {
-      lua_ls = {
-        settings = {
-          Lua = {
-            workspace = {
-              checkThirdParty = false,
-            },
-            hint = {
-              enable = false,
-            },
-          },
-        },
-      },
       gopls = {
         cmd = { "gopls", "-remote=auto", "-remote.listen.timeout=10m0s" },
         settings = {
@@ -37,6 +25,18 @@ return {
               functionTypeParameters = true,
             },
             staticcheck = true,
+          },
+        },
+      },
+      lua_ls = {
+        settings = {
+          Lua = {
+            workspace = {
+              checkThirdParty = false,
+            },
+            hint = {
+              enable = false,
+            },
           },
         },
       },
