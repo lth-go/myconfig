@@ -1,7 +1,6 @@
 local file_types = {
   "bash",
   "go",
-  "gomod",
   "json",
   "lua",
   "make",

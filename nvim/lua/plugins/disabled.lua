@@ -7,6 +7,7 @@ return {
   { "folke/todo-comments.nvim", enabled = false },
   { "folke/which-key.nvim", enabled = false },
   { "goolord/alpha-nvim", enabled = false },
+  { "hrsh7th/nvim-cmp", enabled = false },
   { "kevinhwang91/nvim-ufo", enabled = false },
   { "lewis6991/gitsigns.nvim", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },

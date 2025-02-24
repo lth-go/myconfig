@@ -1,5 +1,5 @@
 return {
-  "gelguy/wilder.nvim",
+  "lth-go/wilder.nvim",
   build = ":UpdateRemotePlugins",
   config = function()
     local wilder = require("wilder")

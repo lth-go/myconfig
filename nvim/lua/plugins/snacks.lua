@@ -8,7 +8,9 @@ return {
 
         maps.n["<Leader>ff"] = {
           function()
-            require("snacks").picker.files({})
+            require("snacks").picker.files({
+              cmd = "rg",
+            })
           end,
         }
 
@@ -33,16 +35,18 @@ return {
         }
 
         local lsp_format = function(item, picker)
-          item.line = nil
-          if item.pos and item.pos[2] > 0 then
-            item.pos[2] = 0
-          end
+          local pos_bak = item.pos
+          local line_bak = item.line
 
           item._path = require("pkg.settings").path_display(item.file)
+          item.pos = item.pos and { item.pos[1], 0 }
+          item.line = nil
 
           local result = require("snacks").picker.format.file(item, picker)
 
           item._path = item.file
+          item.pos = pos_bak
+          item.line = line_bak
 
           return result
         end

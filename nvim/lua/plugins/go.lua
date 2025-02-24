@@ -51,6 +51,5 @@ return {
 
     vim.treesitter.query.set("go", "injections", "")
     fix_term_highlights()
-    vim.api.nvim_del_augroup_by_name("go.filetype")
   end,
 }

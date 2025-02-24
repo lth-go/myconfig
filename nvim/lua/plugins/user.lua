@@ -19,13 +19,13 @@ return {
     end,
   },
 
-  {
-    "junegunn/vim-easy-align",
-    init = function()
-      vim.keymap.set("x", "ga", "<Plug>(EasyAlign)", {})
-      vim.keymap.set("n", "ga", "<Plug>(EasyAlign)", {})
-    end,
-  },
+  -- {
+  --   "junegunn/vim-easy-align",
+  --   init = function()
+  --     vim.keymap.set("x", "ga", "<Plug>(EasyAlign)", {})
+  --     vim.keymap.set("n", "ga", "<Plug>(EasyAlign)", {})
+  --   end,
+  -- },
 
   {
     "Wansmer/treesj",
@@ -128,51 +128,38 @@ return {
 
   {
     "lth-go/mru.nvim",
-    keys = {
-      {
-        "<Leader>fm",
+    config = function()
+      require("mru").setup({})
+
+      vim.keymap.set("n", "<Leader>fm", function()
+        require("snacks").picker.pick("MRU", {
+          limit = 20,
+          format = "file",
+          finder = require("mru.picker").mru,
+        })
+      end)
+    end,
+  },
+
+  {
+    "AstroNvim/astrocore",
+    opts = function(_, opts)
+      local maps = opts.mappings
+
+      maps.n["<F2>"] = {
         function()
-          require("snacks").picker.pick("MRU", {
-            limit = 20,
-            format = "file",
-            finder = function(opts, ctx)
-              local current_file = vim.fs.normalize(vim.api.nvim_buf_get_name(0), { _fast = true })
-              local cwd = vim.uv.cwd() .. "/"
-              local limit = 20
-
-              local files = require("mru").load()
-
-              files = vim.tbl_filter(function(file)
-                return vim.startswith(file, cwd)
-              end, files)
-
-              local results = {}
-              local seen = {}
-
-              for _, file in ipairs(files) do
-                if not seen[file] and file ~= current_file then
-                  local file_stat = vim.uv.fs_stat(file)
-                  if file_stat and file_stat.type == "file" then
-                    table.insert(results, file)
-                    seen[file] = true
-
-                    if #results >= limit then
-                      break
-                    end
-                  end
-                end
-              end
-
-              return function(cb)
-                for _, file in ipairs(results) do
-                  cb({ file = file, text = file })
-                end
-              end
-            end,
-          })
+          require("aerial").toggle()
         end,
-      },
+      }
+    end,
+  },
+
+  {
+    "windwp/nvim-autopairs",
+    opts = {
+      enabled = function()
+        return true
+      end,
     },
-    opts = {},
   },
 }

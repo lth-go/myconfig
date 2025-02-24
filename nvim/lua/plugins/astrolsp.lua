@@ -16,9 +16,10 @@ return {
               "-**/lo",
             },
             analyses = {
-              QF1003 = false,
-              S1008 = false,
-              S1039 = false,
+              QF1003 = false, -- Convert if/else-if chain to tagged switch
+              QF1008 = false, -- Omit embedded fields from selector expression
+              S1008 = false, -- Simplify returning boolean expression
+              S1039 = false, -- Unnecessary use of fmt.Sprint
             },
             hints = {
               constantValues = true,
