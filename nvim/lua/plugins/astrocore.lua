@@ -123,12 +123,6 @@ return {
         ["<C-A>"] = { "<Home>" },
         ["<C-E>"] = { "<End>" },
         ["<C-D>"] = { "<Del>" },
-        -- ["/"] = {
-        --   function()
-        --     local key = vim.api.nvim_replace_termcodes("<Down>", true, true, true)
-        --     return vim.fn.pumvisible() == 1 and key or "/"
-        --   end,
-        -- },
       },
       t = {
         ["<C-X>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true) },

@@ -55,6 +55,8 @@ return {
           function()
             require("snacks").picker.lsp_definitions({
               format = lsp_format,
+              unique_lines = true,
+              jump = { reuse_win = false },
             })
           end,
         }

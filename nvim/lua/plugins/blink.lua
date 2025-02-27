@@ -26,7 +26,6 @@ return {
     },
   },
   version = "*",
-  event = "InsertEnter",
   opts = {
     keymap = {
       ["<C-d>"] = { "show", "show_documentation", "hide_documentation" },
@@ -37,6 +36,11 @@ return {
     completion = {
       trigger = {
         show_on_insert_on_trigger_character = false,
+      },
+      list = {
+        selection = {
+          preselect = false,
+        },
       },
       menu = {
         draw = {
