@@ -33,6 +33,12 @@ return {
             require("snacks").picker.buffers()
           end,
         }
+      end,
+    },
+    {
+      "AstroNvim/astrolsp",
+      opts = function(_, opts)
+        local maps = opts.mappings
 
         local lsp_format = function(item, picker)
           local pos_bak = item.pos
