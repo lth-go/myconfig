@@ -98,7 +98,7 @@ local hijack_match = function()
       local label = item.filterText or item.label
 
       if initial_character and vim.startswith(label, initial_character) then
-        label = label:sub(#initial_character)
+        label = label:sub(#initial_character + 1)
       end
 
       return case(label:sub(1, 1)) == first_char

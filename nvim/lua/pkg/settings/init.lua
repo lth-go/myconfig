@@ -85,6 +85,10 @@ M.load = function()
   return M.settings
 end
 
+M.get = function(key)
+  return M.load():get(key)
+end
+
 --
 --
 --
@@ -94,9 +98,7 @@ M.path_display = function(filename)
     return filename
   end
 
-  local settings = M.load()
-
-  local path_replace = settings:get("telescope.path_replace")
+  local path_replace = M.get("telescope.path_replace")
   if path_replace == nil then
     return filename
   end

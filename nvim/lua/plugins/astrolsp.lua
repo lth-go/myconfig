@@ -20,6 +20,7 @@ return {
               QF1008 = false, -- Omit embedded fields from selector expression
               S1008 = false, -- Simplify returning boolean expression
               S1039 = false, -- Unnecessary use of fmt.Sprint
+              S1025 = false, -- the argument is already a string, there's no need to use fmt.Sprintf
             },
             hints = {
               constantValues = true,
@@ -43,11 +44,7 @@ return {
       },
       yamlls = {
         settings = {
-          yaml = {
-            format = {
-              enable = true,
-            },
-          },
+          yaml = {},
         },
       },
     },

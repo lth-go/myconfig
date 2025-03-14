@@ -24,13 +24,12 @@ return {
       lua = { "stylua" },
       sql = { "sql_formatter" },
       xml = { "xmlformatter" },
+      yaml = { "prettierd" },
     },
     formatters = {
       ["goimports-reviser"] = {
         prepend_args = function(_, _)
-          local settings = require("pkg.settings").load()
-
-          local goimports_reviser = settings:get("go.goimports_reviser")
+          local goimports_reviser = require("pkg.settings").get("go.goimports_reviser")
           if goimports_reviser == nil then
             return nil
           end
