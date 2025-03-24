@@ -160,7 +160,6 @@ return {
       enabled = function()
         return true
       end,
-      disable_filetype = { "snacks_picker_input" },
     },
   },
 }

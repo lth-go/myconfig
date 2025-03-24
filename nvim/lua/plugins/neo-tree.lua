@@ -112,7 +112,6 @@ return {
           use_git_status_colors = false,
         },
       },
-      sources = { "filesystem", "git_status" },
       commands = {
         parent_or_close = function(state)
           local node = state.tree:get_node()
@@ -134,18 +133,12 @@ return {
             state.commands.open(state)
           end
         end,
-        find_in_dir = function(state)
-          local node = state.tree:get_node()
-          local path = node.type == "file" and node:get_parent_id() or node:get_id()
-
-          require("snacks").picker.grep({ cwd = path })
-        end,
       },
       window = {
         mappings = {
           ["/"] = false,
           ["H"] = false,
-          ["F"] = "find_in_dir",
+          ["fg"] = "find_words_in_dir",
         },
       },
       filesystem = {

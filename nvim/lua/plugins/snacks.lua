@@ -27,12 +27,6 @@ return {
             end,
           }
         end
-
-        maps.n["<leader>fb"] = {
-          function()
-            require("snacks").picker.buffers()
-          end,
-        }
       end,
     },
     {
@@ -125,6 +119,10 @@ return {
         { section = "startup" },
         { pane = 2, width = 42, text = { require("pkg.utils.os").exec("lunar 2>/dev/null"), hl = "SnacksDashboardFooter", align = "center" } },
       },
+    }
+
+    opts.indent = {
+      enabled = false,
     }
 
     opts.input = {

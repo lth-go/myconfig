@@ -4,7 +4,15 @@ return {
   opts = {
     features = {
       inlay_hints = true,
-      semantic_tokens = true,
+    },
+    capabilities = {
+      textDocument = {
+        completion = {
+          completionItem = {
+            snippetSupport = true,
+          },
+        },
+      },
     },
     config = {
       gopls = {
