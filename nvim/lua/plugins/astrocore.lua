@@ -63,10 +63,10 @@ return {
       n = {
         ["Q"] = { "<Nop>" },
         ["?"] = "/",
-        ["<C-J>"] = { "<C-W><C-J>" },
-        ["<C-K>"] = { "<C-W><C-K>" },
-        ["<C-H>"] = { "<C-W><C-H>" },
-        ["<C-L>"] = { "<C-W><C-L>" },
+        -- ["<C-J>"] = { "<C-W><C-J>" },
+        -- ["<C-K>"] = { "<C-W><C-K>" },
+        -- ["<C-H>"] = { "<C-W><C-H>" },
+        -- ["<C-L>"] = { "<C-W><C-L>" },
         ["j"] = { "v:count == 0 ? 'gj' : 'j'", expr = true, silent = true },
         ["k"] = { "v:count == 0 ? 'gk' : 'k'", expr = true, silent = true },
         ["n"] = { "nzz" },
@@ -107,12 +107,12 @@ return {
       },
       x = {
         ["p"] = { [['pgv"' . v:register . 'y']], expr = true },
-        ["i<space>"] = { [[:<c-u>normal! viW<CR>]], silent = true },
-        ["a<space>"] = { [[:<c-u>normal! viW<CR>]], silent = true },
+        ["i<Space>"] = { [[:<c-u>normal! viW<CR>]], silent = true },
+        ["a<Space>"] = { [[:<c-u>normal! viW<CR>]], silent = true },
       },
       o = {
-        ["i<space>"] = { [[:normal viW<CR>]], silent = true },
-        ["a<space>"] = { [[:normal viW<CR>]], silent = true },
+        ["i<Space>"] = { [[:normal viW<CR>]], silent = true },
+        ["a<Space>"] = { [[:normal viW<CR>]], silent = true },
       },
       c = {
         ["<C-P>"] = { "<Up>" },

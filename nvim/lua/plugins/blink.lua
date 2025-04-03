@@ -1,11 +1,11 @@
-local is_file_cmd = function(context)
+local is_file_cmd = function(line)
   local constants = require("blink.cmp.sources.cmdline.constants")
 
-  local ok, cmd = pcall(vim.api.nvim_parse_cmd, context.line, {})
+  local ok, cmd = pcall(vim.api.nvim_parse_cmd, line, {})
   if not ok then
     return false
   end
-  if not vim.tbl_contains(constants.file_commands, cmd.cmd) then
+  if not constants.file_commands[cmd.cmd] then
     return false
   end
 
@@ -19,7 +19,7 @@ local on_char_added = function()
   local bounds = context.get_bounds("full")
   local line = context.get_line()
 
-  if not is_file_cmd({ line = line }) then
+  if not is_file_cmd(line) then
     return false
   end
 
@@ -71,7 +71,7 @@ local hijack_match = function()
     if context.mode ~= "cmdline" then
       return
     end
-    if not is_file_cmd(context) then
+    if not is_file_cmd(context.line) then
       return
     end
     if context.bounds.length == 0 then
@@ -117,7 +117,6 @@ local cmdline_transform_items = function(_, items)
   local completion_type = vim.fn.getcmdcompltype()
   if completion_type ~= "file" then
     for _, item in ipairs(items) do
-      -- clear icon
       item.kind_icon = ""
     end
     return items
@@ -125,31 +124,17 @@ local cmdline_transform_items = function(_, items)
 
   for _, item in ipairs(items) do
     local label = item.label
-    local filter_text = item.label
+    local file_path = item.label
 
-    local is_dir = vim.endswith(filter_text, "/")
+    local is_dir = vim.endswith(file_path, "/")
 
-    if is_dir then
-      filter_text = filter_text:sub(1, -2)
-      filter_text = vim.fn.fnamemodify(filter_text, ":t")
-      filter_text = filter_text .. "/"
+    file_path = vim.fs.normalize(file_path)
+    file_path = vim.fn.fnamemodify(file_path, ":t")
 
-      item.kind = require("blink.cmp.types").CompletionItemKind.Folder
-    else
-      filter_text = vim.fn.fnamemodify(filter_text, ":t")
-
-      item.kind = require("blink.cmp.types").CompletionItemKind.File
-
-      local dev_icon, dev_hl = require("nvim-web-devicons").get_icon(label)
-      if dev_icon then
-        item.kind_icon = dev_icon
-        item.kind_hl = dev_hl
-      end
-    end
-
-    item.label = filter_text
-    item.filterText = filter_text
-    item.sortText = (is_dir and "1" or "2") .. filter_text:lower():gsub("^([!-@\\[-`])", "~%1")
+    item.label = is_dir and file_path .. "/" or file_path
+    item.filterText = item.label
+    item.sortText = (is_dir and "1" or "2") .. file_path:lower()
+    item.kind_icon, item.kind_hl = require("mini.icons").get(is_dir and "directory" or "file", label)
   end
 
   return items

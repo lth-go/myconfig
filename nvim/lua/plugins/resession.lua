@@ -43,7 +43,9 @@ local save = function()
   end
 end
 
-local load = function(opts)
+local load = function()
+  local opts = { dir = "dirsession" }
+
   local files = require("resession.files")
   local resession = require("resession")
   local util = require("resession.util")
@@ -93,18 +95,8 @@ return {
       opts = function(_, opts)
         local maps = opts.mappings
 
-        maps.n["<Leader>ss"] = {
-          function()
-            require("resession").save(vim.fn.getcwd(), { dir = "dirsession" })
-          end,
-          desc = "Save this dirsession",
-        }
-        maps.n["<Leader>sl"] = {
-          function()
-            load({ dir = "dirsession" })
-          end,
-          desc = "Load a dirsession",
-        }
+        maps.n["<Leader>ss"] = { save, desc = "Save this dirsession" }
+        maps.n["<Leader>sl"] = { load, desc = "Load a dirsession" }
 
         opts.autocmds.resession_auto_save = {
           {
@@ -115,5 +107,36 @@ return {
         }
       end,
     },
+  },
+  opts = {
+    buf_filter = function(bufnr)
+      if not require("resession").default_buf_filter(bufnr) then
+        return false
+      end
+
+      if not require("astrocore.buffer").is_restorable(bufnr) then
+        return false
+      end
+
+      if vim.bo[bufnr].buftype == "" then
+        if not vim.bo[bufnr].buflisted then
+          return false
+        end
+
+        local filename = vim.api.nvim_buf_get_name(bufnr)
+        if filename == "" then
+          return false
+        end
+
+        filename = vim.fn.fnamemodify(filename, ":p")
+
+        local cwd = vim.uv.cwd() .. "/"
+        if not vim.startswith(filename, cwd) then
+          return false
+        end
+      end
+
+      return true
+    end,
   },
 }

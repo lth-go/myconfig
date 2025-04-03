@@ -14,15 +14,19 @@ local buf_delete_other = function()
       return false
     end
 
+    if vim.bo[bufnr].buftype ~= "" then
+      return false
+    end
+
+    if vim.bo[bufnr].bufhidden ~= "" then
+      return false
+    end
+
     if not vim.bo[bufnr].buflisted then
       return false
     end
 
     if vim.bo[bufnr].modified then
-      return false
-    end
-
-    if vim.bo[bufnr].buftype ~= "" then
       return false
     end
 
@@ -102,7 +106,6 @@ local hijack = function()
 
     return function()
       local begin_pos, end_pos = get_visual_selection()
-
       local mode = vim.fn.mode()
 
       if vim.tbl_contains({ "v" }, mode) then
@@ -196,11 +199,17 @@ return {
             if not ok then
               return false
             end
-            if type(search) == "table" and search.total and search.total > 0 then
-              return true
+            if type(search) ~= "table" then
+              return false
+            end
+            if search.exact_match == 0 then
+              return false
+            end
+            if search.total == 0 then
+              return false
             end
 
-            return false
+            return true
           end,
         },
         showcmd = {
