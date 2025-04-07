@@ -28,7 +28,6 @@ return {
         n = {
           ["\\"] = false,
           ["|"] = false,
-          ["<Leader>g"] = false,
           ["<Leader>gb"] = false,
           ["<Leader>gc"] = false,
           ["<Leader>gC"] = false,

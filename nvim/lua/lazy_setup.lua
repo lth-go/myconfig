@@ -19,7 +19,11 @@ local config = {
   },
   performance = {
     rtp = {
-      disabled_plugins = {},
+      disabled_plugins = {
+        "netrwPlugin",
+        "tohtml",
+        "tutor",
+      },
     },
   },
 }

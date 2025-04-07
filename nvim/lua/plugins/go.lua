@@ -7,7 +7,7 @@ local fix_term_highlights = function()
     local buf, win, closer = old_run(opts)
 
     if win ~= nil and win > 0 then
-      vim.api.nvim_set_option_value("winhl", "NormalFloat:Normal,FloatBorder:Comment", { win = win })
+      vim.api.nvim_set_option_value("winhl", "NormalFloat:Normal,FloatBorder:Grey", { win = win })
     end
 
     return buf, win, closer
@@ -25,7 +25,6 @@ return {
     require("go").setup({
       lsp_keymaps = false,
       lsp_codelens = false,
-      null_ls = false,
       diagnostic = false,
       lsp_document_formatting = false,
       lsp_inlay_hints = {

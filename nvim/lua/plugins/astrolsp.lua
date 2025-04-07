@@ -50,11 +50,6 @@ return {
           },
         },
       },
-      yamlls = {
-        settings = {
-          yaml = {},
-        },
-      },
     },
   },
 }

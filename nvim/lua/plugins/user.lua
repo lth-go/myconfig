@@ -19,14 +19,6 @@ return {
     end,
   },
 
-  -- {
-  --   "junegunn/vim-easy-align",
-  --   init = function()
-  --     vim.keymap.set("x", "ga", "<Plug>(EasyAlign)", {})
-  --     vim.keymap.set("n", "ga", "<Plug>(EasyAlign)", {})
-  --   end,
-  -- },
-
   {
     "Wansmer/treesj",
     keys = { "gJ", "gS" },
@@ -138,19 +130,6 @@ return {
           finder = require("mru.picker").mru,
         })
       end)
-    end,
-  },
-
-  {
-    "AstroNvim/astrocore",
-    opts = function(_, opts)
-      local maps = opts.mappings
-
-      maps.n["<F2>"] = {
-        function()
-          require("aerial").toggle()
-        end,
-      }
     end,
   },
 

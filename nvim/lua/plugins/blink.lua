@@ -177,7 +177,6 @@ return {
       },
     },
     cmdline = {
-      enabled = true,
       keymap = {
         ["<CR>"] = {},
         ["<Tab>"] = { "show", "select_next" },

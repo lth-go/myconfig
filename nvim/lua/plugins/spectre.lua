@@ -6,9 +6,8 @@ return {
 
     spectre.setup({
       highlight = {
-        ui = "String",
-        search = "SpectreSearch",
-        replace = "SpectreReplace",
+        search = "DiffDelete",
+        replace = "DiffChange",
       },
       mapping = {
         ["send_to_qf"] = {

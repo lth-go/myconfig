@@ -141,6 +141,30 @@ local is_visual_mode = function()
   return vim.tbl_contains({ "v", "V", "" }, vim.fn.mode())
 end
 
+local is_search_count = function()
+  local condition = require("astroui.status.condition")
+
+  if not condition.is_hlsearch() then
+    return false
+  end
+
+  local ok, search = pcall(vim.fn.searchcount)
+  if not ok then
+    return false
+  end
+  if type(search) ~= "table" then
+    return false
+  end
+  if search.exact_match == 0 then
+    return false
+  end
+  if search.total == 0 then
+    return false
+  end
+
+  return true
+end
+
 --
 --
 --
@@ -190,27 +214,7 @@ return {
       status.component.fill(),
       status.component.cmd_info({
         search_count = {
-          condition = function()
-            if not condition.is_hlsearch() then
-              return false
-            end
-
-            local ok, search = pcall(vim.fn.searchcount)
-            if not ok then
-              return false
-            end
-            if type(search) ~= "table" then
-              return false
-            end
-            if search.exact_match == 0 then
-              return false
-            end
-            if search.total == 0 then
-              return false
-            end
-
-            return true
-          end,
+          condition = is_search_count,
         },
         showcmd = {
           condition = is_visual_mode,

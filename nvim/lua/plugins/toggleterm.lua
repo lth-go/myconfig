@@ -2,7 +2,7 @@ return {
   "akinsho/toggleterm.nvim",
   keys = { "<F12>" },
   opts = {
-    open_mapping = [[<F12>]],
+    open_mapping = "<F12>",
     on_open = function(term)
       vim.cmd("nohlsearch")
 
@@ -16,7 +16,7 @@ return {
     end,
     highlights = {
       NormalFloat = { link = "Normal" },
-      FloatBorder = { link = "Comment" },
+      FloatBorder = { link = "Grey" },
     },
     direction = "float",
     float_opts = {
@@ -28,6 +28,5 @@ return {
       end,
       winblend = 0,
     },
-    shading_factor = -30,
   },
 }
