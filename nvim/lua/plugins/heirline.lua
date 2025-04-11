@@ -33,7 +33,7 @@ local buf_delete_other = function()
     return true
   end
 
-  for _, bufnr in ipairs(vim.t.bufs) do
+  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
     if ok(bufnr) then
       require("astrocore.buffer").close(bufnr, false)
     end

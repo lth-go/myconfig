@@ -108,35 +108,4 @@ return {
       end,
     },
   },
-  opts = {
-    buf_filter = function(bufnr)
-      if not require("resession").default_buf_filter(bufnr) then
-        return false
-      end
-
-      if not require("astrocore.buffer").is_restorable(bufnr) then
-        return false
-      end
-
-      if vim.bo[bufnr].buftype == "" then
-        if not vim.bo[bufnr].buflisted then
-          return false
-        end
-
-        local filename = vim.api.nvim_buf_get_name(bufnr)
-        if filename == "" then
-          return false
-        end
-
-        filename = vim.fn.fnamemodify(filename, ":p")
-
-        local cwd = vim.uv.cwd() .. "/"
-        if not vim.startswith(filename, cwd) then
-          return false
-        end
-      end
-
-      return true
-    end,
-  },
 }

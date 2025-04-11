@@ -182,6 +182,13 @@ return {
         ["<Tab>"] = { "show", "select_next" },
         ["<S-Tab>"] = { "show", "select_prev" },
         ["/"] = { "accept", "fallback" },
+        ["<Up>"] = {},
+        ["<Down>"] = {},
+        ["<C-P>"] = {},
+        ["<C-N>"] = {},
+        ["<C-e>"] = {},
+        ["<C-U>"] = {},
+        ["<C-D>"] = {},
       },
       completion = {
         list = {
