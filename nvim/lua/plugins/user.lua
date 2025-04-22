@@ -36,34 +36,9 @@ return {
   },
 
   {
-    "terryma/vim-expand-region",
+    "lth-go/nvim-expand-region",
     dependencies = { "nvim-treesitter" },
-    init = function()
-      vim.g.expand_region_text_objects = {
-        ["iw"] = 0,
-        ['i"'] = 0,
-        ["i'"] = 0,
-        ["i`"] = 0,
-        ["i)"] = 1,
-        ["a)"] = 1,
-        ["i]"] = 1,
-        ["a]"] = 1,
-        ["i}"] = 1,
-        ["a}"] = 1,
-        ["in"] = 1,
-      }
-
-      vim.keymap.set("v", "v", "<Plug>(expand_region_expand)", {})
-      vim.keymap.set("v", "V", "<Plug>(expand_region_shrink)", {})
-
-      vim.keymap.set("x", "in", function()
-        local incremental_selection = require("nvim-treesitter.incremental_selection")
-
-        for _ = 1, vim.v.count1 do
-          incremental_selection.node_incremental()
-        end
-      end, { silent = true })
-    end,
+    opts = {},
   },
 
   {

@@ -160,6 +160,8 @@ return {
       ["<CR>"] = { "select_and_accept", "fallback" },
       ["<C-J>"] = {},
       ["<C-K>"] = {},
+      ["<Tab>"] = { "select_next", "fallback" },
+      ["<S-Tab>"] = { "select_prev", "fallback" },
     },
     completion = {
       trigger = {

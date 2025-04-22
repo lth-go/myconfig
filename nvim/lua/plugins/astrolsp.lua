@@ -32,7 +32,6 @@ return {
             },
             hints = {
               constantValues = true,
-              functionTypeParameters = true,
             },
             staticcheck = true,
           },
