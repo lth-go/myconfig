@@ -40,11 +40,18 @@ return {
       lua_ls = {
         settings = {
           Lua = {
-            workspace = {
-              checkThirdParty = false,
+            diagnostics = {
+              globals = { "vim" },
+              libraryFiles = "Disable",
             },
             hint = {
               enable = false,
+            },
+            window = {
+              progressBar = false,
+            },
+            workspace = {
+              checkThirdParty = false,
             },
           },
         },

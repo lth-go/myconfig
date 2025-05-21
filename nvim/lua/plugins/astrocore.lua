@@ -130,8 +130,13 @@ return {
       custom = {
         {
           event = "CursorHold",
-          callback = function()
-            vim.diagnostic.open_float({ scope = "cursor", focus = false })
+          callback = function(args)
+            local existing_float = vim.b[args.buf].lsp_floating_preview
+            if existing_float and vim.api.nvim_win_is_valid(existing_float) then
+              return
+            end
+
+            vim.diagnostic.open_float({ scope = "cursor" })
           end,
         },
         {
