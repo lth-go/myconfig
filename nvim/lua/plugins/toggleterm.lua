@@ -7,11 +7,14 @@ return {
       vim.cmd("nohlsearch")
 
       local dir = vim.uv.cwd()
-      if term.dir == dir then
+      if not dir then
+        return
+      end
+      if dir == term.dir then
         return
       end
 
-      term:send(string.format("cd %s", dir), false)
+      term:send(string.format("cd %s", vim.fn.shellescape(dir)), false)
       term.dir = dir
     end,
     highlights = {

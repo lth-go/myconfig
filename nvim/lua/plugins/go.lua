@@ -1,19 +1,3 @@
-local fix_term_highlights = function()
-  local go_term = require("go.term")
-
-  local old_run = go_term.run
-
-  go_term.run = function(opts)
-    local buf, win, closer = old_run(opts)
-
-    if win ~= nil and win > 0 then
-      vim.api.nvim_set_option_value("winhl", "NormalFloat:Normal,FloatBorder:Grey", { win = win })
-    end
-
-    return buf, win, closer
-  end
-end
-
 return {
   "ray-x/go.nvim",
   dependencies = {
@@ -21,6 +5,31 @@ return {
     run = "cd lua/fzy && make",
   },
   ft = { "go", "gomod" },
+  keys = {
+    {
+      "<F5>",
+      function()
+        local filename = vim.fn.expand("%:t")
+
+        if not vim.endswith(filename, "_test.go") then
+          print("not a test file")
+          return
+        end
+
+        require("go.gotest").test_func()
+
+        vim.api.nvim_set_option_value("winhl", "Normal:Normal,FloatBorder:Grey", { win = 0 })
+      end,
+      ft = { "go" },
+    },
+    {
+      "<C-A-O>",
+      function()
+        vim.cmd.GoImports()
+      end,
+      ft = { "go" },
+    },
+  },
   config = function()
     require("go").setup({
       lsp_keymaps = false,
@@ -37,18 +46,9 @@ return {
     })
 
     --
-    -- keymap
-    --
-
-    vim.keymap.set("n", "<C-A-O>", function()
-      vim.cmd.GoImports()
-    end, {})
-
-    --
     -- fix
     --
 
     vim.treesitter.query.set("go", "injections", "")
-    fix_term_highlights()
   end,
 }

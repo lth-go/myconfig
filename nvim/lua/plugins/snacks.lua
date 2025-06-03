@@ -117,7 +117,7 @@ return {
         { section = "header" },
         { section = "keys", gap = 1, padding = 1 },
         { section = "startup" },
-        { pane = 2, width = 42, text = { require("pkg.utils.os").exec("lunar 2>/dev/null"), hl = "SnacksDashboardFooter", align = "center" } },
+        { pane = 2, width = 42, text = { require("pkg.utils").exec("lunar 2>/dev/null"), hl = "SnacksDashboardFooter", align = "center" } },
       },
     }
 

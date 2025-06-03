@@ -21,6 +21,7 @@ return {
         "gofumpt",
         "goimports-reviser",
       },
+      http = { "kulala-fmt" },
       lua = { "stylua" },
       sql = { "sql_formatter" },
       xml = { "xmlformatter" },

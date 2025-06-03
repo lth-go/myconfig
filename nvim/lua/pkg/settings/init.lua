@@ -34,9 +34,9 @@ end
 local _filename = ".vim/settings.json"
 
 local load_try = function(dir)
-  local file = require("pkg.utils.file")
+  local utils = require("pkg.utils")
 
-  local data = file.load_json_file(file.join(dir, _filename))
+  local data = utils.load_json_file(vim.fs.joinpath(dir, _filename))
   if data == nil then
     return nil
   end
@@ -98,7 +98,7 @@ M.path_display = function(filename)
     return filename
   end
 
-  local path_replace = M.get("telescope.path_replace")
+  local path_replace = M.get("picker.path_replace")
   if path_replace == nil then
     return filename
   end

@@ -21,23 +21,32 @@ return {
 
   {
     "Wansmer/treesj",
-    keys = { "gJ", "gS" },
     dependencies = { "nvim-treesitter" },
+    keys = {
+      {
+        "gJ",
+        function()
+          require("treesj").join()
+        end,
+      },
+      {
+        "gS",
+        function()
+          require("treesj").split()
+        end,
+      },
+    },
     config = function()
       local treesj = require("treesj")
 
       treesj.setup({
         use_default_keymaps = false,
       })
-
-      vim.keymap.set("n", "gJ", treesj.join)
-      vim.keymap.set("n", "gS", treesj.split)
     end,
   },
 
   {
     "lth-go/nvim-expand-region",
-    dependencies = { "nvim-treesitter" },
     opts = {},
   },
 
@@ -76,10 +85,16 @@ return {
   {
     "lth-go/searchx.nvim",
     dependencies = { "MunifTanjim/nui.nvim" },
-    keys = { "/" },
-    config = function()
-      vim.keymap.set("n", "/", require("searchx.command").search_raw, { silent = true })
-    end,
+    keys = {
+      {
+        "/",
+        function()
+          require("searchx.command").search_raw()
+        end,
+        silent = true,
+      },
+    },
+    config = function() end,
   },
 
   {
@@ -115,5 +130,20 @@ return {
         return true
       end,
     },
+  },
+
+  {
+    "mistweaverco/kulala.nvim",
+    ft = { "http" },
+    keys = {
+      {
+        "<F5>",
+        function()
+          require("kulala").run()
+        end,
+        ft = { "http" },
+      },
+    },
+    opts = {},
   },
 }

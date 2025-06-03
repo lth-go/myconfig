@@ -7,7 +7,7 @@ return {
       colorscheme = "gruvbox-material",
       highlights = {
         init = {
-          ["@string.special.url.gomod"] = { link = "Normal" },
+          ["@string.special.url"] = { link = "Normal" },
         },
       },
     },

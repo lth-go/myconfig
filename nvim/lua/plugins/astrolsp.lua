@@ -4,6 +4,7 @@ return {
   opts = {
     features = {
       inlay_hints = true,
+      semantic_tokens = false,
     },
     capabilities = {
       textDocument = {

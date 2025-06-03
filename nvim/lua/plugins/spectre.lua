@@ -1,6 +1,13 @@
 return {
   "windwp/nvim-spectre",
-  keys = { "<Leader>sr" },
+  keys = {
+    {
+      "<Leader>sr",
+      function()
+        require("spectre").open()
+      end,
+    },
+  },
   config = function()
     local spectre = require("spectre")
 
@@ -17,7 +24,5 @@ return {
         },
       },
     })
-
-    vim.keymap.set("n", "<Leader>sr", spectre.open, { noremap = true })
   end,
 }

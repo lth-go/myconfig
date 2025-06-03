@@ -1,6 +1,4 @@
 local get_reveal_dir = function(reveal_file)
-  local file = require("pkg.utils.file")
-
   local original_dir = vim.fn.fnamemodify(reveal_file, ":h")
 
   local dir = original_dir
@@ -10,8 +8,8 @@ local get_reveal_dir = function(reveal_file)
       break
     end
 
-    local gomod = file.join(dir, "go.mod")
-    if file.exists(gomod) then
+    local gomod = vim.fs.joinpath(dir, "go.mod")
+    if vim.fn.filereadable(gomod) == 1 then
       return dir
     end
 
