@@ -80,7 +80,7 @@ return {
         },
         ["<C-G>"] = {
           function()
-            local msg = string.format("%s:%s", vim.fn.expand("%"), vim.fn.line("."))
+            local msg = string.format("%s:%s", vim.fn.expand("%:~:."), vim.fn.line("."))
             vim.fn.setreg("+", msg)
             print(msg)
           end,
