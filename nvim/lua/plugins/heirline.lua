@@ -1,45 +1,3 @@
-local buf_delete_other = function()
-  local current_buf_map = {}
-
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    current_buf_map[vim.api.nvim_win_get_buf(win)] = true
-  end
-
-  local ok = function(bufnr)
-    if current_buf_map[bufnr] then
-      return false
-    end
-
-    if not vim.api.nvim_buf_is_valid(bufnr) then
-      return false
-    end
-
-    if vim.bo[bufnr].buftype ~= "" then
-      return false
-    end
-
-    if vim.bo[bufnr].bufhidden ~= "" then
-      return false
-    end
-
-    if not vim.bo[bufnr].buflisted then
-      return false
-    end
-
-    if vim.bo[bufnr].modified then
-      return false
-    end
-
-    return true
-  end
-
-  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-    if ok(bufnr) then
-      require("astrocore.buffer").close(bufnr, false)
-    end
-  end
-end
-
 local get_bufs = function()
   local bufline = require("heirline").eval_tabline()
   local pattern = [[%%(%d+)@v:lua.heirline_tabline_close_buffer_callback]]
@@ -82,10 +40,11 @@ local hijack = function()
   provider.ruler = function(opts)
     return function()
       local line = vim.fn.line(".")
-      local char = vim.fn.line("$")
+      local char = vim.fn.virtcol(".")
+      local last_line = vim.fn.line("$")
 
-      local padding_str = " %d/%d"
-      return status_utils.stylize(padding_str:format(line, char), opts)
+      local padding_str = " %d-%d/%d"
+      return status_utils.stylize(padding_str:format(line, char, last_line), opts)
     end
   end
 
@@ -181,8 +140,6 @@ return {
           maps.n[string.format("<Leader>%s", i)] = go_to_buf(i)
         end
 
-        maps.n["<Leader>bd"] = { buf_delete_other }
-
         return opts
       end,
     },
@@ -201,7 +158,6 @@ return {
         file_icon = {
           padding = {
             left = 0,
-            right = 1,
           },
         },
         filename = {

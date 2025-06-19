@@ -13,6 +13,11 @@ local get_reveal_dir = function(reveal_file)
       return dir
     end
 
+    local git = vim.fs.joinpath(dir, ".git")
+    if vim.fn.isdirectory(git) == 1 then
+      return dir
+    end
+
     dir = vim.fn.fnamemodify(dir, ":h")
   end
 

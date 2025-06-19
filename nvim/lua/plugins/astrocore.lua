@@ -43,7 +43,7 @@ return {
         splitbelow = true,
         splitright = true,
         swapfile = false,
-        tabstop = 4,
+        tabstop = 2,
         termguicolors = true,
         updatetime = 300,
         wildcharm = vim.opt.wildchar:get(),
@@ -85,6 +85,11 @@ return {
             print(msg)
           end,
         },
+        ["<Leader>bd"] = {
+          function()
+            require("pkg.utils.bufdelete").buf_delete_other()
+          end,
+        },
       },
       i = {
         ["<C-B>"] = { "<Left>" },
@@ -94,6 +99,7 @@ return {
         ["<C-D>"] = { "<Del>" },
       },
       v = {
+        ["K"] = { "<Nop>" },
         ["<"] = "<gv",
         [">"] = ">gv",
       },

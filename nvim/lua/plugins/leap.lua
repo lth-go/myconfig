@@ -4,8 +4,10 @@ return {
     local leap = require("leap")
 
     leap.setup({
-      max_phase_one_targets = 0,
       safe_labels = {},
+      on_beacons = function(_, start, _)
+        return start ~= nil
+      end,
     })
 
     vim.keymap.set({ "n" }, "s", "<Plug>(leap-forward)")
