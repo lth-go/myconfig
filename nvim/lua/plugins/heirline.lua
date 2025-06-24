@@ -43,8 +43,8 @@ local hijack = function()
       local char = vim.fn.virtcol(".")
       local last_line = vim.fn.line("$")
 
-      local padding_str = " %d-%d/%d"
-      return status_utils.stylize(padding_str:format(line, char, last_line), opts)
+      local padding_str = " %d/%d :%-3d"
+      return status_utils.stylize(padding_str:format(line, last_line, char), opts)
     end
   end
 

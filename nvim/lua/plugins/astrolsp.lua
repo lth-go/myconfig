@@ -29,7 +29,11 @@ return {
               QF1008 = false, -- Omit embedded fields from selector expression
               S1008 = false, -- Simplify returning boolean expression
               S1039 = false, -- Unnecessary use of fmt.Sprint
-              S1025 = false, -- the argument is already a string, there's no need to use fmt.Sprintf
+              S1025 = false, -- Don't use fmt.Sprintf("%s", x) unnecessarily
+              ST1000 = false, -- Incorrect or missing package comment
+              ST1003 = false, -- Poorly chosen identifier
+              ST1020 = false, -- The documentation of an exported function should start with the function’s name
+              ST1021 = false, -- The documentation of an exported type should start with type's name
             },
             hints = {
               constantValues = true,
