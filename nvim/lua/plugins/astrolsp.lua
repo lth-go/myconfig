@@ -4,16 +4,6 @@ return {
   opts = {
     features = {
       inlay_hints = true,
-      semantic_tokens = true,
-    },
-    capabilities = {
-      textDocument = {
-        completion = {
-          completionItem = {
-            snippetSupport = true,
-          },
-        },
-      },
     },
     config = {
       gopls = {
@@ -34,6 +24,7 @@ return {
               ST1003 = false, -- Poorly chosen identifier
               ST1020 = false, -- The documentation of an exported function should start with the function’s name
               ST1021 = false, -- The documentation of an exported type should start with type's name
+              ST1022 = false, -- The documentation of an exported variable or constant should start with variable's name
             },
             hints = {
               constantValues = true,

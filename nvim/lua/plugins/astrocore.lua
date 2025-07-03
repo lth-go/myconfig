@@ -6,12 +6,6 @@ return {
     diagnostics = {
       virtual_text = false,
     },
-    filetypes = {
-      pattern = {
-        ["[d|D]ockerfile_.*"] = "dockerfile",
-        [".*/.kube/config"] = "yaml",
-      },
-    },
     options = {
       opt = {
         clipboard = vim.list_extend(vim.opt.clipboard:get(), { "unnamedplus" }),
