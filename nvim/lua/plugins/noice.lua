@@ -114,6 +114,16 @@ return {
           skip = true,
         },
       },
+      {
+        filter = {
+          event = "notify",
+          error = true,
+          find = [[gopls: 0: getting file for InlayHint: .*]],
+        },
+        opts = {
+          skip = true,
+        },
+      },
     },
   },
 }

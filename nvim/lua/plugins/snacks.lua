@@ -27,6 +27,24 @@ return {
             end,
           }
         end
+
+        --
+        --
+        --
+
+        local commands = opts.commands
+
+        commands["SnacksNotifierShowHistory"] = {
+          function()
+            require("snacks").notifier.show_history()
+          end,
+        }
+
+        commands["SnacksPicker"] = {
+          function()
+            require("snacks").picker()
+          end,
+        }
       end,
     },
     {
