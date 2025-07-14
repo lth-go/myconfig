@@ -108,4 +108,9 @@ return {
       end,
     },
   },
+  opts = function(_, opts)
+    opts.buf_filter = function(bufnr)
+      return require("resession.extensions.astrocore").buf_filter(bufnr)
+    end
+  end,
 }

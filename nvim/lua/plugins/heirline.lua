@@ -182,7 +182,7 @@ return {
         },
       }),
       status.component.fill(),
-      status.component.nav({ percentage = false }),
+      status.component.nav({ percentage = false, scrollbar = false }),
       status.component.mode({ surround = { separator = "right" } }),
     }
 

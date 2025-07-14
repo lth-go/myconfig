@@ -16,7 +16,7 @@ return {
           return
         end
 
-        require("go.gotest").test_func()
+        require("go.gotest").test_func("-v", "-F")
 
         vim.api.nvim_set_option_value("winhl", "Normal:Normal,FloatBorder:Grey", { win = 0 })
       end,
@@ -32,23 +32,10 @@ return {
   },
   config = function()
     require("go").setup({
-      lsp_keymaps = false,
       lsp_codelens = false,
       diagnostic = false,
-      lsp_document_formatting = false,
-      lsp_inlay_hints = {
-        enable = false,
-      },
       dap_debug = false,
       textobjects = false,
-      verbose_tests = true,
-      run_in_floaterm = true,
     })
-
-    --
-    -- fix
-    --
-
-    vim.treesitter.query.set("go", "injections", "")
   end,
 }
