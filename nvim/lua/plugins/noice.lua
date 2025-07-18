@@ -117,8 +117,15 @@ return {
       {
         filter = {
           event = "notify",
-          error = true,
-          find = [[gopls: 0: getting file for InlayHint: .*]],
+          any = {
+            {
+              error = true,
+              find = [[gopls: 0: getting file for InlayHint: .*]],
+            },
+            {
+              find = "No code actions available",
+            },
+          },
         },
         opts = {
           skip = true,
