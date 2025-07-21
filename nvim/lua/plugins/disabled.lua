@@ -2,6 +2,7 @@
 return {
   { "NMAC427/guess-indent.nvim", enabled = false },
   { "RRethy/vim-illuminate", enabled = false },
+  { "brenoprata10/nvim-highlight-colors", enabled = false },
   { "folke/todo-comments.nvim", enabled = false },
   { "folke/which-key.nvim", enabled = false },
   { "lewis6991/gitsigns.nvim", enabled = false },

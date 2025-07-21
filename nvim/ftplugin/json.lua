@@ -1,3 +1,1 @@
-local opt_local = vim.opt_local
-
-opt_local.wrap = true
+vim.opt_local.wrap = true
