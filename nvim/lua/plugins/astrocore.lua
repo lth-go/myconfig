@@ -8,7 +8,6 @@ return {
     },
     options = {
       opt = {
-        clipboard = vim.list_extend(vim.opt.clipboard:get(), { "unnamedplus" }),
         completeopt = { "menu", "menuone", "noselect" },
         cursorline = true,
         diffopt = vim.list_extend(vim.opt.diffopt:get(), { "algorithm:histogram", "linematch:60" }),
@@ -44,6 +43,19 @@ return {
         wildmode = "longest:full,full",
         wrap = false,
         writebackup = false,
+      },
+      g = {
+        clipboard = {
+          name = "custom",
+          copy = {
+            ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+            ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+          },
+          paste = {
+            ["+"] = { "lemonade", "paste" },
+            ["*"] = { "lemonade", "paste" },
+          },
+        },
       },
     },
     mappings = {
@@ -81,7 +93,7 @@ return {
         },
         ["<Leader>bd"] = {
           function()
-            require("pkg.utils.bufdelete").buf_delete_other()
+            require("pkg.utils.bufdelete").buf_hidden_other()
           end,
         },
       },
@@ -98,7 +110,7 @@ return {
         [">"] = ">gv",
       },
       x = {
-        ["p"] = { [['pgv"' . v:register . 'y']], expr = true },
+        ["p"] = { "P" },
         ["i<Space>"] = { [[:<c-u>normal! viW<CR>]], silent = true },
         ["a<Space>"] = { [[:<c-u>normal! viW<CR>]], silent = true },
       },

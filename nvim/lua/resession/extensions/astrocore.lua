@@ -115,11 +115,7 @@ function M.on_post_load(data)
   if current_buf then
     local buf_utils = require("astrocore.buffer")
     buf_utils.current_buf = current_buf
-  end
 
-  require("astrocore").event("BufsUpdated")
-
-  if current_buf then
     if vim.opt.bufhidden:get() == "wipe" and vim.fn.bufnr() ~= current_buf then
       vim.cmd.b(current_buf)
     end

@@ -42,4 +42,24 @@ M.buf_delete_other = function()
   end
 end
 
+M.buf_hidden_other = function()
+  local current_buf_map = {}
+
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    current_buf_map[vim.api.nvim_win_get_buf(win)] = true
+  end
+
+  local bufs = {}
+
+  for _, bufnr in ipairs(vim.t.bufs) do
+    if current_buf_map[bufnr] then
+      table.insert(bufs, bufnr)
+    end
+  end
+
+  vim.t.bufs = bufs
+
+  vim.cmd.redrawtabline()
+end
+
 return M
