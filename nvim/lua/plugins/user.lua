@@ -98,17 +98,6 @@ return {
   },
 
   {
-    "lth-go/vim-translator",
-    config = function()
-      vim.g.translator_default_engines = { "google" }
-      vim.g.translator_proxy_url = "http://192.168.56.1:7890"
-
-      vim.keymap.set("n", "<Leader>t", [[<Plug>TranslateW]], { silent = true })
-      vim.keymap.set("v", "<Leader>t", [[<Plug>TranslateWV]], { silent = true })
-    end,
-  },
-
-  {
     "lth-go/mru.nvim",
     config = function()
       require("mru").setup({})

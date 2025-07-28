@@ -47,7 +47,7 @@ end
 local load_recursive = function()
   local dir = vim.fn.getcwd()
 
-  for _ = 1, 3 do
+  for _ = 1, 5 do
     if dir == "/" then
       break
     end
