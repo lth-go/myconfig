@@ -1,5 +1,6 @@
 ---@type LazySpec
 return {
+  { "L3MON4D3/LuaSnip", enabled = false },
   { "NMAC427/guess-indent.nvim", enabled = false },
   { "RRethy/vim-illuminate", enabled = false },
   { "brenoprata10/nvim-highlight-colors", enabled = false },
@@ -8,6 +9,7 @@ return {
   { "lewis6991/gitsigns.nvim", enabled = false },
   { "max397574/better-escape.nvim", enabled = false },
   { "mfussenegger/nvim-dap", enabled = false },
+  { "rafamadriz/friendly-snippets", enabled = false },
   { "s1n7ax/nvim-window-picker", enabled = false },
   { "stevearc/aerial.nvim", enabled = false },
   { "windwp/nvim-ts-autotag", enabled = false },
