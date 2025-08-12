@@ -52,7 +52,7 @@ end
 -- 音标
 M.get_phonetic = function(data)
   for _, x in ipairs(data[1]) do
-    if #x == 4 then
+    if x[4] and x[4] ~= vim.NIL then
       return x[4]
     end
   end
@@ -77,20 +77,22 @@ end
 
 -- 分行解释
 M.get_explains = function(data)
+  if not data[2] or data[2] == vim.NIL then
+    return {}
+  end
+
   local explains = {}
 
-  if data[2] and data[2] ~= vim.NIL then
-    for _, x in ipairs(data[2]) do
-      local expl = string.sub(x[1], 1, 1) .. ". "
+  for _, x in ipairs(data[2]) do
+    local part_of_speech = string.sub(x[1], 1, 1)
 
-      local s = {}
+    local s = {}
 
-      for _, y in ipairs(x[3]) do
-        table.insert(s, y[1])
-      end
-
-      table.insert(explains, expl .. table.concat(s, "; "))
+    for _, y in ipairs(x[3]) do
+      table.insert(s, y[1])
     end
+
+    table.insert(explains, { [part_of_speech] = s })
   end
 
   return explains
