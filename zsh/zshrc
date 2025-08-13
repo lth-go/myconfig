@@ -53,8 +53,9 @@ bindkey '^L' _custom_clear_screen
 ZLE_REMOVE_SUFFIX_CHARS=$' \t\n;'
 
 # history
-export HISTSIZE=100000
-export SAVEHIST=100000
+export HISTSIZE=50000
+export SAVEHIST=50000
+setopt HIST_IGNORE_ALL_DUPS
 
 # 搜索
 bindkey '^p' up-line-or-beginning-search
