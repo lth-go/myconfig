@@ -34,6 +34,10 @@ export GOBINPATH="$HOME/go/bin"
 export GOPROXY=https://goproxy.cn,direct
 export GOSUMDB=off
 
+# Rust
+export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
+
 # PATH
 PATH="$HOME/.local/bin:$PATH"
 PATH="$HOME/bin:$PATH"
