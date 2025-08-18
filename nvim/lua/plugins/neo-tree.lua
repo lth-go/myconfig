@@ -8,14 +8,17 @@ local get_reveal_dir = function(reveal_file)
       break
     end
 
-    local gomod = vim.fs.joinpath(dir, "go.mod")
-    if vim.fn.filereadable(gomod) == 1 then
-      return dir
-    end
+    local filenames = {
+      "go.mod",
+      "Cargo.toml",
+      ".git",
+    }
 
-    local git = vim.fs.joinpath(dir, ".git")
-    if vim.fn.isdirectory(git) == 1 then
-      return dir
+    for _, filename in ipairs(filenames) do
+      local file = vim.fs.joinpath(dir, filename)
+      if vim.fn.filereadable(file) == 1 then
+        return dir
+      end
     end
 
     dir = vim.fn.fnamemodify(dir, ":h")
