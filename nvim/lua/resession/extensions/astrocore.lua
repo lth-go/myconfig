@@ -20,7 +20,6 @@ function M.buf_filter(bufnr)
   return true
 end
 
----@param opts resession.Extension.OnSaveOpts
 function M.on_save(opts)
   -- initiate astronvim data
   local data = { bufnrs = {}, tabs = {} }

@@ -8,6 +8,7 @@ return {
         "gopls",
         "html-lsp",
         "json-lsp",
+        "kulala-fmt",
         "lua-language-server",
         "prettierd",
         "selene",
