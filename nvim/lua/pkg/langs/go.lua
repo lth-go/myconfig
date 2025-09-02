@@ -60,7 +60,7 @@ M.run_test = function(choice)
 
   local dir = vim.fn.fnamemodify(file_path, ":h")
   local cmd = string.format("cd %s; go test -v -count=1 -run '^%s$' .", dir, choice.test)
-  cmd = string.format("sh -c %s", vim.fn.shellescape(cmd))
+  cmd = string.format(" sh -c %s", vim.fn.shellescape(cmd))
 
   require("toggleterm").exec(cmd)
 end

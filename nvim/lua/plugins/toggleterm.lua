@@ -14,7 +14,7 @@ return {
         return
       end
 
-      term:send(string.format("cd %s", vim.fn.shellescape(dir)), false)
+      term:send(string.format(" cd %s", vim.fn.shellescape(dir)), false)
       term.dir = dir
     end,
     highlights = {
