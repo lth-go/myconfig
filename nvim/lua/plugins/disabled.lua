@@ -2,7 +2,6 @@
 return {
   { "L3MON4D3/LuaSnip", enabled = false },
   { "NMAC427/guess-indent.nvim", enabled = false },
-  { "RRethy/vim-illuminate", enabled = false },
   { "brenoprata10/nvim-highlight-colors", enabled = false },
   { "folke/todo-comments.nvim", enabled = false },
   { "folke/which-key.nvim", enabled = false },

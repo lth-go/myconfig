@@ -161,6 +161,10 @@ return {
       },
     }
 
+    opts.words = {
+      enabled = false,
+    }
+
     return opts
   end,
 }

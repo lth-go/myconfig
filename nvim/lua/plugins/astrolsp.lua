@@ -3,6 +3,7 @@ return {
   "AstroNvim/astrolsp",
   opts = {
     features = {
+      codelens = false,
       inlay_hints = true,
     },
     config = {
