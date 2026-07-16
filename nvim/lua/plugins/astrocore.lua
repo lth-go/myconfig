@@ -178,5 +178,17 @@ return {
         },
       },
     },
+    treesitter = {
+      textobjects = {
+        move = {
+          goto_next_start = {
+            ["]]"] = { query = "@local.name", desc = "" },
+          },
+          goto_previous_start = {
+            ["[["] = { query = "@local.name", desc = "" },
+          },
+        },
+      },
+    },
   },
 }
