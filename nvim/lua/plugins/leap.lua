@@ -5,12 +5,11 @@ return {
 
     leap.setup({
       safe_labels = {},
-      on_beacons = function(_, start, _)
-        return start ~= nil
+      on_beacons = function(_, start_idx, _)
+        return start_idx ~= nil
       end,
     })
 
-    vim.keymap.set({ "n" }, "s", "<Plug>(leap-forward)")
-    vim.keymap.set({ "n" }, "S", "<Plug>(leap-backward)")
+    vim.keymap.set({ "n" }, "s", "<Plug>(leap)")
   end,
 }

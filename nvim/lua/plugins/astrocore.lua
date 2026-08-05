@@ -66,6 +66,7 @@ return {
       },
       n = {
         ["Q"] = { "<Nop>" },
+        ["/"] = { require("pkg.search").search },
         ["?"] = "/",
         ["n"] = { "nzz" },
         ["N"] = { "Nzz" },
@@ -97,13 +98,6 @@ return {
           end,
         },
       },
-      i = {
-        ["<C-B>"] = { "<Left>" },
-        ["<C-F>"] = { "<Right>" },
-        ["<C-A>"] = { "<Home>" },
-        ["<C-E>"] = { "<End>" },
-        ["<C-D>"] = { "<Del>" },
-      },
       v = {
         ["K"] = { "<Nop>" },
         ["<"] = "<gv",
@@ -118,17 +112,18 @@ return {
         ["i<Space>"] = { [[:normal viW<CR>]], silent = true },
         ["a<Space>"] = { [[:normal viW<CR>]], silent = true },
       },
-      c = {
-        ["<C-P>"] = { "<Up>" },
-        ["<C-N>"] = { "<Down>" },
+      t = {
+        ["<C-X>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true) },
+      },
+      [{ "n", "x" }] = {
+        ["*"] = { require("pkg.asterisk").run },
+      },
+      [{ "i", "c" }] = {
         ["<C-B>"] = { "<Left>" },
         ["<C-F>"] = { "<Right>" },
         ["<C-A>"] = { "<Home>" },
         ["<C-E>"] = { "<End>" },
         ["<C-D>"] = { "<Del>" },
-      },
-      t = {
-        ["<C-X>"] = { vim.api.nvim_replace_termcodes("<C-\\><C-N>", true, true, true) },
       },
     },
     commands = {

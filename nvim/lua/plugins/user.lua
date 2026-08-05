@@ -13,13 +13,6 @@ return {
   },
 
   {
-    "haya14busa/vim-asterisk",
-    config = function()
-      vim.keymap.set("", "*", [[<Plug>(asterisk-z*)]], {})
-    end,
-  },
-
-  {
     "Wansmer/treesj",
     dependencies = { "nvim-treesitter" },
     keys = {
@@ -80,21 +73,6 @@ return {
         return require("pkg.settings").path_display(filename)
       end,
     },
-  },
-
-  {
-    "lth-go/searchx.nvim",
-    dependencies = { "MunifTanjim/nui.nvim" },
-    keys = {
-      {
-        "/",
-        function()
-          require("searchx.command").search_raw()
-        end,
-        silent = true,
-      },
-    },
-    config = function() end,
   },
 
   {

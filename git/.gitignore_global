@@ -1,8 +1,10 @@
+*.http
 *~
 .DS_Store
-*.http
 .rgignore
 .test
 .vim
+AGENTS.md
 bin/
+pnpm-workspace.yaml
 vendor

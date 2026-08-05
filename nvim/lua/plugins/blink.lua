@@ -1,13 +1,10 @@
-local is_path_completion = function()
-  local constants = require("blink.cmp.sources.cmdline.constants")
+local cmdline_transform_items = function(ctx, items)
+  local utils = require("blink.cmp.sources.cmdline.utils")
 
-  local completion_type = vim.fn.getcmdcompltype()
+  local completion_type = utils.get_completion_type(ctx.mode)
+  local is_path_completion = utils.is_path_completion(completion_type, ctx.line)
 
-  return vim.tbl_contains(constants.completion_types.path, completion_type)
-end
-
-local cmdline_transform_items = function(_, items)
-  if not is_path_completion() then
+  if not is_path_completion then
     for _, item in ipairs(items) do
       item.kind_icon = ""
     end

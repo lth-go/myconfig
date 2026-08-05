@@ -125,6 +125,10 @@ return {
             {
               find = "No code actions available",
             },
+            {
+              error = true,
+              find = [[gopls: 0: context canceled]],
+            },
           },
         },
         opts = {
