@@ -113,4 +113,9 @@ return {
     },
     opts = {},
   },
+
+  {
+    "esmuellert/codediff.nvim",
+    cmd = "CodeDiff",
+  },
 }

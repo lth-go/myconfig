@@ -1,4 +1,4 @@
-local get_reveal_dir = function(reveal_file)
+local get_root_dir = function(reveal_file)
   local original_dir = vim.fn.fnamemodify(reveal_file, ":h")
 
   local dir = original_dir
@@ -9,8 +9,9 @@ local get_reveal_dir = function(reveal_file)
     end
 
     local filenames = {
-      "go.mod",
       "Cargo.toml",
+      "go.mod",
+      "package.json",
       ".git",
     }
 
@@ -27,43 +28,24 @@ local get_reveal_dir = function(reveal_file)
   return original_dir
 end
 
-local get_args = function(action)
-  local args = {
-    action = action,
-    reveal = true,
-    reveal_force_cwd = true,
-  }
-
+local toggle_explorer = function(action)
   local reveal_file = vim.fn.expand("%:p")
   local cwd = vim.fn.getcwd()
 
-  if reveal_file == "" then
-    args.dir = cwd
+  local args = {
+    action = action,
+    reveal = true,
+    dir = cwd,
+  }
 
-    return args
+  if reveal_file ~= "" then
+    if not vim.startswith(reveal_file, cwd) then
+      args.reveal_file = reveal_file
+      args.dir = get_root_dir(reveal_file)
+    end
   end
 
-  if vim.startswith(reveal_file, cwd) then
-    args.dir = cwd
-  else
-    args.reveal_file = reveal_file
-    args.dir = get_reveal_dir(reveal_file)
-  end
-
-  return setmetatable({}, {
-    __index = args,
-    __newindex = function(_, k, v)
-      if k == "dir" then
-        return
-      end
-
-      args[k] = v
-    end,
-  })
-end
-
-local toggle_explorer = function(action)
-  require("neo-tree.command").execute(get_args(action))
+  require("neo-tree.command").execute(args)
 end
 
 local hijack = function()
