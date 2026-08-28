@@ -53,6 +53,19 @@ return {
           },
         },
       },
+      vtsls = {
+        settings = {
+          typescript = {
+            inlayHints = {
+              functionLikeReturnTypes = { enabled = false },
+              parameterNames = { enabled = "none" },
+              parameterTypes = { enabled = false },
+              propertyDeclarationTypes = { enabled = true },
+              variableTypes = { enabled = false },
+            },
+          },
+        },
+      },
     },
   },
 }

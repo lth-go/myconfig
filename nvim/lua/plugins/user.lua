@@ -38,23 +38,8 @@ return {
     end,
   },
 
-  {
-    "lth-go/nvim-expand-region",
-    opts = {},
-  },
-
-  {
-    "chaoren/vim-wordmotion",
-    init = function()
-      vim.g.wordmotion_mappings = {
-        ["w"] = "<M-w>",
-        ["b"] = "<M-b>",
-        ["e"] = "<M-e>",
-        ["aw"] = "a<M-w>",
-        ["iw"] = "i<M-w>",
-      }
-    end,
-  },
+  { "lth-go/nvim-expand-region", opts = {} },
+  { "lth-go/wordmotion.nvim", opts = {} },
 
   {
     "kevinhwang91/nvim-bqf",
