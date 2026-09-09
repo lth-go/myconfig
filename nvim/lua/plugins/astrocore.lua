@@ -10,7 +10,6 @@ return {
       opt = {
         completeopt = { "menu", "menuone", "noselect" },
         cursorline = true,
-        diffopt = vim.list_extend(vim.opt.diffopt:get(), { "algorithm:histogram", "linematch:60" }),
         expandtab = true,
         foldenable = false,
         ignorecase = true,
@@ -65,14 +64,18 @@ return {
         ["L"] = { "g_" },
       },
       n = {
-        ["Q"] = { "<Nop>" },
         ["/"] = { require("pkg.search").search },
         ["?"] = "/",
         ["n"] = { "nzz" },
         ["N"] = { "Nzz" },
         ["<C-O>"] = { "<C-O>zz" },
         ["<C-I>"] = { "<C-I>zz" },
-        ["<Backspace>"] = { "<Cmd>nohlsearch<CR>" },
+        ["<Backspace>"] = {
+          function()
+            vim.cmd.nohlsearch()
+            vim.api.nvim_buf_clear_namespace(0, vim.api.nvim_create_namespace("nvim.multicursor"), 0, -1)
+          end,
+        },
         ["<Esc>"] = { "<Cmd>nohlsearch<CR><Esc>" },
         ["<C-ScrollWheelUp>"] = { "4zh" },
         ["<C-ScrollWheelDown>"] = { "4zl" },
