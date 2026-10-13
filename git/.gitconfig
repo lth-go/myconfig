@@ -5,7 +5,7 @@
     pretty = medium
 [core]
     editor = nvim
-    pager = delta --diff-so-fancy
+    pager = delta --tabs=4 --diff-so-fancy
     excludesfile = ~/.gitignore_global
     quotepath = false
 [credential]

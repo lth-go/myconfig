@@ -86,6 +86,7 @@ return {
 
   {
     "mistweaverco/kulala.nvim",
+    commit = "b1c1cd9430d1f506e9b7add09cc2f2aac067565f",
     ft = { "http" },
     keys = {
       {
@@ -96,7 +97,11 @@ return {
         ft = { "http" },
       },
     },
-    opts = {},
+    opts = {
+      treesitter = {
+        enable = false,
+      },
+    },
   },
 
   {

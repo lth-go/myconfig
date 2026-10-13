@@ -103,6 +103,9 @@ export KUBE_EDITOR=nvim
 
 alias vimyaml='vim -c "set filetype=yaml" -'
 
+# opencode
+export PATH=$HOME/.opencode/bin:$PATH
+
 # system
 case "$OSTYPE" in
   linux*)   source ~/myconfig/zsh/zshrc_linux ;;
