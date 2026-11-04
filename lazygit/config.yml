@@ -1,0 +1,36 @@
+git:
+  diffRenderers:
+    - colorArg: always
+      command: delta --dark --tabs=4 --paging=never --diff-so-fancy --true-color=always
+  autoFetch: false
+gui:
+  scrollHeight: 8
+  sidePanelWidth: 0.25
+  expandFocusedSidePanel: false
+  shrinkSidePanelsToContent: false
+  sidePanels:
+    - [files, branches, tags]
+    - [commits, reflog]
+    - [stash]
+  language: "zh-CN"
+  nerdFontsVersion: "3"
+keybinding:
+  universal:
+    prevBlock-alt: <disabled>
+    nextBlock-alt: <disabled>
+customCommands:
+  - key: "o"
+    context: "commitFiles"
+    command: "git show {{.Form.Commit}}:{{.SelectedCommitFile.Name}} | nvim -R -"
+    description: "Show File Content"
+    prompts:
+      - type: "menuFromCommand"
+        title: "Commits:"
+        key: "Commit"
+        command: "git log --no-color --oneline {{.SelectedLocalCommit.Sha}} -- {{.SelectedCommitFile.Name}}"
+        filter: "(?P<commit_id>[0-9a-zA-Z]*) *(?P<commit_msg>.*)"
+        valueFormat: "{{ .commit_id }}"
+        labelFormat: "{{ .commit_id | green | bold }} - {{ .commit_msg | yellow }}"
+    output: terminal
+os:
+  copyToClipboardCmd: printf {{text}} | lemonade copy
